@@ -1,0 +1,36 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/catalyst-center/getting-started/
+note: 'Cisco runs an always-on, reservationless DevNet sandbox controller and publishes its hostname and shared credentials
+  openly in the Getting Started guide — values below are Cisco''s published test credentials, quoted verbatim, not invented.
+  There is no test/live key separation: the sandbox is a separate controller instance, and the same X-Auth-Token flow is
+  used against it. DNS for sandboxdnac.cisco.com resolves (131.226.217.152, 131.226.217.136) but the host did not answer
+  an anonymous HTTPS request from this run, which is consistent with Cisco gating reachability rather than the sandbox being
+  retired.'
+separation:
+  model: separate sandbox controller instance
+  key_prefixes: null
+  modes: null
+sandboxes:
+- name: Catalyst Center Always-On Sandbox
+  type: always-on / reservationless
+  host: sandboxdnac.cisco.com
+  base_url: https://sandboxdnac.cisco.com
+  username: devnetuser
+  password: Cisco123!
+  token_endpoint: POST https://sandboxdnac.cisco.com/dna/system/api/v1/auth/token
+  first_call: GET https://sandboxdnac.cisco.com/dna/intent/api/v1/network-device with header X-Auth-Token
+  source: https://developer.cisco.com/docs/catalyst-center/getting-started/
+reserved_sandboxes:
+  url: https://devnetsandbox.cisco.com/
+  note: Cisco also offers reservable Catalyst Center sandbox pods for scenarios the always-on instance cannot support
+test_data: null
+test_data_note: There are no magic test identifiers, test cards or fixture triggers — the sandbox is a live controller managing
+  a simulated network, so the "test data" is whatever inventory Cisco has provisioned in it.
+tls_note: The DevNet quickstart instructs readers to disable SSL certificate verification when calling a Catalyst Center
+  controller, including the sandbox.
+evidence:
+- url: https://developer.cisco.com/site/sandbox/
+  status: 200
+- url: https://devnetsandbox.cisco.com/
+  status: 200

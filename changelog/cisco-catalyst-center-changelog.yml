@@ -1,0 +1,89 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/catalyst-center/api-changelog/
+scheme: controller release versions (M.N.P[.Q]); the API changelog is organized per Catalyst Center release
+current_version: 3.1.6
+note: Cisco publishes a per-release API changelog on DevNet listing added, changed, deprecated and sunset operations. Recent
+  window captured below; the live page remains the source of truth.
+entries:
+- version: 3.1.6
+  date: '2025-12-18'
+  breaking: false
+  additions:
+  - 'Devices: discovery create/fetch/stop, network device management, credential export and validation'
+  - 'Network Settings: global credential management'
+  - 'Security: traffic steering policies and contracts with analytics'
+  - 'Wireless: LSC certificate renewal profiles and controller certificate renewal'
+  - 'System: software management and release operations'
+  changes:
+  - GET /dna/intent/api/v1/networkDevices/${id} gains a Credentials response view
+  - Wireless 802.11be profiles gain MLO group parameters (primary24ghzEnable, primary5ghzEnable)
+  deprecations:
+  - 802.11be profile parameters ofdmaDownLink, ofdmaUpLink, muMimoDownLink, muMimoUpLink
+- version: 3.1.5
+  date: '2025-10-01'
+  breaking: true
+  additions:
+  - 'Compliance: policy, rule, condition and variable management'
+  - 'Devices: filter groups and associations'
+  - 'User/Roles: access groups and role management v2'
+  - Backup operations with NFS configuration
+  changes:
+  - Minimum device resync interval raised from 25 minutes to 6 hours; devices configured below the threshold auto-adjust
+  deprecations:
+  - 'User/Roles v1 marked Sunset: POST /dna/system/api/v1/role plus role delete, retrieve, update and permissions'
+- version: 2.3.7.10
+  date: '2025-08-28'
+  breaking: false
+  additions:
+  - 'Clients: enrichment details endpoints (v2)'
+  changes:
+  - reachabilityHealthStatus added to device response endpoints
+  - configureDevice query parameter added to credential sync
+  deprecations: []
+- version: 3.1.3
+  date: '2025-06-16'
+  breaking: false
+  additions:
+  - 'Applications: trend and summary analytics, ThousandEyes test results'
+  - 'Backup: full backup and restore workflow'
+  - 'Energy analytics: trend and summary for devices, clients and sites'
+  - 'Industrial configuration: REP and MRP ring management'
+  - 'SWIM: device image operations with validation and bulk actions'
+  - 'Wireless: feature templates (Event Driven RRM, Multicast, Dot11ax)'
+  - Campus Automation Beta operations
+  changes:
+  - Devices operations support adding or updating voice VLAN
+  - System operations extended to authorize one or more devices
+  deprecations:
+  - Configuration Archive GET /dna/intent/api/v1/network-device-config deprecated
+  - SWIM image distribution and activation endpoints sunset
+  - SD-Access fabric get/count/add/delete deprecated (SD-Access operations are Beta)
+- version: 2.3.7.9
+  date: '2025-03-03'
+  breaking: false
+  additions:
+  - 'Applications: network application listing with health metrics'
+  - 'Application Policy: QoS settings, telemetry and CBAR feature management'
+  - 'Compliance: bug, field notice and security advisory scans'
+  - 'Configuration Templates: versioning and network profile attachment'
+  - 'Services analytics: AAA, DHCP and DNS service data'
+  - 'Site Design: areas, buildings, floors and AP positioning'
+  changes: []
+  deprecations:
+  - Multiple SD-Access endpoints marked sunset (fabric management, authentication profiles, virtual networks)
+  - Legacy Security Advisory and SWIM endpoints deprecated
+- version: 2.3.7.6
+  date: '2024-08-02'
+  breaking: false
+  additions:
+  - Trusted certificate import
+  - 'Clients: trend, summary and top-N analytics'
+  - 'Devices: resync interval, health score definitions, assurance events'
+  - 'Network interfaces: statistics and analytics'
+  - 'Issues: custom and system issue definitions with resolution tracking'
+  - 'Licenses: smart licensing and CSSM connection management'
+  - 'Network settings: per-site DNS, DHCP, NTP, AAA, timezone, banner, telemetry'
+  - 'SD-Access: multicast, port channels, transit/layer networks, fabric wireless'
+  changes: []
+  deprecations: []

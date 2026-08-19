@@ -1,0 +1,42 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/catalyst-center/authentication/
+docs:
+- https://developer.cisco.com/docs/catalyst-center/authentication/
+- https://developer.cisco.com/docs/catalyst-center/authentication-api/
+note: 'None of the 27 published OpenAPI documents declares a components.securitySchemes block, so this profile is authored
+  from Cisco''s own authentication documentation rather than derived from the specs. That gap is itself a finding: an agent
+  reading only the published contracts would not learn how to authenticate.'
+summary:
+  types:
+  - http
+  - apiKey
+  api_key_in:
+  - header
+  oauth2_flows: []
+  model: exchange HTTP Basic credentials for a short-lived opaque token, then send that token in a custom header
+schemes:
+- name: basicAuthTokenExchange
+  type: http
+  scheme: basic
+  token_endpoint: POST https://{catalyst-center-host}/dna/system/api/v1/auth/token
+  description: Base64-encoded USERNAME:PASSWORD sent in the Authorization header to the token endpoint over HTTPS. The response
+    body carries the token. Cisco also documents a CSRO-AES-256 AES-key-encryption variant for the token operation.
+  sources:
+  - https://developer.cisco.com/docs/catalyst-center/authentication/
+- name: xAuthToken
+  type: apiKey
+  in: header
+  parameter_name: X-Auth-Token
+  description: Opaque bearer token returned by the token endpoint; required on every subsequent Intent, data and system
+    API call. Lifetime is 60 minutes. An expired or missing token returns 401 UNAUTHORIZED and the client must re-authenticate.
+  token_lifetime_minutes: 60
+  sources:
+  - https://developer.cisco.com/docs/catalyst-center/authentication/
+authorization:
+  model: Catalyst Center role-based access control on the platform account
+  note: 'Permissions are those of the Catalyst Center user whose credentials were exchanged for the token. There is no OAuth
+    2.0 authorization server, no scope vocabulary and no token-scoping mechanism, so scopes/ is intentionally absent from
+    this repo. Cisco''s own MCP README makes the consequence explicit: the server "does not add an authorization layer or
+    enforce read-only access" and executes tools with the configured account''s permissions.'
+sandbox_credentials: sandbox/cisco-catalyst-center-sandbox.yml

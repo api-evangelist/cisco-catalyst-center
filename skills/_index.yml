@@ -1,0 +1,79 @@
+generated: '2026-08-19'
+method: generated
+source: grounded in operationIds verified present in openapi/*.yml
+note: Four packaged Agent Skills mirroring the marquee Catalyst Center Assurance flows. Every operationId named in the frontmatter
+  was grepped out of a harvested Cisco specification; none is invented. Cisco publishes no AGENTS.md or skill files of its
+  own for this product.
+skills:
+- file: cisco-catalyst-center-device-health-triage.md
+  name: Triage unhealthy network devices at a site
+  api: openapi/cisco-catalyst-center-assurance-network-devices-openapi.yml
+  operations:
+  - readNetworkDevices
+  - readNetworkDevicesCount
+  - readNetworkDeviceById
+  - queryNetworkDevicesWithFilter
+  - queryNetworkDevicesTopNAnalytics
+  - readDeviceTrendAnalytics
+  - readIssues
+  - readIssueById
+  writes: false
+- file: cisco-catalyst-center-client-experience-investigation.md
+  name: Investigate wireless client experience
+  api: openapi/cisco-catalyst-center-clients1-openapi.yml
+  operations:
+  - readClients
+  - readClientById
+  - readClientsCount
+  - queryClients
+  - clientTrendAnalyticsById
+  - queryClientsTopNAnalytics
+  - readEvents
+  - readEventDetails
+  - readEventChildren
+  - readAAAServices
+  - readDHCPServices
+  - readDNSServices
+  writes: false
+- file: cisco-catalyst-center-site-health-reporting.md
+  name: Report site, fabric and energy health across a hierarchy
+  api: openapi/cisco-catalyst-center-site-health-summaries-openapi.yml
+  operations:
+  - readSiteHealthSummaries
+  - readSiteHealthSummaryById
+  - readSiteHealthTrendById
+  - readSiteCount
+  - readSiteKpiSummaries
+  - readSiteKpiSummariesById
+  - querySiteKpiSummariesTrendAnalyticsTask
+  - readFabricSitesSummary
+  - readFabricSitesSummaryById
+  - readFabricSitesTrendById
+  - readVirtualNetworksSummary
+  - readTransitNetworksSummary
+  - readFabricSummary
+  - readSitesEnergy
+  - querySitesEnergyTask
+  - readNetworkDevicesEnergy
+  writes: false
+- file: cisco-catalyst-center-issue-definitions-tuning.md
+  name: Tune issue and health score definitions
+  api: openapi/cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  operations:
+  - readSystemsIssueDefinitions
+  - readSystemIssueDefinitionById
+  - putSystemIssueDefinitionById
+  - readSystemIssueDefinitionsCount
+  - readHealthDefinitions
+  - readHealthDefinitionById
+  - putHealthDefinitionById
+  - postHealthDefinitions
+  - readCustomIssueDefinitions
+  - postCustomIssueDefinitions
+  - readCustomIssueDefinitionById
+  - putCustomIssueDefinitionById
+  - deleteCustomIssueDefinitionById
+  - resolveIssues
+  - ignoreIssues
+  - updateIssue
+  writes: true

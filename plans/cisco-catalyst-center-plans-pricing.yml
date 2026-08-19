@@ -1,0 +1,31 @@
+generated: '2026-08-19'
+method: searched
+source: https://www.cisco.com/site/us/en/products/networking/catalyst-center/index.html
+note: 'Cisco publishes NO list pricing for Catalyst Center. Licensing is per managed device across three named tiers sold
+  through Cisco sales and partners; every price figure findable on the open web is a reseller or licensing-consultancy estimate,
+  not a Cisco-published number, so none is recorded here. plan_count is 0 because zero priced plans are published — the
+  tiers below are recorded as a license model, not as plans with prices. API access is not separately licensed: the northbound
+  API ships with the controller.'
+plan_count: 0
+pricing_model: per-managed-device subscription license, quote-only
+api_metered: false
+license_tiers:
+- name: Essentials
+  price: null
+  currency: null
+  billing_period: null
+  includes: base network visibility and provisioning, device health monitoring, software image management, foundational
+    assurance
+- name: Advantage
+  price: null
+  currency: null
+  billing_period: null
+  includes: adds AI-driven insights, SD-Access and full network automation
+- name: Premier
+  price: null
+  currency: null
+  billing_period: null
+  includes: adds premium analytics and AI-driven assurance reporting for regulated and security-intensive environments
+evidence:
+- url: https://www.cisco.com/site/us/en/products/networking/catalyst-center/index.html
+  status: 200

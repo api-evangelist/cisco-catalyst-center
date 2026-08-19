@@ -1,0 +1,41 @@
+generated: '2026-08-19'
+method: probed
+source: live GET of /.well-known/* on every host in apis.yml and every OpenAPI servers[] host
+note: 'Catalyst Center is a customer-deployed controller, so there is no vendor-operated API host to probe. The hosts probed
+  are the ones Cisco actually serves: www.cisco.com (corporate) and developer.cisco.com (DevNet docs). www.cisco.com serves
+  a real, PGP-signed RFC 9116 security.txt; every other well-known path 404s on both hosts.'
+hosts:
+- host: https://www.cisco.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    file: cisco-catalyst-center-security.txt
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: https://developer.cisco.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+related:
+  csaf_provider_metadata: https://www.cisco.com/.well-known/csaf/provider-metadata.json

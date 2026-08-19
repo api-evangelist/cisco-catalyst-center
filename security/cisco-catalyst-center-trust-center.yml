@@ -1,0 +1,30 @@
+generated: '2026-08-19'
+method: searched
+probe: true
+url: https://trustportal.cisco.com/c/r/ctp/trust-portal.html
+note: Cisco operates a corporate Trust Portal publishing security, privacy and compliance documentation per product, including
+  Privacy Data Sheets. The portal listing is client-rendered and could not be read as text from this run, so only certifications
+  sourced to a specific Cisco page are named below. Catalyst Center is a customer-deployed product, so its posture is product
+  certification (FIPS, Common Criteria) rather than a hosted service attestation such as SOC 2.
+certifications:
+- FIPS 140-2
+certification_sources:
+- certification: FIPS 140-2
+  url: https://blogs.cisco.com/networking/cisco-dna-center-is-now-fips-140-2-certified
+  note: announced for Cisco DNA Center, the product since renamed Catalyst Center; Cisco states FIPS 140-3 validation is
+    in progress
+related:
+- name: Cisco Trust Center
+  url: https://www.cisco.com/c/en/us/about/trust-center.html
+  status: 200
+- name: Cisco Global Government Certifications - FIPS 140
+  url: https://www.cisco.com/c/en/us/solutions/industries/government/global-government-certifications/fips-140.html
+- name: Cisco Security Vulnerability Policy
+  url: https://sec.cloudapps.cisco.com/security/center/resources/security_vulnerability_policy.html
+evidence:
+- source: https://trustportal.cisco.com/
+  status: 200
+- source: https://trust.cisco.com/
+  status: 200
+- source: https://www.cisco.com/c/en/us/about/trust-center.html
+  status: 200

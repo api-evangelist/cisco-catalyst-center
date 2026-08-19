@@ -1,0 +1,45 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/catalyst-center/versioning/
+versioning:
+  scheme: uri-path
+  current: v1
+  per_operation_versioning: true
+  docs: https://developer.cisco.com/docs/catalyst-center/versioning/
+  note: The path version has stayed v1 while individual operations carry their own versions underneath it, so the URI version
+    is not a reliable compatibility signal. Cisco periodically "aligns API operation versions by designating key releases".
+  api_release_line: 3.1.6 (documented API release as of 2026-08-19)
+operation_status_tags:
+- tag: Supported
+  meaning: default; no tag applied
+- tag: Deprecated
+  meaning: a better alternative exists; the operation still works
+- tag: Sunset
+  meaning: support ends after the deprecation period
+- tag: Beta
+  meaning: unsupported and experimental
+deprecation:
+  policy_url: https://developer.cisco.com/docs/catalyst-center/versioning/
+  support_window: two Generally Available releases of Catalyst Center, or one year, whichever is greater
+  marked_in_spec: true
+  sunset_header: false
+  rfc8594: false
+  note: Cisco marks deprecated operations in the OpenAPI Specification and documents alternatives, then reserves the right
+    to sunset in any future release once the window closes. There is no RFC 8594 Sunset or Deprecation response header —
+    deprecation is a documentation and specification signal only, so a running agent gets no runtime warning.
+deprecated_operations: []
+deprecated_operations_note: 'No operation in the 27 harvested Assurance specifications carries deprecated: true. Deprecations
+  announced in the API changelog (Configuration Archive GET /dna/intent/api/v1/network-device-config, legacy SD-Access fabric
+  operations, User/Roles v1, SWIM image distribution/activation, and the 802.11be ofdmaDownLink/ofdmaUpLink/muMimoDownLink/muMimoUpLink
+  parameters) all sit on Intent API surfaces Cisco has not published as OpenAPI.'
+changelog:
+  url: https://developer.cisco.com/docs/catalyst-center/api-changelog/
+  artifact: changelog/cisco-catalyst-center-changelog.yml
+release_notes: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/network-automation-and-management/catalyst-center/3-1-x/release_notes/3-1-6/cisco-catalyst-center-release-notes-316.html
+sla: null
+sla_note: Catalyst Center is a customer-deployed controller, not a Cisco-operated service, so Cisco publishes no API uptime
+  SLA — availability is a property of the customer's own appliance or cluster.
+status_page: null
+status_page_note: status.cisco.com exists but covers Cisco-operated cloud services, not a customer's on-premises Catalyst
+  Center controller. No StatusPage pointer is emitted, because one would assert Cisco publishes uptime for an API it does
+  not run.

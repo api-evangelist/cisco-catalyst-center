@@ -1,0 +1,2681 @@
+generated: '2026-08-19'
+method: derived
+source: mcp/cisco-catalyst-center-mcp.yml (bundled tool metadata, release/2.3.7.11) bound to openapi/*.yml
+note: 'Bound by exact HTTP method + normalized URI. Both sides carry real paths — the MCP bundle publishes each tool''s
+  backing URI, and the OpenAPI documents carry servers[] base paths — so every high-confidence row is a literal match rather
+  than a name-similarity guess. The headline finding is the asymmetry: Cisco ships 516 MCP tools but publishes OpenAPI for
+  only 185 operations, all of them Assurance. 456 shipped agent tools therefore have no machine-readable contract a consumer
+  can read outside the MCP bundle itself.'
+surfaces:
+  openapi:
+    files: 27
+    operations: 185
+    scope: Assurance only
+    gated: false
+    source: https://github.com/cisco-en-programmability/catalyst-center-api-specs
+  mcp:
+    tools: 516
+    gated: true
+    note: tools/list cannot be probed anonymously — the server is self-hosted and must be built and run against a customer
+      controller; the catalog here is read from the checked-in bundle instead
+  graphql: null
+coverage:
+  tools_named: 516
+  tools_bound: 70
+  mcp_only: 446
+  rest_ops_total: 185
+  rest_ops_with_tool: 69
+  rest_only: 116
+crosswalk:
+- tool: api_countSitesEnergy
+  category: energy
+  method: GET
+  uri: /dna/data/api/v1/energy/sites/count
+  rest:
+  - countSitesEnergy
+  spec: cisco-catalyst-center-sites-energy-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_countSitesEnergyForTheGivenTaskID
+  category: energy
+  method: GET
+  uri: /dna/data/api/v1/energy/sites/query/count
+  rest:
+  - querySitesEnergyCountTask
+  spec: cisco-catalyst-center-sites-energy-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_countTheNumberOfEvents
+  category: assuranceEvents
+  method: GET
+  uri: /dna/data/api/v1/assuranceEvents/count
+  rest:
+  - countEvents
+  spec: cisco-catalyst-center-assurance-events-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_countTheNumberOfNetworkDevices
+  category: networkDevices
+  method: GET
+  uri: /dna/intent/api/v1/networkDevices/count
+  rest:
+  - readNetworkDevicesCount
+  spec: cisco-catalyst-center-assurance-network-devices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_downloadsASpecificICAPPacketCaptureFile
+  category: icap
+  method: GET
+  uri: /dna/data/api/v1/icap/captureFiles/{id}/download
+  rest:
+  - downloadIcapCaptureFileById
+  spec: cisco-catalyst-center-icap-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getAllHealthScoreDefinitionsForGivenFilters
+  category: healthScoreDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/healthScoreDefinitions
+  rest:
+  - readHealthDefinitions
+  spec: cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getAllTheCustomIssueDefinitionsBasedOnTheGivenFilters
+  category: customIssueDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/customIssueDefinitions
+  rest:
+  - readCustomIssueDefinitions
+  spec: cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getAllTheDetailsAndSuggestedActionsOfAnIssueForTheG_34a1791b
+  category: assuranceIssues
+  method: GET
+  uri: /dna/data/api/v1/assuranceIssues/{id}
+  rest:
+  - readIssueById
+  spec: cisco-catalyst-center-issues-list-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getDetailsOfASingleAssuranceEvent
+  category: assuranceEvents
+  method: GET
+  uri: /dna/data/api/v1/assuranceEvents/{id}
+  rest:
+  - readEventDetails
+  spec: cisco-catalyst-center-assurance-events-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getDetailsOfASingleNetworkDevice
+  category: networkDevices
+  method: GET
+  uri: /dna/intent/api/v1/networkDevices/{id}
+  rest:
+  - readNetworkDeviceById
+  spec: cisco-catalyst-center-assurance-network-devices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getDeviceDeploymentStatusCount
+  category: icapSettings
+  method: GET
+  uri: /dna/intent/api/v1/icapSettings/deviceDeployments/count
+  rest:
+  - getDeviceDeploymentsCount
+  spec: cisco-catalyst-center-icap-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getHealthScoreDefinitionForTheGivenId
+  category: healthScoreDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/healthScoreDefinitions/{id}
+  rest:
+  - readHealthDefinitionById
+  spec: cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getICAPConfigurationStatusPerNetworkDevice
+  category: icapSettings
+  method: GET
+  uri: /dna/intent/api/v1/icapSettings/configurationModels/{previewActivityId}/networkDeviceStatusDetails
+  rest:
+  - getConfigurationModelNetworkDeviceStatusDetails
+  spec: cisco-catalyst-center-icap-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getIssueTriggerDefinitionForGivenId
+  category: systemIssueDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/systemIssueDefinitions/{id}
+  rest:
+  - readSystemIssueDefinitionById
+  spec: cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getListOfChildEventsForTheGivenWirelessClientEvent
+  category: assuranceEvents
+  method: GET
+  uri: /dna/data/api/v1/assuranceEvents/{id}/childEvents
+  rest:
+  - readEventChildren
+  spec: cisco-catalyst-center-assurance-events-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getSiteAnalyticsForOneSite
+  category: siteKpiSummaries
+  method: GET
+  uri: /dna/data/api/v1/siteKpiSummaries/{id}
+  rest:
+  - readSiteKpiSummariesById
+  spec: cisco-catalyst-center-site-kpi-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getSiteAnalyticsForTheChildSitesOfGivenParentSiteAn_104cea52
+  category: siteKpiSummaries
+  method: GET
+  uri: /dna/data/api/v1/siteKpiSummaries
+  rest:
+  - readSiteKpiSummaries
+  spec: cisco-catalyst-center-site-kpi-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getSiteAnalyticsSummaryDataForTheGivenTaskId
+  category: siteKpiSummaries
+  method: GET
+  uri: /dna/data/api/v1/siteKpiSummaries/summaryAnalytics
+  rest:
+  - querySiteKpiSummariesSummaryAnalyticsTask
+  spec: cisco-catalyst-center-site-kpi-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getSiteAnalyticsTrendDataForTheGivenTaskId
+  category: siteKpiSummaries
+  method: GET
+  uri: /dna/data/api/v1/siteKpiSummaries/trendAnalytics
+  rest:
+  - querySiteKpiSummariesTrendAnalyticsTask
+  spec: cisco-catalyst-center-site-kpi-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getSiteEnergyByID
+  category: energy
+  method: GET
+  uri: /dna/data/api/v1/energy/sites/{id}
+  rest:
+  - readSitesEnergyById
+  spec: cisco-catalyst-center-sites-energy-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getSitesEnergy
+  category: energy
+  method: GET
+  uri: /dna/data/api/v1/energy/sites
+  rest:
+  - readSitesEnergy
+  spec: cisco-catalyst-center-sites-energy-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheCountOfHealthScoreDefinitionsBasedOnProvidedFilters
+  category: healthScoreDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/healthScoreDefinitions/count
+  rest:
+  - readHealthDefinitionsCount
+  spec: cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheCountOfSystemDefinedIssueDefinitionsBasedOnPr_45aa6c33
+  category: systemIssueDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/systemIssueDefinitions/count
+  rest:
+  - readSystemIssueDefinitionsCount
+  spec: cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheCustomIssueDefinitionForTheGivenCustomIssueDe_9bd4ac38
+  category: customIssueDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/customIssueDefinitions/{id}
+  rest:
+  - readCustomIssueDefinitionById
+  spec: cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheDetailsOfIssuesForGivenSetOfFilters_2
+  category: assuranceIssues
+  method: GET
+  uri: /dna/data/api/v1/assuranceIssues
+  rest:
+  - readIssues
+  spec: cisco-catalyst-center-issues-list-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheInterfaceDataForTheGivenInterfaceId_instanceU_0b78da7f
+  category: interfaces
+  method: GET
+  uri: /dna/data/api/v1/interfaces/{id}
+  rest:
+  - readInterfaceById
+  spec: cisco-catalyst-center-interfaces-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheTotalCustomIssueDefinitionsCountBasedOnThePro_240c53aa
+  category: customIssueDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/customIssueDefinitions/count
+  rest:
+  - readCusomIssueDefinitionsCount
+  spec: cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheTotalNumberOfIssuesForGivenSetOfFilters
+  category: assuranceIssues
+  method: GET
+  uri: /dna/data/api/v1/assuranceIssues/count
+  rest:
+  - readIssuesCount
+  spec: cisco-catalyst-center-issues-list-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTheTotalNumberOfSiteAnalyticsRecordsAvailableFor_25bb5c48
+  category: siteKpiSummaries
+  method: GET
+  uri: /dna/data/api/v1/siteKpiSummaries/count
+  rest:
+  - readSiteKpiSummariesCount
+  spec: cisco-catalyst-center-site-kpi-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getTopNEntitiesRelatedToSiteAnalyticsForTheGivenTaskId
+  category: siteKpiSummaries
+  method: GET
+  uri: /dna/data/api/v1/siteKpiSummaries/topNAnalytics
+  rest:
+  - querySiteKpiSummariesTopNAnalyticsTask
+  spec: cisco-catalyst-center-site-kpi-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getsInterfacesAlongWithStatisticsAndPoeDataFromAllN_d99ee240
+  category: interfaces
+  method: GET
+  uri: /dna/data/api/v1/interfaces
+  rest:
+  - readInterfaces
+  spec: cisco-catalyst-center-interfaces-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getsTheNetworkDeviceDetailsBasedOnTheProvidedQueryParameters
+  category: networkDevices
+  method: GET
+  uri: /dna/data/api/v1/networkDevices
+  rest:
+  - readNetworkDevices
+  spec: cisco-catalyst-center-assurance-network-devices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_getsTheTotalNetworkDeviceInterfaceCountsInTheSpecif_a404d76e
+  category: interfaces
+  method: GET
+  uri: /dna/data/api/v1/interfaces/count
+  rest:
+  - readInterfacesCount
+  spec: cisco-catalyst-center-interfaces-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_listsICAPPacketCaptureFilesMatchingSpecifiedCriteria
+  category: icap
+  method: GET
+  uri: /dna/data/api/v1/icap/captureFiles
+  rest:
+  - readIcapCaptureFiles
+  spec: cisco-catalyst-center-icap-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_querySitesEnergyForTheGivenTaskID
+  category: energy
+  method: GET
+  uri: /dna/data/api/v1/energy/sites/query
+  rest:
+  - querySitesEnergyTask
+  spec: cisco-catalyst-center-sites-energy-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_readFabricSitesWithHealthSummaryFromId
+  category: fabricSiteHealthSummaries
+  method: GET
+  uri: /dna/data/api/v1/fabricSiteHealthSummaries/{id}
+  rest:
+  - readFabricSitesSummaryById
+  spec: cisco-catalyst-center-fabric-site-health-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_readTransitNetworkWithItsHealthSummaryFromId
+  category: transitNetworkHealthSummaries
+  method: GET
+  uri: /dna/data/api/v1/transitNetworkHealthSummaries/{id}
+  rest:
+  - transitNetworkSummaryById
+  spec: cisco-catalyst-center-transit-network-health-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_readVirtualNetworkWithItsHealthSummaryFromId
+  category: virtualNetworkHealthSummaries
+  method: GET
+  uri: /dna/data/api/v1/virtualNetworkHealthSummaries/{id}
+  rest:
+  - virtualNetworkSummaryById
+  spec: cisco-catalyst-center-virtual-network-health-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrieveACountOfTheNumberOfAssuranceTasksThatCurrentlyExist
+  category: assuranceTasks
+  method: GET
+  uri: /dna/data/api/v1/assuranceTasks/count
+  rest:
+  - readAssuranceTaskCount
+  spec: cisco-catalyst-center-assurance-tasks-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrieveAListOfAssuranceTasks
+  category: assuranceTasks
+  method: GET
+  uri: /dna/data/api/v1/assuranceTasks
+  rest:
+  - readAssuranceTasks
+  spec: cisco-catalyst-center-assurance-tasks-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrieveASpecificAssuranceTaskById
+  category: assuranceTasks
+  method: GET
+  uri: /dna/data/api/v1/assuranceTasks/{id}
+  rest:
+  - readAssuranceTaskById
+  spec: cisco-catalyst-center-assurance-tasks-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrieveNetworkDevices
+  category: networkDevices
+  method: GET
+  uri: /dna/intent/api/v1/networkDevices
+  rest:
+  - readNetworkDevices
+  spec: cisco-catalyst-center-assurance-network-devices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesDeployedICAPConfigurationsWhileSupportingB_0c45cdf6
+  category: icapSettings
+  method: GET
+  uri: /dna/intent/api/v1/icapSettings
+  rest:
+  - getIcap
+  spec: cisco-catalyst-center-icap-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesDetailsOfASpecificICAPPacketCaptureFile
+  category: icap
+  method: GET
+  uri: /dna/data/api/v1/icap/captureFiles/{id}
+  rest:
+  - readIcapCaptureFileDetailsById
+  spec: cisco-catalyst-center-icap-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesSpecificClientInformationMatchingTheMACAddress
+  category: clients
+  method: GET
+  uri: /dna/data/api/v1/clients/{id}
+  rest:
+  - readClientById
+  spec: cisco-catalyst-center-clients1-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheCountOfDeployedICAPConfigurationsWhileS_4d6c040d
+  category: icapSettings
+  method: GET
+  uri: /dna/intent/api/v1/icapSettings/count
+  rest:
+  - getIcapCount
+  spec: cisco-catalyst-center-icap-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheDetailsOfASpecificAAAServiceMatchingThe_dacfed38
+  category: aaaServices
+  method: GET
+  uri: /dna/data/api/v1/aaaServices/{id}
+  rest:
+  - readAAAServiceById
+  spec: cisco-catalyst-center-aaaservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheDetailsOfASpecificDHCPServiceMatchingTh_323b9f73
+  category: dhcpServices
+  method: GET
+  uri: /dna/data/api/v1/dhcpServices/{id}
+  rest:
+  - readDHCPServiceById
+  spec: cisco-catalyst-center-dhcpservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheDetailsOfASpecificDNSServiceMatchingThe_9f12711c
+  category: dnsServices
+  method: GET
+  uri: /dna/data/api/v1/dnsServices/{id}
+  rest:
+  - readDNSServiceById
+  spec: cisco-catalyst-center-dnsservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheDevice_sCLIsOfTheICAPIntent
+  category: icapSettings
+  method: GET
+  uri: /dna/intent/api/v1/icapSettings/configurationModels/{previewActivityId}/networkDevices/{networkDeviceId}/config
+  rest:
+  - getDeviceConfigurationModelNetworkDeviceConfig
+  spec: cisco-catalyst-center-icap-apis-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheListOfAAAServicesForGivenParameters
+  category: aaaServices
+  method: GET
+  uri: /dna/data/api/v1/aaaServices
+  rest:
+  - readAAAServices
+  spec: cisco-catalyst-center-aaaservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheListOfClients_WhileAlsoOfferingBasicFil_820210a0
+  category: clients
+  method: GET
+  uri: /dna/data/api/v1/clients
+  rest:
+  - readClients
+  spec: cisco-catalyst-center-clients1-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheListOfDHCPServicesForGivenParameters
+  category: dhcpServices
+  method: GET
+  uri: /dna/data/api/v1/dhcpServices
+  rest:
+  - readDHCPServices
+  spec: cisco-catalyst-center-dhcpservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheListOfDNSServicesForGivenParameters
+  category: dnsServices
+  method: GET
+  uri: /dna/data/api/v1/dnsServices
+  rest:
+  - readDNSServices
+  spec: cisco-catalyst-center-dnsservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheListOfNetworkApplicationsAlongWithExper_23fa3c77
+  category: networkApplications
+  method: GET
+  uri: /dna/data/api/v1/networkApplications
+  rest:
+  - readNetworkApplications
+  spec: cisco-catalyst-center-network-applications-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheListOfThousandEyesTestResultsAlongWithR_c8c74987
+  category: thousandEyesTestResults
+  method: GET
+  uri: /dna/data/api/v1/thousandEyesTestResults
+  rest:
+  - readThousandEyesTestResults
+  spec: cisco-catalyst-center-thousand-eyes-test-results-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheSpectrumInterferenceDevicesReportsSentB_e4e5f9fd
+  category: icap
+  method: GET
+  uri: /dna/data/api/v1/icap/spectrumInterferenceDeviceReports
+  rest:
+  - readIcapSpectrumInterferenceDevicesReportsByApMac
+  spec: cisco-catalyst-center-icap-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheSpectrumSensorReportsSentByWLCForProvidedAPMac
+  category: icap
+  method: GET
+  uri: /dna/data/api/v1/icap/spectrumSensorReports
+  rest:
+  - readIcapSpectrumSensorReportsByApMac
+  spec: cisco-catalyst-center-icap-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheTotalCountOfClientsByApplyingBasicFiltering
+  category: clients
+  method: GET
+  uri: /dna/data/api/v1/clients/count
+  rest:
+  - readClientsCount
+  spec: cisco-catalyst-center-clients1-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheTotalCountOfNetworkApplicationsByApplyi_72ae1f9d
+  category: networkApplications
+  method: GET
+  uri: /dna/data/api/v1/networkApplications/count
+  rest:
+  - readNetworkApplicationsCount
+  spec: cisco-catalyst-center-network-applications-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheTotalCountOfThousandEyesTestResults
+  category: thousandEyesTestResults
+  method: GET
+  uri: /dna/data/api/v1/thousandEyesTestResults/count
+  rest:
+  - countThousandEyesTestResults
+  spec: cisco-catalyst-center-thousand-eyes-test-results-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheTotalNumberOfAAAServicesForGivenParameters
+  category: aaaServices
+  method: GET
+  uri: /dna/data/api/v1/aaaServices/count
+  rest:
+  - readAAAServicesCount
+  spec: cisco-catalyst-center-aaaservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheTotalNumberOfDHCPServicesForGivenParameters
+  category: dhcpServices
+  method: GET
+  uri: /dna/data/api/v1/dhcpServices/count
+  rest:
+  - readDHCPServicesCount
+  spec: cisco-catalyst-center-dhcpservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheTotalNumberOfDNSServicesForGivenParameters
+  category: dnsServices
+  method: GET
+  uri: /dna/data/api/v1/dnsServices/count
+  rest:
+  - readDNSServicesCount
+  spec: cisco-catalyst-center-dnsservices-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_retrievesTheTotalNumberOfPacketCaptureFilesMatching_e4bb30c7
+  category: icap
+  method: GET
+  uri: /dna/data/api/v1/icap/captureFiles/count
+  rest:
+  - readIcapCaptureFilesCount
+  spec: cisco-catalyst-center-icap-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_returnsAllIssueTriggerDefinitionsForGivenFilters
+  category: systemIssueDefinitions
+  method: GET
+  uri: /dna/intent/api/v1/systemIssueDefinitions
+  rest:
+  - readSystemsIssueDefinitions
+  spec: cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_theTrendAnalyticsDataForAFabricSiteInTheSpecifiedTimeRange
+  category: fabricSiteHealthSummaries
+  method: GET
+  uri: /dna/data/api/v1/fabricSiteHealthSummaries/{id}/trendAnalytics
+  rest:
+  - readFabricSitesTrendById
+  spec: cisco-catalyst-center-fabric-site-health-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_theTrendAnalyticsDataForATransitNetworkInTheSpecifi_5c01728a
+  category: transitNetworkHealthSummaries
+  method: GET
+  uri: /dna/data/api/v1/transitNetworkHealthSummaries/{id}/trendAnalytics
+  rest:
+  - readTransitNetworkTrendById
+  spec: cisco-catalyst-center-transit-network-health-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_theTrendAnalyticsDataForAVirtualNetworkInTheSpecifi_66fff53f
+  category: virtualNetworkHealthSummaries
+  method: GET
+  uri: /dna/data/api/v1/virtualNetworkHealthSummaries/{id}/trendAnalytics
+  rest:
+  - readvirtualNetworkTrendById
+  spec: cisco-catalyst-center-virtual-network-health-summaries-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+- tool: api_theTrendAnalyticsDataForThousandEyesTestResultsInTh_312f30ed
+  category: thousandEyesTestResults
+  method: GET
+  uri: /dna/data/api/v1/thousandEyesTestResults/trendAnalytics
+  rest:
+  - readThousandEyesTestResultsTrend
+  spec: cisco-catalyst-center-thousand-eyes-test-results-openapi.yml
+  binding: rest
+  confidence: high
+  note: exact method + path match between the bundled MCP tool metadata and the published OpenAPI operation
+mcp_only:
+- tool: null
+  method: null
+  uri: null
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_applications
+  method: GET
+  uri: /dna/intent/api/v1/application-health
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_ciscoCatalystCenterNodesConfigurationSummary
+  method: GET
+  uri: /dna/intent/api/v1/nodes-config
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_ciscoCatalystCenterPackagesSummary
+  method: GET
+  uri: /dna/intent/api/v1/dnac-packages
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_ciscoCatalystCenterReleaseSummary
+  method: GET
+  uri: /dna/intent/api/v1/dnac-release
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_ciscoISEServerIntegrationStatus
+  method: GET
+  uri: /dna/intent/api/v1/ise-integration-status
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_clientProximity
+  method: GET
+  uri: /dna/intent/api/v1/client-proximity
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_complianceDetailsOfDevice
+  method: GET
+  uri: /dna/intent/api/v1/compliance/{deviceUuid}/detail
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_complianceRemediation
+  method: POST
+  uri: /dna/intent/api/v1/compliance/networkDevices/{id}/issues/remediation/provision
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countClientsEnergy
+  method: GET
+  uri: /dna/data/api/v1/energy/clients/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countDevicesEnergy
+  method: GET
+  uri: /dna/data/api/v1/energy/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfEventSubscriptions
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfEvents
+  method: GET
+  uri: /dna/intent/api/v1/events/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfNetworkDeviceConfigurationFiles
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceConfigFiles/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfNetworkDeviceImageUpdates
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceImageUpdates/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfNetworkProductNames
+  method: GET
+  uri: /dna/intent/api/v1/productNames/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfNotifications
+  method: GET
+  uri: /dna/intent/api/v1/event/event-series/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfSecurityServiceInsertionSummaries
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertionSummaries/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countOfSecurityServiceInsertions
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertions/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countsGlobalIPAddressPools
+  method: GET
+  uri: /dna/intent/api/v1/ipam/globalIpAddressPools/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countsIPAddressSubpools
+  method: GET
+  uri: /dna/intent/api/v1/ipam/siteIpAddressPools/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_countsSubpoolsOfAGlobalIPAddressPool
+  method: GET
+  uri: /dna/intent/api/v1/ipam/globalIpAddressPools/{globalIpAddressPoolId}/subpools/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_custom_promptSupportGETAPI
+  method: GET
+  uri: /dna/intent/api/v1/network-device/custom-prompt
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_deviceComplianceStatus
+  method: GET
+  uri: /dna/intent/api/v1/compliance/{deviceUuid}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_devices
+  method: GET
+  uri: /dna/intent/api/v1/device-health
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_disasterRecoveryOperationalStatus
+  method: GET
+  uri: /dna/intent/api/v1/disasterrecovery/system/operationstatus
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_disasterRecoveryStatus
+  method: GET
+  uri: /dna/intent/api/v1/disasterrecovery/system/status
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_downloadAFileByFileId
+  method: GET
+  uri: /dna/intent/api/v1/file/{fileId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_downloadFlexibleReport
+  method: GET
+  uri: /dna/data/api/v1/flexible-report/report/content/{reportId}/{executionId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_downloadReportContent
+  method: GET
+  uri: /dna/intent/api/v1/data/reports/{reportId}/executions/{executionId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_eventArtifactCount
+  method: GET
+  uri: /dna/system/api/v1/event/artifact/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_fetchTheCountOfEndpoints
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/endpoints/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_get802_11beProfileByID
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/dot11beProfiles/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_get802_11beProfiles
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/dot11beProfiles
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_get802_11beProfilesCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/dot11beProfiles/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAAAAttributeAPI
+  method: GET
+  uri: /dna/system/api/v1/users/external-servers/aaa-attribute
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAAAOverrideVlanSettingsBySite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{siteId}/wirelessSettings/flexConnectAaaOverride
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAAARadiusAttributesConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/aaaRadiusAttributesConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAIEndpointAnalyticsAttributeDictionaries
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/dictionaries
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getANCPolicies
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/anc-policies
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPAuthorizationListByID
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/apAuthorizationLists/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPAuthorizationListByNetworkDeviceId
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/{networkDeviceId}/apAuthorizationLists
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPAuthorizationListCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/apAuthorizationLists/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPAuthorizationLists
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/apAuthorizationLists
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPPnPLocationSetting
+  method: GET
+  uri: /dna/intent/api/v1/systemSettings/apPnPLocation
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPProfileByID
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/apProfiles/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPProfiles
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/apProfiles
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAPProfilesCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/apProfiles/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAScheduledReport
+  method: GET
+  uri: /dna/intent/api/v1/data/reports/{reportId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAccessPointConfigurationTaskResult
+  method: GET
+  uri: /dna/intent/api/v1/wireless/accesspoint-configuration/details/{task_id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAccessPointRebootTaskResult
+  method: GET
+  uri: /dna/intent/api/v1/device-reboot/apreboot/status
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAccessPoint_s_FactoryResetStatus
+  method: GET
+  uri: /dna/intent/api/v1/wirelessAccessPoints/factoryResetRequestStatus
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAccessPointsPositions
+  method: GET
+  uri: /dna/intent/api/v2/floors/{floorId}/accessPointPositions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAccessPointsPositionsCount
+  method: GET
+  uri: /dna/intent/api/v2/floors/{floorId}/accessPointPositions/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getActivities
+  method: GET
+  uri: /dna/intent/api/v1/activities
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getActivityByID
+  method: GET
+  uri: /dna/intent/api/v1/intent/api/v1/activities/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAdvancedSSIDConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/advancedSSIDConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllBackup
+  method: GET
+  uri: /dna/system/api/v1/backups
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllExecutionDetailsForAGivenReport
+  method: GET
+  uri: /dna/intent/api/v1/data/reports/{reportId}/executions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllFlexibleReportSchedules
+  method: GET
+  uri: /dna/data/api/v1/flexible-report/schedules
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllGlobalCredentialsV2
+  method: GET
+  uri: /dna/intent/api/v2/global-credential
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllITSMIntegrationSettings
+  method: GET
+  uri: /dna/intent/api/v1/integration-settings/itsm/instances
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllInterfaces
+  method: GET
+  uri: /dna/intent/api/v1/interface
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllKeywordsOfCLIsAcceptedByCommandRunner
+  method: GET
+  uri: /dna/intent/api/v1/network-device-poller/cli/legit-reads
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllowedMacAddress
+  method: GET
+  uri: /dna/intent/api/v1/security/threats/rogue/allowed-list
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAllowedMacAddressCount
+  method: GET
+  uri: /dna/intent/api/v1/security/threats/rogue/allowed-list/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAnchorCapableDevices
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/anchorCapableDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAnchorGroupByID
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/anchorGroups/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAnchorGroups_v2_3_7_10
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/anchorGroups
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAnchorManagedAPLocationsForSpecificWirelessController
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/{networkDeviceId}/anchorManagedApLocations
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationCount
+  method: GET
+  uri: /dna/intent/api/v2/applications-count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationPolicy
+  method: GET
+  uri: /dna/intent/api/v1/app-policy
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationPolicyDefault
+  method: GET
+  uri: /dna/intent/api/v1/app-policy-default
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationPolicyQueuingProfile
+  method: GET
+  uri: /dna/intent/api/v1/app-policy-queuing-profile
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationPolicyQueuingProfileCount
+  method: GET
+  uri: /dna/intent/api/v1/app-policy-queuing-profile-count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationSetCount
+  method: GET
+  uri: /dna/intent/api/v2/application-policy-application-set-count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationSet_s
+  method: GET
+  uri: /dna/intent/api/v2/application-policy-application-set
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationSets
+  method: GET
+  uri: /dna/intent/api/v1/application-policy-application-set
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationSetsCount
+  method: GET
+  uri: /dna/intent/api/v1/application-policy-application-set-count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplication_s
+  method: GET
+  uri: /dna/intent/api/v2/applications
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplications
+  method: GET
+  uri: /dna/intent/api/v1/applications
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getApplicationsCount
+  method: GET
+  uri: /dna/intent/api/v1/applications-count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAuditLogParentRecords
+  method: GET
+  uri: /dna/data/api/v1/event/event-series/audit-log/parent-records
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAuditLogRecords
+  method: GET
+  uri: /dna/data/api/v1/event/event-series/audit-logs
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAuditLogSummary
+  method: GET
+  uri: /dna/data/api/v1/event/event-series/audit-log/summary
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getAuthenticationAndPolicyServers
+  method: GET
+  uri: /dna/intent/api/v1/authentication-policy-servers
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBackupById
+  method: GET
+  uri: /dna/system/api/v1/backups/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBackupConfiguration
+  method: GET
+  uri: /dna/system/api/v1/backupConfiguration
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBackupRestoreExecution
+  method: GET
+  uri: /dna/system/api/v1/backupRestoreExecutions/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBackupRestoreExecutions
+  method: GET
+  uri: /dna/system/api/v1/backupRestoreExecutions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBackupStorages
+  method: GET
+  uri: /dna/system/api/v1/backupStorages
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBugAffectingTheNetworkDeviceByDeviceIdAndBugId
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/networkDevices/{networkDeviceId}/bugs/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBugsAffectingTheNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/networkDevices/{networkDeviceId}/bugs
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getBusinessAPIExecutionDetails
+  method: GET
+  uri: /dna/intent/api/v1/dnacaap/management/execution-status/{executionId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCMDBSyncStatus
+  method: GET
+  uri: /dna/intent/api/v1/cmdb-sync/detail
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getChassisDetailsForDevice
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceId}/chassis
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCleanAirConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/cleanAirConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getClientDetail
+  method: GET
+  uri: /dna/intent/api/v1/client-detail
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getClientEnergyByID
+  method: GET
+  uri: /dna/data/api/v1/energy/clients/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getClientEnrichmentDetails
+  method: GET
+  uri: /dna/intent/api/v1/client-enrichment-details
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getClientEnrichmentDetailsV2
+  method: GET
+  uri: /dna/intent/api/v2/client-enrichment-details
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getClientsEnergy
+  method: GET
+  uri: /dna/data/api/v1/energy/clients
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getComplianceDetail
+  method: GET
+  uri: /dna/intent/api/v1/compliance/detail
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getComplianceDetailCount
+  method: GET
+  uri: /dna/intent/api/v1/compliance/detail/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getComplianceStatus
+  method: GET
+  uri: /dna/intent/api/v1/compliance
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getComplianceStatusCount
+  method: GET
+  uri: /dna/intent/api/v1/compliance/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConfigTaskDetails
+  method: GET
+  uri: /dna/intent/api/v1/network-device-config/task
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConfigurationArchiveDetails
+  method: GET
+  uri: /dna/intent/api/v1/network-device-config
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConfigurationFileDetailsByID
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceConfigFiles/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConfigurationsForADeployedLayer2FeatureOnAWiredDevice
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{id}/configFeatures/deployed/layer2/{feature}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConfigurationsForAnIntendedLayer2FeatureOnAWiredDevice
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{id}/configFeatures/intended/layer2/{feature}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConfigurationsForIntendedLayer2FeaturesOnAWiredDevice
+  method: GET
+  uri: /dna/intent/api/v1/intent/api/v1/wired/networkDevices/{id}/configFeatures/intended/layer2
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConnectedDeviceDetail
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceUuid}/interface/{interfaceUuid}/neighbor
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getConnectorTypes
+  method: GET
+  uri: /dna/system/api/v1/event/config/connector-types
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfAllDiscoveryJobs
+  method: GET
+  uri: /dna/intent/api/v1/discovery/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfAnchorGroups
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/anchorGroups/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfBugsAffectingTheNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/networkDevices/{networkDeviceId}/bugs/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfFieldNoticeNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfFieldNoticeNetworkDevicesForTheNotice
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/notices/{id}/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfFieldNotices
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/notices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfFieldNoticesAffectingTheNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/networkDevices/{networkDeviceId}/notices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfFieldNoticesResultsTrendOverTime
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/resultsTrend/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfNetworkBugDevices
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfNetworkBugDevicesForTheBug
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/bugs/{id}/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfNetworkBugs
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/bugs/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfNetworkBugsResultsTrendOverTime
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/resultsTrend/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfProfilingRules
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/profiling-rules/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfSecurityAdvisoriesAffectingTheNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/networkDevices/{networkDeviceId}/advisories/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfSecurityAdvisoriesAffectingTheNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/advisories/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfSecurityAdvisoriesResultsTrendOverTime
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/resultsTrend/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfSecurityAdvisoryNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getCountOfSecurityAdvisoryNetworkDevicesForTheSecur_ffbe1ab0
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/advisories/{id}/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDetailsOfASingleProfilingRule
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/profiling-rules/{ruleId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceByID
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceBySerialNumber
+  method: GET
+  uri: /dna/intent/api/v1/network-device/serial-number/{serialNumber}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceConfigById
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{networkDeviceId}/config
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceConfigCount
+  method: GET
+  uri: /dna/intent/api/v1/network-device/config/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceControllabilitySettings
+  method: GET
+  uri: /dna/intent/api/v1/networkDevices/deviceControllability/settings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceCredentialSettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/deviceCredentials
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceDeploymentStatus
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{networkDeviceId}/configFeatures/intended/deviceDeployments
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceEnergyByID
+  method: GET
+  uri: /dna/data/api/v1/energy/networkDevices/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceEnrichmentDetailsV2
+  method: GET
+  uri: /dna/intent/api/v2/device-enrichment-details
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceHistory
+  method: GET
+  uri: /dna/intent/api/v1/onboarding/pnp-device/history
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceInterfaceCount
+  method: GET
+  uri: /dna/intent/api/v1/interface/network-device/{deviceId}/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceInterfaceVLANs
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{id}/vlan
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceInterfacesBySpecifiedRange
+  method: GET
+  uri: /dna/intent/api/v1/interface/network-device/{deviceId}/{startIndex}/{recordsToReturn}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceSummary
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{id}/brief
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDeviceValuesThatMatchFullyOrPartiallyAnAttribute
+  method: GET
+  uri: /dna/intent/api/v1/network-device/autocomplete
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDevicesDiscoveredById
+  method: GET
+  uri: /dna/intent/api/v1/discovery/{id}/network-device/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDevicesEnergy
+  method: GET
+  uri: /dna/data/api/v1/energy/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDevicesRegisteredForWSANotification
+  method: GET
+  uri: /dna/intent/api/v1/network-device/tenantinfo/macaddress
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDiscoveredDevicesByRange
+  method: GET
+  uri: /dna/intent/api/v1/discovery/{id}/network-device/{startIndex}/{recordsToReturn}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDiscoveredNetworkDevicesByDiscoveryId
+  method: GET
+  uri: /dna/intent/api/v1/discovery/{id}/network-device
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDiscoveriesByRange
+  method: GET
+  uri: /dna/intent/api/v1/discovery/{startIndex}/{recordsToReturn}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDiscoveryById
+  method: GET
+  uri: /dna/intent/api/v1/discovery/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDiscoveryJobsByIP
+  method: GET
+  uri: /dna/intent/api/v1/discovery/job
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDot11axConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/dot11axConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getDot11beStatusConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/dot11beStatusConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEmailDestination
+  method: GET
+  uri: /dna/intent/api/v1/event/email-config
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEmailEventSubscriptions
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription/email
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEmailSubscriptionDetails
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription-details/email
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEndpointDetails
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/endpoints/{epId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEoXDetailsPerDevice
+  method: GET
+  uri: /dna/intent/api/v1/eox-status/device/{deviceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEoXStatusForAllDevices
+  method: GET
+  uri: /dna/intent/api/v1/eox-status/device
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEoXSummary
+  method: GET
+  uri: /dna/intent/api/v1/eox-status/summary
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEventArtifacts
+  method: GET
+  uri: /dna/system/api/v1/event/artifact
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEventDrivenRRMConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/eventDrivenRRMConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEventSubscriptions
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getEvents
+  method: GET
+  uri: /dna/intent/api/v1/events
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getExecutionIdByReportId
+  method: GET
+  uri: /dna/data/api/v1/flexible-report/report/{reportId}/executions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getExternalAuthenticationServersAPI
+  method: GET
+  uri: /dna/system/api/v1/users/external-servers
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getExternalAuthenticationSettingAPI
+  method: GET
+  uri: /dna/system/api/v1/users/external-authentication
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFailedITSMEvents
+  method: GET
+  uri: /dna/intent/api/v1/integration/events
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFeatureTemplateSummary
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/summary
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticeAffectingTheNetworkDeviceByDeviceIdAndNoticeId
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/networkDevices/{networkDeviceId}/notices/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticeById
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/notices/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticeNetworkDeviceByDeviceId
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/networkDevices/{networkDeviceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticeNetworkDeviceForTheNoticeByNetworkDeviceId
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/notices/{id}/networkDevices/{networkDeviceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticeNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticeNetworkDevicesForTheNotice
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/notices/{id}/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNotices
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/notices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticesAffectingTheNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/results/networkDevices/{networkDeviceId}/notices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFieldNoticesResultsTrendOverTime
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/resultsTrend
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFlexConnectConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/flexConnectConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFlexibleReportScheduleByReportId
+  method: GET
+  uri: /dna/data/api/v1/flexible-report/schedule/{reportId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFloorSettings
+  method: GET
+  uri: /dna/intent/api/v2/floors/settings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFunctionalCapabilityById
+  method: GET
+  uri: /dna/intent/api/v1/network-device/functional-capability/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getFunctionalCapabilityForDevices
+  method: GET
+  uri: /dna/intent/api/v1/network-device/functional-capability
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getGlobalCredentials
+  method: GET
+  uri: /dna/intent/api/v1/global-credential
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getISISInterfaces
+  method: GET
+  uri: /dna/intent/api/v1/interface/isis
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getITSMIntegrationSettingById
+  method: GET
+  uri: /dna/intent/api/v1/integration-settings/instances/itsm/{instanceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getITSMIntegrationStatus
+  method: GET
+  uri: /dna/intent/api/v1/integration-settings/status
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getInterfaceByIP
+  method: GET
+  uri: /dna/intent/api/v1/interface/ip-address/{ipAddress}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getInterfaceById
+  method: GET
+  uri: /dna/intent/api/v1/interface/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getInterfaces
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/interfaces
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getInterfacesCount
+  method: GET
+  uri: /dna/intent/api/v1/intent/api/v1/wirelessSettings/interfaces/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getIssueEnrichmentDetails
+  method: GET
+  uri: /dna/intent/api/v1/issue-enrichment-details
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getIssueEnrichmentDetailsV2
+  method: GET
+  uri: /dna/intent/api/v2/issue-enrichment-details
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getL3TopologyDetails
+  method: GET
+  uri: /dna/intent/api/v1/topology/l3/{topologyType}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getLinecardDetails
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceUuid}/line-card
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getListOfAvailableNamespaces
+  method: GET
+  uri: /dna/intent/api/v1/file/namespace
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getListOfDiscoveriesByDiscoveryId
+  method: GET
+  uri: /dna/intent/api/v1/discovery/{id}/job
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getListOfProfilingRules
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/profiling-rules
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getListOfScheduledReports
+  method: GET
+  uri: /dna/intent/api/v1/data/reports
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getManagedAPLocationsCountForSpecificWirelessController
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/{networkDeviceId}/managedApLocations/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getMeshApNeighbours
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/meshApNeighbours
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getMeshApNeighboursCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/meshApNeighbours/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getMobilityGroups
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/wirelessMobilityGroups
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getMobilityGroupsCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/wirelessMobilityGroups/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getModuleCount
+  method: GET
+  uri: /dna/intent/api/v1/network-device/module/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getModuleInfoById
+  method: GET
+  uri: /dna/intent/api/v1/network-device/module/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getModules
+  method: GET
+  uri: /dna/intent/api/v1/network-device/module
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getMulticastConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/multicastConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNativeVlanSettingsBySite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{siteId}/wirelessSettings/flexConnectNativeVlan
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkBugById
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/bugs/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkBugDeviceByDeviceId
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/networkDevices/{networkDeviceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkBugDeviceForTheBugByNetworkDeviceId
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/bugs/{id}/networkDevices/{networkDeviceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkBugDevices
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkBugDevicesForTheBug
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/bugs/{id}/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkBugs
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/results/bugs
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkBugsResultsTrendOverTime
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/resultsTrend
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkDeviceByIP
+  method: GET
+  uri: /dna/intent/api/v1/network-device/ip-address/{ipAddress}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkDeviceConfigurationFileDetails
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceConfigFiles
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkDevicesCredentialsSyncStatus
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/deviceCredentials/status
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNetworkDevicesFromDiscovery
+  method: GET
+  uri: /dna/intent/api/v1/discovery/{id}/summary
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNfsConfigurations
+  method: GET
+  uri: /dna/system/api/v1/backupNfsConfigurations
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNotifications
+  method: GET
+  uri: /dna/intent/api/v1/event/event-series
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNumberOfConfigurationsForADeployedLayer2FeatureOnADevice
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{id}/configFeatures/deployed/layer2/{feature}/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getNumberOfConfigurationsForAnIntendedLayer2FeatureOnADevice
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{id}/configFeatures/intended/layer2/{feature}/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getOSPFInterfaces
+  method: GET
+  uri: /dna/intent/api/v1/interface/ospf
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getOrganizationListForMeraki
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{id}/meraki-organization
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPendingFabricEvents
+  method: GET
+  uri: /dna/intent/api/v1/sda/pendingFabricEvents
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPermissionsAPI
+  method: GET
+  uri: /dna/system/api/v1/role/permissions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPlannedAccessPointsForBuilding
+  method: GET
+  uri: /dna/intent/api/v1/buildings/{buildingId}/planned-access-points
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPlannedAccessPointsForFloor
+  method: GET
+  uri: /dna/intent/api/v1/floors/{floorId}/planned-access-points
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPlannedAccessPointsPositions
+  method: GET
+  uri: /dna/intent/api/v2/floors/{floorId}/plannedAccessPointPositions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPlannedAccessPointsPositionsCount
+  method: GET
+  uri: /dna/intent/api/v2/floors/{floorId}/plannedAccessPointPositions/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPnPDeviceCount_legacy
+  method: GET
+  uri: /dna/intent/api/v1/onboarding/pnp-device/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPnPDeviceList_legacy
+  method: GET
+  uri: /dna/intent/api/v1/onboarding/pnp-device
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPnPGlobalSettings
+  method: GET
+  uri: /dna/intent/api/v1/onboarding/pnp-settings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPollingIntervalById
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{id}/collection-schedule
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPollingIntervalForAllDevices
+  method: GET
+  uri: /dna/intent/api/v1/network-device/collection-schedule/global
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPortChannelInformationById
+  method: GET
+  uri: /dna/intent/api/v1/lanAutomation/portChannels/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPortChannels
+  method: GET
+  uri: /dna/intent/api/v1/lanAutomation/portChannels
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPowerProfileByID
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/powerProfiles/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPowerProfiles
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/powerProfiles
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPowerProfilesCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/powerProfiles/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getPrimaryManagedAPLocationsForSpecificWirelessController
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/{networkDeviceId}/primaryManagedApLocations
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getProject_s_Details
+  method: GET
+  uri: /dna/intent/api/v2/template-programmer/project
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getProvisionedDevices
+  method: GET
+  uri: /dna/intent/api/v1/sda/provisionDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getProvisionedDevicesCount
+  method: GET
+  uri: /dna/intent/api/v1/sda/provisionDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getProvisioningSettings
+  method: GET
+  uri: /dna/intent/api/v1/provisioningSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getQosDeviceInterfaceInfo
+  method: GET
+  uri: /dna/intent/api/v1/qos-device-interface-info
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getQosDeviceInterfaceInfoCount
+  method: GET
+  uri: /dna/intent/api/v1/qos-device-interface-info-count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRFProfileByID
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/rfProfiles/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRFProfiles
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/rfProfiles
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRFProfilesCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/rfProfiles/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRRMFRAConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/rrmFraConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRRMGeneralConfigurationFeatureTemplate
+  method: GET
+  uri: /dna/intent/api/v1/featureTemplates/wireless/rrmGeneralConfigurations/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRest_WebhookEventSubscriptions
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription/rest
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRest_WebhookSubscriptionDetails
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription-details/rest
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getResyncIntervalForTheNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/networkDevices/{id}/resyncIntervalSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getRolesAPI
+  method: GET
+  uri: /dna/system/api/v1/roles
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSNMPDestination
+  method: GET
+  uri: /dna/intent/api/v1/dna-event/snmp-config
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSNMPProperties
+  method: GET
+  uri: /dna/intent/api/v1/snmp-property
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSSIDByID
+  method: GET
+  uri: /dna/intent/api/v1/sites/{siteId}/wirelessSettings/ssids/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSSIDBySite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{siteId}/wirelessSettings/ssids
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSSIDCountBySite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{siteId}/wirelessSettings/ssids/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSSIDCountForSpecificWirelessController
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/{networkDeviceId}/ssidDetails/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSSIDDetailsForSpecificWirelessController
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/{networkDeviceId}/ssidDetails
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecondaryManagedAPLocationsForSpecificWirelessController
+  method: GET
+  uri: /dna/intent/api/v1/wirelessControllers/{networkDeviceId}/secondaryManagedApLocations
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoriesAffectingTheNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/networkDevices/{networkDeviceId}/advisories
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoriesAffectingTheNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/advisories
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoriesResultsTrendOverTime
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/resultsTrend
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoryAffectingTheNetworkDeviceByDevic_978ac4ec
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/networkDevices/{networkDeviceId}/advisories/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoryAffectingTheNetworkDevicesById
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/advisories/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoryNetworkDeviceByNetworkDeviceId
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/networkDevices/{networkDeviceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoryNetworkDeviceForTheSecurityAdvis_a527030a
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/advisories/{id}/networkDevices/{networkDeviceId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoryNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSecurityAdvisoryNetworkDevicesForTheSecurityAdvisory
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/results/advisories/{id}/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getServiceDeploymentStatus
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{networkDeviceId}/configFeatures/intended/serviceDeployments
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getServiceProviderDetails
+  method: GET
+  uri: /dna/intent/api/v1/service-provider
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getServiceProviderDetailsV2
+  method: GET
+  uri: /dna/intent/api/v2/service-provider
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSiteAssignedNetworkDevice
+  method: GET
+  uri: /dna/intent/api/v1/networkDevices/{id}/assignedToSite
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSiteTopology
+  method: GET
+  uri: /dna/intent/api/v1/topology/site-topology
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSites
+  method: GET
+  uri: /dna/intent/api/v1/sites
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSitesCount
+  method: GET
+  uri: /dna/intent/api/v1/sites/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getStackDetailsForDevice
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceId}/stack
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getStatusAPIForEvents
+  method: GET
+  uri: /dna/intent/api/v1/event/api-status/{executionId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSupervisorCardDetail
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceUuid}/supervisor-card
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSyslogDestination
+  method: GET
+  uri: /dna/intent/api/v1/event/syslog-config
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSyslogEventSubscriptions
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription/syslog
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getSyslogSubscriptionDetails
+  method: GET
+  uri: /dna/intent/api/v1/event/subscription-details/syslog
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTag
+  method: GET
+  uri: /dna/intent/api/v1/tag
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTagById
+  method: GET
+  uri: /dna/intent/api/v1/tag/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTagCount
+  method: GET
+  uri: /dna/intent/api/v1/tag/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTagMemberCount
+  method: GET
+  uri: /dna/intent/api/v1/tag/{id}/member/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTagMembersById
+  method: GET
+  uri: /dna/intent/api/v1/tag/{id}/member
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTagResourceTypes
+  method: GET
+  uri: /dna/intent/api/v1/tag/member/type
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTaskDetails
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/tasks/{taskId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTaskDetailsByID
+  method: GET
+  uri: /dna/intent/api/v1/tasks/{id}/detail
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTasks
+  method: GET
+  uri: /dna/intent/api/v1/tasks
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTasksByID
+  method: GET
+  uri: /dna/intent/api/v1/tasks/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTasksCount
+  method: GET
+  uri: /dna/intent/api/v1/tasks/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTemplateProject
+  method: GET
+  uri: /dna/intent/api/v1/projects/{projectId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTemplateProjectCount
+  method: GET
+  uri: /dna/intent/api/v1/projects/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTemplateProjects
+  method: GET
+  uri: /dna/intent/api/v1/projects
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTemplateVersion
+  method: GET
+  uri: /dna/intent/api/v1/templates/{templateId}/versions/{versionId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTemplateVersions
+  method: GET
+  uri: /dna/intent/api/v1/templates/{templateId}/versions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTemplateVersionsCount
+  method: GET
+  uri: /dna/intent/api/v1/templates/{templateId}/versions/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTemplate_s_Details
+  method: GET
+  uri: /dna/intent/api/v2/template-programmer/template
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTheDetailsOfPhysicalComponentsOfTheGivenDevice
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceUuid}/equipment
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTheSupportedLayer2FeaturesOnAWiredDevice
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{id}/configFeatures/supported/layer2
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getThreatLevels
+  method: GET
+  uri: /dna/intent/api/v1/security/threats/level
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getThreatTypes
+  method: GET
+  uri: /dna/intent/api/v1/security/threats/type
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTopologyDetails
+  method: GET
+  uri: /dna/intent/api/v1/topology/l2/{vlanID}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTrialDetailsForBugsDetectionOnNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/networkBugs/trials
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTrialDetailsForFieldNoticesDetectionOnNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/fieldNotices/trials
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTrialDetailsForSecurityAdvisoriesDetectionOnNetw_ff9164da
+  method: GET
+  uri: /dna/intent/api/v1/securityAdvisories/trials
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getTriggeredJobsByActivityId
+  method: GET
+  uri: /dna/intent/api/v1/activities/{activityId}/triggeredJobs
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getUserEnrichmentDetails
+  method: GET
+  uri: /dna/intent/api/v1/user-enrichment-details
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getUserEnrichmentDetailsV2
+  method: GET
+  uri: /dna/intent/api/v2/user-enrichment-details
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getUsersAPI
+  method: GET
+  uri: /dna/system/api/v1/user
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getVLANDetails
+  method: GET
+  uri: /dna/intent/api/v1/topology/vlan/vlan-names
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getViewDetailsForAGivenViewGroup_View
+  method: GET
+  uri: /dna/intent/api/v1/data/view-groups/{viewGroupId}/views/{viewId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getViewsForAGivenViewGroup
+  method: GET
+  uri: /dna/intent/api/v1/data/view-groups/{viewGroupId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWebhookDestination
+  method: GET
+  uri: /dna/intent/api/v1/event/webhook
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWirelessLanControllerDetailsById
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{id}/wireless-info
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWirelessProfileByID
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWirelessProfiles
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWirelessProfilesCount
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWorkflowById
+  method: GET
+  uri: /dna/intent/api/v1/onboarding/pnp-workflow/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWorkflowCount
+  method: GET
+  uri: /dna/intent/api/v1/onboarding/pnp-workflow/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getWorkflows
+  method: GET
+  uri: /dna/intent/api/v1/onboarding/pnp-workflow
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_get_dna_intent_api_v1_global_credential_id
+  method: GET
+  uri: /dna/intent/api/v1/global-credential/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getsAllTheVersionsOfAGivenTemplate
+  method: GET
+  uri: /dna/intent/api/v1/template-programmer/template/version/{templateId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getsDetailsOfAGivenTemplate
+  method: GET
+  uri: /dna/intent/api/v1/template-programmer/template/{templateId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getsTheDetailsOfAGivenProject
+  method: GET
+  uri: /dna/intent/api/v1/template-programmer/project/{projectId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getsTheDeviceConfigForTheConfigurationModel
+  method: GET
+  uri: /dna/intent/api/v1/wired/networkDevices/{networkDeviceId}/configFeatures/intended/configurationModels/{previewActivityId}/config
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_getsTheTemplatesAvailable
+  method: GET
+  uri: /dna/intent/api/v1/template-programmer/template
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_importMapArchive_ImportStatus
+  method: GET
+  uri: /dna/intent/api/v1/maps/import/{importContextUuid}/status
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_inventoryInsightDeviceLinkMismatchAPI
+  method: GET
+  uri: /dna/intent/api/v1/network-device/insight/{siteId}/device-link
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_issues
+  method: GET
+  uri: /dna/intent/api/v1/issues
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_lANAutomationActiveSessions
+  method: GET
+  uri: /dna/intent/api/v1/lan-automation/sessions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_lANAutomationLog
+  method: GET
+  uri: /dna/intent/api/v1/lan-automation/log
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_lANAutomationLogById
+  method: GET
+  uri: /dna/intent/api/v1/lan-automation/log/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_lANAutomationLogsForIndividualDevices
+  method: GET
+  uri: /dna/intent/api/v1/lan-automation/log/{id}/{serialNumber}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_lANAutomationSessionCount
+  method: GET
+  uri: /dna/intent/api/v1/lan-automation/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_lANAutomationStatus
+  method: GET
+  uri: /dna/intent/api/v1/lan-automation/status
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_lANAutomationStatusById
+  method: GET
+  uri: /dna/intent/api/v1/lan-automation/status/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_legitOperationsForInterface
+  method: GET
+  uri: /dna/intent/api/v1/interface/{interfaceUuid}/legit-operation
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_licenseTermDetails
+  method: GET
+  uri: /dna/intent/api/v1/licenses/term/smartAccount/{smart_account_id}/virtualAccount/{virtual_account_name}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_mapsSupportedAccessPoints
+  method: GET
+  uri: /dna/intent/api/v1/maps/supported-access-points
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_pOEDetails
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceUuid}/poe
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_queryTheEndpoints
+  method: GET
+  uri: /dna/intent/api/v1/endpoint-analytics/endpoints
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_readinessStatusForAFabricSite
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertion/fabricSitesReadiness/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_readinessStatusOfSwitchesInASpecifiedVirtualNetwork_d64c1de3
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertion/fabricSitesReadiness/{siteId}/virtualNetworks/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveAAASettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/aaaSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveANetworkProfileForSitesById
+  method: GET
+  uri: /dna/intent/api/v1/networkProfilesForSites/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveASpecificPolicyTagForAWirelessProfile
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/{id}/policyTags/{policyTagId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveASpecificSiteTagForAWirelessProfile
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/{id}/siteTags/{siteTagId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveAllPolicyTagsForAWirelessProfile
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/{id}/policyTags
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveAllSiteTagsForAWirelessProfile
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/{id}/siteTags
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveApplicableAdd_onImagesForTheGivenSoftwareImage
+  method: GET
+  uri: /dna/intent/api/v1/images/{id}/addonImages
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveBannerSettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/bannerSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveCLITemplatesAttachedToANetworkProfile
+  method: GET
+  uri: /dna/intent/api/v1/networkProfilesForSites/{profileId}/templates
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveCountOfCLITemplatesAttachedToANetworkProfile
+  method: GET
+  uri: /dna/intent/api/v1/networkProfilesForSites/{profileId}/templates/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveCountOfNetworkProfilesAttachedToACLITemplate
+  method: GET
+  uri: /dna/intent/api/v1/templates/{templateId}/networkProfilesForSites/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveDHCPSettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/dhcpSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveDNSSettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/dnsSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveImageDistributionServers
+  method: GET
+  uri: /dna/intent/api/v1/images/distributionServerSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveImageDistributionSettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/imageDistributionSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveLicenseSetting
+  method: GET
+  uri: /dna/intent/api/v1/licenseSetting
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveNTPSettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/ntpSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveNetworkDeviceProductName
+  method: GET
+  uri: /dna/intent/api/v1/productNames/{productNameOrdinal}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveScheduledMaintenanceWindowsForNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceMaintenanceSchedules
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveSitesWithOverriddenSSIDs
+  method: GET
+  uri: /dna/intent/api/v1/wirelessSettings/ssids/overrideAtSites
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveSpecificImageDistributionServer
+  method: GET
+  uri: /dna/intent/api/v1/images/distributionServerSettings/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTagsAssociatedWithNetworkDevices
+  method: GET
+  uri: /dna/intent/api/v1/tags/networkDevices/membersAssociations
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTagsAssociatedWithTheInterfaces
+  method: GET
+  uri: /dna/intent/api/v1/tags/interfaces/membersAssociations
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTelemetrySettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/telemetrySettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheCountOfInterfacesThatAreAssociatedWithAt_6c330a1b
+  method: GET
+  uri: /dna/intent/api/v1/tags/interfaces/membersAssociations/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheCountOfNetworkDevicesForTheGivenApplicat_cdbaad0f
+  method: GET
+  uri: /dna/intent/api/v1/applicationVisibility/networkDevices/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheCountOfNetworkDevicesThatAreAssociatedWi_b9832de8
+  method: GET
+  uri: /dna/intent/api/v1/tags/networkDevices/membersAssociations/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheCountOfPolicyTagsForAWirelessProfile
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/{id}/policyTags/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheCountOfSiteTagsForAWirelessProfile
+  method: GET
+  uri: /dna/intent/api/v1/wirelessProfiles/{id}/siteTags/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheListOfNetworkDevicesWithTheirApplication_479dd261
+  method: GET
+  uri: /dna/intent/api/v1/applicationVisibility/networkDevices
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheNetworkProfilesAttachedToACLITemplate
+  method: GET
+  uri: /dna/intent/api/v1/templates/{templateId}/networkProfilesForSites
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheStatusOfAllTheDeviceReplacementWorkflows
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceReplacements
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheStatusOfDeviceReplacementWorkflowThatRep_a2407523
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceReplacements/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTheTotalNumberOfScheduledMaintenanceWindows
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceMaintenanceSchedules/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrieveTimeZoneSettingsForASite
+  method: GET
+  uri: /dna/intent/api/v1/sites/{id}/timeZoneSettings
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesAGlobalIPAddressPool
+  method: GET
+  uri: /dna/intent/api/v1/ipam/globalIpAddressPools/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesAllPreviousPathtracesSummary
+  method: GET
+  uri: /dna/intent/api/v1/flow-analysis
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesAllTheValidationSets
+  method: GET
+  uri: /dna/intent/api/v1/diagnosticValidationSets
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesAnIPAddressSubpool
+  method: GET
+  uri: /dna/intent/api/v1/ipam/siteIpAddressPools/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesCSSMConnectionMode
+  method: GET
+  uri: /dna/intent/api/v1/connectionModeSetting
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesCiscoIMCConfigurationsForCatalystCenterNodes
+  method: GET
+  uri: /dna/system/api/v1/ciscoImcs
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesConfigurationDetailsOfTheExternalIPAMServer
+  method: GET
+  uri: /dna/intent/api/v1/ipam/serverSetting
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesDiagnosticTaskByID
+  method: GET
+  uri: /dna/intent/api/v1/diagnosticTasks/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesDiagnosticTaskDetailsByID
+  method: GET
+  uri: /dna/intent/api/v1/diagnosticTasks/{id}/detail
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesGlobalIPAddressPools
+  method: GET
+  uri: /dna/intent/api/v1/ipam/globalIpAddressPools
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesIPAddressSubpools
+  method: GET
+  uri: /dna/intent/api/v1/ipam/siteIpAddressPools
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesPreviousPathtrace
+  method: GET
+  uri: /dna/intent/api/v1/flow-analysis/{flowAnalysisId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesSubpoolsIDsOfAGlobalIPAddressPool
+  method: GET
+  uri: /dna/intent/api/v1/ipam/globalIpAddressPools/{globalIpAddressPoolId}/subpools
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesSummaryOfNetworkDeviceLicenses
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceLicenses/summary
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheApplicationQoSPolicySetting
+  method: GET
+  uri: /dna/intent/api/v1/qosPolicySetting
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheCiscoIMCConfigurationForACatalystCenterNode
+  method: GET
+  uri: /dna/system/api/v1/ciscoImcs/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheCountOfActivities
+  method: GET
+  uri: /dna/intent/api/v1/activities/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheCountOfNetworkProfilesForSites
+  method: GET
+  uri: /dna/intent/api/v1/networkProfilesForSites/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheCountOfProfilesThatTheGivenSiteHasBeenAssigned
+  method: GET
+  uri: /dna/intent/api/v1/sites/{siteId}/profileAssignments/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheCountOfSitesThatTheGivenNetworkProfileF_40cb52b6
+  method: GET
+  uri: /dna/intent/api/v1/networkProfilesForSites/{profileId}/siteAssignments/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheCountOfTriggeredJobsByActivityId
+  method: GET
+  uri: /dna/intent/api/v1/activities/{activityId}/triggeredJobs/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheCountOfValidationWorkflows
+  method: GET
+  uri: /dna/intent/api/v1/diagnosticValidationWorkflows/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheListOfNetworkProfilesForSites
+  method: GET
+  uri: /dna/intent/api/v1/networkProfilesForSites
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheListOfNetworkProfilesThatTheGivenSiteHa_0bebd066
+  method: GET
+  uri: /dna/intent/api/v1/sites/{siteId}/profileAssignments
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheListOfSitesThatTheGivenNetworkProfileFo_cb2b520e
+  method: GET
+  uri: /dna/intent/api/v1/networkProfilesForSites/{profileId}/siteAssignments
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheListOfValidationWorkflows
+  method: GET
+  uri: /dna/intent/api/v1/diagnosticValidationWorkflows
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesTheMaintenanceScheduleInformation
+  method: GET
+  uri: /dna/intent/api/v1/networkDeviceMaintenanceSchedules/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesValidationDetailsForAValidationSet
+  method: GET
+  uri: /dna/intent/api/v1/diagnosticValidationSets/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_retrievesValidationWorkflowDetails
+  method: GET
+  uri: /dna/intent/api/v1/diagnosticValidationWorkflows/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnListOfReplacementDevicesWithReplacementDetails
+  method: GET
+  uri: /dna/intent/api/v1/device-replacement
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnReplacementDevicesCount
+  method: GET
+  uri: /dna/intent/api/v1/device-replacement/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnsCountOfAdd_onImages
+  method: GET
+  uri: /dna/intent/api/v1/images/{id}/addonImages/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnsCountOfSoftwareImages
+  method: GET
+  uri: /dna/intent/api/v1/images/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnsListOfSoftwareImages
+  method: GET
+  uri: /dna/intent/api/v1/images
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnsNetworkDeviceProductNamesForASite
+  method: GET
+  uri: /dna/intent/api/v1/siteWiseProductNames
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnsPOEInterfaceDetailsForTheDevice
+  method: GET
+  uri: /dna/intent/api/v1/network-device/{deviceUuid}/interface/poe-detail
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnsTheCountOfNetworkDeviceProductNamesForASite
+  method: GET
+  uri: /dna/intent/api/v1/siteWiseProductNames/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_returnsTheImageSummaryForTheGivenSite
+  method: GET
+  uri: /dna/intent/api/v1/siteWiseImagesSummary
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_sdaFabricSitesReadiness
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertion/fabricSitesReadiness
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_securityServiceInsertionById
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertions/{id}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_securityServiceInsertionReadiness
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertion/systemReadiness
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_securityServiceInsertionSummary
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertionSummaries
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_securityServiceInsertions
+  method: GET
+  uri: /dna/intent/api/v1/securityServiceInsertions
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_sensorTestResults
+  method: GET
+  uri: /dna/intent/api/v1/AssuranceGetSensorTestResults
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_sensors
+  method: GET
+  uri: /dna/intent/api/v1/sensor
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_smartAccountDetails
+  method: GET
+  uri: /dna/intent/api/v1/licenses/smartAccounts
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_statusOfTemplateDeployment
+  method: GET
+  uri: /dna/intent/api/v1/template-programmer/template/deploy/status/{deploymentId}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_systemHealthAPI
+  method: GET
+  uri: /dna/intent/api/v1/diagnostics/system/health
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_systemHealthCountAPI
+  method: GET
+  uri: /dna/intent/api/v1/diagnostics/system/health/count
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_systemLicensingLastOperationStatus
+  method: GET
+  uri: /dna/system/api/v1/license/lastOperationStatus
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_systemPerformanceAPI
+  method: GET
+  uri: /dna/intent/api/v1/diagnostics/system/performance
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_systemPerformanceHistoricalAPI
+  method: GET
+  uri: /dna/intent/api/v1/diagnostics/system/performance/history
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_virtualAccountDetails
+  method: GET
+  uri: /dna/intent/api/v1/licenses/smartAccount/{smart_account_id}/virtualAccounts
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+- tool: api_wirelessRogueAPContainmentStatus
+  method: GET
+  uri: /dna/intent/api/v1/security/rogue/wireless-containment/status/{macAddress}
+  reason: Intent/system API path with no Cisco-published OpenAPI document (only the Assurance surface is published as OpenAPI)
+rest_only:
+- spec: cisco-catalyst-center-aaaservices-openapi.yml
+  operations:
+  - queryAAAServicesSummaryAnalytics
+  - queryAAAServicesTopNAnalytics
+  - queryAAAServicesTrendAnalytics
+  - queryAAAServicesTrendAnalyticsById
+  - readAAAServicesCountWithFilters
+  - readAAAServicesWithFilters
+- spec: cisco-catalyst-center-application-health-score-definitions-openapi.yml
+  operations:
+  - bulkUpdateApplicationHealthDefinitions
+  - countApplicationHealthDefinitions
+  - readApplicationHealthDefinitionById
+  - readApplicationHealthDefinitions
+  - updateApplicationHealthDefinitionById
+- spec: cisco-catalyst-center-assurance-events-openapi.yml
+  operations:
+  - countQueryEvents
+  - queryEvents
+  - readEvents
+- spec: cisco-catalyst-center-assurance-network-devices-openapi.yml
+  operations:
+  - queryNetworkDevicesCountWithFilter
+  - queryNetworkDevicesSummaryAnalytics
+  - queryNetworkDevicesTopNAnalytics
+  - queryNetworkDevicesTrendAnalytics
+  - queryNetworkDevicesWithFilter
+  - readDeviceTrendAnalytics
+- spec: cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml
+  operations:
+  - deleteCustomIssueDefinitionById
+  - postCustomIssueDefinitions
+  - putCustomIssueDefinitionById
+- spec: cisco-catalyst-center-clients1-openapi.yml
+  operations:
+  - clientTrendAnalyticsById
+  - queryClients
+  - queryClientsCount
+  - queryClientsSummaryAnalytics
+  - queryClientsTopNAnalytics
+  - queryClientsTrendAnalytics
+- spec: cisco-catalyst-center-device-energy-openapi.yml
+  operations:
+  - countClientDevicesEnergy
+  - countNetworkDevicesEnergy
+  - queryClientDevicesEnergy
+  - queryClientDevicesEnergyCount
+  - queryDeviceEnergySummaryAnalytics
+  - queryDeviceEnergyTrendAnalytics
+  - queryNetworkDevicesEnergy
+  - queryNetworkDevicesEnergyCount
+  - readClientDevicesEnergy
+  - readClientDevicesEnergyById
+  - readNetworkDevicesEnergy
+  - readNetworkDevicesEnergyById
+- spec: cisco-catalyst-center-dhcpservices-openapi.yml
+  operations:
+  - queryDHCPServicesSummaryAnalytics
+  - queryDHCPServicesTopNAnalytics
+  - queryDHCPServicesTrendAnalytics
+  - queryDHCPServicesTrendAnalyticsById
+  - readDHCPServicesCountWithFilters
+  - readDHCPServicesWithFilters
+- spec: cisco-catalyst-center-dnsservices-openapi.yml
+  operations:
+  - queryDNSServicesSummaryAnalytics
+  - queryDNSServicesTopNAnalytics
+  - queryDNSServicesTrendAnalytics
+  - queryDNSServicesTrendAnalyticsById
+  - readDNSServicesCountWithFilters
+  - readDNSServicesWithFilters
+- spec: cisco-catalyst-center-fabric-site-health-summaries-openapi.yml
+  operations:
+  - readFabricSiteCount
+  - readFabricSitesSummary
+- spec: cisco-catalyst-center-fabric-summary-openapi.yml
+  operations:
+  - readFabricSummary
+- spec: cisco-catalyst-center-filter-groups-openapi.yml
+  operations:
+  - createFilterGroup
+  - createFilterGroupAssociation
+  - deleteFilterGroup
+  - deleteFilterGroupAssociation
+  - readFilterGroupAssociations
+  - readFilterGroupById
+  - readFilterGroups
+  - updateFilterGroupById
+- spec: cisco-catalyst-center-icap-apis-openapi.yml
+  operations:
+  - deleteConfigurationModel
+  - deleteIcapConfigurationModel
+  - deleteIcapDeploy
+  - getDeviceDeployments
+  - postConfigurationModel
+  - postConfigurationModelDeploy
+  - postConfigurationModelNetworkDeviceConfig
+  - postIcapDeploy
+- spec: cisco-catalyst-center-icap-openapi.yml
+  operations:
+  - analyzeIcapFile
+  - icapClientsRawDataById
+  - icapRadiosRawDataById
+  - readIcapSettings
+  - updateIcapSettings
+- spec: cisco-catalyst-center-interfaces-openapi.yml
+  operations:
+  - queryInterfaceCountWithFilter
+  - queryInterfacesWithFilter
+  - readInterfaceTrendAnalytics
+- spec: cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+  operations:
+  - postHealthDefinitions
+  - putHealthDefinitionById
+  - putSystemIssueDefinitionById
+- spec: cisco-catalyst-center-issues-lifecycle-openapi.yml
+  operations:
+  - ignoreIssues
+  - resolveIssues
+  - updateIssue
+- spec: cisco-catalyst-center-issues-list-openapi.yml
+  operations:
+  - queryIssuesSummaryAnalytics
+  - queryIssuesTopNAnalytics
+  - queryIssuesTrendAnalytics
+  - readIssuesCountWithFilters
+  - readIssuesWithFilters
+- spec: cisco-catalyst-center-network-applications-openapi.yml
+  operations:
+  - countNetworkApplicationClientsById
+  - queryNetworkApplicationTrendAnalyticsById
+  - queryNetworkApplicationsSummaryAnalytics
+  - queryNetworkApplicationsTrendAnalytics
+  - readNetworkApplicationClientsById
+- spec: cisco-catalyst-center-site-health-summaries-openapi.yml
+  operations:
+  - querySiteHealthSummaryAnalytics
+  - readSiteCount
+  - readSiteHealthSummaries
+  - readSiteHealthSummaryAnalytics
+  - readSiteHealthSummaryById
+  - readSiteHealthTrend
+  - readSiteHealthTrendById
+- spec: cisco-catalyst-center-site-kpi-summaries-openapi.yml
+  operations:
+  - querySiteKpiSummariesSummaryAnalytics
+  - querySiteKpiSummariesTopNAnalytics
+  - querySiteKpiSummariesTrendAnalytics
+  - readSiteKpiSummariesCountWithFilters
+  - readSiteKpiSummariesWithFilters
+- spec: cisco-catalyst-center-sites-energy-openapi.yml
+  operations:
+  - querySitesEnergy
+  - querySitesEnergyCount
+- spec: cisco-catalyst-center-thousand-eyes-path-viz-openapi.yml
+  operations:
+  - countThousandEyesTestPathTraces
+  - readThousandEyesTestPathTraces
+- spec: cisco-catalyst-center-transit-network-health-summaries-openapi.yml
+  operations:
+  - readTransitNetworksCount
+  - readTransitNetworksSummary
+- spec: cisco-catalyst-center-virtual-network-health-summaries-openapi.yml
+  operations:
+  - readVirtualNetworksCount
+  - readVirtualNetworksSummary

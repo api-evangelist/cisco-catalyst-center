@@ -1,0 +1,89 @@
+generated: '2026-08-19'
+method: searched
+source: https://pypi.org/, https://proxy.golang.org/, https://galaxy.ansible.com/, https://registry.terraform.io/ and https://github.com/cisco-en-programmability
+note: 'Cisco ships Catalyst Center client tooling from two GitHub organizations it controls: cisco-en-programmability (SDKs,
+  Ansible collections) and CiscoDevNet (Terraform). Registry metadata read unauthenticated on 2026-08-19. The Go SDKs are
+  the visible decay signal: catalystcenter-go-sdk last published v1.0.2 in November 2024 and dnacenter-go-sdk last published
+  v1.2.0 in January 2022, both well behind the 3.1.x controller releases the Python SDK and Terraform provider track.'
+packages:
+- language: python
+  registry: pypi
+  name: catalystcentersdk
+  url: https://pypi.org/project/catalystcentersdk/
+  install: pip install catalystcentersdk
+  official: true
+  version: 3.1.6.0.7
+  published: '2026-07-28'
+  repository: https://github.com/cisco-en-programmability/catalystcentersdk
+  docs: https://catalystcentersdk.readthedocs.io/en/latest/
+  note: Current first-party Python SDK; version string tracks the Catalyst Center release (3.1.6).
+- language: python
+  registry: pypi
+  name: dnacentersdk
+  url: https://pypi.org/project/dnacentersdk/
+  install: pip install dnacentersdk
+  official: true
+  version: 2.11.4
+  published: '2026-05-08'
+  repository: https://github.com/cisco-en-programmability/dnacentersdk
+  docs: https://dnacentersdk.readthedocs.io/en/latest/
+  note: Predecessor SDK for the DNA Center-era API; superseded by catalystcentersdk but still maintained.
+- language: go
+  registry: go
+  name: github.com/cisco-en-programmability/catalystcenter-go-sdk
+  url: https://pkg.go.dev/github.com/cisco-en-programmability/catalystcenter-go-sdk
+  install: go get github.com/cisco-en-programmability/catalystcenter-go-sdk
+  official: true
+  version: v1.0.2
+  published: '2024-11-12'
+  repository: https://github.com/cisco-en-programmability/catalystcenter-go-sdk
+  note: Latest tagged release predates the 3.1.x API line by more than a year; underpins the Terraform provider.
+- language: go
+  registry: go
+  name: github.com/cisco-en-programmability/dnacenter-go-sdk
+  url: https://pkg.go.dev/github.com/cisco-en-programmability/dnacenter-go-sdk
+  install: go get github.com/cisco-en-programmability/dnacenter-go-sdk
+  official: true
+  version: v1.2.0
+  published: '2022-01-13'
+  repository: https://github.com/cisco-en-programmability/dnacenter-go-sdk
+  note: Legacy DNA Center Go SDK; no tagged release since January 2022.
+- language: yaml
+  registry: ansible-galaxy
+  name: cisco.catalystcenter
+  url: https://galaxy.ansible.com/ui/repo/published/cisco/catalystcenter/
+  install: ansible-galaxy collection install cisco.catalystcenter
+  official: true
+  version: 2.10.2
+  published: '2026-07-23'
+  repository: https://github.com/cisco-en-programmability/catalystcenter-ansible
+  note: Current first-party Ansible collection.
+- language: yaml
+  registry: ansible-galaxy
+  name: cisco.dnac
+  url: https://galaxy.ansible.com/ui/repo/published/cisco/dnac/
+  install: ansible-galaxy collection install cisco.dnac
+  official: true
+  version: 6.51.0
+  published: '2026-04-23'
+  repository: https://github.com/cisco-en-programmability/dnacenter-ansible
+  note: DNA Center-named Ansible collection, still the more widely deployed of the two.
+- language: hcl
+  registry: terraform
+  name: CiscoDevNet/catalystcenter
+  url: https://registry.terraform.io/providers/CiscoDevNet/catalystcenter/latest
+  install: terraform { required_providers { catalystcenter = { source = "CiscoDevNet/catalystcenter" } } }
+  official: true
+  version: 0.5.25
+  published: '2026-08-17'
+  repository: https://github.com/CiscoDevNet/terraform-provider-catalystcenter
+  note: Actively released Terraform provider; the most current first-party client after the Python SDK.
+- language: hcl
+  registry: terraform
+  name: cisco-en-programmability/catalystcenter
+  url: https://registry.terraform.io/providers/cisco-en-programmability/catalystcenter/latest
+  install: terraform { required_providers { catalystcenter = { source = "cisco-en-programmability/catalystcenter" } } }
+  official: true
+  version: 1.2.0-beta
+  published: '2025-06-17'
+  note: Second, beta Terraform provider from the SDK org; CiscoDevNet/catalystcenter is the maintained one.

@@ -1,0 +1,33 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Cisco Catalyst Center - OpenAPI specification for ThousandEyes Test Results
+  version: 1.0.0
+extends: openapi/cisco-catalyst-center-thousand-eyes-test-results-openapi.yml
+x-generated: '2026-08-19'
+x-method: generated
+x-source: derived from repo artifacts; does not mutate the harvested Cisco specification
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: cisco-catalyst-center
+    x-apievangelist-harvested-from: https://github.com/cisco-en-programmability/catalyst-center-api-specs
+    x-apievangelist-harvested: '2026-08-19'
+- target: $.components.securitySchemes
+  update:
+    xAuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Opaque 60-minute token obtained by POSTing HTTP Basic credentials to /dna/system/api/v1/auth/token. Cisco
+        documents this but declares no securityScheme in the published specification, so the contract as shipped does not
+        tell a client how to authenticate. See authentication/cisco-catalyst-center-authentication.yml.
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/cisco-catalyst-center-authentication.yml
+      conventions: conventions/cisco-catalyst-center-conventions.yml
+      errors: errors/cisco-catalyst-center-problem-types.yml
+      lifecycle: lifecycle/cisco-catalyst-center-lifecycle.yml
+      rate_limits: rate-limits/cisco-catalyst-center-rate-limits.yml
+      data_model: data-model/cisco-catalyst-center-data-model.yml
+      mcp: mcp/cisco-catalyst-center-mcp.yml

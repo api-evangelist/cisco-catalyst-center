@@ -1,0 +1,32 @@
+generated: '2026-08-19'
+method: searched
+source: https://community.cisco.com/t5/general-networking/dnac-catalyst-center-api-limits/td-p/5103522
+note: 'Cisco publishes NO rate-limit page in the Catalyst Center API reference — developer.cisco.com/docs/catalyst-center/rate-limits/
+  and /rate-limiting/ both return 404 (probed 2026-08-19). The single documented figure below comes from Cisco Community,
+  and is corroborated by the first-party Python SDK exposing CATALYST_CENTER_WAIT_ON_RATE_LIMIT (default True) for automatic
+  rate-limit handling. Confidence is low: no Cisco reference page states it, and no response headers are documented, so
+  an agent has no runtime signal at all and must infer throttling from a bare 429.'
+limit_count: 1
+limits:
+- scope: per-controller
+  window: 1 minute
+  limit: 100
+  burst: null
+  varies_by_endpoint: documented as adjustable per endpoint, ranging roughly 20-500
+  confidence: low
+  source: https://community.cisco.com/t5/general-networking/dnac-catalyst-center-api-limits/td-p/5103522
+response_headers: []
+response_headers_note: No RateLimit-*, X-RateLimit-* or Retry-After headers are documented, and none appear in any of the
+  185 published OpenAPI operations.
+status_on_exhaustion: 429
+status_declared_in_spec: false
+client_handling:
+- client: catalystcentersdk (Python)
+  setting: CATALYST_CENTER_WAIT_ON_RATE_LIMIT
+  default: true
+  source: https://catalystcentersdk.readthedocs.io/en/stable/api/quickstart.html
+probed:
+- url: https://developer.cisco.com/docs/catalyst-center/rate-limits/
+  status: 404
+- url: https://developer.cisco.com/docs/catalyst-center/rate-limiting/
+  status: 404

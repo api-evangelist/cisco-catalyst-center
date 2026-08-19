@@ -1,0 +1,158 @@
+generated: '2026-08-19'
+method: derived
+source: openapi/*.yml 4xx/5xx responses across 185 operations
+format: json
+rfc9457: false
+note: Catalyst Center does not use RFC 9457 application/problem+json. Only 400, 404 and 500 carry an application/json response
+  schema; the remaining status codes are declared with a human description and no body schema at all, so an agent cannot
+  parse a machine-readable error from the published contract for 401, 403, 405, 406, 409, 415, 501, 502, 503 or 504. Titles
+  below are Cisco's own response descriptions, condensed; remediation is derived from the authentication and rate-limit
+  artifacts in this repo.
+error_code_registry: null
+problems:
+- status: '400'
+  title: Bad request — the request syntax, parameters or body could not be understood.
+  declared_on_operations: 182
+  media_types:
+  - application/json
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServices
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServicesCount
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServiceById
+- status: '401'
+  title: Unauthorized — the X-Auth-Token header is missing, invalid or expired (tokens live 60 minutes).
+  declared_on_operations: 34
+  media_types: null
+  remediation: Re-run POST /dna/system/api/v1/auth/token and retry with the fresh X-Auth-Token.
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitions
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+- status: '403'
+  title: Forbidden — credentials are recognized but the Catalyst Center account lacks permission for this operation.
+  declared_on_operations: 34
+  media_types: null
+  remediation: Grant the Catalyst Center account the role required for this resource, or use an account that already has
+    it.
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitions
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+- status: '404'
+  title: Not found — the requested resource does not exist.
+  declared_on_operations: 57
+  media_types:
+  - application/json
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServiceById
+  - cisco-catalyst-center-aaaservices-openapi.yml#queryAAAServicesTrendAnalyticsById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitionById
+- status: '405'
+  title: Method not allowed — the HTTP method is not supported on this resource.
+  declared_on_operations: 9
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#bulkUpdateApplicationHealthDefinitions
+  - cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml#postCustomIssueDefinitions
+- status: '406'
+  title: Not acceptable — the requested response content type is not supported.
+  declared_on_operations: 17
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitions
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#bulkUpdateApplicationHealthDefinitions
+- status: '409'
+  title: Conflict — the target resource is in a conflicted state, typically a concurrent edit.
+  declared_on_operations: 13
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-icap-apis-openapi.yml#getIcap
+  - cisco-catalyst-center-icap-apis-openapi.yml#postConfigurationModel
+  - cisco-catalyst-center-icap-apis-openapi.yml#deleteIcapConfigurationModel
+- status: '415'
+  title: Unsupported media type — the request body format is not supported.
+  declared_on_operations: 22
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#bulkUpdateApplicationHealthDefinitions
+  - cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml#postCustomIssueDefinitions
+- status: 4XX
+  title: Client error — catch-all client error class declared alongside the specific codes.
+  declared_on_operations: 154
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServices
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServicesCount
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServiceById
+- status: '500'
+  title: Internal server error — the controller could not fulfill the request.
+  declared_on_operations: 185
+  media_types:
+  - application/json
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServices
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServicesCount
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServiceById
+- status: '501'
+  title: Not implemented — the controller has not implemented the required functionality.
+  declared_on_operations: 24
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#bulkUpdateApplicationHealthDefinitions
+- status: '502'
+  title: Bad gateway — a bad gateway connection between client and controller.
+  declared_on_operations: 21
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitions
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+- status: '503'
+  title: Service unavailable — the controller is temporarily unavailable.
+  declared_on_operations: 33
+  media_types: null
+  remediation: Retry with backoff; the controller may be upgrading or a service may be restarting.
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitions
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+- status: '504'
+  title: Gateway timeout — the controller did not respond within time restrictions.
+  declared_on_operations: 32
+  media_types: null
+  remediation: Retry with backoff and narrow the time window (startTime/endTime) on Assurance analytics queries.
+  example_operations:
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitions
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#readApplicationHealthDefinitionById
+  - cisco-catalyst-center-application-health-score-definitions-openapi.yml#updateApplicationHealthDefinitionById
+- status: 5XX
+  title: Server error — catch-all server error class declared alongside the specific codes.
+  declared_on_operations: 154
+  media_types: null
+  remediation: null
+  example_operations:
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServices
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServicesCount
+  - cisco-catalyst-center-aaaservices-openapi.yml#readAAAServiceById
+- status: '429'
+  title: Too many requests — the controller rate limit was exceeded.
+  declared_on_operations: 0
+  media_types: null
+  remediation: Back off and retry; the default controller limit is 100 requests per minute.
+  source: not declared in any published OpenAPI document; documented behaviour of the controller rate limiter
+  note: a real runtime status that no published contract declares — an agent reading only the specs would not expect it

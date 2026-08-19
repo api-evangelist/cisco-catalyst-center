@@ -1,0 +1,54 @@
+generated: '2026-08-19'
+method: derived
+source: openapi/*.yml plus https://developer.cisco.com/docs/catalyst-center/
+note: Cross-cutting standards asserted from what the published specifications and documentation actually show.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: '27 published documents, openapi: 3.0.0 (23) and 3.0.3 (4)'
+- id: openapi-3.1
+  conforms: false
+  evidence: no published document uses 3.1.x
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme in any spec; auth is Basic-to-token exchange plus an X-Auth-Token header
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every Cisco host probed
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no application/problem+json media type appears in any response; errors are plain application/json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: deprecation is documented and marked in the OAS but no Sunset or Deprecation response header is defined
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: https://www.cisco.com/.well-known/security.txt returns 200 with a PGP-signed RFC 9116 document
+- id: rfc8615-well-known-uris
+  conforms: true
+  evidence: security.txt and a CSAF provider-metadata document are served under /.well-known/ on www.cisco.com
+- id: csaf-2.0
+  conforms: true
+  evidence: 'security.txt advertises CSAF: https://www.cisco.com/.well-known/csaf/provider-metadata.json'
+- id: json-schema
+  conforms: true
+  evidence: 701 components.schemas definitions across the 27 published documents
+- id: mcp
+  conforms: true
+  evidence: first-party Apache-2.0 MCP server at cisco-en-programmability/catc-mcp-oss bundling 516 generated tools; streamable
+    HTTP and stdio transports
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 on www.cisco.com and developer.cisco.com
+- id: asyncapi
+  conforms: false
+  evidence: webhook event notifications are documented but no AsyncAPI document is published
+- id: pagination
+  conforms: true
+  evidence: consistent limit/offset/sortBy/order query parameters across the Assurance surface
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key header or parameter in any published operation or in the documentation
+- id: fips-140-2
+  conforms: true
+  evidence: Cisco published FIPS 140-2 certification for DNA Center, the product now named Catalyst Center — https://blogs.cisco.com/networking/cisco-dna-center-is-now-fips-140-2-certified

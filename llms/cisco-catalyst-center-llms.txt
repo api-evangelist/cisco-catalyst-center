@@ -1,0 +1,81 @@
+# Cisco Catalyst Center
+
+> Cisco Catalyst Center (formerly DNA Center) is a customer-deployed, intent-based networking controller for enterprise campus, branch and wireless networks. It exposes a northbound REST Intent API at /dna/intent/api/v1, an Assurance data API at /dna/data/api/v1 and a system API at /dna/system/api/v1, authenticated with a 60-minute X-Auth-Token obtained by exchanging HTTP Basic credentials. Because the controller runs on the customer's own appliance, there is no shared vendor API host: the base URL is https://{catalyst-center-host}. Cisco publishes 27 OpenAPI 3.0 documents covering the Assurance surface (185 operations) and a first-party Apache-2.0 MCP server bundling 516 generated tools.
+
+## APIs
+
+- [Cisco Catalyst Center Assurance & Intent API](https://developer.cisco.com/docs/catalyst-center/): Northbound REST API for inventory, sites, provisioning, software image management, SD-Access, compliance, event subscriptions and Assurance analytics. Base URL https://{catalyst-center-host}/dna/intent/api/v1
+- [Cisco Catalyst Center MCP Server](https://github.com/cisco-en-programmability/catc-mcp-oss): First-party open-source MCP server, self-hosted via Docker; streamable HTTP at http://localhost:7001/v1/mcp or stdio. No Cisco-hosted remote endpoint.
+
+## Specs
+
+- [cisco-catalyst-center-aaaservices-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-aaaservices-openapi.yml)
+- [cisco-catalyst-center-application-health-score-definitions-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-application-health-score-definitions-openapi.yml)
+- [cisco-catalyst-center-assurance-events-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-assurance-events-openapi.yml)
+- [cisco-catalyst-center-assurance-network-devices-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-assurance-network-devices-openapi.yml)
+- [cisco-catalyst-center-assurance-tasks-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-assurance-tasks-openapi.yml)
+- [cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml)
+- [cisco-catalyst-center-clients1-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-clients1-openapi.yml)
+- [cisco-catalyst-center-device-energy-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-device-energy-openapi.yml)
+- [cisco-catalyst-center-dhcpservices-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-dhcpservices-openapi.yml)
+- [cisco-catalyst-center-dnsservices-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-dnsservices-openapi.yml)
+- [cisco-catalyst-center-fabric-site-health-summaries-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-fabric-site-health-summaries-openapi.yml)
+- [cisco-catalyst-center-fabric-summary-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-fabric-summary-openapi.yml)
+- [cisco-catalyst-center-filter-groups-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-filter-groups-openapi.yml)
+- [cisco-catalyst-center-icap-apis-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-icap-apis-openapi.yml)
+- [cisco-catalyst-center-icap-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-icap-openapi.yml)
+- [cisco-catalyst-center-interfaces-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-interfaces-openapi.yml)
+- [cisco-catalyst-center-issue-and-health-definitions-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-issue-and-health-definitions-openapi.yml)
+- [cisco-catalyst-center-issues-lifecycle-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-issues-lifecycle-openapi.yml)
+- [cisco-catalyst-center-issues-list-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-issues-list-openapi.yml)
+- [cisco-catalyst-center-network-applications-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-network-applications-openapi.yml)
+- [cisco-catalyst-center-site-health-summaries-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-site-health-summaries-openapi.yml)
+- [cisco-catalyst-center-site-kpi-summaries-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-site-kpi-summaries-openapi.yml)
+- [cisco-catalyst-center-sites-energy-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-sites-energy-openapi.yml)
+- [cisco-catalyst-center-thousand-eyes-path-viz-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-thousand-eyes-path-viz-openapi.yml)
+- [cisco-catalyst-center-thousand-eyes-test-results-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-thousand-eyes-test-results-openapi.yml)
+- [cisco-catalyst-center-transit-network-health-summaries-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-transit-network-health-summaries-openapi.yml)
+- [cisco-catalyst-center-virtual-network-health-summaries-openapi.yml](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/openapi/cisco-catalyst-center-virtual-network-health-summaries-openapi.yml)
+
+## Artifacts
+
+- [MCP server manifest (516 bundled tools)](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/mcp/cisco-catalyst-center-mcp.yml)
+- [MCP tool to OpenAPI crosswalk](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/mcp/cisco-catalyst-center-tool-crosswalk.yml)
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/authentication/cisco-catalyst-center-authentication.yml)
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/conventions/cisco-catalyst-center-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/errors/cisco-catalyst-center-problem-types.yml)
+- [Lifecycle, versioning and deprecation](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/lifecycle/cisco-catalyst-center-lifecycle.yml)
+- [API changelog](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/changelog/cisco-catalyst-center-changelog.yml)
+- [Rate limits](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/rate-limits/cisco-catalyst-center-rate-limits.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/data-model/cisco-catalyst-center-data-model.yml)
+- [Webhook / event surface](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/asyncapi/cisco-catalyst-center-webhooks.yml)
+- [Sandbox and test access](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/sandbox/cisco-catalyst-center-sandbox.yml)
+- [Packages and SDKs](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/packages/cisco-catalyst-center-packages.yml)
+- [Standards conformance](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/conformance/cisco-catalyst-center-conformance.yml)
+- [Domain security probe](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/security/cisco-catalyst-center-domain-security.yml)
+- [Vulnerability disclosure](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/security/cisco-catalyst-center-vulnerability-disclosure.yml)
+- [Trust center](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/security/cisco-catalyst-center-trust-center.yml)
+- [Well-known probe](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/well-known/cisco-catalyst-center-well-known.yml)
+- [Agent skills index](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/skills/_index.yml)
+- [License plans](https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/plans/cisco-catalyst-center-plans-pricing.yml)
+
+## Docs
+
+- [API documentation](https://developer.cisco.com/docs/catalyst-center/)
+- [Getting started](https://developer.cisco.com/docs/catalyst-center/getting-started/)
+- [Authentication](https://developer.cisco.com/docs/catalyst-center/authentication/)
+- [Versioning and deprecation](https://developer.cisco.com/docs/catalyst-center/versioning/)
+- [Event management and webhooks](https://developer.cisco.com/docs/catalyst-center/event-management/)
+- [API changelog](https://developer.cisco.com/docs/catalyst-center/api-changelog/)
+- [DevNet sandbox](https://developer.cisco.com/site/sandbox/)
+- [Published OpenAPI specifications](https://github.com/cisco-en-programmability/catalyst-center-api-specs)
+- [Python SDK](https://catalystcentersdk.readthedocs.io/en/latest/)
+- [Terraform provider](https://registry.terraform.io/providers/CiscoDevNet/catalystcenter/latest)
+- [Cisco security vulnerability policy](https://sec.cloudapps.cisco.com/security/center/resources/security_vulnerability_policy.html)
+- [Cisco Trust Portal](https://trustportal.cisco.com/c/r/ctp/trust-portal.html)
+
+## Notes
+
+- Cisco publishes OpenAPI only for the Assurance surface. The wider Intent API is documented on DevNet but has no anonymously fetchable machine-readable contract; 446 of the 516 tools in Cisco's own MCP bundle hit paths with no published OpenAPI.
+- No idempotency key, no OAuth scopes, no RFC 9457 problem details, no Sunset/Deprecation response headers, no published rate-limit reference page, and no A2A agent card.
+- The MCP server is self-hosted and adds no authorization layer: it executes every bundled tool with the permissions of the configured Catalyst Center account.

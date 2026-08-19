@@ -1,0 +1,59 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/catalyst-center/event-management/
+spec_type: null
+asyncapi_published: false
+note: Catalyst Center has a real, first-party event surface — an Event Catalog plus subscription APIs that POST or PUT JSON
+  notifications to a customer-registered REST listener — but Cisco publishes no AsyncAPI document for it. Captured here
+  as a webhook catalog. The Event Catalog itself is browsable only inside the controller GUI (Platform > Developer Toolkit
+  > Event Notifications > Event Catalog), so the full event-type list is not anonymously enumerable and is deliberately
+  not reproduced here.
+model: subscription-based push notification from the controller to a customer-registered listener
+destination_types:
+- type: rest
+  description: REST/webhook listener; Catalyst Center makes a POST or PUT call with a JSON event payload
+- type: email
+  description: SMTP delivery, configured in the GUI under System > Settings > Destinations > Email
+subscription_api:
+  base_path: /dna/intent/api/v1
+  operations:
+  - create subscription (POST)
+  - read subscription (GET)
+  - update subscription (PUT)
+  - delete subscription (DELETE)
+  - event count (GET)
+  - event series / history (GET)
+  note: the subscription operations live on the Intent API, which Cisco has not published as OpenAPI; the MCP bundle exposes
+    the read side as api_countOfEventSubscriptions, api_countOfEvents, api_countTheNumberOfEvents, api_eventArtifactCount
+    and api_countOfNotifications
+payload_fields:
+- eventId
+- namespace
+- domain
+- subDomain
+- severity
+- category
+- timestamp (Unix epoch milliseconds)
+- details
+event_taxonomy:
+  types:
+  - NETWORK
+  - APP
+  - SYSTEM
+  - SECURITY
+  - INTEGRATIONS
+  severity: 1-5
+  attributes:
+  - Domain
+  - Subdomain
+  - Type
+  - Category
+  - Severity
+  - Workflow
+enrichment:
+  example: 'GET /dna/intent/api/v1/issue-enrichment-details with headers entity_type: issue_id and entity_value: <uuid>'
+signing: null
+signing_note: no webhook signature, HMAC or replay-protection mechanism is documented for the REST destination
+evidence:
+- url: https://developer.cisco.com/docs/catalyst-center/event-management/
+  status: 200

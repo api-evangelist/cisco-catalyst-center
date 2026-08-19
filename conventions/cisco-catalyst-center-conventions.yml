@@ -1,0 +1,81 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/catalyst-center/ plus derivation from openapi/*.yml
+note: Cross-cutting request/response semantics for the Catalyst Center northbound API.
+authentication:
+  style: opaque token in X-Auth-Token header, obtained by Basic auth against /dna/system/api/v1/auth/token
+  detail: authentication/cisco-catalyst-center-authentication.yml
+base_paths:
+- prefix: /dna/intent/api/v1
+  purpose: Intent API — inventory, sites, provisioning, SWIM, wireless, SD-Access, compliance, event subscriptions, issue
+    and health definitions
+- prefix: /dna/data/api/v1
+  purpose: Assurance data API — analytics over devices, clients, interfaces, AAA/DHCP/DNS services, health summaries, energy,
+    ICAP, ThousandEyes
+- prefix: /dna/system/api/v1
+  purpose: System API — authentication token, roles, users, backup, disaster recovery
+idempotency:
+  supported: false
+  note: 'No idempotency-key header, parameter or retry contract appears anywhere in the 185 published operations or in the
+    DevNet documentation. Write operations are asynchronous and return a taskId the caller polls, which is a task-tracking
+    pattern, not an idempotency guarantee: a replayed POST creates a second task. No Idempotency pointer is emitted for
+    this provider.'
+asynchronous_operations:
+  pattern: task-id polling
+  detail: Long-running write operations return a task identifier; the caller polls the task/activity endpoints for completion.
+    Several Assurance query operations follow the same shape — a POST creates an analytics task and a follow-up GET reads
+    the result by taskId (see the taskId query parameter on 12 published operations).
+pagination:
+  style: limit/offset
+  params:
+    limit: page size, commonly capped at 500
+    offset: 1-based index of the first record
+  ordering:
+    sortBy: field to sort on
+    order: asc or desc
+  counts: most collections ship a sibling /count operation returning the total, rather than a total in the page envelope
+  evidence: limit appears on 36 published operations, offset on 34, sortBy on 24, order on 28
+field_selection:
+  attribute: repeat the attribute query parameter to select response fields (40 published operations)
+  view: named response projections via the view query parameter (25 published operations)
+time_windows:
+  params:
+    startTime: UTC epoch milliseconds
+    endTime: UTC epoch milliseconds
+  note: 'the Assurance surface is time-series: startTime/endTime appear on 63 and 64 operations respectively; omitting them
+    defaults to a recent window (30 minutes on device health)'
+filtering:
+  query_post_pattern: richer filtering is expressed by POSTing a filter document to a /query, /query/count, /summaryAnalytics,
+    /topNAnalytics or /trendAnalytics sub-resource rather than by query string
+  common_facets:
+  - siteId
+  - siteHierarchy
+  - siteHierarchyId
+  - ssid
+  - deviceCategory
+  - severity
+  - clientMac
+  - apMac
+request_tracing:
+  header: X-CALLER-ID
+  direction: request
+  note: declared on 151 of 185 published operations; a caller-supplied identifier for correlating API activity, not a server-generated
+    request id
+localization:
+  header: Accept-Language
+  note: declared on 7 operations
+versioning:
+  scheme: uri-path (v1) with per-operation versioning underneath
+  detail: lifecycle/cisco-catalyst-center-lifecycle.yml
+error_envelope:
+  shape: application/json error body
+  detail: errors/cisco-catalyst-center-problem-types.yml
+  rfc9457: false
+rate_limit_signaling:
+  status_on_exhaustion: 429
+  headers: null
+  note: no RateLimit-* or X-RateLimit-* response headers are documented; see rate-limits/cisco-catalyst-center-rate-limits.yml
+  detail: rate-limits/cisco-catalyst-center-rate-limits.yml
+tls:
+  note: controllers commonly ship a self-signed certificate; Cisco's own tooling exposes a verify-SSL toggle (CATALYST_CENTER_VERIFY_SSL)
+    and the DevNet quickstart tells readers to disable certificate verification in Postman

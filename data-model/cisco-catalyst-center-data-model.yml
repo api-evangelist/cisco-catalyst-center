@@ -1,0 +1,203 @@
+generated: '2026-08-19'
+method: derived
+source: openapi/*.yml — 701 component schemas and the shared id-reference vocabulary across 185 operations
+note: 'The Assurance surface is a star schema hung off two hubs: the site hierarchy and the network device. Almost every
+  collection is filterable by siteId / siteHierarchy / siteHierarchyId and by a device or client identifier, and almost
+  every collection has a matching /count, /query, /summaryAnalytics, /topNAnalytics and /trendAnalytics projection. Relationships
+  below are read from id-reference fields and path structure, not asserted from prose.'
+identifier_conventions:
+  primary: UUID string in an id field
+  device: networkDeviceId / deviceId (UUID)
+  client: clientMac / macAddress (MAC address, not UUID)
+  ap: apMac
+  site: siteId (UUID) with siteHierarchyId as a slash-delimited ancestor path
+  task: taskId (UUID) returned by asynchronous analytics operations
+most_referenced_id_fields:
+- field: id
+  schema_occurrences: 51
+- field: siteHierarchyId
+  schema_occurrences: 12
+- field: siteId
+  schema_occurrences: 9
+- field: apMac
+  schema_occurrences: 8
+- field: networkDeviceId
+  schema_occurrences: 6
+- field: entityId
+  schema_occurrences: 6
+- field: wlcId
+  schema_occurrences: 4
+- field: vlanId
+  schema_occurrences: 4
+- field: clientMac
+  schema_occurrences: 4
+- field: taskId
+  schema_occurrences: 4
+- field: deviceId
+  schema_occurrences: 3
+- field: deviceSiteId
+  schema_occurrences: 3
+- field: deviceSiteHierarchyId
+  schema_occurrences: 3
+- field: radioId
+  schema_occurrences: 3
+- field: apId
+  schema_occurrences: 2
+- field: moduleId
+  schema_occurrences: 2
+- field: chassisId
+  schema_occurrences: 2
+- field: profileId
+  schema_occurrences: 2
+- field: connectedNetworkDeviceId
+  schema_occurrences: 2
+- field: filterGroupId
+  schema_occurrences: 2
+entity_count: 456
+relationships:
+- from: Site
+  to: NetworkDevice
+  type: has_many
+  via: siteId
+  evidence: siteId / siteHierarchyId / siteHierarchy query facets on 26+ operations and on device records
+- from: Site
+  to: Site
+  type: has_many
+  via: siteHierarchyId
+  evidence: sites form a hierarchy (area > building > floor) addressed by siteHierarchy and siteHierarchyId
+- from: Site
+  to: SiteHealthSummary
+  type: has_one
+  via: siteId
+  evidence: openapi/cisco-catalyst-center-site-health-summaries-openapi.yml
+- from: Site
+  to: SiteKpiSummary
+  type: has_one
+  via: siteId
+  evidence: openapi/cisco-catalyst-center-site-kpi-summaries-openapi.yml
+- from: Site
+  to: SitesEnergy
+  type: has_one
+  via: siteId
+  evidence: openapi/cisco-catalyst-center-sites-energy-openapi.yml
+- from: NetworkDevice
+  to: Interface
+  type: has_many
+  via: networkDeviceId
+  evidence: openapi/cisco-catalyst-center-interfaces-openapi.yml
+- from: NetworkDevice
+  to: DeviceEnergy
+  type: has_one
+  via: deviceId
+  evidence: openapi/cisco-catalyst-center-device-energy-openapi.yml
+- from: NetworkDevice
+  to: AssuranceEvent
+  type: has_many
+  via: networkDeviceId
+  evidence: openapi/cisco-catalyst-center-assurance-events-openapi.yml
+- from: NetworkDevice
+  to: Issue
+  type: has_many
+  via: deviceId
+  evidence: openapi/cisco-catalyst-center-issues-list-openapi.yml
+- from: Client
+  to: NetworkDevice
+  type: belongs_to
+  via: connectedNetworkDeviceId
+  evidence: openapi/cisco-catalyst-center-clients1-openapi.yml
+- from: Client
+  to: Site
+  type: belongs_to
+  via: siteId
+  evidence: clients are located in the site hierarchy
+- from: Client
+  to: AssuranceEvent
+  type: has_many
+  via: clientMac
+  evidence: clientMac facet on the assurance events surface
+- from: AssuranceEvent
+  to: AssuranceEvent
+  type: has_many
+  via: id
+  evidence: readEventChildren — /assuranceEvents/{id}/childEvents
+- from: Issue
+  to: IssueDefinition
+  type: belongs_to
+  via: definitionId
+  evidence: system and custom issue definitions drive issue instances
+- from: IssueDefinition
+  to: HealthScoreDefinition
+  type: has_many
+  via: id
+  evidence: openapi/cisco-catalyst-center-issue-and-health-definitions-openapi.yml
+- from: FabricSite
+  to: Site
+  type: belongs_to
+  via: siteId
+  evidence: openapi/cisco-catalyst-center-fabric-site-health-summaries-openapi.yml
+- from: FabricSite
+  to: VirtualNetwork
+  type: has_many
+  via: fabricSiteId
+  evidence: openapi/cisco-catalyst-center-virtual-network-health-summaries-openapi.yml
+- from: FabricSite
+  to: TransitNetwork
+  type: has_many
+  via: fabricSiteId
+  evidence: openapi/cisco-catalyst-center-transit-network-health-summaries-openapi.yml
+- from: AAAService
+  to: NetworkDevice
+  type: belongs_to
+  via: deviceId
+  evidence: openapi/cisco-catalyst-center-aaaservices-openapi.yml
+- from: DHCPService
+  to: NetworkDevice
+  type: belongs_to
+  via: deviceId
+  evidence: openapi/cisco-catalyst-center-dhcpservices-openapi.yml
+- from: DNSService
+  to: NetworkDevice
+  type: belongs_to
+  via: deviceId
+  evidence: openapi/cisco-catalyst-center-dnsservices-openapi.yml
+- from: NetworkApplication
+  to: Site
+  type: belongs_to
+  via: siteId
+  evidence: openapi/cisco-catalyst-center-network-applications-openapi.yml
+- from: FilterGroup
+  to: FilterGroupAssociation
+  type: has_many
+  via: filterGroupId
+  evidence: openapi/cisco-catalyst-center-filter-groups-openapi.yml
+- from: IcapConfiguration
+  to: NetworkDevice
+  type: has_many
+  via: networkDeviceId
+  evidence: openapi/cisco-catalyst-center-icap-apis-openapi.yml
+- from: IcapCapture
+  to: IcapCaptureFile
+  type: has_many
+  via: id
+  evidence: downloadIcapCaptureFileById
+- from: ThousandEyesTest
+  to: ThousandEyesTestResult
+  type: has_many
+  via: testId
+  evidence: openapi/cisco-catalyst-center-thousand-eyes-test-results-openapi.yml
+- from: AssuranceTask
+  to: AnalyticsQuery
+  type: has_one
+  via: taskId
+  evidence: POST *Analytics operations return a taskId that a follow-up GET reads
+projection_pattern:
+  note: each core entity typically exposes six shapes
+  shapes:
+  - GET /<collection> — page
+  - GET /<collection>/count — total
+  - GET /<collection>/{id} — single record
+  - POST /<collection>/query — filtered page
+  - POST /<collection>/summaryAnalytics — aggregate
+  - POST /<collection>/trendAnalytics — time series
+  - POST /<collection>/topNAnalytics — ranked slice
+render: null
