@@ -1,0 +1,50 @@
+aid: cisco-catalyst-center
+name: Cisco Catalyst Center
+description: Cisco Catalyst Center, formerly DNA Center, is Cisco's intent-based networking controller for enterprise
+  campus and branch networks. It covers network design, device provisioning, software image management, policy,
+  and assurance analytics, and exposes an Intent API documented on Cisco DevNet with an always-on reservationless
+  sandbox. Cisco publishes a Terraform provider and Ansible collections against it, but no anonymously fetchable
+  OpenAPI document.
+url: https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/apis.yml
+type: Index
+access: 3rd-Party
+position: Consumer
+x-type: company
+x-source: cisco-family-buildout:2026-08-19
+x-parent: cisco
+x-relationship: product
+x-contract-status: none
+x-contract-note: No anonymously fetchable machine-readable contract was found on 2026-08-19 (probed; real 404s).
+  API Evangelist has not authored a substitute.
+specificationVersion: '0.23'
+created: '2026-08-19'
+modified: '2026-08-19'
+tags:
+- Network Automation
+- Intent-Based Networking
+- Networking
+- Assurance
+- Enterprise
+- Campus
+apis: []
+common:
+- type: Portal
+  url: https://developer.cisco.com/docs/catalyst-center/
+- type: Documentation
+  url: https://developer.cisco.com/docs/catalyst-center/
+- type: APIReference
+  url: https://developer.cisco.com/docs/catalyst-center/
+- type: ParentCompany
+  url: https://apis.io/providers/cisco/
+  name: Cisco
+- type: Terraform
+  url: https://github.com/CiscoDevNet/terraform-provider-catalystcenter
+- type: Sandbox
+  url: https://developer.cisco.com/site/sandbox/
+- type: Portal
+  url: https://developer.cisco.com/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
