@@ -1,0 +1,357 @@
+openapi: 3.2.0
+info:
+  title: FilterGroups Filter Group Associations API
+  description: Open API spec to manage life cycle operations (get/create/update/delete) of Filter Groups.
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
+  contact:
+    name: Cisco TAC World Wide
+    url: https://www.cisco.com/c/en/us/support/web/tsd-cisco-worldwide-contacts.html
+    email: tac@cisco.com
+  license:
+    name: Cisco Catalyst Center License
+    url: https://www.cisco.com/c/en/us/products/collateral/software/dna-software-ebook-cte.html
+  version: 1.0.0
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Catalyst Center
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    source_host: developer.cisco.com
+    note: 27 Cisco-published OpenAPI 3.0 Assurance documents (185 operations). Ownership confirmed from the tac@cisco.com contact, the Cisco EULA terms-of-service URL and the Cisco Catalyst Center license block carried in each document.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: source
+    url: https://developer.cisco.com/dnacenter/
+servers:
+- url: https://developer.cisco.com
+tags:
+- name: filterGroupAssociations
+paths:
+  /dna/intent/api/v1/filterGroupAssociations:
+    get:
+      tags:
+      - filterGroupAssociations
+      summary: Get the filter group associations
+      description: Returns the details of associations for the given parameters.
+      operationId: readFilterGroupAssociations
+      parameters:
+      - name: X-CALLER-ID
+        in: header
+        description: 'Caller ID is used to trace the origin of API calls and their associated queries executed on the database. It''s an optional header parameter that can be added to an API request.
+
+          '
+        required: false
+        schema:
+          type: string
+          default: unknown
+        example: ui:client360
+      - name: filterGroupId
+        in: query
+        description: 'Filter Group id.
+
+
+          Examples:
+
+          `?filterGroupId=2ee1b9f0-8036-443b-bad0-7692760af1b5`(single id requested)
+
+
+          `?filterGroupId=2ee1b9f0-8036-443b-bad0-7692760af1b5&filterGroupId=ae368f0b-f4e3-4e8f-a914-011cbd19bb51` (multiple ids requested)
+
+          '
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: entityId
+        in: query
+        description: 'Entity id with which the filter group is associated.
+
+
+          Examples:
+
+          `?entityId=2ee1b9f0-8036-443b-bad0-7692760af1b5`(single id requested)
+
+
+          `?entityId=2ee1b9f0-8036-443b-bad0-7692760af1b5&entityId=ae368f0b-f4e3-4e8f-a914-011cbd19bb51` (multiple ids requested)
+
+          '
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: entityType
+        in: query
+        description: 'Type of the entity with which the filter group is associated.
+
+
+          Examples:
+
+          `?entityType=Issue Settings`(single type requested)
+
+
+          `?entityType=Custom Dashboard&entityType=Issue Settings` (multiple types requested)
+
+          '
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Filter Group associations response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterGroupAssociationsResponse'
+        '400':
+          description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The client made a request for a resource that does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: The server could not fulfill the request due to internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        1XX:
+          description: Informational Responses - The server received the request and sent an informational response.
+        2XX:
+          description: Successful Responses - The server received the client request, understood it, and accepted it.
+        3XX:
+          description: Redirection Messages - The client must take additional action to complete the request.
+        4XX:
+          description: Client Error Responses - The client request caused the error.
+        5XX:
+          description: Server Error Responses - The server failed to fulfill the request.
+    post:
+      tags:
+      - filterGroupAssociations
+      summary: Create filter group association.
+      description: Creates association between a filter group and entity.
+      operationId: createFilterGroupAssociation
+      parameters:
+      - name: X-CALLER-ID
+        in: header
+        description: 'Caller ID is used to trace the origin of API calls and their associated queries executed on the database. It''s an optional header parameter that can be added to an API request.
+
+          '
+        required: false
+        schema:
+          type: string
+          default: unknown
+        example: ui:client360
+      requestBody:
+        description: Request payload to create association between Filter Group and an entity. Examples of entities are Custom Dashboard, Issue Settings.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterGroupAssociationCreateRequest'
+      responses:
+        '201':
+          description: Filter Group create success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterGroupAssociationCreateResponse'
+        '400':
+          description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: The server could not fulfill the request due to internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        1XX:
+          description: Informational Responses - The server received the request and sent an informational response.
+        2XX:
+          description: Successful Responses - The server received the client request, understood it, and accepted it.
+        3XX:
+          description: Redirection Messages - The client must take additional action to complete the request.
+        4XX:
+          description: Client Error Responses - The client request caused the error.
+        5XX:
+          description: Server Error Responses - The server failed to fulfill the request.
+  /dna/intent/api/v1/filterGroupAassociations/{id}:
+    delete:
+      tags:
+      - filterGroupAssociations
+      summary: Delete filter group association.
+      description: Deletes the association between filter group and entity.
+      operationId: deleteFilterGroupAssociation
+      parameters:
+      - name: X-CALLER-ID
+        in: header
+        description: 'Caller ID is used to trace the origin of API calls and their associated queries executed on the database. It''s an optional header parameter that can be added to an API request.
+
+          '
+        required: false
+        schema:
+          type: string
+          default: unknown
+        example: ui:client360
+      - name: id
+        in: path
+        description: Association id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The server has successfully executed the delete request.
+        '404':
+          description: The client made a request for a resource that does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: The server could not fulfill the request due to internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        1XX:
+          description: Informational Responses - The server received the request and sent an informational response.
+        2XX:
+          description: Successful Responses - The server received the client request, understood it, and accepted it.
+        3XX:
+          description: Redirection Messages - The client must take additional action to complete the request.
+        4XX:
+          description: Client Error Responses - The client request caused the error.
+        5XX:
+          description: Server Error Responses - The server failed to fulfill the request.
+components:
+  schemas:
+    FilterGroupAssociationCreateRequest:
+      type: object
+      properties:
+        filterGroupId:
+          type: string
+          description: Filter Group id
+          example: 5b5ae476-515f-400b-bda7-2492d3931541
+        entityId:
+          type: string
+          description: Entity id with which the Filter Group is associated.
+          example: 2ee1b9f0-8036-443b-bad0-7692760af1b5
+        entityName:
+          type: string
+          description: Entity name with which the Filter Group is associated.
+          example: SJC Wireless Dashboard
+        entityType:
+          type: string
+          description: The type of the entity with which the Filter Group is associated.
+          example: Custom Dashboard
+      description: Filter Group association create request payload
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    FilterGroupAssociationsResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: List of filter group associations
+          items:
+            $ref: '#/components/schemas/FilterGroupAssociation'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Filter Group associations response
+    FilterGroupAssociationCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Filter Group association id
+          example: 015d9cba-4f53-4087-8317-7e49e5ffef46
+      description: Filter Group association create response
+    FilterGroupAssociation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Association id
+          example: b654e071-f99d-48d4-957b-6638e9f3a2c9
+        filterGroupId:
+          type: string
+          description: Filter Group id
+          example: 5b5ae476-515f-400b-bda7-2492d3931541
+        entityId:
+          type: string
+          description: Entity id with which the Filter Group is associated.
+          example: 2ee1b9f0-8036-443b-bad0-7692760af1b5
+        entityName:
+          type: string
+          description: Entity name with which the Filter Group is associated.
+          example: SJC Wireless Dashboard
+        entityType:
+          type: string
+          description: The type of the entity with which the Filter Group is associated.
+          example: Custom Dashboard
+      description: Contains details of an filter group association association.
+externalDocs:
+  description: Catalyst Center Developer API resources
+  url: https://developer.cisco.com/dnacenter/

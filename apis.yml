@@ -40,99 +40,14 @@ tags:
 - Agent Native
 - Cisco
 apis:
-- name: Cisco Catalyst Center Assurance & Intent API
-  description: 'Northbound REST API for the Catalyst Center controller. The Intent API (/dna/intent/api/v1) covers
-    device inventory, sites, discovery, provisioning, software image management, wireless, SD-Access fabric, compliance,
-    reports, event subscriptions and issue/health definitions. The Assurance data API (/dna/data/api/v1) serves
-    the analytics surface: network devices, clients, interfaces, AAA/DHCP/DNS service experience, site and fabric
-    health summaries, energy, ICAP packet capture and ThousandEyes test results. Cisco publishes OpenAPI 3.0 documents
-    for the Assurance surface; 185 operations across 27 specifications are captured here.'
-  humanURL: https://developer.cisco.com/docs/catalyst-center/
-  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
-  tags:
-  - Network Automation
-  - Assurance
-  - Networking
-  - Intent-Based Networking
-  - Wireless
-  - SD-Access
-  - Telemetry
-  properties:
-  - type: Documentation
-    url: https://developer.cisco.com/docs/catalyst-center/
-  - type: APIReference
-    url: https://developer.cisco.com/docs/catalyst-center/
-  - type: GettingStarted
-    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
-  - type: Authentication
-    url: authentication/cisco-catalyst-center-authentication.yml
-  - type: Conventions
-    url: conventions/cisco-catalyst-center-conventions.yml
-  - type: ErrorCatalog
-    url: errors/cisco-catalyst-center-problem-types.yml
-  - type: DataModel
-    url: data-model/cisco-catalyst-center-data-model.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-aaaservices-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-application-health-score-definitions-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-assurance-events-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-assurance-network-devices-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-assurance-tasks-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-assurance-user-defined-issue-apis-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-clients1-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-device-energy-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-dhcpservices-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-dnsservices-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-fabric-site-health-summaries-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-fabric-summary-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-filter-groups-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-icap-apis-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-icap-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-interfaces-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-issue-and-health-definitions-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-issues-lifecycle-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-issues-list-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-network-applications-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-site-health-summaries-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-site-kpi-summaries-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-sites-energy-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-thousand-eyes-path-viz-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-thousand-eyes-test-results-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-transit-network-health-summaries-openapi.yml
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-virtual-network-health-summaries-openapi.yml
 - name: Cisco Catalyst Center MCP Server
-  description: 'First-party open-source Model Context Protocol server for Catalyst Center, published by Cisco under
-    Apache-2.0 at cisco-en-programmability/catc-mcp-oss. It is self-hosted: the operator builds the Docker image
-    from a release branch matching their Catalyst Center version and runs it as a local streamable-HTTP endpoint
-    (http://localhost:7001/v1/mcp) or over stdio. Release branch release/2.3.7.11 bundles 516 generated tools, each
-    carrying the backing Catalyst Center method, URI and JSON Schema parameters. There is no Cisco-hosted remote
-    MCP endpoint.'
+  description: >-
+    First-party open-source Model Context Protocol server for Catalyst Center, published by Cisco under
+    Apache-2.0 at cisco-en-programmability/catc-mcp-oss. It is self-hosted: the operator builds the Docker
+    image from a release branch matching their Catalyst Center version and runs it as a local streamable-HTTP
+    endpoint (http://localhost:7001/v1/mcp) or over stdio. Release branch release/2.3.7.11 bundles 516
+    generated tools, each carrying the backing Catalyst Center method, URI and JSON Schema parameters.
+    There is no Cisco-hosted remote MCP endpoint.
   humanURL: https://github.com/cisco-en-programmability/catc-mcp-oss
   baseURL: http://localhost:7001/v1/mcp
   tags:
@@ -149,6 +64,712 @@ apis:
     url: https://github.com/cisco-en-programmability/catc-mcp-oss
   - type: Documentation
     url: https://github.com/cisco-en-programmability/catc-mcp-oss#readme
+- aid: cisco-catalyst-center:cisco-catalyst-center-aaa-services-api
+  name: Cisco Catalyst Center AAA Services API
+  description: Operations related to Catalyst Center - Assurance Network Services
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - AAA Services
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-aaa-services-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-applicationhealthscoredefinitions-api
+  name: Cisco Catalyst Center Application Health Score Definitions API
+  description: Operations related to application health score definitions.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - applicationHealthScoreDefinitions
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-applicationhealthscoredefinitions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-assuranceevents-api
+  name: Cisco Catalyst Center Assurance Events API
+  description: APIs related to assurance events
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - assuranceEvents
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-assuranceevents-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-assurancetasks-api
+  name: Cisco Catalyst Center Assurance Tasks API
+  description: Operations related to retrieving information regarding assurance tasks
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - assuranceTasks
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-assurancetasks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-clients-api
+  name: Cisco Catalyst Center Clients API
+  description: Operations related to Catalyst Center - Assurance Network Clients
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - clients
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-clients-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-customissuedefinitions-api
+  name: Cisco Catalyst Center Custom Issue Definitions API
+  description: Assurance Custom issue definition API documentation
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - customIssueDefinitions
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-customissuedefinitions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-dhcp-services-api
+  name: Cisco Catalyst Center DHCP Services API
+  description: Operations related to Catalyst Center - Assurance Network Services
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - DHCP Services
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-dhcp-services-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-direct-deploy-api
+  name: Cisco Catalyst Center Direct Deploy API
+  description: APIs to deploy ICAP configurations without previewing the intents.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - direct-deploy
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-direct-deploy-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-dns-services-api
+  name: Cisco Catalyst Center DNS Services API
+  description: Operations related to Catalyst Center - Assurance Network Services
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - DNS Services
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-dns-services-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-energy-api
+  name: Cisco Catalyst Center Energy API
+  description: Operations related to retrieving overall energy information for Catalyst Center Devices
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - energy
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-energy-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-fabricsitehealthsummaries-api
+  name: Cisco Catalyst Center Fabric Site Health Summaries API
+  description: >-
+    The fabricSiteHealthSummaries API from Cisco Catalyst Center — 4 operation(s) for fabricsitehealthsummaries.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - fabricSiteHealthSummaries
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-fabricsitehealthsummaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-fabricsummary-api
+  name: Cisco Catalyst Center Fabric Summary API
+  description: The fabricSummary API from Cisco Catalyst Center — 1 operation(s) for fabricsummary.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - fabricSummary
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-fabricsummary-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-filtergroupassociations-api
+  name: Cisco Catalyst Center Filter Group Associations API
+  description: >-
+    The filterGroupAssociations API from Cisco Catalyst Center — 2 operation(s) for filtergroupassociations.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - filterGroupAssociations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-filtergroupassociations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-filtergroups-api
+  name: Cisco Catalyst Center Filter Groups API
+  description: >-
+    Filter Group is a collection of predefined filters. When this Filter Group is associated with an entity,
+    those filters are applied on that entity.This APIs under `filterGroups` section are used to create,
+    update, delete and get Filter Groups. Currently these Filter Groups can be used in Custom Dashboard
+    and Issue Settings. Filter Group Association is the link between a Filter Group and the associated
+    Entity. The APIs under `filterGroupAssociations` section are used to create, read and delete Filter
+    Group Assications.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - filterGroups
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-filtergroups-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-icap-api
+  name: Cisco Catalyst Center Icap API
+  description: Operations related to Catalyst Center - Assurance Intelligent Capture
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - icap
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-icap-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-interfacelist-api
+  name: Cisco Catalyst Center Interface List API
+  description: The interfaceList API from Cisco Catalyst Center — 6 operation(s) for interfacelist.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - interfaceList
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-interfacelist-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-issues-api
+  name: Cisco Catalyst Center Issues API
+  description: Operations related to Catalyst Center - Assurance Issues
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - issues
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-issues-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-networkapplications-api
+  name: Cisco Catalyst Center Network Applications API
+  description: Operations related to Catalyst Center - Appx Network Applications
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - networkApplications
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-networkapplications-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-networkdevices-api
+  name: Cisco Catalyst Center Network Devices API
+  description: Operations related to Catalyst Center - Gets the Network Device details
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - networkDevices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-networkdevices-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-preview-deploy-api
+  name: Cisco Catalyst Center Preview Deploy API
+  description: APIs to preview, approve, and cancel (discard) ICAP provisioning intents.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - preview-deploy
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-preview-deploy-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-resource-api
+  name: Cisco Catalyst Center Resource API
+  description: APIs to retrieve the resources that were previewed or deployed.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - resource
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-resource-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-siteanalytics-api
+  name: Cisco Catalyst Center Site Analytics API
+  description: The siteAnalytics API from Cisco Catalyst Center — 8 operation(s) for siteanalytics.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - siteAnalytics
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-siteanalytics-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-sitehealthsummaries-api
+  name: Cisco Catalyst Center Site Health Summaries API
+  description: Operations related to retrieving overall health information for Catalyst Center Sites
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - siteHealthSummaries
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-sitehealthsummaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-status-api
+  name: Cisco Catalyst Center Status API
+  description: APIs to check the status of ICAP deployment operation.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - status
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-systemissueandhealthscoredefinitions-api
+  name: Cisco Catalyst Center System Issue And Health Score Definitions API
+  description: Operations related to system issue trigger definitions and health score definitions.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - systemIssueAndHealthScoreDefinitions
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-systemissueandhealthscoredefinitions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-thousandeyespathtrace-api
+  name: Cisco Catalyst Center Thousand Eyes Path Trace API
+  description: Operations related to path traces for ThousandEyes test results
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - thousandEyesPathTrace
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-thousandeyespathtrace-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-thousandeyestestresults-api
+  name: Cisco Catalyst Center Thousand Eyes Test Results API
+  description: Operations related to ThousandEyes test results
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - thousandEyesTestResults
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-thousandeyestestresults-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-transitnetworkhealthsummaries-api
+  name: Cisco Catalyst Center Transit Network Health Summaries API
+  description: >-
+    The transitNetworkHealthSummaries API from Cisco Catalyst Center — 4 operation(s) for transitnetworkhealthsummaries.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - transitNetworkHealthSummaries
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-transitnetworkhealthsummaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-virtualnetworkhealthsummaries-api
+  name: Cisco Catalyst Center Virtual Network Health Summaries API
+  description: >-
+    The virtualNetworkHealthSummaries API from Cisco Catalyst Center — 4 operation(s) for virtualnetworkhealthsummaries.
+  humanURL: https://developer.cisco.com/docs/catalyst-center/
+  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
+  tags:
+  - virtualNetworkHealthSummaries
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-virtualnetworkhealthsummaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
 common:
 - type: VulnerabilityDisclosure
   url: security/cisco-catalyst-center-vulnerability-disclosure.yml
