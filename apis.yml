@@ -1,13 +1,14 @@
 aid: cisco-catalyst-center
 name: Cisco Catalyst Center
-description: Cisco Catalyst Center, formerly DNA Center, is Cisco's intent-based networking controller for enterprise campus,
-  branch and wireless networks. It covers network design and hierarchy, device discovery and provisioning, software image
-  management, SD-Access fabric, policy, telemetry and Assurance analytics. Catalyst Center exposes a northbound REST Intent
-  API under /dna/intent/api/v1 plus an Assurance data API under /dna/data/api/v1, authenticated with an X-Auth-Token bearer
-  token obtained from a Basic-auth token endpoint. Cisco publishes 27 OpenAPI 3.0 documents for the Assurance surface in the
-  cisco-en-programmability GitHub organization, a first-party open-source MCP server bundling 516 generated Catalyst Center
-  API tools, Python and Go SDKs, Ansible collections and a Terraform provider. The controller is customer-deployed, so the
-  API base URL is the customer's own appliance host; Cisco runs always-on DevNet sandboxes for anonymous evaluation.
+description: Cisco Catalyst Center, formerly DNA Center, is Cisco's intent-based networking controller for enterprise
+  campus, branch and wireless networks. It covers network design and hierarchy, device discovery and provisioning,
+  software image management, SD-Access fabric, policy, telemetry and Assurance analytics. Catalyst Center exposes
+  a northbound REST Intent API under /dna/intent/api/v1 plus an Assurance data API under /dna/data/api/v1, authenticated
+  with an X-Auth-Token bearer token obtained from a Basic-auth token endpoint. Cisco publishes 27 OpenAPI 3.0 documents
+  for the Assurance surface in the cisco-en-programmability GitHub organization, a first-party open-source MCP server
+  bundling 516 generated Catalyst Center API tools, Python and Go SDKs, Ansible collections and a Terraform provider.
+  The controller is customer-deployed, so the API base URL is the customer's own appliance host; Cisco runs always-on
+  DevNet sandboxes for anonymous evaluation.
 url: https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/apis.yml
 type: Index
 access: 3rd-Party
@@ -16,11 +17,10 @@ x-type: company
 x-source: cisco-family-buildout:2026-08-19
 x-parent: cisco
 x-relationship: product
-x-contract-status: published
-x-contract-note: Cisco publishes 27 OpenAPI 3.0 Assurance specifications in the first-party GitHub organization cisco-en-programmability/catalyst-center-api-specs
-  (harvested 2026-08-19). Only the Assurance surface is published as OpenAPI; the wider Intent API is documented on DevNet
-  and is enumerated in the first-party MCP bundle (cisco-en-programmability/catc-mcp-oss) as 516 generated tools carrying
-  method + URI + JSON Schema parameters.
+x-contract-status: real
+x-contract-note: 27 Cisco-published OpenAPI 3.0 Assurance documents (185 operations), plus a first-party Apache-2.0
+  MCP server bundling 516 tool definitions. Ownership confirmed from the tac@cisco.com contact and Cisco EULA/license
+  blocks carried in each document.
 specificationVersion: '0.23'
 created: '2026-08-19'
 modified: '2026-08-19'
@@ -41,12 +41,12 @@ tags:
 - Cisco
 apis:
 - name: Cisco Catalyst Center Assurance & Intent API
-  description: 'Northbound REST API for the Catalyst Center controller. The Intent API (/dna/intent/api/v1) covers device
-    inventory, sites, discovery, provisioning, software image management, wireless, SD-Access fabric, compliance, reports,
-    event subscriptions and issue/health definitions. The Assurance data API (/dna/data/api/v1) serves the analytics surface:
-    network devices, clients, interfaces, AAA/DHCP/DNS service experience, site and fabric health summaries, energy, ICAP
-    packet capture and ThousandEyes test results. Cisco publishes OpenAPI 3.0 documents for the Assurance surface; 185 operations
-    across 27 specifications are captured here.'
+  description: 'Northbound REST API for the Catalyst Center controller. The Intent API (/dna/intent/api/v1) covers
+    device inventory, sites, discovery, provisioning, software image management, wireless, SD-Access fabric, compliance,
+    reports, event subscriptions and issue/health definitions. The Assurance data API (/dna/data/api/v1) serves
+    the analytics surface: network devices, clients, interfaces, AAA/DHCP/DNS service experience, site and fabric
+    health summaries, energy, ICAP packet capture and ThousandEyes test results. Cisco publishes OpenAPI 3.0 documents
+    for the Assurance surface; 185 operations across 27 specifications are captured here.'
   humanURL: https://developer.cisco.com/docs/catalyst-center/
   baseURL: https://{catalyst-center-host}/dna/intent/api/v1
   tags:
@@ -127,11 +127,12 @@ apis:
   - type: OpenAPI
     url: openapi/cisco-catalyst-center-virtual-network-health-summaries-openapi.yml
 - name: Cisco Catalyst Center MCP Server
-  description: 'First-party open-source Model Context Protocol server for Catalyst Center, published by Cisco under Apache-2.0
-    at cisco-en-programmability/catc-mcp-oss. It is self-hosted: the operator builds the Docker image from a release branch
-    matching their Catalyst Center version and runs it as a local streamable-HTTP endpoint (http://localhost:7001/v1/mcp)
-    or over stdio. Release branch release/2.3.7.11 bundles 516 generated tools, each carrying the backing Catalyst Center
-    method, URI and JSON Schema parameters. There is no Cisco-hosted remote MCP endpoint.'
+  description: 'First-party open-source Model Context Protocol server for Catalyst Center, published by Cisco under
+    Apache-2.0 at cisco-en-programmability/catc-mcp-oss. It is self-hosted: the operator builds the Docker image
+    from a release branch matching their Catalyst Center version and runs it as a local streamable-HTTP endpoint
+    (http://localhost:7001/v1/mcp) or over stdio. Release branch release/2.3.7.11 bundles 516 generated tools, each
+    carrying the backing Catalyst Center method, URI and JSON Schema parameters. There is no Cisco-hosted remote
+    MCP endpoint.'
   humanURL: https://github.com/cisco-en-programmability/catc-mcp-oss
   baseURL: http://localhost:7001/v1/mcp
   tags:
