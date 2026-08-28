@@ -1,0 +1,93 @@
+slug: cisco-catalyst-center
+provider: Cisco Catalyst Center
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 8
+edges:
+- tag: fabricSummary
+  spec_file: cisco-catalyst-center-fabricsummary-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.72
+  evidence: '"providing visibility into the overall fabric entities and health in Catalyst Center"; GET
+    /fabricSummary "Read Fabric entity summary"'
+  reason: Health/status visibility over SD-Access network fabric entities is network operations monitoring,
+    i.e. Cross-Industry IT Operations Management, not any banking capability.
+- tag: icap
+  spec_file: cisco-catalyst-center-icap-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: '"troubleshooting client onboarding issues by capturing client Wi-Fi packets and statistics
+    for offline analysis"; "Lists ICAP packet capture files matching specified criteria"'
+  reason: Packet capture and radio/client statistics for network troubleshooting is day-to-day IT/network
+    operations monitoring.
+- tag: networkApplications
+  spec_file: cisco-catalyst-center-networkapplications-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: '"Retrieves the list of network applications along with experience and health metrics"'
+  reason: Application experience/health telemetry across the network is IT operations monitoring, not
+    product telemetry of a SaaS offering.
+- tag: networkDevices
+  spec_file: cisco-catalyst-center-networkdevices-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: '"providing visibility into the Network Devices and their health in Catalyst Center"; "Gets
+    the summary analytics data related to network devices."'
+  reason: Device health visibility and analytics over enterprise network devices = IT operations monitoring;
+    adjacent to IT Infrastructure Management hence not maximal confidence.
+- tag: siteHealthSummaries
+  spec_file: cisco-catalyst-center-sitehealthsummaries-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: '"providing visibility into the overall health data of specific sites or groupings of sites
+    present in Catalyst Center"; "Read a trend of site health summary data"'
+  reason: Aggregated network health per site — network operations monitoring under IT Management.
+- tag: systemIssueAndHealthScoreDefinitions
+  spec_file: cisco-catalyst-center-systemissueandhealthscoredefinitions-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: APIs to customize issue trigger priority, enable/disable issues, health thresholds and include
+    status of KPI into overall health computations
+  reason: Configures monitoring issue triggers and health-score thresholds for network assurance — network
+    operations monitoring configuration, i.e. IT Operations Management. Not enterprise risk or incident-response
+    of a SaaS product.
+- tag: transitNetworkHealthSummaries
+  spec_file: cisco-catalyst-center-transitnetworkhealthsummaries-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: Read list of Transit Networks with their health summary
+  reason: Health monitoring of SD-Access fabric transit networks — network operations monitoring. IT Operations
+    Management is the honest cross-industry fit; nothing here is banking or SaaS product operations.
+- tag: virtualNetworkHealthSummaries
+  spec_file: cisco-catalyst-center-virtualnetworkhealthsummaries-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: Read list of Virtual Networks with their health summary
+  reason: Health and trend analytics for fabric virtual networks — network monitoring surface, i.e. IT
+    Operations Management.

@@ -12,6 +12,19 @@ description: Cisco Catalyst Center, formerly DNA Center, is Cisco's intent-based
 url: https://raw.githubusercontent.com/api-evangelist/cisco-catalyst-center/refs/heads/main/apis.yml
 type: Index
 access: 3rd-Party
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 position: Consumer
 x-type: company
 x-source: cisco-family-buildout:2026-08-19
@@ -820,6 +833,9 @@ apis:
   - type: DataModel
     url: data-model/cisco-catalyst-center-data-model.yml
 common:
+- type: CapabilityMap
+  url: capabilities/cisco-catalyst-center-capability-edges.yml
+  name: Cisco Catalyst Center Business Capability Map
 - type: VulnerabilityDisclosure
   url: security/cisco-catalyst-center-vulnerability-disclosure.yml
 - type: DomainSecurity
