@@ -50,7 +50,7 @@ tags:
 - Observability
 - Telemetry
 - MCP
-- Agent Native
+- agent-native
 - Cisco
 tags_raw:
 - Network Automation
@@ -80,7 +80,7 @@ apis:
   baseURL: http://localhost:7001/v1/mcp
   tags:
   - MCP
-  - Agent Native
+  - agent-native
   - Network Automation
   - Assurance
   tags_raw:
@@ -558,7 +558,8 @@ apis:
   description: Operations related to Catalyst Center - Gets the Network Device details
   humanURL: https://developer.cisco.com/docs/catalyst-center/
   baseURL: https://{catalyst-center-host}/dna/intent/api/v1
-  tags: []
+  tags:
+  - Network Devices
   tags_raw:
   - networkDevices
   properties:
@@ -832,6 +833,9 @@ apis:
   - type: DataModel
     url: data-model/cisco-catalyst-center-data-model.yml
 common:
+- type: License
+  name: Apache-2.0
+  url: https://github.com/cisco-en-programmability/catc-mcp-oss/blob/main/LICENSE
 - type: CapabilityMap
   url: capabilities/cisco-catalyst-center-capability-edges.yml
   name: Cisco Catalyst Center Business Capability Map
