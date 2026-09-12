@@ -848,6 +848,8 @@ apis:
   - type: DataModel
     url: data-model/cisco-catalyst-center-data-model.yml
 common:
+- type: Website
+  url: https://www.cisco.com/
 - type: License
   name: Apache-2.0
   url: https://github.com/cisco-en-programmability/catc-mcp-oss/blob/main/LICENSE
