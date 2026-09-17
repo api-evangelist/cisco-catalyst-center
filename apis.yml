@@ -568,32 +568,6 @@ apis:
     url: errors/cisco-catalyst-center-problem-types.yml
   - type: DataModel
     url: data-model/cisco-catalyst-center-data-model.yml
-- aid: cisco-catalyst-center:cisco-catalyst-center-networkdevices-api
-  name: Cisco Catalyst Center Network Devices API
-  description: Operations related to Catalyst Center - Gets the Network Device details
-  humanURL: https://developer.cisco.com/docs/catalyst-center/
-  baseURL: https://{catalyst-center-host}/dna/intent/api/v1
-  tags:
-  - Network Devices
-  tags_raw:
-  - networkDevices
-  properties:
-  - type: OpenAPI
-    url: openapi/cisco-catalyst-center-networkdevices-api-openapi.yml
-  - type: Documentation
-    url: https://developer.cisco.com/docs/catalyst-center/
-  - type: APIReference
-    url: https://developer.cisco.com/docs/catalyst-center/
-  - type: GettingStarted
-    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
-  - type: Authentication
-    url: authentication/cisco-catalyst-center-authentication.yml
-  - type: Conventions
-    url: conventions/cisco-catalyst-center-conventions.yml
-  - type: ErrorCatalog
-    url: errors/cisco-catalyst-center-problem-types.yml
-  - type: DataModel
-    url: data-model/cisco-catalyst-center-data-model.yml
 - aid: cisco-catalyst-center:cisco-catalyst-center-preview-deploy-api
   name: Cisco Catalyst Center Preview Deploy API
   description: APIs to preview, approve, and cancel (discard) ICAP provisioning intents.
@@ -833,6 +807,30 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cisco-catalyst-center-virtualnetworkhealthsummaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: APIReference
+    url: https://developer.cisco.com/docs/catalyst-center/
+  - type: GettingStarted
+    url: https://developer.cisco.com/docs/catalyst-center/getting-started/
+  - type: Authentication
+    url: authentication/cisco-catalyst-center-authentication.yml
+  - type: Conventions
+    url: conventions/cisco-catalyst-center-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cisco-catalyst-center-problem-types.yml
+  - type: DataModel
+    url: data-model/cisco-catalyst-center-data-model.yml
+- aid: cisco-catalyst-center:cisco-catalyst-center-network-devices-api
+  name: Cisco Catalyst Center Network Devices API
+  description: Operations related to Catalyst Center - Gets the Network Device details
+  humanURL: https://github.com/cisco-en-programmability/catc-mcp-oss
+  baseURL: http://localhost:7001/v1/mcp
+  tags:
+  - Network Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-catalyst-center-network-devices-api-openapi.yml
   - type: Documentation
     url: https://developer.cisco.com/docs/catalyst-center/
   - type: APIReference
