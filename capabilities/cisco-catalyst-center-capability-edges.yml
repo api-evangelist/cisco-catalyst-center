@@ -44,7 +44,8 @@ edges:
   reason: Application experience/health telemetry across the network is IT operations monitoring, not
     product telemetry of a SaaS offering.
 - tag: networkDevices
-  spec_file: cisco-catalyst-center-networkdevices-api-openapi.yml
+  spec_file: cisco-catalyst-center-network-devices-api-openapi.yml
+  reanchored_from: cisco-catalyst-center-networkdevices-api-openapi.yml
   capability_id: BC-600.40
   capability_id_l1: BC-600
   capability_name: IT Operations Management
