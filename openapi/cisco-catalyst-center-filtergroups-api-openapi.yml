@@ -29,7 +29,7 @@ servers:
 - url: https://developer.cisco.com
 tags:
 - name: filterGroups
-  description: Filter Group is a collection of predefined filters. When this Filter Group is associated with an entity, those filters are applied on that entity.This APIs under `filterGroups` section are used to create, update, delete and get Filter Groups. Currently these Filter Groups can be used in Custom Dashboard and Issue Settings. Filter Group Association is the link between a Filter Group and the associated Entity. The APIs under `filterGroupAssociations` section are used to create, read and delete Filter Group Assications.
+  description: Filter Group is a collection of predefined filters.
   externalDocs:
     description: Catalyst Center Assurance user guide
     url: https://www.cisco.com/c/en/us/support/cloud-systems-management/dna-center/products-user-guide-list.html
@@ -38,7 +38,7 @@ paths:
     get:
       tags:
       - filterGroups
-      summary: Get the filter groups for given search criteria.
+      summary: Get the filter groups for given search criteria
       description: Returns the details of filter groups for given search criteria specified in query parameters.
       operationId: readFilterGroups
       parameters:
@@ -160,7 +160,7 @@ paths:
     post:
       tags:
       - filterGroups
-      summary: Create filter group.
+      summary: Create filter group
       description: Creates filter group with given filters.
       operationId: createFilterGroup
       parameters:
@@ -217,7 +217,7 @@ paths:
     get:
       tags:
       - filterGroups
-      summary: Get the filter group details for the given id.
+      summary: Get the filter group details for the given id
       description: Returns the details of filter group for the given id.
       operationId: readFilterGroupById
       parameters:
@@ -280,7 +280,7 @@ paths:
     put:
       tags:
       - filterGroups
-      summary: Update filter group.
+      summary: Update filter group
       description: Updates the filter group for given id. The request payload should contain complete definition of the Filter Group.
       operationId: updateFilterGroupById
       parameters:
@@ -352,7 +352,7 @@ paths:
     delete:
       tags:
       - filterGroups
-      summary: Delete a filter group.
+      summary: Delete a filter group
       description: Deletes the given filter group. Delete will fail and throws validation error if the given filter group is associated with any entity.
       operationId: deleteFilterGroup
       parameters:
@@ -407,42 +407,6 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
-    FilterGroupListResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: List of filter groups
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-        page:
-          $ref: '#/components/schemas/FilterGroupPaginationResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Filter Group list response
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     FilterGroupFilter:
       type: object
       properties:
@@ -476,42 +440,26 @@ components:
           description: This field stores desriptive equivalent of the `value` field. For example, this field can be used to store site hierarchy name while the `value` field stores site hierarchy id.
           readOnly: true
       description: Defines a filter with combination of `key`, `operator` and `value`.
-    FilterGroupCreateResponse:
+    FilterGroup:
       type: object
       properties:
         id:
           type: string
-          description: Filter Group id
-          example: 015d9cba-4f53-4087-8317-7e49e5ffef46
-      description: Filter Group create response
-    FilterGroupPaginationResponse:
-      type: object
-      properties:
-        limit:
-          maximum: 100
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-        count:
-          type: integer
-          description: Total number of records
-          example: 50
-    FilterGroupResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/FilterGroup'
-        version:
+          description: Filter Gorup id
+          example: b654e071-f99d-48d4-957b-6638e9f3a2c9
+        name:
           type: string
-          description: The version of the response
-          example: '1.0'
-      description: Filter Group response
+          description: Filter Group name.
+          example: SJC Wireless
+        type:
+          type: string
+          description: The type of the Filter Group.
+        filters:
+          type: array
+          description: List of filters used in this Filter Group.
+          items:
+            $ref: '#/components/schemas/FilterGroupFilter'
+      description: Contains details of an filter group.
     ErrorObject:
       type: object
       properties:
@@ -524,6 +472,27 @@ components:
         detail:
           type: string
           description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     FilterGroupCreateRequest:
       type: object
       properties:
@@ -546,26 +515,57 @@ components:
           items:
             $ref: '#/components/schemas/FilterGroupFilter'
       description: Filter Group create request payload
-    FilterGroup:
+    FilterGroupResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/FilterGroup'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Filter Group response
+    FilterGroupPaginationResponse:
+      type: object
+      properties:
+        limit:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 7
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+        count:
+          type: integer
+          description: Total number of records
+          example: 50
+    FilterGroupCreateResponse:
       type: object
       properties:
         id:
           type: string
-          description: Filter Gorup id
-          example: b654e071-f99d-48d4-957b-6638e9f3a2c9
-        name:
-          type: string
-          description: Filter Group name.
-          example: SJC Wireless
-        type:
-          type: string
-          description: The type of the Filter Group.
-        filters:
+          description: Filter Group id
+          example: 015d9cba-4f53-4087-8317-7e49e5ffef46
+      description: Filter Group create response
+    FilterGroupListResponse:
+      type: object
+      properties:
+        response:
           type: array
-          description: List of filters used in this Filter Group.
+          description: List of filter groups
           items:
-            $ref: '#/components/schemas/FilterGroupFilter'
-      description: Contains details of an filter group.
+            $ref: '#/components/schemas/FilterGroup'
+        page:
+          $ref: '#/components/schemas/FilterGroupPaginationResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Filter Group list response
   examples:
     FilterGroupCreateRequestExample1:
       description: Sample reuest to create an Filter Group
@@ -600,6 +600,42 @@ components:
         - key: clientIpAddress
           operator: eq
           value: 10.112.4.67
+    FilterGroupResponseExample1:
+      description: Sample response of Filter Group
+      value:
+        response:
+          id: b654e071-f99d-48d4-957b-6638e9f3a2c9
+          name: SJCWireless
+          type: Generic
+          filters:
+          - key: siteHierarchyId
+            operator: eq
+            value: 0f6e6d6-1dca-4af3-bc66-a53161c80965/7a2c60ed-f7dc-4ebf-8031-be9beddc6993/5b5ae476-515f-400b-bda7-2492d3931541
+            displayValue: Globa/San Jose/SJC12
+          - key: clientType
+            operator: in
+            value:
+            - Wireless
+            - Wired
+          - key: ssid
+            operator: in
+            value:
+            - dual_radio_2
+          - key: clientHostName
+            operator: like
+            value:
+            - '%Test%'
+          - key: clientDeviceType
+            operator: like
+            value:
+            - '%Apple'
+          - key: clientMacAddress
+            operator: in
+            value:
+            - AA:BB:CC:DD:00:A0
+          - key: clientIpAddress
+            operator: eq
+            value: 10.112.4.67
     FilterGroupListResponseExample1:
       description: Sample response of Filter Group
       value:
@@ -641,42 +677,6 @@ components:
           offset: 1
           count: 20
         version: '1.0'
-    FilterGroupResponseExample1:
-      description: Sample response of Filter Group
-      value:
-        response:
-          id: b654e071-f99d-48d4-957b-6638e9f3a2c9
-          name: SJCWireless
-          type: Generic
-          filters:
-          - key: siteHierarchyId
-            operator: eq
-            value: 0f6e6d6-1dca-4af3-bc66-a53161c80965/7a2c60ed-f7dc-4ebf-8031-be9beddc6993/5b5ae476-515f-400b-bda7-2492d3931541
-            displayValue: Globa/San Jose/SJC12
-          - key: clientType
-            operator: in
-            value:
-            - Wireless
-            - Wired
-          - key: ssid
-            operator: in
-            value:
-            - dual_radio_2
-          - key: clientHostName
-            operator: like
-            value:
-            - '%Test%'
-          - key: clientDeviceType
-            operator: like
-            value:
-            - '%Apple'
-          - key: clientMacAddress
-            operator: in
-            value:
-            - AA:BB:CC:DD:00:A0
-          - key: clientIpAddress
-            operator: eq
-            value: 10.112.4.67
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

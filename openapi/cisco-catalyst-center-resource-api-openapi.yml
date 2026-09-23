@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Intelligent Capture (ICAP) Provisioning Resource API
-  description: "APIs to manage Catalyst Center Assurance Intelligent Capture (ICAP) configurations. Catalyst Center ICAP is a suite of features for troubleshooting client onboarding issues by capturing client Wi-Fi packets and statistics for offline analysis.\n\n**Configurations supported include**\n\n|Configuration Type | Description |\n| --- | --- |\n| `ANOMALY` | This proactively monitors client onboarding issues. When an issue occurs, the AP device sends a client anomaly event, including a set of client Wi-Fi packets from the time of the event. |\n| `FULL` | This is to capture all Wi-Fi packets to and from a specific client MAC address. |\n| `ONBOARDING` | This captures client onboarding packets and client RF statistics with a 5-second granularity. |\n| `OTA` | This captures all Wi-Fi packets on a specific Wi-Fi band and channel. This feature can be used on up to two neighboring AP devices of an AP experiencing client-serving band or channel issues. |\n| `RFSTATS` | This captures both client and AP radio RF statistics with a 30-second granularity. |\n| `SPECTRUM` | This captures Wi-Fi Layer 2 signal strength and sources of interference across all supported Wi-Fi bands and channels. |\n\n**ICAP Configuration limitations**\n* The minimum duration for FULL packet capture is 30 minutes, and the maximum is 8 hours.\n* The duration for OTA packet capture is 15 minutes\n* ONBOARDING packet capture supports 16 unique client MAC addresses with up to 3 WLCs for each client MAC address. The duration of capture can be set between 30 minutes and 8 hours.\n* SPECTRUM settings can be enabled on a maximum of 10 APs.  The duration of SPECTRUM data is 10 minutes.\n* RFSTATS settings \n  * At AP level, the feature can be enabled on a maximum of 1000 APs\n  * At WLC level, the feature can be enabled only if Catalyst Center does not have more than 1,000 managed APs.\n  * Mixture of AP and WLC level configuration is not supported.\n* OTA settings\n  * Can have up to 2 APs with both support radio role sniffer, but 1 AP which supports AP mode sniffer. Consult AP hardware/software documetation about packet sniffing limitations. Minimum required AP software is IOSxe 17.11.  AP running AireOS is not supported.  AP must be in client-serving mode prior to enabling OTA on the AP.  Changing an AP from client-serving to AP mode sniffer is not supported when the AP supports radio role sniffer.  Most AP platforms support radio role sniffer at radio slot 0.  The radio must be admin/oper UP and in client-serving mode prior to using ICAP OTA on the AP radio.  Changing 2 or more radios of 1 AP from client-serving mode to radio role sniffer is not supported.  Enabling OTA is to change AP from client-serving to sniffer, which will force all clients at the radio to roam to neighboring APs.  Client network service experiences will be impacted.\n  \n  **WARNING:** Enalbing OTA will reset AP radio (or the AP device if OTA mode is \"AP\").  This will force all clients who are associating with the AP radio to roam to other AP devices.  Clients WIFI network experiences will be impacted.\n* ANOMALY Settings\n  * Must be applied at the WLC level, although AP-level ANOMALY is also supported. Applying ANOMALY at the AP level is intended for troubleshooting a specific client at a specific AP. Catalyst Center does not allow applying ANOMALY at both the WLC and AP levels simultaneously. The feature can be disabled on demand.\n  * Mixture of AP and WLC level configuration is not supported.\n* Applying ICAP configurations at the WLC level is to apply the configurations to all AP profiles known to the Catalyst Center.  Wireless controller devices must be managed and in good health prior to use ICAP features for troubleshooting client WIFI issues.\n"
+  description: APIs to manage Catalyst Center Assurance Intelligent Capture (ICAP) configurations.
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -28,15 +28,29 @@ info:
 servers:
 - url: https://developer.cisco.com
 tags:
-- name: resource
+- name: Resource
   description: APIs to retrieve the resources that were previewed or deployed.
 paths:
   /dna/intent/api/v1/icapSettings:
     get:
       tags:
-      - resource
-      summary: Retrieves deployed ICAP configurations while supporting basic filtering.
-      description: "Retrieves deployed ICAP configurations while supporting basic filtering.  \n\n**Configuration Status**\n\n|Status | Description |\n| --- | --- |\n| `INPROGRESS` | Configuration is deployed on the device. ICAP data is sent by the device to the Catalyst Center. Supported filters include captureType, clientMac, apId, and wlcId. |\n| `COMPLETE` | Configuration is removed from device. This information is used to retrieve ICAP data collected by the Catalyst Center while the features were enabled on the device. Supported filters include captureType, clientMac, apId, and wlcId. |\n| `SCHEDULED` | The configuration is scheduled to be deployed in the near future. Configurations in this state do not support filters, but pagination with limit and offset is supported. |\n"
+      - Resource
+      summary: Retrieves deployed ICAP configurations while supporting basic filtering
+      description: 'Retrieves deployed ICAP configurations while supporting basic filtering.
+
+
+        **Configuration Status**
+
+
+        |Status | Description |
+
+        | --- | --- |
+
+        | `INPROGRESS` | Configuration is deployed on the device. ICAP data is sent by the device to the Catalyst Center. Supported filters include captureType, clientMac, apId, and wlcId. |
+
+        | `COMPLETE` | Configuration is removed from device. This information is used to retrieve ICAP data collected by the Catalyst Center while the features were enabled on the device. Supported filters include captureType, clientMac, apId, and wlcId. |
+
+        | `SCHEDULED` | The configuration is scheduled to be deployed in the near future. Configurations in this state do not support filters, but pagination with limit and offset is supported. |'
       operationId: getIcap
       parameters:
       - name: captureStatus
@@ -151,8 +165,8 @@ paths:
   /dna/intent/api/v1/icapSettings/count:
     get:
       tags:
-      - resource
-      summary: Retrieves the count of deployed ICAP configurations while supporting basic filtering.
+      - Resource
+      summary: Retrieves the count of deployed ICAP configurations while supporting basic…
       description: Retrieves the count of deployed ICAP configurations while supporting basic filtering.
       operationId: getIcapCount
       parameters:
@@ -249,68 +263,7 @@ paths:
         '504':
           description: The server did not respond inside time restrictions and timed-out.
 components:
-  examples:
-    CaptureSettingOutput:
-      summary: captureSettingOutput
-      value:
-        response:
-        - name: FULL for AA:AA:AA:AA:AA:01 on WLC-20
-          slots:
-          - 0
-          - 1
-          - 2
-          otaBand: '2.4'
-          otaChannel: 7
-          otaChannelWidth: 20
-          id: 4dab2492-cead-4036-83d1-2e44b2212345
-          deployedId: 4dab2492-cead-4036-83d1-2e44b2212345
-          disableActivityId: 4dab2492-cead-4036-83d1-2e44b22abcdef
-          deployActivityId: 4dab2492-cead-4036-83d1-2e44b2255555
-          captureType: ONBOARDING
-          apId: 4dab2492-cead-4036-83d1-2e44b2255555
-          wlcId: 4dab2492-cead-4036-83d1-2e44b2213c54
-          clientMac: AA:AA:AA:AA:AA:01
-          createTime: 12345678901234
-          endTime: 12345679901234
-          durationInMins: 30
-          status: SUCCESS
-        version: '1.0'
   schemas:
-    EpochMilliseconds:
-      minimum: 0
-      type: integer
-      description: A date and time represented as ***milliseconds*** since the Unix epoch.
-      format: int64
-      example: 1524880285900
-      externalDocs:
-        description: Unix time - Wikipedia
-        url: https://en.wikipedia.org/wiki/Unix_time
-    IntegerResponse:
-      title: Integer Response
-      type: object
-      properties:
-        response:
-          type: integer
-          description: The reported value
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports an integer.
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/ErrorResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured processing this request.
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     PacketCaptureDeployInfoItem:
       required:
       - captureType
@@ -412,6 +365,61 @@ components:
       example: '{"captureType": "FULL","wlcId": "9079ce39-25fe-4ab0-88cb-e89f5e700ddb", "clientMac": "AA:AA:AA:AA:AA:02", "durationInMins": 10}
 
         '
+    ErrorResponse_response:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A message providing more context regarding the error
+        detail:
+          type: string
+          description: Detailed information regarding the error
+    EpochMilliseconds:
+      minimum: 0
+      type: integer
+      description: A date and time represented as ***milliseconds*** since the Unix epoch.
+      format: int64
+      example: 1524880285900
+      externalDocs:
+        description: Unix time - Wikipedia
+        url: https://en.wikipedia.org/wiki/Unix_time
+    IntegerResponse:
+      title: Integer Response
+      type: object
+      properties:
+        response:
+          type: integer
+          description: The reported value
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports an integer.
+    PacketCaptureDeployedInfoListResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
+        version:
+          type: string
+          example: '1.0'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/ErrorResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured processing this request.
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     DeviceStatus:
       type: string
       description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
@@ -425,26 +433,32 @@ components:
       - CANCELLED
       - NOT_SUPPORTED
       - PENDING
-    PacketCaptureDeployedInfoListResponse:
-      type: object
-      properties:
+  examples:
+    CaptureSettingOutput:
+      summary: captureSettingOutput
+      value:
         response:
-          $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
-        version:
-          type: string
-          example: '1.0'
-    ErrorResponse_response:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: A message providing more context regarding the error
-        detail:
-          type: string
-          description: Detailed information regarding the error
+        - name: FULL for AA:AA:AA:AA:AA:01 on WLC-20
+          slots:
+          - 0
+          - 1
+          - 2
+          otaBand: '2.4'
+          otaChannel: 7
+          otaChannelWidth: 20
+          id: 4dab2492-cead-4036-83d1-2e44b2212345
+          deployedId: 4dab2492-cead-4036-83d1-2e44b2212345
+          disableActivityId: 4dab2492-cead-4036-83d1-2e44b22abcdef
+          deployActivityId: 4dab2492-cead-4036-83d1-2e44b2255555
+          captureType: ONBOARDING
+          apId: 4dab2492-cead-4036-83d1-2e44b2255555
+          wlcId: 4dab2492-cead-4036-83d1-2e44b2213c54
+          clientMac: AA:AA:AA:AA:AA:01
+          createTime: 12345678901234
+          endTime: 12345679901234
+          durationInMins: 30
+          status: SUCCESS
+        version: '1.0'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

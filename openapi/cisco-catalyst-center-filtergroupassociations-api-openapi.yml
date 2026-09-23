@@ -146,7 +146,7 @@ paths:
     post:
       tags:
       - filterGroupAssociations
-      summary: Create filter group association.
+      summary: Create filter group association
       description: Creates association between a filter group and entity.
       operationId: createFilterGroupAssociation
       parameters:
@@ -199,7 +199,7 @@ paths:
     delete:
       tags:
       - filterGroupAssociations
-      summary: Delete filter group association.
+      summary: Delete filter group association
       description: Deletes the association between filter group and entity.
       operationId: deleteFilterGroupAssociation
       parameters:
@@ -254,26 +254,19 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
-    FilterGroupAssociationCreateRequest:
+    FilterGroupAssociationsResponse:
       type: object
       properties:
-        filterGroupId:
+        response:
+          type: array
+          description: List of filter group associations
+          items:
+            $ref: '#/components/schemas/FilterGroupAssociation'
+        version:
           type: string
-          description: Filter Group id
-          example: 5b5ae476-515f-400b-bda7-2492d3931541
-        entityId:
-          type: string
-          description: Entity id with which the Filter Group is associated.
-          example: 2ee1b9f0-8036-443b-bad0-7692760af1b5
-        entityName:
-          type: string
-          description: Entity name with which the Filter Group is associated.
-          example: SJC Wireless Dashboard
-        entityType:
-          type: string
-          description: The type of the entity with which the Filter Group is associated.
-          example: Custom Dashboard
-      description: Filter Group association create request payload
+          description: The version of the response
+          example: '1.0'
+      description: Filter Group associations response
     ErrorResponse:
       title: Error Response
       type: object
@@ -295,31 +288,6 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    FilterGroupAssociationsResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: List of filter group associations
-          items:
-            $ref: '#/components/schemas/FilterGroupAssociation'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Filter Group associations response
     FilterGroupAssociationCreateResponse:
       type: object
       properties:
@@ -352,6 +320,38 @@ components:
           description: The type of the entity with which the Filter Group is associated.
           example: Custom Dashboard
       description: Contains details of an filter group association association.
+    FilterGroupAssociationCreateRequest:
+      type: object
+      properties:
+        filterGroupId:
+          type: string
+          description: Filter Group id
+          example: 5b5ae476-515f-400b-bda7-2492d3931541
+        entityId:
+          type: string
+          description: Entity id with which the Filter Group is associated.
+          example: 2ee1b9f0-8036-443b-bad0-7692760af1b5
+        entityName:
+          type: string
+          description: Entity name with which the Filter Group is associated.
+          example: SJC Wireless Dashboard
+        entityType:
+          type: string
+          description: The type of the entity with which the Filter Group is associated.
+          example: Custom Dashboard
+      description: Filter Group association create request payload
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

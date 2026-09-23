@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Intelligent Capture (ICAP) Provisioning Direct Deploy API
-  description: "APIs to manage Catalyst Center Assurance Intelligent Capture (ICAP) configurations. Catalyst Center ICAP is a suite of features for troubleshooting client onboarding issues by capturing client Wi-Fi packets and statistics for offline analysis.\n\n**Configurations supported include**\n\n|Configuration Type | Description |\n| --- | --- |\n| `ANOMALY` | This proactively monitors client onboarding issues. When an issue occurs, the AP device sends a client anomaly event, including a set of client Wi-Fi packets from the time of the event. |\n| `FULL` | This is to capture all Wi-Fi packets to and from a specific client MAC address. |\n| `ONBOARDING` | This captures client onboarding packets and client RF statistics with a 5-second granularity. |\n| `OTA` | This captures all Wi-Fi packets on a specific Wi-Fi band and channel. This feature can be used on up to two neighboring AP devices of an AP experiencing client-serving band or channel issues. |\n| `RFSTATS` | This captures both client and AP radio RF statistics with a 30-second granularity. |\n| `SPECTRUM` | This captures Wi-Fi Layer 2 signal strength and sources of interference across all supported Wi-Fi bands and channels. |\n\n**ICAP Configuration limitations**\n* The minimum duration for FULL packet capture is 30 minutes, and the maximum is 8 hours.\n* The duration for OTA packet capture is 15 minutes\n* ONBOARDING packet capture supports 16 unique client MAC addresses with up to 3 WLCs for each client MAC address. The duration of capture can be set between 30 minutes and 8 hours.\n* SPECTRUM settings can be enabled on a maximum of 10 APs.  The duration of SPECTRUM data is 10 minutes.\n* RFSTATS settings \n  * At AP level, the feature can be enabled on a maximum of 1000 APs\n  * At WLC level, the feature can be enabled only if Catalyst Center does not have more than 1,000 managed APs.\n  * Mixture of AP and WLC level configuration is not supported.\n* OTA settings\n  * Can have up to 2 APs with both support radio role sniffer, but 1 AP which supports AP mode sniffer. Consult AP hardware/software documetation about packet sniffing limitations. Minimum required AP software is IOSxe 17.11.  AP running AireOS is not supported.  AP must be in client-serving mode prior to enabling OTA on the AP.  Changing an AP from client-serving to AP mode sniffer is not supported when the AP supports radio role sniffer.  Most AP platforms support radio role sniffer at radio slot 0.  The radio must be admin/oper UP and in client-serving mode prior to using ICAP OTA on the AP radio.  Changing 2 or more radios of 1 AP from client-serving mode to radio role sniffer is not supported.  Enabling OTA is to change AP from client-serving to sniffer, which will force all clients at the radio to roam to neighboring APs.  Client network service experiences will be impacted.\n  \n  **WARNING:** Enalbing OTA will reset AP radio (or the AP device if OTA mode is \"AP\").  This will force all clients who are associating with the AP radio to roam to other AP devices.  Clients WIFI network experiences will be impacted.\n* ANOMALY Settings\n  * Must be applied at the WLC level, although AP-level ANOMALY is also supported. Applying ANOMALY at the AP level is intended for troubleshooting a specific client at a specific AP. Catalyst Center does not allow applying ANOMALY at both the WLC and AP levels simultaneously. The feature can be disabled on demand.\n  * Mixture of AP and WLC level configuration is not supported.\n* Applying ICAP configurations at the WLC level is to apply the configurations to all AP profiles known to the Catalyst Center.  Wireless controller devices must be managed and in good health prior to use ICAP features for troubleshooting client WIFI issues.\n"
+  description: APIs to manage Catalyst Center Assurance Intelligent Capture (ICAP) configurations.
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -35,8 +35,44 @@ paths:
     post:
       tags:
       - direct-deploy
-      summary: Deploys the given ICAP configuration intent without preview and approve.
-      description: "Deploys the given ICAP intent without preview and approval. The response body contains a task object with a taskId and a URL for more information about the task. The deployment status of this ICAP intent can be found in the output of the URL.  \n\nFULL, ONBOARDING, OTA, and SPECTRUM configurations have a durationInMins field. A disable task is scheduled to remove the configuration from the device. Although the enablement of this ICAP configuration deployment has skipped the preview-deploy workflow, the disable task can still be previewed and deployed using the disableActivityId in the preview-deploy APIs to view the CLIs. See **Step 3** and **Step 4** in the **POST /dna/intent/api/v1/icapSettings/configurationModels** description for more information. Use the **GET /dna/intent/api/v1/icapSettings?captureStatus=INPROGRESS** API to obtain the disableActivityId value. It may take a few minutes for the disableActivityId (a UUID string) to become available. When it is not available, the **POST /dna/intent/api/v1/icapSettings/deploy/{id}/deleteDeploy** API is not ready to remove the ICAP configuration from the device.\n\n**POST Body**\n\nDepending on the ICAP feature (captureType) that the list of required fields in POST body is different.  All objects in the POST body must contain the same captureType value.  POST body object must have the following fields:\n\n* **ANOMALY**:<br/>\n  * At AP level:  captureType=ANOMALY, wlcId, apId\n  * At WLC level: captureType=ANOMALY, wlcId\n   \n* **FULL**:  captureType=FULL, wlcId, clientMac, durationInMins (30-480)\n\n* **OBOARDING**: captureType=ONBOARDING, wlcId, clientMac, durationInMins (30-480)\n\n* **OTA**: captureType=OTA, wlcId, apId, otaBand, otaChannel, otaChannelWidth, slots (1 element), otaMode (Optional.  RADIO or AP.  Default to RADIO), durationInMins=15 (optional)\n\n* **RFSTATS**:\n  * At AP level: captureType=RFSTATS, wlcId, apId\n  * At WLC level: captureType=RFSTATS, wlcId\n\n* **SPECTRUM**: captureType=SPECTRUM, wlcId, apId, slots, durationInMins=10 (Optional)\n"
+      summary: Deploys the given ICAP configuration intent without preview and approve
+      description: 'Deploys the given ICAP intent without preview and approval. The response body contains a task object with a taskId and a URL for more information about the task. The deployment status of this ICAP intent can be found in the output of the URL.
+
+
+        FULL, ONBOARDING, OTA, and SPECTRUM configurations have a durationInMins field. A disable task is scheduled to remove the configuration from the device. Although the enablement of this ICAP configuration deployment has skipped the preview-deploy workflow, the disable task can still be previewed and deployed using the disableActivityId in the preview-deploy APIs to view the CLIs. See **Step 3** and **Step 4** in the **POST /dna/intent/api/v1/icapSettings/configurationModels** description for more information. Use the **GET /dna/intent/api/v1/icapSettings?captureStatus=INPROGRESS** API to obtain the disableActivityId value. It may take a few minutes for the disableActivityId (a UUID string) to become available. When it is not available, the **POST /dna/intent/api/v1/icapSettings/deploy/{id}/deleteDeploy** API is not ready to remove the ICAP configuration from the device.
+
+
+        **POST Body**
+
+
+        Depending on the ICAP feature (captureType) that the list of required fields in POST body is different. All objects in the POST body must contain the same captureType value. POST body object must have the following fields:
+
+
+        * **ANOMALY**:
+
+
+        * At AP level: captureType=ANOMALY, wlcId, apId
+
+        * At WLC level: captureType=ANOMALY, wlcId
+
+
+        * **FULL**: captureType=FULL, wlcId, clientMac, durationInMins (30-480)
+
+
+        * **OBOARDING**: captureType=ONBOARDING, wlcId, clientMac, durationInMins (30-480)
+
+
+        * **OTA**: captureType=OTA, wlcId, apId, otaBand, otaChannel, otaChannelWidth, slots (1 element), otaMode (Optional. RADIO or AP. Default to RADIO), durationInMins=15 (optional)
+
+
+        * **RFSTATS**:
+
+        * At AP level: captureType=RFSTATS, wlcId, apId
+
+        * At WLC level: captureType=RFSTATS, wlcId
+
+
+        * **SPECTRUM**: captureType=SPECTRUM, wlcId, apId, slots, durationInMins=10 (Optional)'
       operationId: postIcapDeploy
       parameters:
       - name: previewDescription
@@ -115,9 +151,7 @@ paths:
       tags:
       - direct-deploy
       summary: Remove the ICAP configuration on the device without preview
-      description: 'Remove the ICAP configuration from the device by *id* without preview-deploy. The path parameter *id* can be retrieved from the **GET /dna/intent/api/v1/icapSettings** API. The response body contains a task object with a taskId and a URL. Use the URL to check the task status. ICAP FULL, ONBOARDING, OTA, and SPECTRUM configurations have a durationInMins field. A disable task is scheduled to remove the configuration from the device. Removing the ICAP intent should be done after the pre-scheduled disable task has been deployed.
-
-        '
+      description: Remove the ICAP configuration from the device by *id* without preview-deploy. The path parameter *id* can be retrieved from the **GET /dna/intent/api/v1/icapSettings** API. The response body contains a task object with a taskId and a URL. Use the URL to check the task status. ICAP FULL, ONBOARDING, OTA, and SPECTRUM configurations have a durationInMins field. A disable task is scheduled to remove the configuration from the device. Removing the ICAP intent should be done after the pre-scheduled disable task has been deployed.
       operationId: deleteIcapDeploy
       parameters:
       - name: id
@@ -167,45 +201,6 @@ paths:
           description: The server did not respond inside time restrictions and timed-out.
 components:
   schemas:
-    EpochMilliseconds:
-      minimum: 0
-      type: integer
-      description: A date and time represented as ***milliseconds*** since the Unix epoch.
-      format: int64
-      example: 1524880285900
-      externalDocs:
-        description: Unix time - Wikipedia
-        url: https://en.wikipedia.org/wiki/Unix_time
-    TaskResponse:
-      title: Task Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/TaskResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information about a task to track the status of an asynchronous operation.
-      externalDocs:
-        description: Asynchronous operations - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!asynchronous-apis/asynchronous-operations
-    PacketCaptureDeployInfoList:
-      type: array
-      description: A list of ICAP configuration intents
-      example:
-        FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
-        - captureType: FULL
-          durationInMins: 60
-          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-          clientMac: AA:AA:AA:AA:AA:01
-        ONBOARDING for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
-        - captureType: FULL
-          durationInMins: 60
-          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-          clientMac: AA:AA:AA:AA:AA:01
-      items:
-        $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
     PacketCaptureDeployInfoItem:
       required:
       - captureType
@@ -307,31 +302,6 @@ components:
       example: '{"captureType": "FULL","wlcId": "9079ce39-25fe-4ab0-88cb-e89f5e700ddb", "clientMac": "AA:AA:AA:AA:AA:02", "durationInMins": 10}
 
         '
-    DeviceStatus:
-      type: string
-      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
-      enum:
-      - NOT_STARTED
-      - SUCCESS
-      - FAILED
-      - CONFIGURING
-      - ROLLBACK_SUCCESS
-      - ROLLBACK_FAILURE
-      - CANCELLED
-      - NOT_SUPPORTED
-      - PENDING
-    TaskResponse_response:
-      type: object
-      properties:
-        taskId:
-          type: string
-          description: The UUID of the task
-          format: uuid
-          example: 85c95140-50fc-4a57-994d-db58d3afe6b3
-        url:
-          type: string
-          description: The path to the API endpoint to GET for information on the task
-          example: /intent/api/v1/task/85c95140-50fc-4a57-994d-db58d3afe6b3
     ErrorResponse:
       title: Error Response
       type: object
@@ -346,10 +316,33 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    EpochMilliseconds:
+      minimum: 0
+      type: integer
+      description: A date and time represented as ***milliseconds*** since the Unix epoch.
+      format: int64
+      example: 1524880285900
+      externalDocs:
+        description: Unix time - Wikipedia
+        url: https://en.wikipedia.org/wiki/Unix_time
     inline_response_202_2:
       allOf:
       - $ref: '#/components/schemas/TaskResponse'
       - description: The task when complete will have the activity url in the resultLocation field. The progress of this deploy operation can be tracked using the activity.  The GET /intent/api/v1/icap with has the icapDeployedId for each ICAP intent in the deploy body.
+    TaskResponse:
+      title: Task Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/TaskResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information about a task to track the status of an asynchronous operation.
+      externalDocs:
+        description: Asynchronous operations - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!asynchronous-apis/asynchronous-operations
     ErrorResponse_response:
       type: object
       properties:
@@ -362,7 +355,93 @@ components:
         detail:
           type: string
           description: Detailed information regarding the error
+    PacketCaptureDeployInfoList:
+      type: array
+      description: A list of ICAP configuration intents
+      example:
+        FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
+        - captureType: FULL
+          durationInMins: 60
+          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+          clientMac: AA:AA:AA:AA:AA:01
+        ONBOARDING for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
+        - captureType: FULL
+          durationInMins: 60
+          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+          clientMac: AA:AA:AA:AA:AA:01
+      items:
+        $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
+    TaskResponse_response:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: The UUID of the task
+          format: uuid
+          example: 85c95140-50fc-4a57-994d-db58d3afe6b3
+        url:
+          type: string
+          description: The path to the API endpoint to GET for information on the task
+          example: /intent/api/v1/task/85c95140-50fc-4a57-994d-db58d3afe6b3
+    DeviceStatus:
+      type: string
+      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
+      enum:
+      - NOT_STARTED
+      - SUCCESS
+      - FAILED
+      - CONFIGURING
+      - ROLLBACK_SUCCESS
+      - ROLLBACK_FAILURE
+      - CANCELLED
+      - NOT_SUPPORTED
+      - PENDING
   examples:
+    SPECTRUM:
+      summary: SPECTRUM on slot 0, 1, and 2
+      value:
+      - captureType: SPECTRUM
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 0
+        - 1
+        - 2
+    OTA_Radio_Role:
+      summary: OTA (radio role sniffer)
+      value:
+      - captureType: OTA
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 1
+        otaBand: '6'
+        otaChannel: 36
+        otaChannelWidth: 80
+        otaMode: RADIO
+    ANOMALY_AP:
+      summary: ANOMALY on 1 AP
+      value:
+      - captureType: ANOMALY
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+    RFSTATS_AP:
+      summary: RFSTATS on 1 AP
+      value:
+      - captureType: RFSTATS
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+    OTA:
+      summary: OTA (default radio role sniffer)
+      value:
+      - captureType: OTA
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 0
+        otaBand: '2.4'
+        otaChannel: 7
+        otaChannelWidth: 20
     FULL:
       summary: FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices
       value:
@@ -386,34 +465,10 @@ components:
         otaChannel: 32
         otaChannelWidth: 40
         otaMode: AP
-    ANOMALY_AP:
-      summary: ANOMALY on 1 AP
+    ANOMALY_WLC:
+      summary: ANOMALY on 1 WLC
       value:
       - captureType: ANOMALY
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-    OTA_Radio_Role:
-      summary: OTA (radio role sniffer)
-      value:
-      - captureType: OTA
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 1
-        otaBand: '6'
-        otaChannel: 36
-        otaChannelWidth: 80
-        otaMode: RADIO
-    RFSTATS_AP:
-      summary: RFSTATS on 1 AP
-      value:
-      - captureType: RFSTATS
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-    RFSTATS_WLC:
-      summary: RFSTATS on 1 WLC
-      value:
-      - captureType: RFSTATS
         wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
     ONBOARDING:
       summary: ONBOARDING for client AA:AA:AA:AA:AA:01 on 1 WLC
@@ -422,31 +477,10 @@ components:
         durationInMins: 60
         wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
         clientMac: AA:AA:AA:AA:AA:01
-    SPECTRUM:
-      summary: SPECTRUM on slot 0, 1, and 2
+    RFSTATS_WLC:
+      summary: RFSTATS on 1 WLC
       value:
-      - captureType: SPECTRUM
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 0
-        - 1
-        - 2
-    OTA:
-      summary: OTA (default radio role sniffer)
-      value:
-      - captureType: OTA
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 0
-        otaBand: '2.4'
-        otaChannel: 7
-        otaChannelWidth: 20
-    ANOMALY_WLC:
-      summary: ANOMALY on 1 WLC
-      value:
-      - captureType: ANOMALY
+      - captureType: RFSTATS
         wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
 externalDocs:
   description: Catalyst Center Developer API resources

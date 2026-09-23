@@ -1,7 +1,17 @@
 openapi: 3.2.0
 info:
   title: Open API Spec for Assurance Fabric Summary API
-  description: "### OpenAPI specification defined for the purpose of providing visibility into the overall fabric entities and health in Catalyst Center\n\n**Relevant Concepts**\n\n| Term | Description |\n| -- | -- |\n| `Fabric Site` | A fabric site is a logical subdivision of a larger network fabric, containing its own control plane nodes for management, border nodes for routing traffic between sites, and edge nodes that connect devices to the fabric. |\n| `Virtual Network` | A fabric virtual network is a logical network overlay created on top of a physical network fabric. This overlay network allows you to segment your network into isolated, secure, and policy-driven environments for different departments, applications, or security zones. |\n| `Transit Network` | A fabric transit site is a special type of fabric site that connects multiple other fabric sites within a single fabric domain.  This applies only to SD-Access transit networks because health status is only  monitored for these sites, not for IP transit sites|\n| `Fabric deployments` | There are 2 types of Fabric deployments, namely 'LISP' and 'EVPN'.| \n| `LISP-based deployments` | LISP based deployments accommodate the following fabric entities: 'Fabric sites', 'Virtual networks (L2/L3)', and 'Transit Networks'. L2 VN health is not applicable for LISP based deployments.|\n| `EVPN-based deployments` | EVPN based deployments support 'Fabric sites' and 'Virtual networks (L2/L3)' currently. Transit networks is not applicable for EVPN based deployments.|              \n| `Fabric Health` | The health status of the fabric is determined by examining the session status among the various fabric entities. A valid Health score for Fabric entity ranges from 0-100 and is categorized as follows: Good (80-100), Fair (40-80), Poor (0-40), and No Health (--).|\n| `Fabric Issues` | Issues are identified when a monitored session between various fabric entities becomes disrupted or goes down.|\n> **Additonal information**:\n  - This API does not support Summary analytics and Trend analytics as this API aggregates information related to various fabric entities covering Fabric sites, Virtual networks and Transit Sites.\n  - Virtual networks and Transit networks are global entities and only shown to users with access to global resorce domain. These entity counts will be shows as 0 for users with limited site level access.\n"
+  description: '### OpenAPI specification defined for the purpose of providing visibility into the overall fabric entities and health in Catalyst Center
+
+
+    **Relevant Concepts**
+
+
+    | Term | Description |
+
+    | -- | -- |
+
+    | `Fabric Site` | A fabric site is a logical subdivision of a larger network fabric, containing its own control plane nodes for management, border nodes for routing traffic between sites, and edge nodes that connect devices to the fabric.'
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -94,76 +104,86 @@ paths:
           description: Default error response
 components:
   schemas:
-    p1IssueCount:
-      type: integer
-      description: the number of p1 issues
-      format: int64
-      example: 1
-    fabricSiteGoodHealthCount:
-      type: integer
-      description: number of fabric sites with good health (score range of 80-100)
-      format: int64
-      example: 4
-    fabricSiteCount:
-      type: integer
-      description: total number of fabric sites
-      format: int64
-      example: 5
-    fabricDeviceCount:
-      type: integer
-      description: total number of Fabric Devices across all fabric sites
-      format: int64
-      example: 15
-    transitNetworkGoodHealthPercentage:
-      type: number
-      description: percentage of transit sites with good health over total transit sites
-      format: double
-      example: 66
     l2VnNoHealthCount:
       type: integer
       description: number of l2 virtual network with No health (score of --)
       format: int64
       example: 2
-    fabricSiteNoHealthCount:
+    l2VnGoodHealthPercentage:
+      type: number
+      description: percentage of l2 virtual network with good health over total l2 virtual networks
+      format: double
+      example: 50
+    l2VnFairHealthCount:
       type: integer
-      description: number of fabric sites with No health (score of --)
-      format: int64
-      example: 40
-    fabricSitePoorHealthCount:
-      type: integer
-      description: number of fabric sites with Poor health (score of 0-40)
-      format: int64
-      example: 1
-    l3VnFairHealthCount:
-      type: integer
-      description: number of l3 virtual network with Fair health (score of 40-80)
+      description: number of l2 virtual network with Fair health (score of 40-80)
       format: int64
       example: 0
-    l2VnCount:
-      type: integer
-      description: total number of l2 virtual networks
-      format: int64
-      example: 4
     l2VnPoorHealthCount:
       type: integer
       description: number of l2 virtual network with No health (score of 0-40)
       format: int64
       example: 2
+    l3VnNoHealthCount:
+      type: integer
+      description: number of l3 virtual network with No health (score of --)
+      format: int64
+      example: 4
+    l2VnCount:
+      type: integer
+      description: total number of l2 virtual networks
+      format: int64
+      example: 4
+    l3VnGoodHealthPercentage:
+      type: number
+      description: percentage of l3 virtual network with good health over total l3 virtual networks
+      format: double
+      example: 100
+    l3VnCount:
+      type: integer
+      description: total number of l3 virtual networks.
+      format: int64
+      example: 4
     fabricSiteGoodHealthPercentage:
       type: number
       description: percentage of fabric sites with good health over total fabric sites
       format: double
       example: 80
+    fabricSitePoorHealthCount:
+      type: integer
+      description: number of fabric sites with Poor health (score of 0-40)
+      format: int64
+      example: 1
+    p1IssueCount:
+      type: integer
+      description: the number of p1 issues
+      format: int64
+      example: 1
+    fabricSiteCount:
+      type: integer
+      description: total number of fabric sites
+      format: int64
+      example: 5
     transitNetworkFairHealthCount:
       type: integer
       description: number of transit sites with Fair health (score of 40-80)
       format: int64
       example: 0
-    fabricSiteFairHealthCount:
+    transitNetworkGoodHealthPercentage:
+      type: number
+      description: percentage of transit sites with good health over total transit sites
+      format: double
+      example: 66
+    l3VnGoodHealthCount:
       type: integer
-      description: number of fabric sites with fair health (score range of 40-80)
+      description: number of l3 virtual network with good health (score range of 80-100)
       format: int64
-      example: 0
+      example: 4
+    l3VnPoorHealthCount:
+      type: integer
+      description: number of l3 virtual network with No health (score of 0-40)
+      format: int64
+      example: 1
     FabricSummary:
       type: object
       properties:
@@ -172,40 +192,16 @@ components:
           items:
             $ref: '#/components/schemas/FabricSummary_protocolSummaries'
       description: Summary of fabric entities with health info. Used for fabric sites, l2vns, l3vns and transit networks
-    l3VnNoHealthCount:
+    transitNetworkGoodHealthCount:
       type: integer
-      description: number of l3 virtual network with No health (score of --)
+      description: number of transit sites with good health (score range of 80-100)
       format: int64
-      example: 4
-    networkSegmentProtocol:
-      type: string
-      description: type of fabric deployment
-      example: LISP
-      enum:
-      - LISP
-      - EVPN
-      - UNKNOWN
-      - HYBRID
-    l2VnFairHealthCount:
+      example: 2
+    l3VnFairHealthCount:
       type: integer
-      description: number of l2 virtual network with Fair health (score of 40-80)
+      description: number of l3 virtual network with Fair health (score of 40-80)
       format: int64
       example: 0
-    FabricSummaryResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/FabricSummary'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Fabric summmary response schema
-    l3VnGoodHealthPercentage:
-      type: number
-      description: percentage of l3 virtual network with good health over total l3 virtual networks
-      format: double
-      example: 100
     FabricSummary_protocolSummaries:
       type: object
       properties:
@@ -265,39 +261,18 @@ components:
           $ref: '#/components/schemas/p2IssueCount'
         networkSegmentProtocol:
           $ref: '#/components/schemas/networkSegmentProtocol'
-    l3VnGoodHealthCount:
-      type: integer
-      description: number of l3 virtual network with good health (score range of 80-100)
-      format: int64
-      example: 4
-    p2IssueCount:
-      type: integer
-      description: the number of p2 issues
-      format: int64
-      example: 10
-    transitNetworkCount:
-      type: integer
-      description: total number of transit sites
-      format: int64
-      example: 3
+    networkSegmentProtocol:
+      type: string
+      description: type of fabric deployment
+      example: LISP
+      enum:
+      - LISP
+      - EVPN
+      - UNKNOWN
+      - HYBRID
     transitNetworkNoHealthCount:
       type: integer
       description: number of transit sites with No health (score of --)
-      format: int64
-      example: 2
-    l3VnCount:
-      type: integer
-      description: total number of l3 virtual networks.
-      format: int64
-      example: 4
-    l3VnPoorHealthCount:
-      type: integer
-      description: number of l3 virtual network with No health (score of 0-40)
-      format: int64
-      example: 1
-    l2VnGoodHealthCount:
-      type: integer
-      description: number of l2 virtual network with good health (score range of 80-100)
       format: int64
       example: 2
     transitNetworkPoorHealthCount:
@@ -305,16 +280,51 @@ components:
       description: number of transit sites with Poor health (score of 0-40)
       format: int64
       example: 2
-    transitNetworkGoodHealthCount:
+    fabricSiteFairHealthCount:
       type: integer
-      description: number of transit sites with good health (score range of 80-100)
+      description: number of fabric sites with fair health (score range of 40-80)
+      format: int64
+      example: 0
+    transitNetworkCount:
+      type: integer
+      description: total number of transit sites
+      format: int64
+      example: 3
+    fabricSiteNoHealthCount:
+      type: integer
+      description: number of fabric sites with No health (score of --)
+      format: int64
+      example: 40
+    l2VnGoodHealthCount:
+      type: integer
+      description: number of l2 virtual network with good health (score range of 80-100)
       format: int64
       example: 2
-    l2VnGoodHealthPercentage:
-      type: number
-      description: percentage of l2 virtual network with good health over total l2 virtual networks
-      format: double
-      example: 50
+    fabricSiteGoodHealthCount:
+      type: integer
+      description: number of fabric sites with good health (score range of 80-100)
+      format: int64
+      example: 4
+    FabricSummaryResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/FabricSummary'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Fabric summmary response schema
+    fabricDeviceCount:
+      type: integer
+      description: total number of Fabric Devices across all fabric sites
+      format: int64
+      example: 15
+    p2IssueCount:
+      type: integer
+      description: the number of p2 issues
+      format: int64
+      example: 10
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

@@ -3,9 +3,7 @@ info:
   title: OpenAPI Spec DNS Services API
   description: 'This collection of APIs provides data related to DNS Services offered in
 
-    Catalyst Center.
-
-    '
+    Catalyst Center.'
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -42,7 +40,7 @@ paths:
     get:
       tags:
       - DNS Services
-      summary: Retrieves the list of DNS Services for given parameters.
+      summary: Retrieves the list of DNS Services for given parameters
       description: Retrieves the list of DNS Services and offers basic filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is calculated for the given time range.
       operationId: readDNSServices
       parameters:
@@ -226,7 +224,7 @@ paths:
     get:
       tags:
       - DNS Services
-      summary: Retrieves the total number of DNS Services for given parameters.
+      summary: Retrieves the total number of DNS Services for given parameters
       description: Retrieves the total number of DNS Services for given parameters. If startTime and endTime are not provided, the API defaults to the last 24 hours.
       operationId: readDNSServicesCount
       parameters:
@@ -373,7 +371,7 @@ paths:
     get:
       tags:
       - DNS Services
-      summary: Retrieves the details of a specific DNS Service matching the id of the Service.
+      summary: Retrieves the details of a specific DNS Service matching the id of the Service
       description: Retrieves the details of the DNS Service matching the given id. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is from latest available snapshot in the given time range.
       operationId: readDNSServiceById
       parameters:
@@ -459,7 +457,7 @@ paths:
     post:
       tags:
       - DNS Services
-      summary: Retrieves the list of DNS Services for given set of complex filters.
+      summary: Retrieves the list of DNS Services for given set of complex filters
       description: 'Retrieves the list of DNS Services and offers complex filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is calculated for the given time range.
 
         |Field Name | Description |
@@ -532,7 +530,7 @@ paths:
     post:
       tags:
       - DNS Services
-      summary: Retrieves the total number of DNS Services for given set of complex filters.
+      summary: Retrieves the total number of DNS Services for given set of complex filters
       description: 'Retrieves the total number of DNS Services and offers complex filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -603,7 +601,7 @@ paths:
     post:
       tags:
       - DNS Services
-      summary: Get summary analytics data of DNS Services for given set of complex filters.
+      summary: Get summary analytics data of DNS Services for given set of complex filters
       description: 'Gets the summary analytics data related to DNS Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -620,7 +618,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DNSServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset and sortBy** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *sortBy* - attribute name, order to sort|'
       operationId: queryDNSServicesSummaryAnalytics
@@ -677,7 +675,7 @@ paths:
     post:
       tags:
       - DNS Services
-      summary: Get Top N analytics data of DNS Services for given set of complex filters.
+      summary: Get Top N analytics data of DNS Services for given set of complex filters
       description: 'Gets the Top N analytics data related to DNS Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -696,7 +694,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DNSServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset and sortBy** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *sortBy* - attribute name, order to sort|'
       operationId: queryDNSServicesTopNAnalytics
@@ -753,7 +751,7 @@ paths:
     post:
       tags:
       - DNS Services
-      summary: Get trend analytics data of DNS Services for given set of complex filters.
+      summary: Get trend analytics data of DNS Services for given set of complex filters
       description: 'Gets the trend analytics data related to DNS Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -772,7 +770,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DNSServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset, and timestampOrder** fields. *limit* - number of records to be returned in response. *offset* - starting offset of data. *timestampOrder* - to sort the response based on the timestamp either in ascending or descending order. |'
       operationId: queryDNSServicesTrendAnalytics
@@ -829,7 +827,7 @@ paths:
     post:
       tags:
       - DNS Services
-      summary: Get trend analytics data for a given DNS Service matching the id of the Service.
+      summary: Get trend analytics data for a given DNS Service matching the id of the Service
       description: 'Gets the trend analytics data related to a particular DNS Service matching the id. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -848,7 +846,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DNSServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DNSServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset, and timestampOrder** fields. *limit* - number of records to be returned in response. *offset* - starting offset of data. *timestampOrder* - to sort the response based on the timestamp either in ascending or descending order. |'
       operationId: queryDNSServicesTrendAnalyticsById
@@ -921,303 +919,6 @@ paths:
           description: Unexpected Error
 components:
   schemas:
-    DNSServicesAnalyticsGroupByKey:
-      type: string
-      description: Grouping key
-      enum:
-      - serverIp
-      - deviceId
-      - deviceSiteId
-      - failureResponseCode
-    startAndEndTime:
-      type: object
-      properties:
-        startTime:
-          type: integer
-          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `startTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705348800000
-        endTime:
-          type: integer
-          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `endTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705435200000
-      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
-    DNSServicesAnalyticsSortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name on which the data should be sorted
-          enum:
-          - serverIp
-          - successRate
-          - failureRate
-          - transactions
-          - failedTransactions
-          - successfulTransactions
-          - latency
-        function:
-          $ref: '#/components/schemas/NetworkServicesFunction'
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: Records are sorted based on the field specified.
-    NetworkServicesAnalyticsGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This is the group key. Its the concatination of groupBy attributes
-          example: servicerIp=10.45.32.43_deviceId=868d39df-0b96-4fdb-83cc-ae3130e4e824
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: Network Services Analytics Group object
-    DNSServicesPaginationRequest:
-      type: object
-      properties:
-        limit:
-          maximum: 100
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          description: List of sort objects
-          items:
-            $ref: '#/components/schemas/DNSServicesPaginationSortBy'
-      description: Pagination object
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    DNSServicesFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/DNSServicesFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/NetworkServicesOperator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set.
-
-            '
-        filters:
-          type: array
-          description: 'This nested array of filters can be used when `logicalOperator` is used.
-
-            '
-          items:
-            $ref: '#/components/schemas/DNSServicesFilter'
-      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
-
-        '
-    NetworkServicesFunction:
-      type: string
-      description: Name of the aggregate function that should be applied when querying the data.
-      enum:
-      - sum
-      - min
-      - max
-      - avg
-      - latest
-    NetworkServicesAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the attribute
-          example: deviceName
-        value:
-          type: object
-          description: Value of the attribute
-          example: wnbu.sjc12.cisco.com
-    DNSServicesQueryRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          description: List of filters
-          items:
-            $ref: '#/components/schemas/DNSServicesFilter'
-        page:
-          $ref: '#/components/schemas/DNSServicesPaginationRequest'
-      description: DNS Services query requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    DNSServiceListResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          description: List of response items
-          items:
-            $ref: '#/components/schemas/DNSServiceResponse'
-        page:
-          $ref: '#/components/schemas/DNSServicePaginationResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: DNS Service list response
-    DNSServicesQueryCountRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          description: List of filters
-          items:
-            $ref: '#/components/schemas/DNSServicesFilter'
-      description: DNS Services query count requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    DNSServicesAnalyticsFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - serverIp
-      - deviceId
-      - deviceSiteHierarchyId
-      - deviceSiteId
-      - ssid
-    DNSServicesTopNAnalyticsRequest:
-      required:
-      - groupBy
-      - topN
-      type: object
-      properties:
-        topN:
-          $ref: '#/components/schemas/topN'
-        groupBy:
-          type: array
-          description: List of groupBy fields
-          items:
-            $ref: '#/components/schemas/DNSServicesAnalyticsGroupByKey'
-        filters:
-          type: array
-          description: List of filters
-          items:
-            $ref: '#/components/schemas/DNSServicesAnalyticsFilter'
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/DNSServicesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/DNSServicesAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/DNSServicesAnalyticsPaginationRequest'
-      description: DNS Services Top N Analytics requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    DNSServiceResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/DNSServiceResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: DNS Service response
-    DNSServicesPaginationSortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Records are sorted based on the field specified.
-          enum:
-          - serverIp
-          - transactions
-          - failedTransactions
-          - successfulTransactions
-          - latency
-          - ssid
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: Records are sorted based on the field specified.
-    DNSServicesTrendInterval:
-      type: string
-      description: 'The time window to aggregate the Network Services data.
-
-        '
-      enum:
-      - 30MIN
-      - 1HOUR
-      - 1DAY
-    DNSServicesTrendAnalyticsResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: Timestamp of the data (epoch time)
-          format: int64
-          example: 1709706600000
-        groups:
-          type: array
-          description: List of groups
-          items:
-            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: DNS Services Trend Analytics Response object
     NetworkServicesPaginationWithTrendRequest:
       type: object
       properties:
@@ -1240,6 +941,89 @@ components:
           enum:
           - asc
           - desc
+    DNSServicesTrendAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          description: Response version
+          example: '1.0'
+        response:
+          type: array
+          description: Trend Analytics response
+          items:
+            $ref: '#/components/schemas/DNSServicesTrendAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendResponse'
+      description: DNS Services Trend Analytics Response Model
+    DNSServicesQueryRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          description: List of filters
+          items:
+            $ref: '#/components/schemas/DNSServicesFilter'
+        page:
+          $ref: '#/components/schemas/DNSServicesPaginationRequest'
+      description: DNS Services query requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    NetworkServicesFunction:
+      type: string
+      description: Name of the aggregate function that should be applied when querying the data.
+      enum:
+      - sum
+      - min
+      - max
+      - avg
+      - latest
+    DNSServicesAggregateAttributeKey:
+      type: string
+      description: Aggregate attribute key
+      enum:
+      - transactions
+      - failedTransactions
+      - successfulTransactions
+      - latency
+    DNSServicesTrendInterval:
+      type: string
+      description: 'The time window to aggregate the Network Services data.
+
+        '
+      enum:
+      - 30MIN
+      - 1HOUR
+      - 1DAY
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     DNSServiceResponse:
       type: object
       properties:
@@ -1304,103 +1088,6 @@ components:
           description: This field is applicable only if device family is `wireless controller`.
           example: alpha
       description: Contains details of DNS service.
-    DNSServiceFailureResponse:
-      type: object
-      properties:
-        failureResponseCode:
-          type: integer
-          description: Response code of the failure
-          example: 3
-        failureDescription:
-          type: string
-          description: Description of the failure
-          example: Non-Existent Domain
-        failedTransactions:
-          type: integer
-          description: Number of transactions that are failed with this code.
-          format: int64
-          example: 14
-      description: Failure response
-    DNSServicesAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/DNSServicesAggregateAttributeKey'
-        function:
-          $ref: '#/components/schemas/NetworkServicesFunction'
-      description: Aggreage attribute object
-    DNSServicesTopNAnalyticsResponse:
-      type: array
-      description: Issues TopN Analytics Response object
-      items:
-        $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    DNSServicesFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - serverIp
-      - deviceId
-      - deviceSiteHierarchyId
-      - deviceSiteId
-      - transactions
-      - successfulTransactions
-      - failedTransactions
-      - latency
-      - ssid
-    DNSServicesAnalyticsPaginationRequest:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 25
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          description: List of sort objects
-          items:
-            $ref: '#/components/schemas/DNSServicesAnalyticsSortBy'
-    NetworkServicesAggregateAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Aggregate attribute name
-        function:
-          type: string
-          description: Aggregate function
-        value:
-          type: object
-          description: This is the aggregate value of the attribute after applying the function on the dataset
-          example: 14
     DNSServicePaginationResponse:
       type: object
       properties:
@@ -1427,17 +1114,171 @@ components:
           items:
             $ref: '#/components/schemas/DNSServicesPaginationSortBy'
       description: Pagination object
-    LogicalOperator:
+    DNSServicesAnalyticsPaginationRequest:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 25
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        sortBy:
+          type: array
+          description: List of sort objects
+          items:
+            $ref: '#/components/schemas/DNSServicesAnalyticsSortBy'
+    DNSServiceFailureResponse:
+      type: object
+      properties:
+        failureResponseCode:
+          type: integer
+          description: Response code of the failure
+          example: 3
+        failureDescription:
+          type: string
+          description: Description of the failure
+          example: Non-Existent Domain
+        failedTransactions:
+          type: integer
+          description: Number of transactions that are failed with this code.
+          format: int64
+          example: 14
+      description: Failure response
+    NetworkServicesOperator:
       type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
+      description: Type of filter operator to use for querying data. When `in` and `notIn` operators are used, the `value` should be array. For all other operators, the `value` should be a single value.
       enum:
-      - and
-      - or
+      - in
+      - eq
+      - like
+      - lt
+      - lte
+      - gt
+      - gte
+    DNSServicesPaginationSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Records are sorted based on the field specified.
+          enum:
+          - serverIp
+          - transactions
+          - failedTransactions
+          - successfulTransactions
+          - latency
+          - ssid
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: Records are sorted based on the field specified.
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    DNSServicesTrendAnalyticsResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: Timestamp of the data (epoch time)
+          format: int64
+          example: 1709706600000
+        groups:
+          type: array
+          description: List of groups
+          items:
+            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
+      description: DNS Services Trend Analytics Response object
+    startAndEndTime:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `startTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705348800000
+        endTime:
+          type: integer
+          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `endTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705435200000
+      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+    DNSServicesAnalyticsSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name on which the data should be sorted
+          enum:
+          - serverIp
+          - successRate
+          - failureRate
+          - transactions
+          - failedTransactions
+          - successfulTransactions
+          - latency
+        function:
+          $ref: '#/components/schemas/NetworkServicesFunction'
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: Records are sorted based on the field specified.
+    NetworkServicesAggregateAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Aggregate attribute name
+        function:
+          type: string
+          description: Aggregate function
+        value:
+          type: object
+          description: This is the aggregate value of the attribute after applying the function on the dataset
+          example: 14
     DNSServicesSummaryAnalyticsRequest:
       type: object
       properties:
@@ -1466,63 +1307,17 @@ components:
       description: DNS Services Summary Analytics requst payload
       allOf:
       - $ref: '#/components/schemas/startAndEndTime'
-    topN:
-      maximum: 100
-      minimum: 5
-      type: integer
-      description: Number of records to retrieve
-      default: 5
-      enum:
-      - 5
-      - 10
-      - 50
-      - 100
-    DNSServicesTrendAnalyticsResponseModel:
+    NetworkServicesAttributeResponse:
       type: object
       properties:
-        version:
+        name:
           type: string
-          description: Response version
-          example: '1.0'
-        response:
-          type: array
-          description: Trend Analytics response
-          items:
-            $ref: '#/components/schemas/DNSServicesTrendAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendResponse'
-      description: DNS Services Trend Analytics Response Model
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    DNSServicesSummaryAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          description: Response version
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/DNSServicesSummaryAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/DNSServicesAnalyticsSortResponse'
-      description: DNS Services Summary Analytics Response Model
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
+          description: Name of the attribute
+          example: deviceName
+        value:
+          type: object
+          description: Value of the attribute
+          example: wnbu.sjc12.cisco.com
     NetworkServicesPaginationWithTrendResponse:
       type: object
       properties:
@@ -1551,79 +1346,11 @@ components:
           enum:
           - asc
           - desc
-    DNSServicesAggregateAttributeKey:
-      type: string
-      description: Aggregate attribute key
-      enum:
-      - transactions
-      - failedTransactions
-      - successfulTransactions
-      - latency
-    DNSServicesTopNAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          description: Response version
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/DNSServicesTopNAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/DNSServicesAnalyticsSortResponse'
-      description: DNS Services Top N Analytics Response Model
-    DNSServicesSummaryAnalyticsResponse:
-      type: object
-      properties:
-        groups:
-          type: array
-          description: List of groups
-          items:
-            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: DNS Services Summary Analytics Response object
-    NetworkServicesOperator:
-      type: string
-      description: Type of filter operator to use for querying data. When `in` and `notIn` operators are used, the `value` should be array. For all other operators, the `value` should be a single value.
-      enum:
-      - in
-      - eq
-      - like
-      - lt
-      - lte
-      - gt
-      - gte
-    DNSServicesAnalyticsSortResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 25
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-        sortBy:
-          type: array
-          description: List of sort objects
-          items:
-            $ref: '#/components/schemas/DNSServicesAnalyticsSortBy'
+    DNSServicesTopNAnalyticsResponse:
+      type: array
+      description: Issues TopN Analytics Response object
+      items:
+        $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
     DNSServicesAnalyticsAttributeKey:
       type: string
       description: Attribute key for anlytics
@@ -1634,30 +1361,68 @@ components:
       - successRate
       - failureRate
       - failureDescription
-    DNSServicesAnalyticsFilter:
+    NetworkServicesAnalyticsGroup:
       type: object
       properties:
-        key:
-          $ref: '#/components/schemas/DNSServicesAnalyticsFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/NetworkServicesOperator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set.
-
-            '
+        id:
+          type: string
+          description: This is the group key. Its the concatination of groupBy attributes
+          example: servicerIp=10.45.32.43_deviceId=868d39df-0b96-4fdb-83cc-ae3130e4e824
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
+      description: Network Services Analytics Group object
+    DNSServicesTopNAnalyticsRequest:
+      required:
+      - groupBy
+      - topN
+      type: object
+      properties:
+        topN:
+          $ref: '#/components/schemas/topN'
+        groupBy:
+          type: array
+          description: List of groupBy fields
+          items:
+            $ref: '#/components/schemas/DNSServicesAnalyticsGroupByKey'
         filters:
           type: array
-          description: 'This nested array of filters can be used when `logicalOperator` is used.
-
-            '
+          description: List of filters
           items:
             $ref: '#/components/schemas/DNSServicesAnalyticsFilter'
-      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
-
-        '
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/DNSServicesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/DNSServicesAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/DNSServicesAnalyticsPaginationRequest'
+      description: DNS Services Top N Analytics requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    topN:
+      maximum: 100
+      minimum: 5
+      type: integer
+      description: Number of records to retrieve
+      default: 5
+      enum:
+      - 5
+      - 10
+      - 50
+      - 100
     DNSServicesTrendAnalyticsRequest:
       required:
       - groupBy
@@ -1691,7 +1456,263 @@ components:
       description: DNS Services Trend Analytics requst payload
       allOf:
       - $ref: '#/components/schemas/startAndEndTime'
+    DNSServicesFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - serverIp
+      - deviceId
+      - deviceSiteHierarchyId
+      - deviceSiteId
+      - transactions
+      - successfulTransactions
+      - failedTransactions
+      - latency
+      - ssid
+    LogicalOperator:
+      type: string
+      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
+      enum:
+      - and
+      - or
+    DNSServicesPaginationRequest:
+      type: object
+      properties:
+        limit:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 7
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        sortBy:
+          type: array
+          description: List of sort objects
+          items:
+            $ref: '#/components/schemas/DNSServicesPaginationSortBy'
+      description: Pagination object
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    DNSServicesAnalyticsFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - serverIp
+      - deviceId
+      - deviceSiteHierarchyId
+      - deviceSiteId
+      - ssid
+    DNSServicesFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/DNSServicesFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/NetworkServicesOperator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set.
+
+            '
+        filters:
+          type: array
+          description: 'This nested array of filters can be used when `logicalOperator` is used.
+
+            '
+          items:
+            $ref: '#/components/schemas/DNSServicesFilter'
+      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
+
+        '
+    DNSServicesSummaryAnalyticsResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          description: List of groups
+          items:
+            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
+      description: DNS Services Summary Analytics Response object
+    DNSServiceListResponseModel:
+      type: object
+      properties:
+        response:
+          type: array
+          description: List of response items
+          items:
+            $ref: '#/components/schemas/DNSServiceResponse'
+        page:
+          $ref: '#/components/schemas/DNSServicePaginationResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: DNS Service list response
+    DNSServicesTopNAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          description: Response version
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/DNSServicesTopNAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/DNSServicesAnalyticsSortResponse'
+      description: DNS Services Top N Analytics Response Model
+    DNSServicesQueryCountRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          description: List of filters
+          items:
+            $ref: '#/components/schemas/DNSServicesFilter'
+      description: DNS Services query count requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    DNSServicesAnalyticsSortResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 25
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+        sortBy:
+          type: array
+          description: List of sort objects
+          items:
+            $ref: '#/components/schemas/DNSServicesAnalyticsSortBy'
+    DNSServiceResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/DNSServiceResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: DNS Service response
+    DNSServicesAggregateAttribute:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DNSServicesAggregateAttributeKey'
+        function:
+          $ref: '#/components/schemas/NetworkServicesFunction'
+      description: Aggreage attribute object
+    DNSServicesAnalyticsGroupByKey:
+      type: string
+      description: Grouping key
+      enum:
+      - serverIp
+      - deviceId
+      - deviceSiteId
+      - failureResponseCode
+    DNSServicesSummaryAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          description: Response version
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/DNSServicesSummaryAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/DNSServicesAnalyticsSortResponse'
+      description: DNS Services Summary Analytics Response Model
+    DNSServicesAnalyticsFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/DNSServicesAnalyticsFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/NetworkServicesOperator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set.
+
+            '
+        filters:
+          type: array
+          description: 'This nested array of filters can be used when `logicalOperator` is used.
+
+            '
+          items:
+            $ref: '#/components/schemas/DNSServicesAnalyticsFilter'
+      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
+
+        '
   examples:
+    DNSServicesQueryRequestExample2:
+      description: This request has simple filters. The resulting query from this request is - get all DNS Services whose `serverIp` is *"10.55.32.109"* AND either trnsactions > 5000 OR failedTransactions > 50
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: serverIp
+          operator: eq
+          value: 10.55.32.109
+        - logicalOperator: or
+          filters:
+          - key: transactions
+            operator: gt
+            value: 5000
+          - key: failedransactions
+            operator: gt
+            value: 50
+        page:
+          limit: 25
+          offset: 1
+          sortBy:
+          - name: mostRecentOccurredTime
+            order: desc
     DNSServicesQueryCountRequestExample1:
       description: This request has simple filters. The resulting query from this request is - get all DNS Services whose `deviceId` is *"243faba9-7f9e-4f2d-9914-97c2756754cb"* OR *"681d442b-6df7-4583-990f-c6862d040f89"* AND have `serverIp` as *"10.55.32.109"*
       value:
@@ -1737,29 +1758,6 @@ components:
         - key: serverIp
           operator: eq
           value: 10.55.32.109
-        page:
-          limit: 25
-          offset: 1
-          sortBy:
-          - name: mostRecentOccurredTime
-            order: desc
-    DNSServicesQueryRequestExample2:
-      description: This request has simple filters. The resulting query from this request is - get all DNS Services whose `serverIp` is *"10.55.32.109"* AND either trnsactions > 5000 OR failedTransactions > 50
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: serverIp
-          operator: eq
-          value: 10.55.32.109
-        - logicalOperator: or
-          filters:
-          - key: transactions
-            operator: gt
-            value: 5000
-          - key: failedransactions
-            operator: gt
-            value: 50
         page:
           limit: 25
           offset: 1

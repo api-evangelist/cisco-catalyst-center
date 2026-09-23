@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: OpenAPI spec to define Application Health Score Definitions API
+  title: OpenAPI spec to define Application Health Score Definitions…
   description: APIs to customize application KPI thresholds and weightages for application health computation.
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
@@ -35,8 +35,32 @@ paths:
     get:
       tags:
       - applicationHealthScoreDefinitions
-      summary: Get all application health score definitions.
-      description: "Get all application health score definitions for given filter.\n\nBy default all supported attributes are listed in the response.\n\nFollowing diagram explains the various thresholds, and corresponding health score range:\n\n```\nbadThreshold            poorThreshold             goodThreshold            greatThreshold\n     |-------------------------|-------------------------|-------------------------|\n            Poor (1-3)                 Fair (4-7)                Good (8-10)\n```\n\nFinal health score is calcuated as follows:\n* For each KPI (e.g. jitter), KPI-specific health score is calculated using thresholds explained above.\n* Overall health score is derived by performing weighted average of all KPIs.\n"
+      summary: Get all application health score definitions
+      description: 'Get all application health score definitions for given filter.
+
+
+        By default all supported attributes are listed in the response.
+
+
+        Following diagram explains the various thresholds, and corresponding health score range:
+
+
+        ```
+
+        badThreshold poorThreshold goodThreshold greatThreshold
+
+        |-------------------------|-------------------------|-------------------------|
+
+        Poor (1-3) Fair (4-7) Good (8-10)
+
+        ```
+
+
+        Final health score is calcuated as follows:
+
+        * For each KPI (e.g. jitter), KPI-specific health score is calculated using thresholds explained above.
+
+        * Overall health score is derived by performing weighted average of all KPIs.'
       operationId: readApplicationHealthDefinitions
       parameters:
       - name: trafficClass
@@ -212,10 +236,8 @@ paths:
     get:
       tags:
       - applicationHealthScoreDefinitions
-      summary: Get application health score definition for the given id.
-      description: 'Get application health score definition for the given id. By default all supported attributes are listed in the response.
-
-        '
+      summary: Get application health score definition for the given id
+      description: Get application health score definition for the given id. By default all supported attributes are listed in the response.
       operationId: readApplicationHealthDefinitionById
       parameters:
       - name: id
@@ -326,10 +348,8 @@ paths:
     put:
       tags:
       - applicationHealthScoreDefinitions
-      summary: Update application health score definition for the given id.
-      description: 'Update application health score definition for the given id.
-
-        '
+      summary: Update application health score definition for the given id
+      description: Update application health score definition for the given id.
       operationId: updateApplicationHealthDefinitionById
       parameters:
       - name: id
@@ -422,10 +442,8 @@ paths:
     post:
       tags:
       - applicationHealthScoreDefinitions
-      summary: Bulk update application health score definitions.
-      description: 'Update application health score definitions for multiple KPIs.
-
-        '
+      summary: Bulk update application health score definitions
+      description: Update application health score definitions for multiple KPIs.
       operationId: bulkUpdateApplicationHealthDefinitions
       parameters:
       - name: X-CALLER-ID
@@ -543,10 +561,8 @@ paths:
     get:
       tags:
       - applicationHealthScoreDefinitions
-      summary: Get the count of application health score definitions.
-      description: 'Get the count of application health score definitions based on provided filters.
-
-        '
+      summary: Get the count of application health score definitions
+      description: Get the count of application health score definitions based on provided filters.
       operationId: countApplicationHealthDefinitions
       parameters:
       - name: trafficClass
@@ -629,58 +645,6 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
-    ApplicationHealthScoreDefinitionListResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     ApplicationHealthScoreDefinitionListWithoutPaginationResponse:
       type: object
       properties:
@@ -704,18 +668,76 @@ components:
       example: ''
       allOf:
       - $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
-    ErrorObject:
+    ApplicationHealthScoreDefinitionResponse:
       type: object
       properties:
-        errorCode:
+        response:
+          $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+      description: Response object for list of health score definitions.
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
           type: integer
-          description: Application specific error code returned by the server
-        message:
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    ApplicationHealthScoreDefinitionListResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
+        version:
           type: string
-          description: Brief message about the error condition
-        detail:
+          example: '1.0'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
           type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
     PaginationResponse_sortBy:
       type: object
       properties:
@@ -731,15 +753,17 @@ components:
           - asc
           - desc
       description: List of field names and corresponding order used to sort   the records.
-    ApplicationHealthScoreDefinitionResponse:
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
+          $ref: '#/components/schemas/CountIntegerResponse_response'
         version:
           type: string
+          description: The version of the response
           example: '1.0'
-      description: Response object for list of health score definitions.
+      description: Reports
     ApplicationHealthScoreDefinition:
       type: object
       properties:
@@ -965,26 +989,18 @@ components:
         includeForHealthScore: true
         includeForHealthScoreDefault: true
         lastModified: 1739626032281
-    PaginationResponse:
+    ErrorObject:
       type: object
       properties:
-        limit:
+        errorCode:
           type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

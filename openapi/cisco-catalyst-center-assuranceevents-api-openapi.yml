@@ -39,9 +39,7 @@ paths:
       description: 'API to fetch the list of assurance events using basic filters. Use the `/assuranceEvents/query` API if you need complex filtering.
 
 
-        Note that querying of data spanning more than 7 days is not allowed, so difference between `startTime` and `endTime` must not be more than that.
-
-        '
+        Note that querying of data spanning more than 7 days is not allowed, so difference between `startTime` and `endTime` must not be more than that.'
       operationId: readEvents
       parameters:
       - name: deviceFamily
@@ -485,9 +483,7 @@ paths:
       description: 'API to fetch the count of assurance events that match the filter criteria. Use the `/assuranceEvents/query/count` API if you need complex filtering.
 
 
-        Note that querying of data spanning more than 7 days is not allowed, so difference between `startTime` and `endTime` must not be more than that.
-
-        '
+        Note that querying of data spanning more than 7 days is not allowed, so difference between `startTime` and `endTime` must not be more than that.'
       operationId: countEvents
       parameters:
       - name: deviceFamily
@@ -1024,7 +1020,168 @@ paths:
       tags:
       - assuranceEvents
       summary: Query assurance events with filters
-      description: "Returns the list of events discovered by Catalyst Center, determined by the complex filters.\n\n**The input payload contains the following fields:**\n\n| Field Name              | Description                    |\n| ----------------------  | ------------------------------ |\n| `startTime`             | Start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |\n| `endTime`               | End time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |\n| `views`                 | A collection of attributes classified as \"view\" associated with the resource, which can be requested to be included in the response alongside the required attributes. Each view comprises a predetermined set of attributes. Refer to `EventViews` for the supported views |\n| `attributes`            | A list of attributes associated with the resource, which can be requested to be included in the response alongside the required attributes. Refer to `eventAttributes` model for the supported attributes |\n| `deviceFamily`          | The value of `deviceFamily`. Please refer to `deviceFamily` model for the supported list. |\n| `filters`               | Used to define one or more filter conditions. Only the data that satisfy these conditions will be taken into consideration during the aggregation calculation. The supported list of filters in defined in `EventsFilterObj`. |\n| `page`                  | The `page` includes `limit`, `offset` and `sortBy` fields. `limit` indicates the number of records to retrieve per page, `offset` signifies the starting position of the data, and `sortBy` specifies the name and order. If `sortBy` parameter is not provided, then the results are sorted by `timestamp` in descending order. |\n\n**How the filtering behavior works**\n\nThe `filters` field in each post body can be used in various ways:\n\nEach filter in the list of filters will be applied simultaneously.\nFor instance, the following example would request filtering to retrieve events where `networkDeviceName` contains `9300-SJ` and `managementIpAddress` contains `10.1`.\n```\n{\n  \"deviceFamily\": [\n    \"Switches and Hubs\",\n    \"Routers\"\n  ],\n  \"startTime\": 1705348800000,\n  \"endTime\": 1705435200000,\n  \"filters\": [\n    {\n      \"key\": \"networkDeviceName\",\n      \"operator\": \"like\",\n      \"value\": \"9300-SJ\"\n    },\n    {\n      \"key\": \"managementIpAddress\",\n      \"operator\": \"like\",\n      \"value\": \"10.1\"\n    }\n  ]\n}\n```\n\nEach filter object can utilize its logical operator differently to offer nested filtering functionality.\n\nIn the example below, you can observe a logical `OR` filter being applied using the nested filtering functionality:\n\nThe main filter object doesn't have its `key`, `value`, or `operator` fields populated. Only the `logicalOperator` field is populated to indicate that the filters within the nested filters list are to be logically combined.\n\n```      \n{\n  \"deviceFamily\": [\n    \"Switches and Hubs\",\n    \"Routers\"\n  ],\n  \"startTime\": 1705348800000,\n  \"endTime\": 1705435200000,\n  \"filters\": [\n    {\n      \"logicalOperator\": \"or\",\n      \"filters\": [\n        {\n          \"key\": \"networkDeviceName\",\n          \"operator\": \"like\",\n          \"value\": \"9300-SJ\"\n        },\n        {\n          \"key\": \"managementIpAddress\",\n          \"operator\": \"like\",\n          \"value\": \"10.1\"\n        }\n      ]\n    }\n  ],\n  \"page\": {\n    \"limit\": 20,\n    \"offset\": 1,\n    \"sortBy\": [\n      {\n        \"name\": \"timestamp\",\n        \"order\": \"desc\"\n      }\n    ]\n  }\n}\n```\n"
+      description: 'Returns the list of events discovered by Catalyst Center, determined by the complex filters.
+
+
+        **The input payload contains the following fields:**
+
+
+        | Field Name | Description |
+
+        | ---------------------- | ------------------------------ |
+
+        | `startTime` | Start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |
+
+        | `endTime` | End time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |
+
+        | `views` | A collection of attributes classified as "view" associated with the resource, which can be requested to be included in the response alongside the required attributes. Each view comprises a predetermined set of attributes. Refer to `EventViews` for the supported views |
+
+        | `attributes` | A list of attributes associated with the resource, which can be requested to be included in the response alongside the required attributes. Refer to `eventAttributes` model for the supported attributes |
+
+        | `deviceFamily` | The value of `deviceFamily`. Please refer to `deviceFamily` model for the supported list. |
+
+        | `filters` | Used to define one or more filter conditions. Only the data that satisfy these conditions will be taken into consideration during the aggregation calculation. The supported list of filters in defined in `EventsFilterObj`. |
+
+        | `page` | The `page` includes `limit`, `offset` and `sortBy` fields. `limit` indicates the number of records to retrieve per page, `offset` signifies the starting position of the data, and `sortBy` specifies the name and order. If `sortBy` parameter is not provided, then the results are sorted by `timestamp` in descending order. |
+
+
+        **How the filtering behavior works**
+
+
+        The `filters` field in each post body can be used in various ways:
+
+
+        Each filter in the list of filters will be applied simultaneously.
+
+        For instance, the following example would request filtering to retrieve events where `networkDeviceName` contains `9300-SJ` and `managementIpAddress` contains `10.1`.
+
+        ```
+
+        {
+
+        "deviceFamily": [
+
+        "Switches and Hubs",
+
+        "Routers"
+
+        ],
+
+        "startTime": 1705348800000,
+
+        "endTime": 1705435200000,
+
+        "filters": [
+
+        {
+
+        "key": "networkDeviceName",
+
+        "operator": "like",
+
+        "value": "9300-SJ"
+
+        },
+
+        {
+
+        "key": "managementIpAddress",
+
+        "operator": "like",
+
+        "value": "10.1"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        Each filter object can utilize its logical operator differently to offer nested filtering functionality.
+
+
+        In the example below, you can observe a logical `OR` filter being applied using the nested filtering functionality:
+
+
+        The main filter object doesn''t have its `key`, `value`, or `operator` fields populated. Only the `logicalOperator` field is populated to indicate that the filters within the nested filters list are to be logically combined.
+
+
+        ```
+
+        {
+
+        "deviceFamily": [
+
+        "Switches and Hubs",
+
+        "Routers"
+
+        ],
+
+        "startTime": 1705348800000,
+
+        "endTime": 1705435200000,
+
+        "filters": [
+
+        {
+
+        "logicalOperator": "or",
+
+        "filters": [
+
+        {
+
+        "key": "networkDeviceName",
+
+        "operator": "like",
+
+        "value": "9300-SJ"
+
+        },
+
+        {
+
+        "key": "managementIpAddress",
+
+        "operator": "like",
+
+        "value": "10.1"
+
+        }
+
+        ]
+
+        }
+
+        ],
+
+        "page": {
+
+        "limit": 20,
+
+        "offset": 1,
+
+        "sortBy": [
+
+        {
+
+        "name": "timestamp",
+
+        "order": "desc"
+
+        }
+
+        ]
+
+        }
+
+        }
+
+        ```'
       operationId: queryEvents
       parameters:
       - name: X-CALLER-ID
@@ -1100,7 +1257,142 @@ paths:
       tags:
       - assuranceEvents
       summary: Count the number of events with filters
-      description: "API to fetch the count of assurance events for the given complex query.\n\n**The input payload contains the following fields:**\n\n| Field Name              | Description                    |\n| ----------------------  | ------------------------------ |\n| `startTime`             | Start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |\n| `endTime`               | End time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |\n| `deviceFamily`          | The value of `deviceFamily`. Please refer to `deviceFamily` model for the supported list. |\n| `filters`               | Used to define one or more filter conditions. Only the data that satisfy these conditions will be taken into consideration during the aggregation calculation. The supported list of filters in defined in `EventsFilterObj`. |\n\n**How the filtering behavior works**\n\nThe `filters` field in each post body can be used in various ways:\n\nEach filter in the list of filters will be applied simultaneously.\nFor instance, the following example would request filtering to Count of events with an networkDeviceName contains 9300-SJ and managementIpAddress contains 10.1.   \n```\n{\n  \"deviceFamily\": [\n    \"Switches and Hubs\",\n    \"Routers\"\n  ],\n  \"startTime\": 1705348800000,\n  \"endTime\": 1705435200000,\n  \"filters\": [\n    {\n      \"key\": \"networkDeviceName\",\n      \"operator\": \"like\",\n      \"value\": \"9300-SJ\"\n    },\n    {\n      \"key\": \"managementIpAddress\",\n      \"operator\": \"like\",\n      \"value\": \"10.1\"\n    }\n  ]\n}\n```\n\nEach filter object can utilize its logical operator differently to offer nested filtering functionality.\n\nIn the example below, you can observe a logical `OR` filter being applied using the nested filtering functionality:\n\nThe main filter object doesn't have its `key`, `value`, or `operator` fields populated. Only the `logicalOperator` field is populated to indicate that the filters within the nested filters list are to be logically combined.\n\n```      \n{\n  \"deviceFamily\": [\n    \"Switches and Hubs\",\n    \"Routers\"\n  ],\n  \"startTime\": 1705348800000,\n  \"endTime\": 1705435200000,\n  \"filters\": [\n    {\n      \"logicalOperator\": \"or\",\n      \"filters\": [\n        {\n          \"key\": \"networkDeviceName\",\n          \"operator\": \"like\",\n          \"value\": \"9300-SJ\"\n        },\n        {\n          \"key\": \"managementIpAddress\",\n          \"operator\": \"like\",\n          \"value\": \"10.1\"\n        }\n      ]\n    }\n  ]\n}\n```\n"
+      description: 'API to fetch the count of assurance events for the given complex query.
+
+
+        **The input payload contains the following fields:**
+
+
+        | Field Name | Description |
+
+        | ---------------------- | ------------------------------ |
+
+        | `startTime` | Start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |
+
+        | `endTime` | End time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest. |
+
+        | `deviceFamily` | The value of `deviceFamily`. Please refer to `deviceFamily` model for the supported list. |
+
+        | `filters` | Used to define one or more filter conditions. Only the data that satisfy these conditions will be taken into consideration during the aggregation calculation. The supported list of filters in defined in `EventsFilterObj`. |
+
+
+        **How the filtering behavior works**
+
+
+        The `filters` field in each post body can be used in various ways:
+
+
+        Each filter in the list of filters will be applied simultaneously.
+
+        For instance, the following example would request filtering to Count of events with an networkDeviceName contains 9300-SJ and managementIpAddress contains 10.1.
+
+        ```
+
+        {
+
+        "deviceFamily": [
+
+        "Switches and Hubs",
+
+        "Routers"
+
+        ],
+
+        "startTime": 1705348800000,
+
+        "endTime": 1705435200000,
+
+        "filters": [
+
+        {
+
+        "key": "networkDeviceName",
+
+        "operator": "like",
+
+        "value": "9300-SJ"
+
+        },
+
+        {
+
+        "key": "managementIpAddress",
+
+        "operator": "like",
+
+        "value": "10.1"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        Each filter object can utilize its logical operator differently to offer nested filtering functionality.
+
+
+        In the example below, you can observe a logical `OR` filter being applied using the nested filtering functionality:
+
+
+        The main filter object doesn''t have its `key`, `value`, or `operator` fields populated. Only the `logicalOperator` field is populated to indicate that the filters within the nested filters list are to be logically combined.
+
+
+        ```
+
+        {
+
+        "deviceFamily": [
+
+        "Switches and Hubs",
+
+        "Routers"
+
+        ],
+
+        "startTime": 1705348800000,
+
+        "endTime": 1705435200000,
+
+        "filters": [
+
+        {
+
+        "logicalOperator": "or",
+
+        "filters": [
+
+        {
+
+        "key": "networkDeviceName",
+
+        "operator": "like",
+
+        "value": "9300-SJ"
+
+        },
+
+        {
+
+        "key": "managementIpAddress",
+
+        "operator": "like",
+
+        "value": "10.1"
+
+        }
+
+        ]
+
+        }
+
+        ]
+
+        }
+
+        ```'
       operationId: countQueryEvents
       parameters:
       - name: X-CALLER-ID
@@ -1153,6 +1445,37 @@ paths:
           description: Unexpected Error
 components:
   examples:
+    EventsQueryRequestExample:
+      summary: Events Query Request
+      value:
+        deviceFamily:
+        - Switches and Hubs
+        - Routers
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: siteHierarchyId
+          operator: like
+          value: /f037e237-d815-47d1-b6a0-4f7a3e06462e
+        - key: severity
+          operator: in
+          value:
+          - 1
+          - 2
+        - logicalOperator: or
+          filters:
+          - key: networkDeviceName
+            operator: like
+            value: 9300-SJ
+          - key: managementIpAddress
+            operator: like
+            value: 10.1.
+        page:
+          offset: 1
+          limit: 20
+          sortBy:
+          - name: timestamp
+            order: asc
     EventsQueryWiredClientResponseExample:
       summary: Event Query - Wired Client
       value:
@@ -1195,97 +1518,12 @@ components:
           - name: name
             order: asc
         version: '1.0'
-    EventsQueryResponseWithAttributesExample:
-      summary: Event Query with attributes
+    EventsQueryResponseExample:
+      summary: Event Query Response
       value:
         response:
         - id: LJF89YsBv89ul3gLItGG
           name: LINK:UP
-        - id: AAF89YsBv89ul3gLItKK
-          name: LINK:UP
-        page:
-          offset: 1
-          limit: 20
-          count: 100
-          sortBy:
-          - name: name
-            order: asc
-        version: '1.0'
-    EventsQueryRequestWithViewsExample:
-      summary: Events Query with views
-      value:
-        deviceFamily:
-        - Switches and Hubs
-        - Routers
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: siteHierarchyId
-          operator: like
-          value: /f037e237-d815-47d1-b6a0-4f7a3e06462e
-        - key: severity
-          operator: in
-          value:
-          - 1
-          - 2
-        - logicalOperator: or
-          filters:
-          - key: networkDeviceName
-            operator: like
-            value: 9300-SJ
-          - key: managementIpAddress
-            operator: like
-            value: 10.1.
-        views:
-        - network
-        page:
-          offset: 1
-          limit: 20
-          sortBy:
-          - name: timestamp
-            order: asc
-    EventsQueryRequestWithAttributesExample:
-      summary: Events Query with attributes
-      value:
-        deviceFamily:
-        - Switches and Hubs
-        - Routers
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: siteHierarchyId
-          operator: like
-          value: /f037e237-d815-47d1-b6a0-4f7a3e06462e
-        - key: severity
-          operator: in
-          value:
-          - 1
-          - 2
-        - logicalOperator: or
-          filters:
-          - key: networkDeviceName
-            operator: like
-            value: 9300-SJ
-          - key: managementIpAddress
-            operator: like
-            value: 10.1.
-        attributes:
-        - id
-        - name
-        page:
-          offset: 1
-          limit: 20
-          sortBy:
-          - name: timestamp
-            order: asc
-    EventsQueryWithViewsResponseExample:
-      summary: Event Query with views
-      value:
-        response:
-        - id: LJF89YsBv89ul3gLItGG
-          name: LINK:UP
-          switchNumber: null
-          replacingDeviceSerialNumber: null
           timestamp: 1700630630634
           severity: 5
           messageType: Trap
@@ -1298,8 +1536,6 @@ components:
           siteHierarchy: Global/Bangalore/Airport/Floor1
         - id: AAF89YsBv89ul3gLItKK
           name: LINK:UP
-          switchNumber: null
-          replacingDeviceSerialNumber: null
           timestamp: 1700630630634
           severity: 5
           messageType: Trap
@@ -1366,37 +1602,62 @@ components:
           - name: name
             order: asc
         version: '1.0'
-    EventsQueryRequestExample:
-      summary: Events Query Request
+    EventsQueryResponseWithAttributesExample:
+      summary: Event Query with attributes
       value:
-        deviceFamily:
-        - Switches and Hubs
-        - Routers
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: siteHierarchyId
-          operator: like
-          value: /f037e237-d815-47d1-b6a0-4f7a3e06462e
-        - key: severity
-          operator: in
-          value:
-          - 1
-          - 2
-        - logicalOperator: or
-          filters:
-          - key: networkDeviceName
-            operator: like
-            value: 9300-SJ
-          - key: managementIpAddress
-            operator: like
-            value: 10.1.
+        response:
+        - id: LJF89YsBv89ul3gLItGG
+          name: LINK:UP
+        - id: AAF89YsBv89ul3gLItKK
+          name: LINK:UP
         page:
           offset: 1
           limit: 20
+          count: 100
           sortBy:
-          - name: timestamp
+          - name: name
             order: asc
+        version: '1.0'
+    EventsQueryWithViewsResponseExample:
+      summary: Event Query with views
+      value:
+        response:
+        - id: LJF89YsBv89ul3gLItGG
+          name: LINK:UP
+          switchNumber: null
+          replacingDeviceSerialNumber: null
+          timestamp: 1700630630634
+          severity: 5
+          messageType: Trap
+          details: TenGigabitEthernet1/0/48 LINK UP
+          deviceFamily: Switches and Hubs
+          networkDeviceId: 1e2917dd-653d-4422-b5ed-c7fc985e6955
+          networkDeviceName: cat9300-SJ-AssurBLR-162.cisco.com
+          managementIpAddress: 10.64.92.162
+          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/f037e237-d815-47d1-b6a0-4f7a3e06462e/c7c8d53c-18b7-4ec3-99db-a02a0de9fbde/35c151fe-6748-4d72-beec-58e098d4c0dc/
+          siteHierarchy: Global/Bangalore/Airport/Floor1
+        - id: AAF89YsBv89ul3gLItKK
+          name: LINK:UP
+          switchNumber: null
+          replacingDeviceSerialNumber: null
+          timestamp: 1700630630634
+          severity: 5
+          messageType: Trap
+          details: TenGigabitEthernet1/0/48 LINK UP
+          deviceFamily: Switches and Hubs
+          networkDeviceId: 1e2917dd-653d-4422-b5ed-c7fc985e6955
+          networkDeviceName: cat9300-SJ-AssurBLR-162.cisco.com
+          managementIpAddress: 10.64.92.162
+          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/f037e237-d815-47d1-b6a0-4f7a3e06462e/c7c8d53c-18b7-4ec3-99db-a02a0de9fbde/35c151fe-6748-4d72-beec-58e098d4c0dc/
+          siteHierarchy: Global/Bangalore/Airport/Floor1
+        page:
+          offset: 1
+          limit: 20
+          count: 100
+          sortBy:
+          - name: name
+            order: asc
+        version: '1.0'
     EventsQueryWirelessClientResponseExample:
       summary: Event Query - Wireless Client
       value:
@@ -1564,84 +1825,103 @@ components:
           - name: name
             order: asc
         version: '1.0'
-    EventsQueryResponseExample:
-      summary: Event Query Response
+    EventsQueryRequestWithAttributesExample:
+      summary: Events Query with attributes
       value:
-        response:
-        - id: LJF89YsBv89ul3gLItGG
-          name: LINK:UP
-          timestamp: 1700630630634
-          severity: 5
-          messageType: Trap
-          details: TenGigabitEthernet1/0/48 LINK UP
-          deviceFamily: Switches and Hubs
-          networkDeviceId: 1e2917dd-653d-4422-b5ed-c7fc985e6955
-          networkDeviceName: cat9300-SJ-AssurBLR-162.cisco.com
-          managementIpAddress: 10.64.92.162
-          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/f037e237-d815-47d1-b6a0-4f7a3e06462e/c7c8d53c-18b7-4ec3-99db-a02a0de9fbde/35c151fe-6748-4d72-beec-58e098d4c0dc/
-          siteHierarchy: Global/Bangalore/Airport/Floor1
-        - id: AAF89YsBv89ul3gLItKK
-          name: LINK:UP
-          timestamp: 1700630630634
-          severity: 5
-          messageType: Trap
-          details: TenGigabitEthernet1/0/48 LINK UP
-          deviceFamily: Switches and Hubs
-          networkDeviceId: 1e2917dd-653d-4422-b5ed-c7fc985e6955
-          networkDeviceName: cat9300-SJ-AssurBLR-162.cisco.com
-          managementIpAddress: 10.64.92.162
-          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/f037e237-d815-47d1-b6a0-4f7a3e06462e/c7c8d53c-18b7-4ec3-99db-a02a0de9fbde/35c151fe-6748-4d72-beec-58e098d4c0dc/
-          siteHierarchy: Global/Bangalore/Airport/Floor1
+        deviceFamily:
+        - Switches and Hubs
+        - Routers
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: siteHierarchyId
+          operator: like
+          value: /f037e237-d815-47d1-b6a0-4f7a3e06462e
+        - key: severity
+          operator: in
+          value:
+          - 1
+          - 2
+        - logicalOperator: or
+          filters:
+          - key: networkDeviceName
+            operator: like
+            value: 9300-SJ
+          - key: managementIpAddress
+            operator: like
+            value: 10.1.
+        attributes:
+        - id
+        - name
         page:
           offset: 1
           limit: 20
-          count: 100
           sortBy:
-          - name: name
+          - name: timestamp
             order: asc
-        version: '1.0'
+    EventsQueryRequestWithViewsExample:
+      summary: Events Query with views
+      value:
+        deviceFamily:
+        - Switches and Hubs
+        - Routers
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: siteHierarchyId
+          operator: like
+          value: /f037e237-d815-47d1-b6a0-4f7a3e06462e
+        - key: severity
+          operator: in
+          value:
+          - 1
+          - 2
+        - logicalOperator: or
+          filters:
+          - key: networkDeviceName
+            operator: like
+            value: 9300-SJ
+          - key: managementIpAddress
+            operator: like
+            value: 10.1.
+        views:
+        - network
+        page:
+          offset: 1
+          limit: 20
+          sortBy:
+          - name: timestamp
+            order: asc
   schemas:
-    ErrorObject:
+    CountIntegerResponse_response:
       type: object
       properties:
-        errorCode:
+        count:
           type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    EventSortBy:
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    ErrorResponse:
+      title: Error Response
       type: object
       properties:
-        name:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
           type: string
-          description: 'Field name by which sort is requested.
-
-
-            **Network Devices**: name, messageType, severity, networkDeviceId, networkDeviceName, managementIpAddress, timestamp
-
-
-            **Unified AP**: name, messageType, severity, networkDeviceId, networkDeviceName, managementIpAddress, apMac, wlcId, wlcName, frequency, timestamp
-
-
-            **Wired Client**: name, messageType, severity, ipv4, ipv6, identifier, connectedDeviceId, connectedDeviceName, connectedDeviceIp, connectedInterfaceName, vlanId, clientMac, timestamp
-
-
-            **Wireless Client**: name, messageType, ipv4, ipv6, identifier, clientMac, apId, apName, apMac, wlcId, wlcName, frequency, ssid, username, dhcpServerIp, timestamp
-
-            '
-          example: name
-        order:
-          type: string
-          description: Sort order. `asc` for ascending and `desc` for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     EventsCountRequest:
       required:
       - deviceFamily
@@ -1713,6 +1993,246 @@ components:
           - key: managementIpAddress
             operator: like
             value: 10.1.
+    EventListResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        version:
+          type: string
+          description: Version of response object
+          example: '1.0'
+        page:
+          $ref: '#/components/schemas/EventsPagination'
+      example:
+        response:
+        - id: LJF89YsBv89ul3gLItGG
+          name: LINK:UP
+          timestamp: 1700630630634
+          severity: 5
+          messageType: Trap
+          details: TenGigabitEthernet1/0/48 LINK UP
+          deviceFamily: Switches and Hubs
+          networkDeviceId: 1e2917dd-653d-4422-b5ed-c7fc985e6955
+          networkDeviceName: cat9300-AssurBLR-162.cisco.com
+          managementIpAddress: 10.64.92.162
+          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/f037e237-d815-47d1-b6a0-4f7a3e06462e/c7c8d53c-18b7-4ec3-99db-a02a0de9fbde/35c151fe-6748-4d72-beec-58e098d4c0dc/
+          siteHierarchy: Global/Bangalore/Airport/Floor1
+        - id: 5jJAAYwBS1HTYnPAXmDl
+          name: Channel Change
+          timestamp: 1700827992450
+          messageType: Device
+          details: Manual channel change by admin
+          deviceFamily: Unified AP
+          networkDeviceId: 6648dd6c-af54-47c0-9901-cc4c4c189a9e
+          networkDeviceName: AUTO-AP-6607
+          apMac: F3:94:56:8D:16:70
+          wlcId: 7c0651ab-bbc2-4645-af84-bd2a32bb5bcb
+          wlcName: AUTO-EWC-7801
+          apSwitchName: ap_switch
+          managementIpAddress: 10.10.70.38
+          siteHierarchyId: /5f5107fb-352e-4cfb-ae5c-c784633ee517/23460344-1126-43cb-9af7-4126e285cca7/
+          siteHierarchy: Global/Bangalore
+          frequency: '2.4'
+          radioChannelSlot: 0
+          newRadioChannelList: '40'
+        - id: -4u18YsBv89ul3gLfWFF
+          name: Link Up
+          timestamp: 1700567280360
+          details: GigabitEthernet1/0/29 Link is Up
+          messageType: TRAP
+          severity: 5
+          networkDeviceId: 677b105e-79bb-428b-b6c0-8e311845f591
+          networkDeviceName: Branch-3-Switch
+          connectedInterfaceName: GigabitEthernet1/0/29
+          managementIpAddress: 10.64.92.160
+          clientMac: 94:D4:69:F2:56:60
+          identifier: 30.3.25.102
+          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/
+          ipv4: 30.3.25.102
+        - id: vjEoAIwBS1HTYnPAS-vZ
+          name: DHCP
+          timestamp: 1700809670931
+          wirelessClientEventStartTime: 1700809670931
+          wirelessClientEventEndTime: 1700809671295
+          details: Due to DHCP Discover/AP:AUTO-AP-0046/WLC:AUTO-EWC-4969/WLAN:MEPS
+          messageType: Device Controller
+          siteHierarchyId: /5f5107fb-352e-4cfb-ae5c-c784633ee517/
+          siteHierarchy: /Global/
+          deviceFamily: Wireless Client
+          networkDeviceId: c5cc4e10-ede9-4458-a985-083b72bd6734
+          networkDeviceName: AUTO-AP-0046
+          apMac: F3:9B:C7:8A:0B:D0
+          wlcId: ffe59203-34e5-4361-ac68-a1d5f74c58fd
+          wlcName: AUTO-EWC-4969
+          clientMac: 2D:90:FA:73:70:9A
+          ssid: MEPS
+          radioChannelSlot: 0
+          frequency: '2.4'
+          identifier: gosurend
+          isPrivateMac: false
+          resultStatus: CL_FAIL
+          failureCategory: DHCP
+          username: gosurend
+          childEvents:
+          - id: vjEoAIwBS1HTYnPAS-vZ_#_1
+            name: Association Start
+            timestamp: 1700809670931
+            wirelessEventType: 1
+            details: Client Association with AP
+            reasonCode: '1'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: vjEoAIwBS1HTYnPAS-vZ_#_2
+            name: Association Done
+            timestamp: 1700809670995
+            wirelessEventType: 2
+            details: Client Association with AP
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: vjEoAIwBS1HTYnPAS-vZ_#_3
+            name: Authentication Start
+            timestamp: 1700809671054
+            wirelessEventType: 3
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: vjEoAIwBS1HTYnPAS-vZ_#_4
+            name: Authentication Done
+            timestamp: 1700809671115
+            wirelessEventType: 4
+            details: 802.1x Full Auth
+            reasonCode: '89'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: vjEoAIwBS1HTYnPAS-vZ_#_5
+            name: Key Exchange
+            timestamp: 1700809671175
+            wirelessEventType: 5
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: vjEoAIwBS1HTYnPAS-vZ_#_6
+            name: Mobility
+            timestamp: 1700809671236
+            wirelessEventType: 6
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: vjEoAIwBS1HTYnPAS-vZ_#_7
+            name: DHCP
+            timestamp: 1700809671295
+            wirelessEventType: 7
+            details: DHCP Discover
+            reasonCode: '226'
+            subreasonCode: '0'
+            resultStatus: CL_FAIL
+        - id: -TEsAIwBS1HTYnPA4O4S
+          name: Onboarding
+          timestamp: 1700809682842
+          wirelessClientEventStartTime: 1700809682842
+          wirelessClientEventEndTime: 1700809683272
+          details: AP:AUTO-AP-0046/WLC:AUTO-EWC-4969/WLAN:MEPS
+          messageType: Device Controller
+          siteHierarchyId: /5f5107fb-352e-4cfb-ae5c-c784633ee517/
+          siteHierarchy: /Global/
+          deviceFamily: Wireless Client
+          networkDeviceId: c5cc4e10-ede9-4458-a985-083b72bd6734
+          networkDeviceName: AUTO-AP-0046
+          apMac: F3:9B:C7:8A:0B:D0
+          wlcId: ffe59203-34e5-4361-ac68-a1d5f74c58fd
+          wlcName: AUTO-EWC-4969
+          clientMac: 2D:90:FA:73:70:9A
+          ssid: MEPS
+          radioChannelSlot: 0
+          frequency: '2.4'
+          identifier: gosurend
+          isPrivateMac: false
+          resultStatus: CL_SUCCESS
+          username: gosurend
+          childEvents:
+          - id: TEsAIwBS1HTYnPA4O4S_#_1
+            name: Association Start
+            timestamp: 1700809670931
+            wirelessEventType: 1
+            details: Client Association with AP
+            reasonCode: '1'
+            subreasonCode: '1'
+            resultStatus: CL_SUCCESS
+          - id: TEsAIwBS1HTYnPA4O4S_#_2
+            name: Association Done
+            timestamp: 1700809670995
+            wirelessEventType: 2
+            details: Client Association with AP
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: TEsAIwBS1HTYnPA4O4S_#_3
+            name: Authentication Start
+            timestamp: 1700809671054
+            wirelessEventType: 3
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: TEsAIwBS1HTYnPA4O4S_#_4
+            name: Authentication Done
+            timestamp: 1700809671115
+            wirelessEventType: 4
+            details: 802.1x Full Auth
+            reasonCode: '89'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: TEsAIwBS1HTYnPA4O4S_#_5
+            name: Key Exchange
+            timestamp: 1700809671175
+            wirelessEventType: 5
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: TEsAIwBS1HTYnPA4O4S_#_6
+            name: Mobility
+            timestamp: 1700809671236
+            wirelessEventType: 6
+            reasonCode: '0'
+            subreasonCode: '0'
+            resultStatus: CL_SUCCESS
+          - id: TEsAIwBS1HTYnPA4O4S_#_7
+            name: DHCP
+            timestamp: 1700809671295
+            wirelessEventType: 7
+            details: DHCP Discover
+            reasonCode: '226'
+            subreasonCode: '0'
+            resultStatus: CL_FAIL
+        version: '1.0'
+    EventsPagination:
+      type: object
+      properties:
+        limit:
+          maximum: 20
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 10
+          default: 10
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering
+          example: 1000
+        sortBy:
+          type: array
+          description: Records are sorted based on the fields specified in the   array.
+          items:
+            $ref: '#/components/schemas/EventSortBy'
     Event:
       type: object
       properties:
@@ -1965,43 +2485,143 @@ components:
           description: List of child events for the current event. This is applicable only for `Wireless Client` events.
           items:
             $ref: '#/components/schemas/WirelessClientChildEvent'
-    ErrorResponse:
-      title: Error Response
+    AssociatedAP:
+      type: object
+      properties:
+        apId:
+          type: string
+          description: AP UUID
+        apName:
+          type: string
+          description: AP Name
+        apMac:
+          type: string
+          description: AP MAC Address
+        bssid:
+          type: string
+          description: BSSID
+        rssi:
+          type: integer
+          description: RSSI
+          format: int32
+        type:
+          type: string
+          description: Type of the AP issue
+          enum:
+          - Invalid IE
+          - Missing Response
+        frameType:
+          type: string
+          description: Frame Type of the AP issue
+        ies:
+          type: string
+          description: Invalid IEs for the AP
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
         response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
+          $ref: '#/components/schemas/CountIntegerResponse_response'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    EventListResponse:
+      description: Reports
+    EventSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Field name by which sort is requested.
+
+
+            **Network Devices**: name, messageType, severity, networkDeviceId, networkDeviceName, managementIpAddress, timestamp
+
+
+            **Unified AP**: name, messageType, severity, networkDeviceId, networkDeviceName, managementIpAddress, apMac, wlcId, wlcName, frequency, timestamp
+
+
+            **Wired Client**: name, messageType, severity, ipv4, ipv6, identifier, connectedDeviceId, connectedDeviceName, connectedDeviceIp, connectedInterfaceName, vlanId, clientMac, timestamp
+
+
+            **Wireless Client**: name, messageType, ipv4, ipv6, identifier, clientMac, apId, apName, apMac, wlcId, wlcName, frequency, ssid, username, dhcpServerIp, timestamp
+
+            '
+          example: name
+        order:
+          type: string
+          description: Sort order. `asc` for ascending and `desc` for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    EventsOperator:
+      type: string
+      description: Type of filter operator to use for querying data in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - neq
+      - eq
+      - notIn
+      - like
+    EventChildEventsResponse:
       type: object
       properties:
         response:
           type: array
           items:
-            $ref: '#/components/schemas/Event'
+            $ref: '#/components/schemas/WirelessClientChildEvent'
         version:
           type: string
           description: Version of response object
           example: '1.0'
-        page:
-          $ref: '#/components/schemas/EventsPagination'
       example:
         response:
-        - id: LJF89YsBv89ul3gLItGG
+        - id: TEsAIwBS1HTYnPA4O4S_#_1
+          name: Association Start
+          timestamp: 1700809670931
+          wirelessEventType: 1
+          details: Client Association with AP
+          reasonCode: '1'
+          subreasonCode: '1'
+          resultStatus: CL_SUCCESS
+        - id: TEsAIwBS1HTYnPA4O4S_#_2
+          name: Association Done
+          timestamp: 1700809670995
+          wirelessEventType: 2
+          details: Client Association with AP
+          reasonCode: '0'
+          subreasonCode: '0'
+          resultStatus: CL_SUCCESS
+        - id: TEsAIwBS1HTYnPA4O4S_#_3
+          name: Authentication Start
+          timestamp: 1700809671054
+          wirelessEventType: 3
+          reasonCode: '0'
+          subreasonCode: '0'
+          resultStatus: CL_SUCCESS
+        - id: TEsAIwBS1HTYnPA4O4S_#_4
+          name: Authentication Done
+          timestamp: 1700809671115
+          wirelessEventType: 4
+          details: 802.1x Full Auth
+          reasonCode: '89'
+          subreasonCode: '0'
+          resultStatus: CL_SUCCESS
+        version: '1.0'
+    EventDetailResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/Event'
+        version:
+          type: string
+          description: Version of response object
+          example: '1.0'
+      example:
+        response:
+          id: LJF89YsBv89ul3gLItGG
           name: LINK:UP
           timestamp: 1700630630634
           severity: 5
@@ -2013,193 +2633,6 @@ components:
           managementIpAddress: 10.64.92.162
           siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/f037e237-d815-47d1-b6a0-4f7a3e06462e/c7c8d53c-18b7-4ec3-99db-a02a0de9fbde/35c151fe-6748-4d72-beec-58e098d4c0dc/
           siteHierarchy: Global/Bangalore/Airport/Floor1
-        - id: 5jJAAYwBS1HTYnPAXmDl
-          name: Channel Change
-          timestamp: 1700827992450
-          messageType: Device
-          details: Manual channel change by admin
-          deviceFamily: Unified AP
-          networkDeviceId: 6648dd6c-af54-47c0-9901-cc4c4c189a9e
-          networkDeviceName: AUTO-AP-6607
-          apMac: F3:94:56:8D:16:70
-          wlcId: 7c0651ab-bbc2-4645-af84-bd2a32bb5bcb
-          wlcName: AUTO-EWC-7801
-          apSwitchName: ap_switch
-          managementIpAddress: 10.10.70.38
-          siteHierarchyId: /5f5107fb-352e-4cfb-ae5c-c784633ee517/23460344-1126-43cb-9af7-4126e285cca7/
-          siteHierarchy: Global/Bangalore
-          frequency: '2.4'
-          radioChannelSlot: 0
-          newRadioChannelList: '40'
-        - id: -4u18YsBv89ul3gLfWFF
-          name: Link Up
-          timestamp: 1700567280360
-          details: GigabitEthernet1/0/29 Link is Up
-          messageType: TRAP
-          severity: 5
-          networkDeviceId: 677b105e-79bb-428b-b6c0-8e311845f591
-          networkDeviceName: Branch-3-Switch
-          connectedInterfaceName: GigabitEthernet1/0/29
-          managementIpAddress: 10.64.92.160
-          clientMac: 94:D4:69:F2:56:60
-          identifier: 30.3.25.102
-          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/
-          ipv4: 30.3.25.102
-        - id: vjEoAIwBS1HTYnPAS-vZ
-          name: DHCP
-          timestamp: 1700809670931
-          wirelessClientEventStartTime: 1700809670931
-          wirelessClientEventEndTime: 1700809671295
-          details: Due to DHCP Discover/AP:AUTO-AP-0046/WLC:AUTO-EWC-4969/WLAN:MEPS
-          messageType: Device Controller
-          siteHierarchyId: /5f5107fb-352e-4cfb-ae5c-c784633ee517/
-          siteHierarchy: /Global/
-          deviceFamily: Wireless Client
-          networkDeviceId: c5cc4e10-ede9-4458-a985-083b72bd6734
-          networkDeviceName: AUTO-AP-0046
-          apMac: F3:9B:C7:8A:0B:D0
-          wlcId: ffe59203-34e5-4361-ac68-a1d5f74c58fd
-          wlcName: AUTO-EWC-4969
-          clientMac: 2D:90:FA:73:70:9A
-          ssid: MEPS
-          radioChannelSlot: 0
-          frequency: '2.4'
-          identifier: gosurend
-          isPrivateMac: false
-          resultStatus: CL_FAIL
-          failureCategory: DHCP
-          username: gosurend
-          childEvents:
-          - id: vjEoAIwBS1HTYnPAS-vZ_#_1
-            name: Association Start
-            timestamp: 1700809670931
-            wirelessEventType: 1
-            details: Client Association with AP
-            reasonCode: '1'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: vjEoAIwBS1HTYnPAS-vZ_#_2
-            name: Association Done
-            timestamp: 1700809670995
-            wirelessEventType: 2
-            details: Client Association with AP
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: vjEoAIwBS1HTYnPAS-vZ_#_3
-            name: Authentication Start
-            timestamp: 1700809671054
-            wirelessEventType: 3
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: vjEoAIwBS1HTYnPAS-vZ_#_4
-            name: Authentication Done
-            timestamp: 1700809671115
-            wirelessEventType: 4
-            details: 802.1x Full Auth
-            reasonCode: '89'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: vjEoAIwBS1HTYnPAS-vZ_#_5
-            name: Key Exchange
-            timestamp: 1700809671175
-            wirelessEventType: 5
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: vjEoAIwBS1HTYnPAS-vZ_#_6
-            name: Mobility
-            timestamp: 1700809671236
-            wirelessEventType: 6
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: vjEoAIwBS1HTYnPAS-vZ_#_7
-            name: DHCP
-            timestamp: 1700809671295
-            wirelessEventType: 7
-            details: DHCP Discover
-            reasonCode: '226'
-            subreasonCode: '0'
-            resultStatus: CL_FAIL
-        - id: -TEsAIwBS1HTYnPA4O4S
-          name: Onboarding
-          timestamp: 1700809682842
-          wirelessClientEventStartTime: 1700809682842
-          wirelessClientEventEndTime: 1700809683272
-          details: AP:AUTO-AP-0046/WLC:AUTO-EWC-4969/WLAN:MEPS
-          messageType: Device Controller
-          siteHierarchyId: /5f5107fb-352e-4cfb-ae5c-c784633ee517/
-          siteHierarchy: /Global/
-          deviceFamily: Wireless Client
-          networkDeviceId: c5cc4e10-ede9-4458-a985-083b72bd6734
-          networkDeviceName: AUTO-AP-0046
-          apMac: F3:9B:C7:8A:0B:D0
-          wlcId: ffe59203-34e5-4361-ac68-a1d5f74c58fd
-          wlcName: AUTO-EWC-4969
-          clientMac: 2D:90:FA:73:70:9A
-          ssid: MEPS
-          radioChannelSlot: 0
-          frequency: '2.4'
-          identifier: gosurend
-          isPrivateMac: false
-          resultStatus: CL_SUCCESS
-          username: gosurend
-          childEvents:
-          - id: TEsAIwBS1HTYnPA4O4S_#_1
-            name: Association Start
-            timestamp: 1700809670931
-            wirelessEventType: 1
-            details: Client Association with AP
-            reasonCode: '1'
-            subreasonCode: '1'
-            resultStatus: CL_SUCCESS
-          - id: TEsAIwBS1HTYnPA4O4S_#_2
-            name: Association Done
-            timestamp: 1700809670995
-            wirelessEventType: 2
-            details: Client Association with AP
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: TEsAIwBS1HTYnPA4O4S_#_3
-            name: Authentication Start
-            timestamp: 1700809671054
-            wirelessEventType: 3
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: TEsAIwBS1HTYnPA4O4S_#_4
-            name: Authentication Done
-            timestamp: 1700809671115
-            wirelessEventType: 4
-            details: 802.1x Full Auth
-            reasonCode: '89'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: TEsAIwBS1HTYnPA4O4S_#_5
-            name: Key Exchange
-            timestamp: 1700809671175
-            wirelessEventType: 5
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: TEsAIwBS1HTYnPA4O4S_#_6
-            name: Mobility
-            timestamp: 1700809671236
-            wirelessEventType: 6
-            reasonCode: '0'
-            subreasonCode: '0'
-            resultStatus: CL_SUCCESS
-          - id: TEsAIwBS1HTYnPA4O4S_#_7
-            name: DHCP
-            timestamp: 1700809671295
-            wirelessEventType: 7
-            details: DHCP Discover
-            reasonCode: '226'
-            subreasonCode: '0'
-            resultStatus: CL_FAIL
         version: '1.0'
     LogicalOperator:
       type: string
@@ -2212,6 +2645,18 @@ components:
       enum:
       - and
       - or
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     EventViews:
       type: string
       description: "The specific view being requested. This is an optional parameter which can be passed to get one or more of the specific events data. If this is not provided, then it will default to `basic` view.\n\n### Response data proviced by each view:  \n\n1. `basic`:\n`[id, name, timestamp, details, messageType, siteHierarchyId, siteHierarchy, deviceFamily, networkDeviceId, networkDeviceName, managementIpAddress]`\n\n2. `network`:\n`[id, name, severity, facility, mnemonic, eventStatus, timestamp, details, messageType, siteHierarchyId, siteHierarchy, deviceFamily, networkDeviceId, networkDeviceName, managementIpAddress, replacedDeviceSerialNumber, replacingDeviceSerialNumber, switchNumber]`\n\n3. `ap`:\n`[id, name, eventStatus, timestamp, details, messageType, siteHierarchyId, siteHierarchy, deviceFamily, networkDeviceId, networkDeviceName, managementIpAddress, apMac, wlcName, frequency, apSwitchId, apSwitchName, wlcId, reasonDescription, lastApDisconnectReason, lastApResetType, apRadioOperationState, currentRadioPowerLevel, previousRadioPowerLevel, newRadioChannelList, newRadioChannelWidth, oldRadioChannelList, oldRadioChannelWidth, radioNoise, radioInterference, radioChannelUtilization, affectedClients]`\n\n4. `wiredClient`:\n`[id, name, severity, facility, mnemonic, eventStatus, timestamp, details, messageType, siteHierarchyId, siteHierarchy, deviceFamily, networkDeviceId, networkDeviceName, managementIpAddress, identifier, clientMac, connectedInterfaceName, ipv4, ipv6, vlanId, auditSessionId, reasonDescription]`\n\n5. `wirelessClient`:\n`[id, name, timestamp, details, messageType, siteHierarchyId, siteHierarchy, deviceFamily, networkDeviceId, networkDeviceName, identifier, clientMac, wirelessClientEventStartTime, wirelessClientEventEndTime, radioChannelSlot, isPrivateMac, vlanId, authServerIp, apRole, assocRssi, assocSnr, udnName, udnId, duid, failureIpAddress, roamType, subReasonDescription, invalidIeAPs, candidateAPs, missingResponseAPs, apMac, wlcName, wlcId, ssid, username, frequency, resultStatus, failureCategory, dhcpServerIp, ipv4, ipv6, reasonDescription, childEvents]`\n"
@@ -2222,59 +2667,6 @@ components:
       - ap
       - wiredClient
       - wirelessClient
-    EventsPagination:
-      type: object
-      properties:
-        limit:
-          maximum: 20
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 10
-          default: 10
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering
-          example: 1000
-        sortBy:
-          type: array
-          description: Records are sorted based on the fields specified in the   array.
-          items:
-            $ref: '#/components/schemas/EventSortBy'
-    EventsOperator:
-      type: string
-      description: Type of filter operator to use for querying data in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - neq
-      - eq
-      - notIn
-      - like
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
     WirelessClientChildEvent:
       type: object
       properties:
@@ -2315,30 +2707,6 @@ components:
         failureCategory:
           type: string
           description: Category in case the `Wireless Client` event result is failure. Examples are `AAA`, `ASSOC`, `DHCP`, `OTHER`.
-    EventDetailResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/Event'
-        version:
-          type: string
-          description: Version of response object
-          example: '1.0'
-      example:
-        response:
-          id: LJF89YsBv89ul3gLItGG
-          name: LINK:UP
-          timestamp: 1700630630634
-          severity: 5
-          messageType: Trap
-          details: TenGigabitEthernet1/0/48 LINK UP
-          deviceFamily: Switches and Hubs
-          networkDeviceId: 1e2917dd-653d-4422-b5ed-c7fc985e6955
-          networkDeviceName: cat9300-AssurBLR-162.cisco.com
-          managementIpAddress: 10.64.92.162
-          siteHierarchyId: /8a9e5e1a-9ef5-4b42-9c3d-6584e5548d03/f037e237-d815-47d1-b6a0-4f7a3e06462e/c7c8d53c-18b7-4ec3-99db-a02a0de9fbde/35c151fe-6748-4d72-beec-58e098d4c0dc/
-          siteHierarchy: Global/Bangalore/Airport/Floor1
-        version: '1.0'
     EventsFilterObj:
       type: object
       properties:
@@ -2516,82 +2884,6 @@ components:
               - wlcName
           page:
             $ref: '#/components/schemas/EventsPagination'
-    EventChildEventsResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/WirelessClientChildEvent'
-        version:
-          type: string
-          description: Version of response object
-          example: '1.0'
-      example:
-        response:
-        - id: TEsAIwBS1HTYnPA4O4S_#_1
-          name: Association Start
-          timestamp: 1700809670931
-          wirelessEventType: 1
-          details: Client Association with AP
-          reasonCode: '1'
-          subreasonCode: '1'
-          resultStatus: CL_SUCCESS
-        - id: TEsAIwBS1HTYnPA4O4S_#_2
-          name: Association Done
-          timestamp: 1700809670995
-          wirelessEventType: 2
-          details: Client Association with AP
-          reasonCode: '0'
-          subreasonCode: '0'
-          resultStatus: CL_SUCCESS
-        - id: TEsAIwBS1HTYnPA4O4S_#_3
-          name: Authentication Start
-          timestamp: 1700809671054
-          wirelessEventType: 3
-          reasonCode: '0'
-          subreasonCode: '0'
-          resultStatus: CL_SUCCESS
-        - id: TEsAIwBS1HTYnPA4O4S_#_4
-          name: Authentication Done
-          timestamp: 1700809671115
-          wirelessEventType: 4
-          details: 802.1x Full Auth
-          reasonCode: '89'
-          subreasonCode: '0'
-          resultStatus: CL_SUCCESS
-        version: '1.0'
-    AssociatedAP:
-      type: object
-      properties:
-        apId:
-          type: string
-          description: AP UUID
-        apName:
-          type: string
-          description: AP Name
-        apMac:
-          type: string
-          description: AP MAC Address
-        bssid:
-          type: string
-          description: BSSID
-        rssi:
-          type: integer
-          description: RSSI
-          format: int32
-        type:
-          type: string
-          description: Type of the AP issue
-          enum:
-          - Invalid IE
-          - Missing Response
-        frameType:
-          type: string
-          description: Frame Type of the AP issue
-        ies:
-          type: string
-          description: Invalid IEs for the AP
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

@@ -33,8 +33,29 @@ paths:
     get:
       tags:
       - siteAnalytics
-      summary: Get site analytics for the child sites of given parent site and other query parameters.
-      description: "Returns site analytics for all child sites of given parent site. If no parent site is provided, then this API returns analytics for all children of Global site. Data is also filtered based on set of filters specified in query parameters. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.\n\n\n**The process for using this API is as follows**:\n\n1). Make request to API to generate intended data.\n\n2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.\n\n\n Example: \"/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191\"\n\n\n3). Once the task is completed, the response data will be retrievable using the same API, by providing the `taskId` query parameter:\n\nExample: GET /dna/data/api/v1/siteKpiSummaries?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.  \n\nWhen a taskId is provided, it is the ONLY query parameter that should be provided."
+      summary: Get site analytics for the child sites of given parent site and other query…
+      description: 'Returns site analytics for all child sites of given parent site. If no parent site is provided, then this API returns analytics for all children of Global site. Data is also filtered based on set of filters specified in query parameters. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.
+
+
+        **The process for using this API is as follows**:
+
+
+        1). Make request to API to generate intended data.
+
+
+        2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.
+
+
+        Example: "/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191"
+
+
+        3). Once the task is completed, the response data will be retrievable using the same API, by providing the `taskId` query parameter:
+
+
+        Example: GET /dna/data/api/v1/siteKpiSummaries?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.
+
+
+        When a taskId is provided, it is the ONLY query parameter that should be provided.'
       operationId: readSiteKpiSummaries
       parameters:
       - name: X-CALLER-ID
@@ -406,7 +427,7 @@ paths:
     get:
       tags:
       - siteAnalytics
-      summary: Get the total number of site analytics records available for for given set of query parameters.
+      summary: Get the total number of site analytics records available for for given set of…
       description: Returns the total number of site analytics records available for for given set of query parameters. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.
       operationId: readSiteKpiSummariesCount
       parameters:
@@ -568,8 +589,47 @@ paths:
     post:
       tags:
       - siteAnalytics
-      summary: Get site analytics for the child sites of given parent site and other filters.
-      description: "Returns site analytics for all child sites of given parent site. If no parent site is provided, then this API returns analytics for all children of Global site. Data is also filtered based on set of filters. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.\n|Field Name | Description |\n| --- | --- |\n| `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|\n| `attributes` | If these are provided, then only those attributes will be part of response along with the default attributes. Please refer to the `SiteAnalyticsResponseAttribute` Model for supported attributes.|\n| `views` | View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. Please refer to the `SiteAnalyticsView` Model for supported attributes. If no views are specified, all attributes will be returned.  |\n| `page`| contains **limit, offset, sortBy, order** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data,  *sortBy* - sort key name, *order* - order to sort        \n\n**The process for using this API is as follows**:\n\n1). Make request to API to generate intended data.\n\n2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.\n\n\n Example: \"/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191\"\n\n\n3). Once the task is completed, the response data will be retrievable using the GET API: `GET /dna/data/api/v1/siteKpiSummaries` by providing the `taskId` query parameter\n\n  Example:\n  GET /dna/data/api/v1/siteKpiSummaries?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.  \n\nWhen a taskId is provided, it is the ONLY query parameter that should be provided.        "
+      summary: Get site analytics for the child sites of given parent site and other filters
+      description: 'Returns site analytics for all child sites of given parent site. If no parent site is provided, then this API returns analytics for all children of Global site. Data is also filtered based on set of filters. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.
+
+        |Field Name | Description |
+
+        | --- | --- |
+
+        | `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|
+
+        | `attributes` | If these are provided, then only those attributes will be part of response along with the default attributes. Please refer to the `SiteAnalyticsResponseAttribute` Model for supported attributes.|
+
+        | `views` | View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. Please refer to the `SiteAnalyticsView` Model for supported attributes. If no views are specified, all attributes will be returned. |
+
+        | `page`| contains **limit, offset, sortBy, order** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data, *sortBy* - sort key name, *order* - order to sort
+
+
+        **The process for using this API is as follows**:
+
+
+        1). Make request to API to generate intended data.
+
+
+        2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.
+
+
+        Example: "/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191"
+
+
+        3). Once the task is completed, the response data will be retrievable using the GET API: `GET /dna/data/api/v1/siteKpiSummaries` by providing the `taskId` query parameter
+
+
+        Example:
+
+        GET /dna/data/api/v1/siteKpiSummaries?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.
+
+
+        When a taskId is provided, it is the ONLY query parameter that should be provided.'
       operationId: readSiteKpiSummariesWithFilters
       parameters:
       - name: X-CALLER-ID
@@ -627,8 +687,22 @@ paths:
     post:
       tags:
       - siteAnalytics
-      summary: Get the total number of site analytics records available for for given set of filters.
-      description: "Returns the total number of site analytics records available for for given set of filters. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.\n\n **The input payload contains the following fields**\n\n|Field Name | Description |\n| --- | --- |\n| `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|"
+      summary: Get the total number of site analytics records available for for given set of…
+      description: 'Returns the total number of site analytics records available for for given set of filters. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.
+
+
+        **The input payload contains the following fields**
+
+
+        |Field Name | Description |
+
+        | --- | --- |
+
+        | `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|'
       operationId: readSiteKpiSummariesCountWithFilters
       parameters:
       - name: X-CALLER-ID
@@ -686,8 +760,29 @@ paths:
     get:
       tags:
       - siteAnalytics
-      summary: Get site analytics for one site.
-      description: "Returns site analytics for the given site. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.\n\n**The process for using this API is as follows**:\n\n1). Make request to API to generate intended data.\n\n2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.\n\n\n Example: \"/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191\"\n\n\n3). Once the task is completed, the response data will be retrievable using the same API, by providing the `taskId` query parameter:\n\nExample: GET /dna/data/api/v1/siteKpiSummaries/243faba9-7f9e-4f2d-9914-97c2756754cb?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.  \n\nWhen a taskId is provided, it is the ONLY query parameter that should be provided."
+      summary: Get site analytics for one site
+      description: 'Returns site analytics for the given site. If there is no start and/or end time, then end time will be defaulted to current time and start time will be defaulted to 24-hours ago from end time.
+
+
+        **The process for using this API is as follows**:
+
+
+        1). Make request to API to generate intended data.
+
+
+        2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.
+
+
+        Example: "/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191"
+
+
+        3). Once the task is completed, the response data will be retrievable using the same API, by providing the `taskId` query parameter:
+
+
+        Example: GET /dna/data/api/v1/siteKpiSummaries/243faba9-7f9e-4f2d-9914-97c2756754cb?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.
+
+
+        When a taskId is provided, it is the ONLY query parameter that should be provided.'
       operationId: readSiteKpiSummariesById
       parameters:
       - name: X-CALLER-ID
@@ -1000,7 +1095,39 @@ paths:
       tags:
       - siteAnalytics
       summary: Submit request for site analytics summary data
-      description: "Submits the task to get summary analytics data for a given site. This data is calculated by aggregating anlytics of all child sites of the given site id. If site id is not provided, then data is aggregated from all child sites of Global site.\n**The input payload contains the following fields**\n|Field Name | Description |\n| --- | --- |\n| `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|\n| `attributes` | This is mandatory field. The specified attributes will be part of response. Please refer to the `SiteAnalyticsResponseAttribute` Model for supported attributes.|\n\n**The process for using this API is as follows**:\n\n1). Make request to API to generate intended summary analytics data.\n\n2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.\n\n\n Example: \"/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191\"\n\n\n3). Once the task is completed, the response data will be retrievable using GET API, by providing the `taskId` query parameter:\n\nExample: GET /dna/data/api/v1/siteKpiSummaries/summaryAnalytics?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191."
+      description: 'Submits the task to get summary analytics data for a given site. This data is calculated by aggregating anlytics of all child sites of the given site id. If site id is not provided, then data is aggregated from all child sites of Global site.
+
+        **The input payload contains the following fields**
+
+        |Field Name | Description |
+
+        | --- | --- |
+
+        | `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|
+
+        | `attributes` | This is mandatory field. The specified attributes will be part of response. Please refer to the `SiteAnalyticsResponseAttribute` Model for supported attributes.|
+
+
+        **The process for using this API is as follows**:
+
+
+        1). Make request to API to generate intended summary analytics data.
+
+
+        2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.
+
+
+        Example: "/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191"
+
+
+        3). Once the task is completed, the response data will be retrievable using GET API, by providing the `taskId` query parameter:
+
+
+        Example: GET /dna/data/api/v1/siteKpiSummaries/summaryAnalytics?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.'
       operationId: querySiteKpiSummariesSummaryAnalytics
       parameters:
       - name: X-CALLER-ID
@@ -1114,7 +1241,44 @@ paths:
       tags:
       - siteAnalytics
       summary: Submit request for site analytics trend data
-      description: "Submits the task to get site analytics trend data for a given site. This data is calculated by aggregating anlytics of all child sites of the given site id. If site id is not provided, then data is aggregated from all child sites of Global site. This data can be used to find site analytics in different intervals over a period of time.\n\n**The input payload contains the following fields**\n|Field Name | Description |\n| --- | --- |\n| `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `trendInterval` | the trend time interval in minutues. This is a mantadory field. When the start and end Time range is less than 24 hours, the expected interval value is 30 minutes. If it is more than 24 hours, then interval should be 1 hour. |\n| `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|\n| `attributes` | This is mandatory field. The specified attributes will be part of response. Please refer to the `SiteAnalyticsTrendResponseAttribute` Model for supported attributes.|\n| `page`| contains **limit, offset, timestampOrderr** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *timestampOrderr* - time stamp order\n\n\n\n**The process for using this API is as follows**:\n\n1). Make request to API to generate intended summary analytics data.\n\n2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.\n\n\n Example: \"/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191\"\n\n\n3). Once the task is completed, the response data will be retrievable using GET API, by providing the `taskId` query parameter:\n\nExample: GET /dna/data/api/v1/siteKpiSummaries/trendAnalytics?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191."
+      description: 'Submits the task to get site analytics trend data for a given site. This data is calculated by aggregating anlytics of all child sites of the given site id. If site id is not provided, then data is aggregated from all child sites of Global site. This data can be used to find site analytics in different intervals over a period of time.
+
+
+        **The input payload contains the following fields**
+
+        |Field Name | Description |
+
+        | --- | --- |
+
+        | `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `trendInterval` | the trend time interval in minutues. This is a mantadory field. When the start and end Time range is less than 24 hours, the expected interval value is 30 minutes. If it is more than 24 hours, then interval should be 1 hour. |
+
+        | `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation.|
+
+        | `attributes` | This is mandatory field. The specified attributes will be part of response. Please refer to the `SiteAnalyticsTrendResponseAttribute` Model for supported attributes.|
+
+        | `page`| contains **limit, offset, timestampOrderr** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *timestampOrderr* - time stamp order
+
+
+        **The process for using this API is as follows**:
+
+
+        1). Make request to API to generate intended summary analytics data.
+
+
+        2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.
+
+
+        Example: "/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191"
+
+
+        3). Once the task is completed, the response data will be retrievable using GET API, by providing the `taskId` query parameter:
+
+
+        Example: GET /dna/data/api/v1/siteKpiSummaries/trendAnalytics?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.'
       operationId: querySiteKpiSummariesTrendAnalytics
       parameters:
       - name: X-CALLER-ID
@@ -1228,7 +1392,43 @@ paths:
       tags:
       - siteAnalytics
       summary: Submit request for Top N entities related to site analytics
-      description: "Gets the Top N entites based on site analytics for a given kpi type. The data is also filtered based on given filters. The entity type is determined by groupBy field.\n\n**The input payload contains the following fields**\n|Field Name | Description |\n| --- | --- |\n| `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |\n| `topN` | the total number of records to retrive. This is a required input |\n| `groupBy` | specifies the attributes for grouping. This is mandatory field|\n| `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation. 'kpiType' filter is mandatory for this API. Valid values for 'kpiType' filter are: `coverage`,`onboardingAttempts`, `onboardingDuration`,`roamingAttempts`,`roamingDuration`, `connectionSpeed`|\n| `page`| contains **limit, offset** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data,         \n**The process for using this API is as follows**:\n\n1). Make request to API to generate intended summary analytics data.\n\n2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.\n\n\n Example: \"/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191\"\n\n\n3). Once the task is completed, the response data will be retrievable using GET API, by providing the `taskId` query parameter:\n\nExample: GET /dna/data/api/v1/siteKpiSummaries/topNAnalytics?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191."
+      description: 'Gets the Top N entites based on site analytics for a given kpi type. The data is also filtered based on given filters. The entity type is determined by groupBy field.
+
+
+        **The input payload contains the following fields**
+
+        |Field Name | Description |
+
+        | --- | --- |
+
+        | `startTime` | start time from which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `endTime` | end time to which API queries the data set related to the resource. It must be specified in UNIX epochtime in milliseconds. Value is inclusive & the default is latest |
+
+        | `topN` | the total number of records to retrive. This is a required input |
+
+        | `groupBy` | specifies the attributes for grouping. This is mandatory field|
+
+        | `filters`| used to define one or more conditions. Only the data that satisfy these filter conditions will be taken into consideration during the site analytics calculation. ''kpiType'' filter is mandatory for this API. Valid values for ''kpiType'' filter are: `coverage`,`onboardingAttempts`, `onboardingDuration`,`roamingAttempts`,`roamingDuration`, `connectionSpeed`|
+
+        | `page`| contains **limit, offset** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data,
+
+        **The process for using this API is as follows**:
+
+
+        1). Make request to API to generate intended summary analytics data.
+
+
+        2). The success response will be a 202 HTTP code, with information regarding the generated taskId for this submitted request and the URL to poll the status of this task.
+
+
+        Example: "/dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191"
+
+
+        3). Once the task is completed, the response data will be retrievable using GET API, by providing the `taskId` query parameter:
+
+
+        Example: GET /dna/data/api/v1/siteKpiSummaries/topNAnalytics?taskId=bcbb2a8c-deae-4a3e-9459-0eb1dc12c191.'
       operationId: querySiteKpiSummariesTopNAnalytics
       parameters:
       - name: X-CALLER-ID
@@ -1284,30 +1484,211 @@ paths:
           description: Unexpected Error
 components:
   schemas:
-    startAndEndTime:
+    SiteAnalyticsListResponseModel:
       type: object
       properties:
-        startTime:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithSortResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Site analytics response
+    asyncInfo:
+      properties:
+        taskLocation:
+          type: string
+          description: url resource where the client can fetch their task's lifecycle updates
+          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+        taskId:
+          type: string
+          description: the specific task id associated with the specific request made
+          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
+    SiteAnalyticsTopNFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys.
+      enum:
+      - kpiType
+      - siteHierarchyId
+      - siteId
+      - ssid
+      - band
+      - failureCategory
+      - failureReason
+    SiteAnalyticsCountFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/SiteAnalyticsCountFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/SiteAnalyticsOperator'
+        value:
+          type: object
+          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.            \n"
+      description: 'Filter object to pass in the request.
+
+        '
+    SiteAnalyticsCountFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - siteHierarchyId
+      - siteHierarchy
+      - siteId
+      - siteType
+    SiteAnalyticsPaginationWithSortRequest:
+      type: object
+      properties:
+        limit:
+          maximum: 20
+          minimum: 1
           type: integer
-          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `startTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705348800000
-        endTime:
+          description: Number of records to be returned in response
+          example: 7
+          default: 10
+        offset:
+          minimum: 1
           type: integer
-          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        sortBy:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationSortBy'
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    SiteAnalyticsGroupByKey:
+      type: string
+      description: Field names which are supported as groupBy
+      enum:
+      - floorId
+      - deviceType
+      - ssid
+      - band
+      - apName
+      - failureCategory
+      - failureReason
+      - result
+      - vlan
+      - serverIp
+      - childSiteId
+    SiteAnalyticsView:
+      type: string
+      description: "View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. If no views are specified, all attributes will be returned.\n\n| View Name | Included Attributes |\n| --- | --- |\n| View Name | Included Attributes |\n| --- | --- |\n| `coverage` | coverageAverage, coverageSuccessPercentage, coverageSuccessCount, coverageTotalCount, coverageFailureCount, coverageClientCount, coverageImpactedEntities, coverageFailureImpactedEntities, coverageFailureMetrics |\n| `onboardingAttempts` | onboardingAttemptsSuccessPercentage, onboardingAttemptsSuccessCount, onboardingAttemptsTotalCount, onboardingAttemptsFailureCount, onboardingAttemptsClientCount, onboardingAttemptsImpactedEntities, onboardingAttemptsFailureImpactedEntities, onboardingAttemptsFailureMetrics |\n| `onboardingDuration` | onboardingDurationAverage, onboardingDurationSuccessPercentage, onboardingDurationSuccessCount, onboardingDurationTotalCount, onboardingDurationFailureCount, onboardingDurationClientCount, onboardingDurationImpactedEntities, onboardingDurationFailureImpactedEntities, onboardingDurationFailureMetrics |\n| `roamingAttempts` | roamingAttemptsSuccessPercentage, roamingAttemptsSuccessCount, roamingAttemptsTotalCount, roamingAttemptsFailureCount, roamingAttemptsClientCount, roamingAttemptsImpactedEntities, roamingAttemptsFailureImpactedEntities, roamingAttemptsFailureMetrics |        \n| `roamingDuration` | roamingDurationAverage, roamingDurationSuccessPercentage, roamingDurationSuccessCount, roamingDurationTotalCount, roamingDurationFailureCount, roamingDurationClientCount, roamingDurationImpactedEntities, roamingDurationFailureImpactedEntities, roamingDurationFailureMetrics |\n| `connectionSpeed` | connectionSpeedAverage, connectionSpeedSuccessPercentage, connectionSpeedSuccessCount, connectionSpeedTotalCount, connectionSpeedFailureCount, connectionSpeedClientCount, connectionSpeedImpactedEntities, connectionSpeedFailureImpactedEntities, connectionSpeedFailureMetrics |\n"
+      enum:
+      - coverage
+      - onboardingAttempts
+      - onboardingDuration
+      - roamingAttempts
+      - roamingDuration
+      - connectionSpeed
+    SiteAnalyticFailureMetrics:
+      type: object
+      properties:
+        failureApCount:
+          type: integer
+          description: Total number of Access Points that have failures
+          example: 8
+        failureClientCount:
+          type: integer
+          description: Total number of clients that have failures
+          example: 189
+        failurePercentage:
+          type: integer
+          description: Percentage of failures
+          example: 28
+      description: 'Site analytics failure metrics
 
-
-            If `endTime` is not provided, API will default to current time.
-
-            '
+        '
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
           format: int64
-          example: 1705435200000
-      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+          example: 1000
+    SiteAnalyticsQueryRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
+        views:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsView'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithSortRequest'
+      description: Site Analytics query requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    SiteAnalyticsSummaryResponse:
+      type: object
+      properties:
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
+      description: Site analytics summary response
+    SiteAnalyticsAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute
+          example: coverageAverage
+        value:
+          type: object
+          description: Value of the attribute
+          example: 23
+    SiteAnalyticsTopNResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/SiteAnalyticsTopNResponse'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNResponse'
+      description: Site Analytics Top N Analytics Response
     SiteAnalyticsTrendResponseAttribute:
       type: string
       description: Field names which are supported by this trend API as response attributes
@@ -1353,6 +1734,270 @@ components:
       - connectionSpeedTotalCount
       - connectionSpeedFailureCount
       - connectionSpeedClientCount
+    SiteAnalyticsTrendResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: Timestamp of the data (epoch time)
+          format: int64
+          example: 1709706600000
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
+      description: Site Analytics Trend Analytics Response object
+    SiteAnalyticsGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This is the group key. Its the concatination of groupBy attributes
+          example: band=5_floorId=8a7df85f-c373-43b0-a798-34be90ef68d7
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
+      description: Site Analytics Analytics Group object
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    startAndEndTime:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `startTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705348800000
+        endTime:
+          type: integer
+          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `endTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705435200000
+      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+    SiteAnalyticsTopNFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/SiteAnalyticsTopNFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/SiteAnalyticsOperator'
+        value:
+          type: object
+          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.               \n"
+      description: 'Filter object to pass in topNAnalytics request
+
+        '
+    SiteAnalyticsPaginationSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Records are sorted based on the field specified.
+          enum:
+          - siteHierarchy
+          - siteType
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: Records are sorted based on the field specified.
+    SiteAnalyticsSummaryFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/SiteAnalyticsSummaryFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/SiteAnalyticsOperator'
+        value:
+          type: object
+          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with. \n"
+      description: 'Filter objec to pass in summaryAnalytics request.
+
+        '
+    SiteAnalyticsSummaryFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - siteHierarchyId
+      - siteId
+      - ssid
+      - band
+      - failureCategory
+      - failureReason
+    SiteAnalyticsPaginationWithTopNRequest:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 10
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+    SiteAnalyticsTopNRequest:
+      required:
+      - filters
+      - groupBy
+      - topN
+      type: object
+      properties:
+        topN:
+          $ref: '#/components/schemas/topN'
+        groupBy:
+          maxItems: 1
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsTopNFilter'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNRequest'
+      description: The input payload to query Top-N entities related to site analytics.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    topN:
+      maximum: 100
+      minimum: 5
+      type: integer
+      description: Number of records to retrieve
+      default: 5
+      enum:
+      - 5
+      - 10
+      - 50
+      - 100
+    asyncInfoContainer:
+      properties:
+        response:
+          $ref: '#/components/schemas/asyncInfo'
+        version:
+          type: string
+          example: '1.0'
+      description: 'Generic model that will contain the asynchronous task/process information
+
+        '
+    SiteAnalyticsTrendInterval:
+      type: string
+      description: 'The time window to aggregate site analytics data.
+
+        '
+      example: 30MIN
+      enum:
+      - 30MIN
+      - 1HOUR
+    SiteAnalyticsPaginationWithTrendResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    SiteAnalyticsOperator:
+      type: string
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - eq
+    SiteAnalyticsSummaryRequest:
+      required:
+      - attributes
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
+      description: The input payload to query Summary Analytics data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    SiteAnalyticImpactedEntities:
+      type: object
+      properties:
+        buildingCount:
+          type: integer
+          description: Total number of buildings
+          example: 8
+        floorCount:
+          type: integer
+          description: Total number of floors
+          example: 18
+        sitesCount:
+          type: integer
+          description: Total number of sites
+          example: 10
+        apCount:
+          type: integer
+          description: Total number of Access Points
+          example: 13
+      description: 'Site analytics impacted entites
+
+        '
     SiteAnalyticsPaginationWithSortResponse:
       type: object
       properties:
@@ -1372,29 +2017,6 @@ components:
           example: 5
         sortBy:
           $ref: '#/components/schemas/SiteAnalyticsPaginationSortBy'
-    SiteAnalyticsView:
-      type: string
-      description: "View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. If no views are specified, all attributes will be returned.\n\n| View Name | Included Attributes |\n| --- | --- |\n| View Name | Included Attributes |\n| --- | --- |\n| `coverage` | coverageAverage, coverageSuccessPercentage, coverageSuccessCount, coverageTotalCount, coverageFailureCount, coverageClientCount, coverageImpactedEntities, coverageFailureImpactedEntities, coverageFailureMetrics |\n| `onboardingAttempts` | onboardingAttemptsSuccessPercentage, onboardingAttemptsSuccessCount, onboardingAttemptsTotalCount, onboardingAttemptsFailureCount, onboardingAttemptsClientCount, onboardingAttemptsImpactedEntities, onboardingAttemptsFailureImpactedEntities, onboardingAttemptsFailureMetrics |\n| `onboardingDuration` | onboardingDurationAverage, onboardingDurationSuccessPercentage, onboardingDurationSuccessCount, onboardingDurationTotalCount, onboardingDurationFailureCount, onboardingDurationClientCount, onboardingDurationImpactedEntities, onboardingDurationFailureImpactedEntities, onboardingDurationFailureMetrics |\n| `roamingAttempts` | roamingAttemptsSuccessPercentage, roamingAttemptsSuccessCount, roamingAttemptsTotalCount, roamingAttemptsFailureCount, roamingAttemptsClientCount, roamingAttemptsImpactedEntities, roamingAttemptsFailureImpactedEntities, roamingAttemptsFailureMetrics |        \n| `roamingDuration` | roamingDurationAverage, roamingDurationSuccessPercentage, roamingDurationSuccessCount, roamingDurationTotalCount, roamingDurationFailureCount, roamingDurationClientCount, roamingDurationImpactedEntities, roamingDurationFailureImpactedEntities, roamingDurationFailureMetrics |\n| `connectionSpeed` | connectionSpeedAverage, connectionSpeedSuccessPercentage, connectionSpeedSuccessCount, connectionSpeedTotalCount, connectionSpeedFailureCount, connectionSpeedClientCount, connectionSpeedImpactedEntities, connectionSpeedFailureImpactedEntities, connectionSpeedFailureMetrics |\n"
-      enum:
-      - coverage
-      - onboardingAttempts
-      - onboardingDuration
-      - roamingAttempts
-      - roamingDuration
-      - connectionSpeed
-    SiteAnalyticsCountFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/SiteAnalyticsCountFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/SiteAnalyticsOperator'
-        value:
-          type: object
-          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.            \n"
-      description: 'Filter object to pass in the request.
-
-        '
     SiteAnalyticsResponse:
       type: object
       properties:
@@ -1595,134 +2217,16 @@ components:
         connectionSpeedFailureMetrics:
           $ref: '#/components/schemas/SiteAnalyticFailureMetrics'
       description: Contains site analytics data for a site.
-    SiteAnalyticsTrendResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: Timestamp of the data (epoch time)
-          format: int64
-          example: 1709706600000
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
-      description: Site Analytics Trend Analytics Response object
-    SiteAnalyticsSummaryRequest:
-      required:
-      - attributes
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
-      description: The input payload to query Summary Analytics data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsListResponseModel:
+    SiteAnalyticsResponseModel:
       type: object
       properties:
         response:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithSortResponse'
+          $ref: '#/components/schemas/SiteAnalyticsResponse'
         version:
           type: string
           description: The version of the response
           example: '1.0'
       description: Site analytics response
-    SiteAnalyticFailureMetrics:
-      type: object
-      properties:
-        failureApCount:
-          type: integer
-          description: Total number of Access Points that have failures
-          example: 8
-        failureClientCount:
-          type: integer
-          description: Total number of clients that have failures
-          example: 189
-        failurePercentage:
-          type: integer
-          description: Percentage of failures
-          example: 28
-      description: 'Site analytics failure metrics
-
-        '
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    SiteAnalyticsCountFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - siteHierarchyId
-      - siteHierarchy
-      - siteId
-      - siteType
-    SiteAnalyticsPaginationWithTopNResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-    SiteAnalyticsQueryRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
-        views:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsView'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithSortRequest'
-      description: Site Analytics query requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsTrendInterval:
-      type: string
-      description: 'The time window to aggregate site analytics data.
-
-        '
-      example: 30MIN
-      enum:
-      - 30MIN
-      - 1HOUR
     SiteAnalyticsFilter:
       type: object
       properties:
@@ -1741,392 +2245,6 @@ components:
       description: 'Filter object to pass in the request.
 
         '
-    SiteAnalyticsTopNFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys.
-      enum:
-      - kpiType
-      - siteHierarchyId
-      - siteId
-      - ssid
-      - band
-      - failureCategory
-      - failureReason
-    SiteAnalyticsQueryCountRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsCountFilter'
-      description: The input payload to get site analytics record count.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsGroupByKey:
-      type: string
-      description: Field names which are supported as groupBy
-      enum:
-      - floorId
-      - deviceType
-      - ssid
-      - band
-      - apName
-      - failureCategory
-      - failureReason
-      - result
-      - vlan
-      - serverIp
-      - childSiteId
-    SiteAnalyticsResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/SiteAnalyticsResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Site analytics response
-    SiteAnalyticsSummaryResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/SiteAnalyticsSummaryResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Site analytics summary response
-    SiteAnalyticsTopNRequest:
-      required:
-      - filters
-      - groupBy
-      - topN
-      type: object
-      properties:
-        topN:
-          $ref: '#/components/schemas/topN'
-        groupBy:
-          maxItems: 1
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsTopNFilter'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNRequest'
-      description: The input payload to query Top-N entities related to site analytics.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsPaginationWithTrendRequest:
-      type: object
-      properties:
-        limit:
-          maximum: 200
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-          default: 200
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    SiteAnalyticsTrendResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsTrendResponse'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTrendResponse'
-      description: Site Analytics Trend Analytics Response
-    SiteAnalyticsAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the attribute
-          example: coverageAverage
-        value:
-          type: object
-          description: Value of the attribute
-          example: 23
-    SiteAnalyticsTopNResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/SiteAnalyticsTopNResponse'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNResponse'
-      description: Site Analytics Top N Analytics Response
-    SiteAnalyticsSummaryFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/SiteAnalyticsSummaryFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/SiteAnalyticsOperator'
-        value:
-          type: object
-          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with. \n"
-      description: 'Filter objec to pass in summaryAnalytics request.
-
-        '
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    SiteAnalyticsPaginationWithSortRequest:
-      type: object
-      properties:
-        limit:
-          maximum: 20
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-          default: 10
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationSortBy'
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    SiteAnalyticsTopNResponse:
-      type: array
-      description: Site Analytics TopN Analytics Response object
-      items:
-        $ref: '#/components/schemas/SiteAnalyticsGroup'
-    SiteAnalyticsGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This is the group key. Its the concatination of groupBy attributes
-          example: band=5_floorId=8a7df85f-c373-43b0-a798-34be90ef68d7
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
-      description: Site Analytics Analytics Group object
-    SiteAnalyticsPaginationWithTrendResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    SiteAnalyticsPaginationWithTopNRequest:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 10
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-    SiteAnalyticsSummaryResponse:
-      type: object
-      properties:
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
-      description: Site analytics summary response
-    SiteAnalyticImpactedEntities:
-      type: object
-      properties:
-        buildingCount:
-          type: integer
-          description: Total number of buildings
-          example: 8
-        floorCount:
-          type: integer
-          description: Total number of floors
-          example: 18
-        sitesCount:
-          type: integer
-          description: Total number of sites
-          example: 10
-        apCount:
-          type: integer
-          description: Total number of Access Points
-          example: 13
-      description: 'Site analytics impacted entites
-
-        '
-    topN:
-      maximum: 100
-      minimum: 5
-      type: integer
-      description: Number of records to retrieve
-      default: 5
-      enum:
-      - 5
-      - 10
-      - 50
-      - 100
-    SiteAnalyticsTopNFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/SiteAnalyticsTopNFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/SiteAnalyticsOperator'
-        value:
-          type: object
-          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.               \n"
-      description: 'Filter object to pass in topNAnalytics request
-
-        '
-    SiteAnalyticsOperator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - eq
-    SiteAnalyticsTrendRequest:
-      required:
-      - attributes
-      - trendInterval
-      type: object
-      properties:
-        trendInterval:
-          $ref: '#/components/schemas/SiteAnalyticsTrendInterval'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsTrendResponseAttribute'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTrendRequest'
-      description: The input payload to query Trend Analytics data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsSummaryFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - siteHierarchyId
-      - siteId
-      - ssid
-      - band
-      - failureCategory
-      - failureReason
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    asyncInfoContainer:
-      properties:
-        response:
-          $ref: '#/components/schemas/asyncInfo'
-        version:
-          type: string
-          example: '1.0'
-      description: 'Generic model that will contain the asynchronous task/process information
-
-        '
-    asyncInfo:
-      properties:
-        taskLocation:
-          type: string
-          description: url resource where the client can fetch their task's lifecycle updates
-          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-        taskId:
-          type: string
-          description: the specific task id associated with the specific request made
-          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
     SiteAnalyticsFilterAttribute:
       type: string
       description: Field names which are supported by this API as filter keys
@@ -2139,23 +2257,6 @@ components:
       - band
       - failureCategory
       - failureReason
-    SiteAnalyticsPaginationSortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Records are sorted based on the field specified.
-          enum:
-          - siteHierarchy
-          - siteType
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: Records are sorted based on the field specified.
     SiteAnalyticsResponseAttribute:
       type: string
       description: Field names which are supported by this API as response attributes
@@ -2214,16 +2315,106 @@ components:
       - connectionSpeedFailureImpactedEntities
       - connectionSpeedFailureMetrics
       - apCount
-  examples:
-    SiteAnalyticsQueryCountRequestExample1:
-      description: This request has parent site filter.
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
+    SiteAnalyticsTrendRequest:
+      required:
+      - attributes
+      - trendInterval
+      type: object
+      properties:
+        trendInterval:
+          $ref: '#/components/schemas/SiteAnalyticsTrendInterval'
         filters:
-        - key: siteHierarchyId
-          operator: eq
-          value: f06976cc-8ae4-4ebd-8efe-11b14aa96b57/1a2d9728-a60d-4d0b-8306-e35834c2d0b7
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsTrendResponseAttribute'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTrendRequest'
+      description: The input payload to query Trend Analytics data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    SiteAnalyticsSummaryResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/SiteAnalyticsSummaryResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Site analytics summary response
+    SiteAnalyticsTopNResponse:
+      type: array
+      description: Site Analytics TopN Analytics Response object
+      items:
+        $ref: '#/components/schemas/SiteAnalyticsGroup'
+    SiteAnalyticsTrendResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsTrendResponse'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTrendResponse'
+      description: Site Analytics Trend Analytics Response
+    SiteAnalyticsPaginationWithTrendRequest:
+      type: object
+      properties:
+        limit:
+          maximum: 200
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+          default: 200
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    SiteAnalyticsQueryCountRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsCountFilter'
+      description: The input payload to get site analytics record count.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    SiteAnalyticsPaginationWithTopNResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+  examples:
     SiteAnalyticsTopNRequestExample1:
       description: TopN request.
       value:
@@ -2239,6 +2430,27 @@ components:
         - key: siteId
           operator: eq
           value: 1a2d9728-a60d-4d0b-8306-e35834c2d0b7
+    SiteAnalyticsQueryCountRequestExample1:
+      description: This request has parent site filter.
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: siteHierarchyId
+          operator: eq
+          value: f06976cc-8ae4-4ebd-8efe-11b14aa96b57/1a2d9728-a60d-4d0b-8306-e35834c2d0b7
+    SiteAnalyticsSummaryRequestExample1:
+      description: This request has parent site filter.
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: siteId
+          operator: eq
+          value: 1a2d9728-a60d-4d0b-8306-e35834c2d0b7
+        attributes:
+        - coverageAverage
+        - coverageSuccessPercentage
     SiteAnalyticsTrendRequestExample1:
       description: This request has parent site filter.
       value:
@@ -2276,15 +2488,3 @@ components:
           sortBy:
             name: coverageAverage
             order: asc
-    SiteAnalyticsSummaryRequestExample1:
-      description: This request has parent site filter.
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: siteId
-          operator: eq
-          value: 1a2d9728-a60d-4d0b-8306-e35834c2d0b7
-        attributes:
-        - coverageAverage
-        - coverageSuccessPercentage

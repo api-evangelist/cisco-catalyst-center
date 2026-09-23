@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: OpenAPI Spec AAA Services API
-  description: "This collection of APIs provides data related to AAA Services\noffered in Catalyst Center. The data is calculated for the given time range. Transaction fields are summed up and latncy fields are averaged. Transaction and latency data is returned for the two phases of the authentication process -\n      1) EAP - Extensible Authentication Protocol\n      2) MAB - MAC Authentication Bypass\n"
+  description: 'This collection of APIs provides data related to AAA Services
+
+    offered in Catalyst Center. The data is calculated for the given time range. Transaction fields are summed up and latncy fields are averaged. Transaction and latency data is returned for the two phases of the authentication process -
+
+    1) EAP - Extensible Authentication Protocol
+
+    2) MAB - MAC Authentication Bypass'
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -38,7 +44,7 @@ paths:
     get:
       tags:
       - AAA Services
-      summary: Retrieves the list of AAA Services for given parameters.
+      summary: Retrieves the list of AAA Services for given parameters
       description: Retrieves the list of AAA Services and offers basic filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is calculated for the given time range. Transaction fields are summed up and latncy fields are averaged. It returns transaction and latency data for the two phases of the authentication process - 1) EAP - Extensible Authentication Protocol 2) MAB - MAC Authentication Bypass
       operationId: readAAAServices
       parameters:
@@ -256,7 +262,7 @@ paths:
     get:
       tags:
       - AAA Services
-      summary: Retrieves the total number of AAA Services for given parameters.
+      summary: Retrieves the total number of AAA Services for given parameters
       description: Retrieves the total number of AAA Services for given parameters. If startTime and endTime are not provided, the API defaults to the last 24 hours.
       operationId: readAAAServicesCount
       parameters:
@@ -427,7 +433,7 @@ paths:
     get:
       tags:
       - AAA Services
-      summary: Retrieves the details of a specific AAA Service matching the id of the Service.
+      summary: Retrieves the details of a specific AAA Service matching the id of the Service
       description: Retrieves the details of the AAA Service matching the given id. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is from the given time range. Transaction fields are summed up and latncy fields are averaged. It returns transaction and latency data for the two phases of the authentication process - 1) EAP - Extensible Authentication Protocol 2) MAB - MAC Authentication Bypass
       operationId: readAAAServiceById
       parameters:
@@ -513,7 +519,7 @@ paths:
     post:
       tags:
       - AAA Services
-      summary: Retrieves the list of AAA Services for given set of complex filters.
+      summary: Retrieves the list of AAA Services for given set of complex filters
       description: 'Retrieves the list of AAA Services and offers complex filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is calculated for the given time range. Transaction fields are summed up and latncy fields are averaged. It returns transaction and latency data for the two phases of the authentication process - 1) EAP - Extensible Authentication Protocol 2) MAB - MAC Authentication Bypass
 
         |Field Name | Description |
@@ -586,7 +592,7 @@ paths:
     post:
       tags:
       - AAA Services
-      summary: Retrieves the total number of AAA Services for given set of complex filters.
+      summary: Retrieves the total number of AAA Services for given set of complex filters
       description: 'Retrieves the total number of AAA Services and offers complex filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -657,7 +663,7 @@ paths:
     post:
       tags:
       - AAA Services
-      summary: Get summary analytics data of AAA Services for given set of complex filters.
+      summary: Get summary analytics data of AAA Services for given set of complex filters
       description: 'Gets the summary analytics data related to AAA Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -674,7 +680,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `AAAServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset and sortBy** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *sortBy* - attribute name, order to sort|'
       operationId: queryAAAServicesSummaryAnalytics
@@ -731,7 +737,7 @@ paths:
     post:
       tags:
       - AAA Services
-      summary: Get Top N analytics data of AAA Services for given set of complex filters.
+      summary: Get Top N analytics data of AAA Services for given set of complex filters
       description: 'Gets the Top N analytics data related to AAA Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -750,7 +756,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `AAAServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset and sortBy** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *sortBy* - attribute name, order to sort|'
       operationId: queryAAAServicesTopNAnalytics
@@ -807,7 +813,7 @@ paths:
     post:
       tags:
       - AAA Services
-      summary: Get trend analytics data of AAA Services for given set of complex filters.
+      summary: Get trend analytics data of AAA Services for given set of complex filters
       description: 'Gets the trend analytics data related to AAA Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -826,7 +832,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `AAAServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset, and timestampOrder** fields. *limit* - number of records to be returned in response. *offset* - starting offset of data. *timestampOrder* - to sort the response based on the timestamp either in ascending or descending order. |'
       operationId: queryAAAServicesTrendAnalytics
@@ -883,7 +889,7 @@ paths:
     post:
       tags:
       - AAA Services
-      summary: Get trend analytics data for a given AAA Service matching the id of the Service.
+      summary: Get trend analytics data for a given AAA Service matching the id of the Service
       description: 'Gets the trend analytics data related to a particular AAA Service matching the id. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -902,7 +908,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `AAAServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `AAAServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset, and timestampOrder** fields. *limit* - number of records to be returned in response. *offset* - starting offset of data. *timestampOrder* - to sort the response based on the timestamp either in ascending or descending order. |'
       operationId: queryAAAServicesTrendAnalyticsById
@@ -975,257 +981,6 @@ paths:
           description: Unexpected Error
 components:
   schemas:
-    startAndEndTime:
-      type: object
-      properties:
-        startTime:
-          type: integer
-          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `startTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705348800000
-        endTime:
-          type: integer
-          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `endTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705435200000
-      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
-    NetworkServicesAnalyticsGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This is the group key. Its the concatination of groupBy attributes
-          example: servicerIp=10.45.32.43_deviceId=868d39df-0b96-4fdb-83cc-ae3130e4e824
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: Network Services Analytics Group object
-    AAAServicesAnalyticsGroupByKey:
-      type: string
-      enum:
-      - serverIp
-      - deviceId
-      - deviceSiteId
-    AAAServicePaginationResponse:
-      type: object
-      properties:
-        limit:
-          maximum: 100
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesPaginationSortBy'
-    AAAServicesTrendAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesTrendAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendResponse'
-      description: AAA Services Trend Analytics Response Model
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    AAAServicesSummaryAnalyticsRequest:
-      type: object
-      properties:
-        groupBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/AAAServicesAnalyticsPaginationRequest'
-      description: AAA Services Summary Analytics requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    NetworkServicesFunction:
-      type: string
-      description: Name of the aggregate function that should be applied when querying the data.
-      enum:
-      - sum
-      - min
-      - max
-      - avg
-      - latest
-    NetworkServicesAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the attribute
-          example: deviceName
-        value:
-          type: object
-          description: Value of the attribute
-          example: wnbu.sjc12.cisco.com
-    AAAServicesAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/AAAServicesAggregateAttributeKey'
-        function:
-          $ref: '#/components/schemas/NetworkServicesFunction'
-    AAAServicesPaginationRequest:
-      type: object
-      properties:
-        limit:
-          maximum: 100
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesPaginationSortBy'
-    AAAServiceListResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServiceResponse'
-        page:
-          $ref: '#/components/schemas/AAAServicePaginationResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: AAA Service list response
-    AAAServicesAggregateAttributeKey:
-      type: string
-      enum:
-      - transactions
-      - failedTransactions
-      - successfulTransactions
-      - eapTransactions
-      - eapFailedTransactions
-      - eapSuccessfulTransactions
-      - mabTransactions
-      - mabFailedTransactions
-      - mabSuccessfulTransactions
-      - latency
-      - eapLatency
-      - mabLatency
-    NetworkServicesTrendInterval:
-      type: string
-      description: 'The time window to aggregate the Network Services data.
-
-        '
-      enum:
-      - 5MIN
-      - 15MIN
-      - 1HOUR
-      - 1DAY
-    AAAServicesTopNAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/AAAServicesTopNAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/AAAServicesAnalyticsSortResponse'
-      description: AAA Services Top N Analytics Response Model
-    AAAServicesSummaryAnalyticsResponse:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: AAA Services Summary Analytics Response object
-    AAAServicesQueryCountRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesFilter'
-      description: AAA Services query count requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    AAAServicesTopNAnalyticsResponse:
-      type: array
-      description: Issues TopN Analytics Response object
-      items:
-        $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
     NetworkServicesPaginationWithTrendRequest:
       type: object
       properties:
@@ -1248,112 +1003,9 @@ components:
           enum:
           - asc
           - desc
-    AAAServicesAnalyticsFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - serverIp
-      - deviceId
-      - deviceName
-      - deviceSiteHierarchy
-      - deviceSiteHierarchyId
-      - deviceSiteId
-    ErrorResponse:
-      title: Error Response
+    AAAServicesSummaryAnalyticsResponse:
       type: object
       properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    NetworkServicesAggregateAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Aggregate attribute name
-        function:
-          type: string
-          description: Aggregate function
-        value:
-          type: object
-          description: This is the aggregate value of the attribute after applying the function on the dataset
-          example: 14
-    AAAServicesFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - serverIp
-      - deviceId
-      - deviceName
-      - deviceSiteHierarchy
-      - deviceSiteHierarchyId
-      - deviceSiteId
-      - transactions
-      - failedTransactions
-      - successfulTransactions
-      - eapTransactions
-      - eapFailedTransactions
-      - eapSuccessfulTransactions
-      - mabTransactions
-      - mabFailedTransactions
-      - mabSuccessfulTransactions
-      - latency
-      - mabLatency
-      - eapLatency
-    AAAServiceResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/AAAServiceResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: AAA Service response
-    LogicalOperator:
-      type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
-      enum:
-      - and
-      - or
-    AAAServicesSummaryAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/AAAServicesSummaryAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/AAAServicesAnalyticsSortResponse'
-      description: AAA Services Summary Analytics Response Model
-    AAAServicesTrendAnalyticsResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: Timestamp of the data (epoch time)
-          format: int64
-          example: 1709706600000
         groups:
           type: array
           items:
@@ -1368,154 +1020,16 @@ components:
           description: List of aggregate attributes
           items:
             $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: AAA Services Trend Analytics Response object
-    AAAServicesPaginationSortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Records are sorted based on the field specified.
-          enum:
-          - serverIp
-          - deviceName
-          - deviceSiteHierarchy
-          - transactions
-          - failedTransactions
-          - successfulTransactions
-          - eapTransactions
-          - eapFailedTransactions
-          - eapSuccessfulTransactions
-          - mabTransactions
-          - mabFailedTransactions
-          - mabSuccessfulTransactions
-          - latency
-          - mabLatency
-          - eapLatency
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: Records are sorted based on the field specified.
-    AAAServicesAnalyticsFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/AAAServicesAnalyticsFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/NetworkServicesOperator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set.
-
-            '
-        filters:
-          type: array
-          description: 'This nested array of filters can be used when `logicalOperator` is used.
-
-            '
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsFilter'
-      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
-
-        '
-    AAAServicesQueryRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesFilter'
-        page:
-          $ref: '#/components/schemas/AAAServicesPaginationRequest'
-      description: AAA Services query requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    AAAServicesTopNAnalyticsRequest:
-      required:
-      - groupBy
-      - topN
-      type: object
-      properties:
-        topN:
-          $ref: '#/components/schemas/topN'
-        groupBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/AAAServicesAnalyticsPaginationRequest'
-      description: AAA Services Top N Analytics requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    AAAServicesAnalyticsSortResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 25
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/AAAServicesAnalyticsSortBy'
-    topN:
-      maximum: 100
-      minimum: 5
-      type: integer
-      description: Number of records to retrieve
-      default: 5
+      description: AAA Services Summary Analytics Response object
+    NetworkServicesFunction:
+      type: string
+      description: Name of the aggregate function that should be applied when querying the data.
       enum:
-      - 5
-      - 10
-      - 50
-      - 100
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
+      - sum
+      - min
+      - max
+      - avg
+      - latest
     AAAServicesAnalyticsSortBy:
       type: object
       properties:
@@ -1554,14 +1068,66 @@ components:
           - asc
           - desc
       description: Records are sorted based on the field specified.
-    NetworkServicesPaginationWithTrendResponse:
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    AAAServicesFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - serverIp
+      - deviceId
+      - deviceName
+      - deviceSiteHierarchy
+      - deviceSiteHierarchyId
+      - deviceSiteId
+      - transactions
+      - failedTransactions
+      - successfulTransactions
+      - eapTransactions
+      - eapFailedTransactions
+      - eapSuccessfulTransactions
+      - mabTransactions
+      - mabFailedTransactions
+      - mabSuccessfulTransactions
+      - latency
+      - mabLatency
+      - eapLatency
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    AAAServicesPaginationRequest:
       type: object
       properties:
         limit:
+          maximum: 100
           minimum: 1
           type: integer
           description: Number of records to be returned in response
-          example: 100
+          example: 7
           default: 100
         offset:
           minimum: 1
@@ -1569,19 +1135,144 @@ components:
           description: Starting offset of data to fetch and returned
           example: 5
           default: 1
-        count:
-          minimum: 1
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-          default: 1
-        timestampOrder:
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesPaginationSortBy'
+    AAAServicesAnalyticsFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/AAAServicesAnalyticsFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/NetworkServicesOperator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set.
+
+            '
+        filters:
+          type: array
+          description: 'This nested array of filters can be used when `logicalOperator` is used.
+
+            '
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsFilter'
+      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
+
+        '
+    AAAServicesQueryCountRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesFilter'
+      description: AAA Services query count requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    AAAServicesAnalyticsGroupByKey:
+      type: string
+      enum:
+      - serverIp
+      - deviceId
+      - deviceSiteId
+    AAAServicesTopNAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
           type: string
-          description: The sort order of the timestamp can be either ascending or descending
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/AAAServicesTopNAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/AAAServicesAnalyticsSortResponse'
+      description: AAA Services Top N Analytics Response Model
+    AAAServicesTopNAnalyticsRequest:
+      required:
+      - groupBy
+      - topN
+      type: object
+      properties:
+        topN:
+          $ref: '#/components/schemas/topN'
+        groupBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/AAAServicesAnalyticsPaginationRequest'
+      description: AAA Services Top N Analytics requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    AAAServicesPaginationSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Records are sorted based on the field specified.
+          enum:
+          - serverIp
+          - deviceName
+          - deviceSiteHierarchy
+          - transactions
+          - failedTransactions
+          - successfulTransactions
+          - eapTransactions
+          - eapFailedTransactions
+          - eapSuccessfulTransactions
+          - mabTransactions
+          - mabFailedTransactions
+          - mabSuccessfulTransactions
+          - latency
+          - mabLatency
+          - eapLatency
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
           example: asc
           enum:
           - asc
           - desc
+      description: Records are sorted based on the field specified.
+    AAAServicesSummaryAnalyticsRequest:
+      type: object
+      properties:
+        groupBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/AAAServicesAnalyticsPaginationRequest'
+      description: AAA Services Summary Analytics requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
     AAAServicesTrendAnalyticsRequest:
       required:
       - groupBy
@@ -1611,6 +1302,134 @@ components:
       description: AAA Services Trend Analytics requst payload
       allOf:
       - $ref: '#/components/schemas/startAndEndTime'
+    AAAServicesQueryRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesFilter'
+        page:
+          $ref: '#/components/schemas/AAAServicesPaginationRequest'
+      description: AAA Services query requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    NetworkServicesOperator:
+      type: string
+      description: Type of filter operator to use for querying data. When `in` and `notIn` operators are used, the `value` should be array. For all other operators, the `value` should be a single value.
+      enum:
+      - in
+      - eq
+      - like
+      - lt
+      - lte
+      - gt
+      - gte
+    AAAServicePaginationResponse:
+      type: object
+      properties:
+        limit:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 7
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesPaginationSortBy'
+    AAAServicesAggregateAttribute:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/AAAServicesAggregateAttributeKey'
+        function:
+          $ref: '#/components/schemas/NetworkServicesFunction'
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    startAndEndTime:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `startTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705348800000
+        endTime:
+          type: integer
+          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `endTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705435200000
+      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+    NetworkServicesTrendInterval:
+      type: string
+      description: 'The time window to aggregate the Network Services data.
+
+        '
+      enum:
+      - 5MIN
+      - 15MIN
+      - 1HOUR
+      - 1DAY
+    AAAServicesTopNAnalyticsResponse:
+      type: array
+      description: Issues TopN Analytics Response object
+      items:
+        $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
+    NetworkServicesAggregateAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Aggregate attribute name
+        function:
+          type: string
+          description: Aggregate function
+        value:
+          type: object
+          description: This is the aggregate value of the attribute after applying the function on the dataset
+          example: 14
+    AAAServicesSummaryAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/AAAServicesSummaryAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/AAAServicesAnalyticsSortResponse'
+      description: AAA Services Summary Analytics Response Model
     AAAServicesAnalyticsPaginationRequest:
       type: object
       properties:
@@ -1630,18 +1449,124 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AAAServicesAnalyticsSortBy'
-    AAAServicesAnalyticsAttributeKey:
-      type: string
+    NetworkServicesAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute
+          example: deviceName
+        value:
+          type: object
+          description: Value of the attribute
+          example: wnbu.sjc12.cisco.com
+    NetworkServicesPaginationWithTrendResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          minimum: 1
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+          default: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    AAAServicesTrendAnalyticsResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: Timestamp of the data (epoch time)
+          format: int64
+          example: 1709706600000
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
+      description: AAA Services Trend Analytics Response object
+    NetworkServicesAnalyticsGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This is the group key. Its the concatination of groupBy attributes
+          example: servicerIp=10.45.32.43_deviceId=868d39df-0b96-4fdb-83cc-ae3130e4e824
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
+      description: Network Services Analytics Group object
+    AAAServicesTrendAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesTrendAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendResponse'
+      description: AAA Services Trend Analytics Response Model
+    topN:
+      maximum: 100
+      minimum: 5
+      type: integer
+      description: Number of records to retrieve
+      default: 5
       enum:
-      - deviceSiteHierarchy
-      - deviceName
-      - deviceFamily
-      - successRate
-      - failureRate
-      - eapSuccessRate
-      - eapFailureRate
-      - mabSuccessRate
-      - mabFailureRate
+      - 5
+      - 10
+      - 50
+      - 100
+    AAAServiceListResponseModel:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServiceResponse'
+        page:
+          $ref: '#/components/schemas/AAAServicePaginationResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: AAA Service list response
     AAAServiceResponse:
       type: object
       properties:
@@ -1735,17 +1660,71 @@ components:
           description: Average MAB latency (milliseconds) in the given time range.
           example: 8
       description: Contains details of AAA service.
-    NetworkServicesOperator:
+    LogicalOperator:
       type: string
-      description: Type of filter operator to use for querying data. When `in` and `notIn` operators are used, the `value` should be array. For all other operators, the `value` should be a single value.
+      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
       enum:
-      - in
-      - eq
-      - like
-      - lt
-      - lte
-      - gt
-      - gte
+      - and
+      - or
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    AAAServicesAnalyticsSortResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 25
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/AAAServicesAnalyticsSortBy'
+    AAAServicesAnalyticsFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - serverIp
+      - deviceId
+      - deviceName
+      - deviceSiteHierarchy
+      - deviceSiteHierarchyId
+      - deviceSiteId
+    AAAServiceResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/AAAServiceResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: AAA Service response
     AAAServicesFilter:
       type: object
       properties:
@@ -1770,44 +1749,34 @@ components:
       description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
 
         '
+    AAAServicesAnalyticsAttributeKey:
+      type: string
+      enum:
+      - deviceSiteHierarchy
+      - deviceName
+      - deviceFamily
+      - successRate
+      - failureRate
+      - eapSuccessRate
+      - eapFailureRate
+      - mabSuccessRate
+      - mabFailureRate
+    AAAServicesAggregateAttributeKey:
+      type: string
+      enum:
+      - transactions
+      - failedTransactions
+      - successfulTransactions
+      - eapTransactions
+      - eapFailedTransactions
+      - eapSuccessfulTransactions
+      - mabTransactions
+      - mabFailedTransactions
+      - mabSuccessfulTransactions
+      - latency
+      - eapLatency
+      - mabLatency
   examples:
-    AAAServicesQueryCountRequestExample1:
-      description: This request has simple filters. The resulting query from this request is - get all AAA Services whose `deviceId` is *"243faba9-7f9e-4f2d-9914-97c2756754cb"* OR *"681d442b-6df7-4583-990f-c6862d040f89"* AND have `serverIp` as *"10.55.32.109"*
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: deviceId
-          operator: in
-          value:
-          - 243faba9-7f9e-4f2d-9914-97c2756754cb
-          - 681d442b-6df7-4583-990f-c6862d040f89
-        - key: serverIp
-          operator: eq
-          value: 10.55.32.109
-    AAAServicesQueryRequestExample2:
-      description: This request has simple filters. The resulting query from this request is - get all AAA Services whose `serverIp` is *"10.55.32.109"* AND either eapTransactions > 5000 OR mabTransactions > 5000
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: serverIp
-          operator: eq
-          value: 10.55.32.109
-        - logicalOperator: or
-          filters:
-          - key: eapTransactions
-            operator: gt
-            value: 5000
-          - key: mabTransactions
-            operator: gt
-            value: 5000
-        page:
-          limit: 25
-          offset: 1
-          sortBy:
-          - name: mostRecentOccurredTime
-            order: desc
     AAAServicesQueryCountRequestExample2:
       description: This request has simple filters. The resulting query from this request is - get all AAA Services whose `serverIp` is *"10.55.32.109"* AND either eapTransactions > 5000 OR mabTransactions > 5000
       value:
@@ -1845,6 +1814,43 @@ components:
           sortBy:
           - name: mostRecentOccurredTime
             order: desc
+    AAAServicesQueryRequestExample2:
+      description: This request has simple filters. The resulting query from this request is - get all AAA Services whose `serverIp` is *"10.55.32.109"* AND either eapTransactions > 5000 OR mabTransactions > 5000
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: serverIp
+          operator: eq
+          value: 10.55.32.109
+        - logicalOperator: or
+          filters:
+          - key: eapTransactions
+            operator: gt
+            value: 5000
+          - key: mabTransactions
+            operator: gt
+            value: 5000
+        page:
+          limit: 25
+          offset: 1
+          sortBy:
+          - name: mostRecentOccurredTime
+            order: desc
+    AAAServicesQueryCountRequestExample1:
+      description: This request has simple filters. The resulting query from this request is - get all AAA Services whose `deviceId` is *"243faba9-7f9e-4f2d-9914-97c2756754cb"* OR *"681d442b-6df7-4583-990f-c6862d040f89"* AND have `serverIp` as *"10.55.32.109"*
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: deviceId
+          operator: in
+          value:
+          - 243faba9-7f9e-4f2d-9914-97c2756754cb
+          - 681d442b-6df7-4583-990f-c6862d040f89
+        - key: serverIp
+          operator: eq
+          value: 10.55.32.109
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

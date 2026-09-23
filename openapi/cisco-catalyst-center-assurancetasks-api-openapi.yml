@@ -5,9 +5,7 @@ info:
 
     Task information is only persisted for 10 minutes. Historical information on tasks is not maintained after expiry.
 
-    Submitted tasks have a timeout window of 5 minutes to complete a given operation.
-
-    '
+    Submitted tasks have a timeout window of 5 minutes to complete a given operation.'
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -51,9 +49,7 @@ paths:
         default sorting of list is `startTime`, `asc`
 
 
-        valid field to sort by are [`startTime`,`endTime`,`updateTime`,`status`]
-
-        '
+        valid field to sort by are [`startTime`,`endTime`,`updateTime`,`status`]'
       operationId: readAssuranceTasks
       parameters:
       - name: limit
@@ -137,9 +133,7 @@ paths:
       tags:
       - assuranceTasks
       summary: retrieve a specific assurance task by id
-      description: 'returns a task given a specific task id
-
-        '
+      description: returns a task given a specific task id
       operationId: readAssuranceTaskById
       parameters:
       - name: id
@@ -203,9 +197,7 @@ paths:
       tags:
       - assuranceTasks
       summary: retrieve a count of the number of assurance tasks that currently exist
-      description: 'returns a count of the number of assurance tasks that are not expired
-
-        '
+      description: returns a count of the number of assurance tasks that are not expired
       operationId: readAssuranceTaskCount
       parameters:
       - name: X-CALLER-ID
@@ -260,17 +252,31 @@ paths:
           description: Unexpected Error
 components:
   schemas:
-    CountIntegerResponse:
-      title: Count Integer Response
+    AssuranceTasks:
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
+          type: array
+          description: 'Successfully returned list of tasks
+
+            '
+          items:
+            $ref: '#/components/schemas/AssuranceTask'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
         version:
           type: string
-          description: The version of the response
           example: '1.0'
-      description: Reports
+      description: List of assurance tasks
+    AssuranceTaskInfo:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/AssuranceTask'
+        version:
+          type: string
+          example: '1.0'
+      description: Assurance Task Info
     CountIntegerResponse_response:
       type: object
       properties:
@@ -300,15 +306,52 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    AssuranceTaskInfo:
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/AssuranceTask'
+          $ref: '#/components/schemas/CountIntegerResponse_response'
         version:
           type: string
+          description: The version of the response
           example: '1.0'
-      description: Assurance Task Info
+      description: Reports
     AssuranceTask:
       type: object
       properties:
@@ -388,58 +431,36 @@ components:
         detail:
           type: string
           description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    AssuranceTasks:
-      type: object
-      properties:
-        response:
-          type: array
-          description: 'Successfully returned list of tasks
-
-            '
-          items:
-            $ref: '#/components/schemas/AssuranceTask'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-        version:
-          type: string
-          example: '1.0'
-      description: List of assurance tasks
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
   examples:
+    AssuranceTaskSuccessInfo:
+      summary: Assurance Task that is in an success state
+      value:
+        response:
+          id: bba22b5a-b9f6-4df1-8965-3fb076aaf802
+          status: SUCCESS
+          startTime: 1717955183000
+          endTime: 1716213175000
+          updateTime: 1716213175000
+          progress: Process has succeeded.
+          requestType: SITE_QUERY_API
+          data:
+            startTime: 1718646534000
+            endTime: 1718732934000
+            attributes:
+            - networkDeviceCount
+            - clientCount
+            filters:
+            - key: networkDeviceCount
+              operator: gt
+              value: 10
+            page:
+              limit: 100
+              offset: 5
+              sortBy:
+              - name: clientCount
+                order: asc
+          resultUrl: /data/api/v1/siteHealthSummaries?taskId=bba22b5a-b9f6-4df1-8965-3fb076aaf802
+        version: '1.0'
     AssuranceTaskErrorInfo:
       summary: Assurance Task that is in an error state
       value:
@@ -554,35 +575,6 @@ components:
           sortBy:
           - name: startTime
             order: asc
-        version: '1.0'
-    AssuranceTaskSuccessInfo:
-      summary: Assurance Task that is in an success state
-      value:
-        response:
-          id: bba22b5a-b9f6-4df1-8965-3fb076aaf802
-          status: SUCCESS
-          startTime: 1717955183000
-          endTime: 1716213175000
-          updateTime: 1716213175000
-          progress: Process has succeeded.
-          requestType: SITE_QUERY_API
-          data:
-            startTime: 1718646534000
-            endTime: 1718732934000
-            attributes:
-            - networkDeviceCount
-            - clientCount
-            filters:
-            - key: networkDeviceCount
-              operator: gt
-              value: 10
-            page:
-              limit: 100
-              offset: 5
-              sortBy:
-              - name: clientCount
-                order: asc
-          resultUrl: /data/api/v1/siteHealthSummaries?taskId=bba22b5a-b9f6-4df1-8965-3fb076aaf802
         version: '1.0'
     AssuranceTaskPendingInfo:
       summary: Assurance Task that is in an in pending state

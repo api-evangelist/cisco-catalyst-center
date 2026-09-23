@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: OpenAPI specification for Assurance Intelligent Capture Icap API
+  title: OpenAPI specification for Assurance Intelligent Capture…
   description: OpenAPI specification for Assurance Intelligent Capture (ICAP)
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
@@ -300,7 +300,6 @@ paths:
       tags:
       - icap
       summary: Retrieves details of a specific ICAP packet capture file
-      description: Retrieves details of a specific ICAP packet capture file
       operationId: readIcapCaptureFileDetailsById
       parameters:
       - name: id
@@ -339,7 +338,6 @@ paths:
       tags:
       - icap
       summary: Downloads a specific ICAP packet capture file
-      description: Downloads a specific ICAP packet capture file
       operationId: downloadIcapCaptureFileById
       parameters:
       - name: id
@@ -433,7 +431,6 @@ paths:
       tags:
       - icap
       summary: Retrieves the spectrum sensor reports sent by WLC for provided AP Mac
-      description: Retrieves the spectrum sensor reports sent by WLC for provided AP Mac
       operationId: readIcapSpectrumSensorReportsByApMac
       parameters:
       - name: X-CALLER-ID
@@ -545,7 +542,7 @@ paths:
     get:
       tags:
       - icap
-      summary: Retrieves the spectrum interference devices reports sent by WLC for provided AP Mac
+      summary: Retrieves the spectrum interference devices reports sent by WLC for provided AP…
       description: Retrieves the spectrum interference devices reports sent by WLC for provided AP Mac
       operationId: readIcapSpectrumInterferenceDevicesReportsByApMac
       parameters:
@@ -628,7 +625,7 @@ paths:
     get:
       tags:
       - icap
-      summary: Fetches ICAP related settings.
+      summary: Fetches ICAP related settings
       description: Use this API operation to get ICAP settings. Optional name and id filters can be passed to filter the results.
       operationId: readIcapSettings
       parameters:
@@ -680,8 +677,8 @@ paths:
     put:
       tags:
       - icap
-      summary: Updates ICAP related settings.
-      description: Use this API to update ICAP settings. Currently the only available setting is to enable or disable Packet Analysis. By default Packet Analysis would be  disabled.
+      summary: Updates ICAP related settings
+      description: Use this API to update ICAP settings. Currently the only available setting is to enable or disable Packet Analysis. By default Packet Analysis would be disabled.
       operationId: updateIcapSettings
       parameters:
       - name: id
@@ -723,7 +720,7 @@ paths:
     post:
       tags:
       - icap
-      summary: Retrieves specific client statistics over specified period of time.
+      summary: Retrieves specific client statistics over specified period of time
       description: 'Retrieves the time series statistics of a specific client by applying complex filters. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
 
@@ -779,7 +776,7 @@ paths:
     post:
       tags:
       - icap
-      summary: Retrieves specific radio statistics over specified period of time.
+      summary: Retrieves specific radio statistics over specified period of time
       description: 'Retrieves the time series statistics of a specific radio by applying complex filters. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
 
@@ -835,162 +832,451 @@ paths:
           $ref: '#/components/responses/defaultError'
 components:
   schemas:
-    ClientStatsRawDataQueryResponse:
+    ClientStatsRawDataQueryRequest:
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/startTime'
+        endTime:
+          $ref: '#/components/schemas/endTime'
+        filters:
+          $ref: '#/components/schemas/ClientStatsFilters'
+        page:
+          $ref: '#/components/schemas/PaginationTrendOffset'
+      description: 'Request payload used for raw data query API. It contains |
+
+        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
+
+        '
+    IcapAnalysisHighlight:
+      type: object
+      properties:
+        frameNumber:
+          type: integer
+          description: Packet frame number in the capture
+        details:
+          type: array
+          description: Highlight details for the frame
+          items:
+            $ref: '#/components/schemas/IcapAnalysisHighlightDetail'
+      description: Highlighted packet details extracted from the analysis
+    RadioStatsFilterField:
+      type: string
+      description: Supported filter attributes related to radios
+      enum:
+      - apMac
+      - radioId
+      - band
+    RadioStatsRawDataQueryRequest:
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/startTime'
+        endTime:
+          $ref: '#/components/schemas/endTime'
+        filters:
+          $ref: '#/components/schemas/RadioStatsFilters'
+        page:
+          $ref: '#/components/schemas/PaginationTrendOffset'
+      description: 'Request payload used for raw data query API. It contains |
+
+        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
+
+        '
+    CaptureFilesResponseModel:
       type: object
       properties:
         response:
           type: array
           items:
-            $ref: '#/components/schemas/ClientStatsDetail'
+            $ref: '#/components/schemas/CaptureFileDetail'
+        page:
+          $ref: '#/components/schemas/CapturesPagination'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Collection of ICAP Packet Captures response model
+    IcapAnalysisMetadataSection:
+      type: object
+      properties:
+        pcapId:
+          type: string
+        createdDate:
+          type: string
+        captureReason:
+          type: string
+        byteSize:
+          type: integer
+        packetCount:
+          type: integer
+        durationMilliSeconds:
+          type: integer
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    RadioStatsFilters:
+      maxItems: 10
+      type: array
+      description: 'List of filters to apply when querying the data
+
+
+
+        Filtering on numerical fields (integer, number,etc.) will support the
+
+        numerical operators:
+
+
+
+        [eq, lt, gt, lte, gte]
+
+
+
+        Filtering on text fields (string), will support the string operators:
+
+
+
+        [eq, in, notIn, like]
+
+
+
+        For the list of supported fields, please refer to the RadioFilterField model
+
+        model.
+
+        '
+      items:
+        $ref: '#/components/schemas/RadioStatsFilterObj'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          description: The error response object
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    PaginationTrendOffset:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+        timeSortOrder:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          enum:
+          - asc
+          - desc
+    SpectrumInterferenceDeviceRawDataQueryResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpectrumInterferenceDeviceDetail'
         page:
           $ref: '#/components/schemas/PaginationTrendOffset'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-    ClientStatsFilterField:
-      type: string
-      description: Supported filter attributes related to clients
-      enum:
-      - clientMac
-      - apMac
-      - radioId
-      - band
-      - ssid
-      - clientIp
-    CaptureFileAnalysis:
+    RadioStatsRawDataQueryResponse:
       type: object
       properties:
-        metadata:
-          $ref: '#/components/schemas/IcapAnalysisMetadataSection'
-        title:
-          type: string
-          description: Short natural language title for the analysis
-        summary:
-          type: string
-          description: Summary of the analysis
-        reasoning:
-          $ref: '#/components/schemas/IcapAnalysisReasoningSection'
-        highlights:
+        response:
           type: array
-          description: Highlighted packet details extracted from the analysis
           items:
-            $ref: '#/components/schemas/IcapAnalysisHighlight'
-        flow:
-          type: array
-          description: Packet flow entries extracted from the analysis
-          items:
-            $ref: '#/components/schemas/IcapAnalysisFlowResult'
-        suggestedActions:
-          $ref: '#/components/schemas/IcapAnalysisSuggestedActionsSection'
-      description: Packet capture analysis response item
-    SpectrumSensorDetail:
+            $ref: '#/components/schemas/RadioStatsDetail'
+        page:
+          $ref: '#/components/schemas/PaginationTrendOffset'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    endTime:
+      type: integer
+      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      format: int64
+      example: 1705435200000
+    RadioStatsDetail:
       type: object
       properties:
         id:
           type: string
-          description: Unique value to identify the spectrum sensor details.
-          example: Dhdp25ABYBzUpb6ZnCWs
-        spanKHz:
-          type: integer
-          description: Channel Bandwidth in Kilo Hertz (KHz).
-          format: int64
-          example: 345000
-        dataType:
-          type: integer
-          description: Data type of the band.
-          format: int64
-          example: 2
+          description: Unique value to identify Radio statistics details. It is the composite key made of AP macAddress and Radio Slot Id. Format apMac_RadioId
+          example: 11:22:33:44:55:66_1
         apMac:
           type: string
-          description: Mac Address of the AP when is configured to scan the radio spectrum.
+          description: Mac Address of the Access Point to which the client is connected.
           example: AA:BB:CC:DD:EE:FF
-        dataAvg:
-          type: number
-          description: Average signal strength detected by the radio
-          example: -94.69
-        dataMin:
-          type: number
-          description: Minimum signal strength detected by the radio.
-          example: -101
-        dataMax:
-          type: number
-          description: Maximum signal strength detected by the radio
-          example: -85
-        dataUnits:
-          type: string
-          description: Units of the amplitude
-          example: dBm
-        centralFrequencyKHz:
+        radioId:
           type: integer
-          description: Central frequency used by the radio to scan the spectrum in Kilo Hertz (KHz)
+          description: Radio slot Id of the Access Point where the wireless client is connected
+          example: 1
+        timestamp:
+          type: integer
+          description: Last known time when the radio statistics is updated. It is specified in UNIX epochtime format in milliseconds
           format: int64
-          example: 5662500
+          example: 16994442370000
         band:
           type: string
-          description: Frequency band used by the radio to scan the spectrum. Band value is represented in Giga Hertz - GHz
+          description: WiFi frequency band that client or Access Point operates. Band value is represented in Giga Hertz - GHz
           example: BAND_5_GHZ
           enum:
           - BAND_2_4_GHZ
           - BAND_5_GHZ
           - BAND_6_GHZ
-        timestamp:
+        utilization:
           type: integer
-          description: Timestamp at which radio collected the sensor data and reported
-          format: int64
-          example: 1721668045034
-        data:
-          type: array
-          example:
-          - -101
-          - -94.5
-          - -87.0
-          items:
-            type: number
-            description: signal amplitude
-        dataSize:
+          description: Total Radio Utilization value in percentage.
+          example: 10
+        nonWifiUtilization:
           type: integer
-          description: Number of data points in the 'data' array
+          description: Non Wifi Radio Utilization value in percentage.
+          example: 0
+        rxOtherBSSUtilization:
+          type: integer
+          description: Wifi Rx Other BSS Radio Utilization value in percentage. Utilization from Rogue APs
+          example: 8
+        rxInBSSUtilization:
+          type: integer
+          description: Wifi Rx In BSS Radio Utilization value in percentage. Utilization from neighbor APs
+          example: 0
+        txUtilization:
+          type: integer
+          description: Wifi Tx Radio Utilization value in percentage. Utilization from this AP when transmitting the data.
+          example: 1
+        noiseFloor:
+          type: integer
+          description: Noise floor configured on the Radio in dBm.
+          example: -85
+        channel:
+          type: string
+          description: Radio operating channel number
+          example: '64'
+        channelWidth:
+          type: string
+          description: Radio operating channel width in MHz
+          example: '40'
+        txPower:
+          type: integer
+          description: Radio operating Tx Power in dBm
+          example: -2
+        maxTxPower:
+          type: integer
+          description: Maximum allowed Radio Tx Power in dBm
+          example: 0
+        txBytes:
+          type: integer
+          description: Amount of data sent by the radio measured in bytes.
           format: int64
-          example: 3
-        channels:
-          type: array
-          description: List of channels for which data is collected in this sample
-          example:
-          - 100
-          - 104
-          - 108
-          - 112
-          - 116
-          - 120
-          - 124
-          - 128
-          - 132
-          - 136
-          - 140
-          - 144
-          - 149
-          - 153
-          - 157
-          - 161
-          - 165
-          items:
-            type: integer
-            description: Channel Number
-      description: ICAP Spectrum Sensor Details
-    ErrorObject:
+          example: 406695572
+        rxBytes:
+          type: integer
+          description: Amount of data received by the radio measured in bytes.
+          format: int64
+          example: 2753889933
+        rxPackets:
+          type: integer
+          description: Total number of packets received by the radio
+          format: int64
+          example: 3163
+        txPackets:
+          type: integer
+          description: Total number of packets sent by the radio
+          format: int64
+          example: 5647
+        rxMgmtPackets:
+          type: integer
+          description: Number of Management packets received by the radio
+          format: int64
+          example: 100
+        txMgmtPackets:
+          type: integer
+          description: Number of Management packets sent by the radio
+          format: int64
+          example: 100
+        rxErrors:
+          type: integer
+          description: Number of packets received errors radio
+          format: int64
+          example: 1652
+        txErrors:
+          type: integer
+          description: Number of packets transmit errors radio
+          format: int64
+          example: 1052
+      description: ICAP Radio connection and statistics details
+    IcapSettings:
       type: object
       properties:
-        errorCode:
+        id:
+          type: string
+          description: Unique identifier of the ICAP settings document.
+        name:
+          type: string
+          description: Name of the ICAP settings document.
+        settings:
+          $ref: '#/components/schemas/IcapPacketAnalysisSettings'
+      description: ICAP Settings model
+    CaptureFileDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique value to identify the capture file details. It the file name.
+          example: FULL-f01898b131cb_80211_1719248963529467.pcap
+        fileName:
+          type: string
+          description: Name of the PCAP file containing the captured packets.
+          example: f01898b131cb_80211_1719248963529467.pcap
+        fileSize:
           type: integer
-          description: Application specific error code returned by the server
-        message:
+          description: Size of the packet capture file in bytes.
+          format: int64
+          example: 6104112
+        type:
           type: string
-          description: Brief message about the error condition
-        detail:
+          description: Type of the capture detail
+          example: FULL
+          enum:
+          - FULL
+          - ONBOARDING
+          - OTA
+          - ANOMALY
+        clientMac:
           type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-      description: Error object containing error code and information about the error
+          description: Mac Address of the client. This is applicable only for FULL capture detail
+          example: AA:BB:CC:DD:EE:FF
+        apMac:
+          type: string
+          description: Base radio Mac Address of the Access Point. This is applicable only for ONBOARDING, OTA and ANOMALY capture detail
+          example: 11:22:33:44:55:AA
+        fileCreationTimestamp:
+          type: integer
+          description: Timestamp at which the capture file was created. It is specified in UNIX epochtime in milliseconds
+          format: int64
+          example: 1719248963000
+        lastUpdatedTimestamp:
+          type: integer
+          description: Last known time when the capture file was updated. It is specified in UNIX epochtime format in milliseconds
+          format: int64
+          example: 16994442370000
+      description: ICAP Capture File Details
+    StatsFilterOperator:
+      type: string
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - neq
+      - eq
+      - notIn
+      - like
+    IcapPacketAnalysisSettings:
+      type: object
+      properties:
+        enablePacketAnalysis:
+          type: boolean
+          description: Flag which tells if ICAP packet analysis is enabled or disabled.
+          default: false
+      description: ICAP Packet Analysis Settings model
+    IcapAnalysisFlowResult:
+      type: object
+      properties:
+        frameNumber:
+          type: integer
+          description: Packet frame number in the capture
+        timestamp:
+          type: number
+          description: Packet timestamp in seconds
+        title:
+          type: string
+          description: Short title for the flow entry
+        description:
+          type: string
+          description: Human-readable packet description
+        direction:
+          type: string
+          description: Packet direction relative to the client
+        channelFrequency:
+          type: integer
+          description: Channel frequency in MHz
+        display:
+          type: boolean
+          description: Whether the flow entry should be displayed
+        group:
+          type:
+          - integer
+          - 'null'
+          description: Optional group identifier for the flow entry
+      description: Packet flow entry extracted from the analysis
+    CapturesPagination:
+      type: object
+      properties:
+        limit:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+        sortBy:
+          type: string
+          description: Attributes related to resource that can be used to sort the response.
+          enum:
+          - clientMac
+          - apMac
+          - lastUpdatedTimestamp
+          - fileSize
+          - fileName
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          enum:
+          - asc
+          - desc
     ClientStatsDetail:
       type: object
       properties:
@@ -1113,34 +1399,195 @@ components:
       type: string
       format: ipv4
       example: 250.162.252.170
-    IcapAnalysisMetadataSection:
+    IcapSettingsUpdateResponse:
       type: object
       properties:
-        pcapId:
-          type: string
-        createdDate:
-          type: string
-        captureReason:
-          type: string
-        byteSize:
-          type: integer
-        packetCount:
-          type: integer
-        durationMilliSeconds:
-          type: integer
-    RadioStatsRawDataQueryResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioStatsDetail'
-        page:
-          $ref: '#/components/schemas/PaginationTrendOffset'
         version:
           type: string
           description: The version of the response
           example: '1.0'
+        response:
+          $ref: '#/components/schemas/IcapSettings'
+      description: ICAP Settings update response model
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    CaptureFileAnalysis:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/IcapAnalysisMetadataSection'
+        title:
+          type: string
+          description: Short natural language title for the analysis
+        summary:
+          type: string
+          description: Summary of the analysis
+        reasoning:
+          $ref: '#/components/schemas/IcapAnalysisReasoningSection'
+        highlights:
+          type: array
+          description: Highlighted packet details extracted from the analysis
+          items:
+            $ref: '#/components/schemas/IcapAnalysisHighlight'
+        flow:
+          type: array
+          description: Packet flow entries extracted from the analysis
+          items:
+            $ref: '#/components/schemas/IcapAnalysisFlowResult'
+        suggestedActions:
+          $ref: '#/components/schemas/IcapAnalysisSuggestedActionsSection'
+      description: Packet capture analysis response item
+    CaptureFileAnalysisResponse:
+      type: object
+      properties:
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/CaptureFileAnalysis'
+      description: Packet capture analysis response model
+    IcapSettingsListResponse:
+      type: object
+      properties:
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+        response:
+          type: array
+          description: ICAP Settings list
+          items:
+            $ref: '#/components/schemas/IcapSettings'
+      description: ICAP Settings list response model
+    SpectrumSensorDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique value to identify the spectrum sensor details.
+          example: Dhdp25ABYBzUpb6ZnCWs
+        spanKHz:
+          type: integer
+          description: Channel Bandwidth in Kilo Hertz (KHz).
+          format: int64
+          example: 345000
+        dataType:
+          type: integer
+          description: Data type of the band.
+          format: int64
+          example: 2
+        apMac:
+          type: string
+          description: Mac Address of the AP when is configured to scan the radio spectrum.
+          example: AA:BB:CC:DD:EE:FF
+        dataAvg:
+          type: number
+          description: Average signal strength detected by the radio
+          example: -94.69
+        dataMin:
+          type: number
+          description: Minimum signal strength detected by the radio.
+          example: -101
+        dataMax:
+          type: number
+          description: Maximum signal strength detected by the radio
+          example: -85
+        dataUnits:
+          type: string
+          description: Units of the amplitude
+          example: dBm
+        centralFrequencyKHz:
+          type: integer
+          description: Central frequency used by the radio to scan the spectrum in Kilo Hertz (KHz)
+          format: int64
+          example: 5662500
+        band:
+          type: string
+          description: Frequency band used by the radio to scan the spectrum. Band value is represented in Giga Hertz - GHz
+          example: BAND_5_GHZ
+          enum:
+          - BAND_2_4_GHZ
+          - BAND_5_GHZ
+          - BAND_6_GHZ
+        timestamp:
+          type: integer
+          description: Timestamp at which radio collected the sensor data and reported
+          format: int64
+          example: 1721668045034
+        data:
+          type: array
+          example:
+          - -101
+          - -94.5
+          - -87.0
+          items:
+            type: number
+            description: signal amplitude
+        dataSize:
+          type: integer
+          description: Number of data points in the 'data' array
+          format: int64
+          example: 3
+        channels:
+          type: array
+          description: List of channels for which data is collected in this sample
+          example:
+          - 100
+          - 104
+          - 108
+          - 112
+          - 116
+          - 120
+          - 124
+          - 128
+          - 132
+          - 136
+          - 140
+          - 144
+          - 149
+          - 153
+          - 157
+          - 161
+          - 165
+          items:
+            type: integer
+            description: Channel Number
+      description: ICAP Spectrum Sensor Details
+    IcapAnalysisReasoningSection:
+      type: object
+      properties:
+        results:
+          type: string
+          description: Reasoning of the analysis
+        jsonResults:
+          type: string
+          description: Frame by frame reasoning of the analysis
+      description: Reasoning section of the analysis
+    ClientStatsFilterField:
+      type: string
+      description: Supported filter attributes related to clients
+      enum:
+      - clientMac
+      - apMac
+      - radioId
+      - band
+      - ssid
+      - clientIp
+    startTime:
+      type: integer
+      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      format: int64
+      example: 1705348800000
     SpectrumInterferenceDeviceDetail:
       type: object
       properties:
@@ -1213,315 +1660,6 @@ components:
             type: integer
             description: Channel Number
       description: ICAP Spectrum Interference Device Details
-    RadioStatsDetail:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique value to identify Radio statistics details. It is the composite key made of AP macAddress and Radio Slot Id. Format apMac_RadioId
-          example: 11:22:33:44:55:66_1
-        apMac:
-          type: string
-          description: Mac Address of the Access Point to which the client is connected.
-          example: AA:BB:CC:DD:EE:FF
-        radioId:
-          type: integer
-          description: Radio slot Id of the Access Point where the wireless client is connected
-          example: 1
-        timestamp:
-          type: integer
-          description: Last known time when the radio statistics is updated. It is specified in UNIX epochtime format in milliseconds
-          format: int64
-          example: 16994442370000
-        band:
-          type: string
-          description: WiFi frequency band that client or Access Point operates. Band value is represented in Giga Hertz - GHz
-          example: BAND_5_GHZ
-          enum:
-          - BAND_2_4_GHZ
-          - BAND_5_GHZ
-          - BAND_6_GHZ
-        utilization:
-          type: integer
-          description: Total Radio Utilization value in percentage.
-          example: 10
-        nonWifiUtilization:
-          type: integer
-          description: Non Wifi Radio Utilization value in percentage.
-          example: 0
-        rxOtherBSSUtilization:
-          type: integer
-          description: Wifi Rx Other BSS Radio Utilization value in percentage. Utilization from Rogue APs
-          example: 8
-        rxInBSSUtilization:
-          type: integer
-          description: Wifi Rx In BSS Radio Utilization value in percentage. Utilization from neighbor APs
-          example: 0
-        txUtilization:
-          type: integer
-          description: Wifi Tx Radio Utilization value in percentage. Utilization from this AP when transmitting the data.
-          example: 1
-        noiseFloor:
-          type: integer
-          description: Noise floor configured on the Radio in dBm.
-          example: -85
-        channel:
-          type: string
-          description: Radio operating channel number
-          example: '64'
-        channelWidth:
-          type: string
-          description: Radio operating channel width in MHz
-          example: '40'
-        txPower:
-          type: integer
-          description: Radio operating Tx Power in dBm
-          example: -2
-        maxTxPower:
-          type: integer
-          description: Maximum allowed Radio Tx Power in dBm
-          example: 0
-        txBytes:
-          type: integer
-          description: Amount of data sent by the radio measured in bytes.
-          format: int64
-          example: 406695572
-        rxBytes:
-          type: integer
-          description: Amount of data received by the radio measured in bytes.
-          format: int64
-          example: 2753889933
-        rxPackets:
-          type: integer
-          description: Total number of packets received by the radio
-          format: int64
-          example: 3163
-        txPackets:
-          type: integer
-          description: Total number of packets sent by the radio
-          format: int64
-          example: 5647
-        rxMgmtPackets:
-          type: integer
-          description: Number of Management packets received by the radio
-          format: int64
-          example: 100
-        txMgmtPackets:
-          type: integer
-          description: Number of Management packets sent by the radio
-          format: int64
-          example: 100
-        rxErrors:
-          type: integer
-          description: Number of packets received errors radio
-          format: int64
-          example: 1652
-        txErrors:
-          type: integer
-          description: Number of packets transmit errors radio
-          format: int64
-          example: 1052
-      description: ICAP Radio connection and statistics details
-    CaptureFilesResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/CaptureFileDetail'
-        page:
-          $ref: '#/components/schemas/CapturesPagination'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Collection of ICAP Packet Captures response model
-    RadioStatsFilters:
-      maxItems: 10
-      type: array
-      description: 'List of filters to apply when querying the data
-
-
-
-        Filtering on numerical fields (integer, number,etc.) will support the
-
-        numerical operators:
-
-
-
-        [eq, lt, gt, lte, gte]
-
-
-
-        Filtering on text fields (string), will support the string operators:
-
-
-
-        [eq, in, notIn, like]
-
-
-
-        For the list of supported fields, please refer to the RadioFilterField model
-
-        model.
-
-        '
-      items:
-        $ref: '#/components/schemas/RadioStatsFilterObj'
-    ClientStatsRawDataQueryRequest:
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/startTime'
-        endTime:
-          $ref: '#/components/schemas/endTime'
-        filters:
-          $ref: '#/components/schemas/ClientStatsFilters'
-        page:
-          $ref: '#/components/schemas/PaginationTrendOffset'
-      description: 'Request payload used for raw data query API. It contains |
-
-        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
-
-        '
-    ClientStatsFilterObj:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/ClientStatsFilterField'
-        operator:
-          $ref: '#/components/schemas/StatsFilterOperator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
-
-
-            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
-
-
-            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters* will be used.
-
-            The data type of a value, or each item inside the value in case it is a list, must match the type defined in the Client response model
-
-            '
-        filters:
-          type: array
-          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
-
-
-            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
-
-            '
-          items:
-            $ref: '#/components/schemas/ClientStatsFilterObj'
-    PaginationTrendOffset:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-        timeSortOrder:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          enum:
-          - asc
-          - desc
-    CapturesPagination:
-      type: object
-      properties:
-        limit:
-          maximum: 100
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-        sortBy:
-          type: string
-          description: Attributes related to resource that can be used to sort the response.
-          enum:
-          - clientMac
-          - apMac
-          - lastUpdatedTimestamp
-          - fileSize
-          - fileName
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          enum:
-          - asc
-          - desc
-    RadioStatsRawDataQueryRequest:
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/startTime'
-        endTime:
-          $ref: '#/components/schemas/endTime'
-        filters:
-          $ref: '#/components/schemas/RadioStatsFilters'
-        page:
-          $ref: '#/components/schemas/PaginationTrendOffset'
-      description: 'Request payload used for raw data query API. It contains |
-
-        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
-
-        '
-    IcapAnalysisFlowResult:
-      type: object
-      properties:
-        frameNumber:
-          type: integer
-          description: Packet frame number in the capture
-        timestamp:
-          type: number
-          description: Packet timestamp in seconds
-        title:
-          type: string
-          description: Short title for the flow entry
-        description:
-          type: string
-          description: Human-readable packet description
-        direction:
-          type: string
-          description: Packet direction relative to the client
-        channelFrequency:
-          type: integer
-          description: Channel frequency in MHz
-        display:
-          type: boolean
-          description: Whether the flow entry should be displayed
-        group:
-          type:
-          - integer
-          - 'null'
-          description: Optional group identifier for the flow entry
-      description: Packet flow entry extracted from the analysis
     CaptureFileResponseModel:
       type: object
       properties:
@@ -1532,110 +1670,6 @@ components:
           description: The version of the response
           example: '1.0'
       description: Collection of ICAP Configuration response model
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          description: The error response object
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    startTime:
-      type: integer
-      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-      format: int64
-      example: 1705348800000
-    IcapPacketAnalysisSettings:
-      type: object
-      properties:
-        enablePacketAnalysis:
-          type: boolean
-          description: Flag which tells if ICAP packet analysis is enabled or disabled.
-          default: false
-      description: ICAP Packet Analysis Settings model
-    IcapSettings:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the ICAP settings document.
-        name:
-          type: string
-          description: Name of the ICAP settings document.
-        settings:
-          $ref: '#/components/schemas/IcapPacketAnalysisSettings'
-      description: ICAP Settings model
-    IcapSettingsListResponse:
-      type: object
-      properties:
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-        response:
-          type: array
-          description: ICAP Settings list
-          items:
-            $ref: '#/components/schemas/IcapSettings'
-      description: ICAP Settings list response model
-    CaptureFileDetail:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique value to identify the capture file details. It the file name.
-          example: FULL-f01898b131cb_80211_1719248963529467.pcap
-        fileName:
-          type: string
-          description: Name of the PCAP file containing the captured packets.
-          example: f01898b131cb_80211_1719248963529467.pcap
-        fileSize:
-          type: integer
-          description: Size of the packet capture file in bytes.
-          format: int64
-          example: 6104112
-        type:
-          type: string
-          description: Type of the capture detail
-          example: FULL
-          enum:
-          - FULL
-          - ONBOARDING
-          - OTA
-          - ANOMALY
-        clientMac:
-          type: string
-          description: Mac Address of the client. This is applicable only for FULL capture detail
-          example: AA:BB:CC:DD:EE:FF
-        apMac:
-          type: string
-          description: Base radio Mac Address of the Access Point. This is applicable only for ONBOARDING, OTA and ANOMALY capture detail
-          example: 11:22:33:44:55:AA
-        fileCreationTimestamp:
-          type: integer
-          description: Timestamp at which the capture file was created. It is specified in UNIX epochtime in milliseconds
-          format: int64
-          example: 1719248963000
-        lastUpdatedTimestamp:
-          type: integer
-          description: Last known time when the capture file was updated. It is specified in UNIX epochtime format in milliseconds
-          format: int64
-          example: 16994442370000
-      description: ICAP Capture File Details
     LogicalOperator:
       type: string
       description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
@@ -1647,24 +1681,6 @@ components:
       enum:
       - and
       - or
-    StatsFilterOperator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - neq
-      - eq
-      - notIn
-      - like
-    IcapAnalysisSuggestedActionsSection:
-      type: object
-      properties:
-        actions:
-          type: array
-          description: List of suggested actions
-          items:
-            $ref: '#/components/schemas/IcapAnalysisSuggestedAction'
-      description: Suggested Actions section of the analysis
     IcapAnalysisSuggestedAction:
       type: object
       properties:
@@ -1675,159 +1691,19 @@ components:
           type: string
           description: Priority of the suggested action
       description: Suggested action based on analysis
-    RadioStatsFilterObj:
+    ErrorObject:
       type: object
       properties:
-        key:
-          $ref: '#/components/schemas/RadioStatsFilterField'
-        operator:
-          $ref: '#/components/schemas/StatsFilterOperator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
-
-
-            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
-
-
-            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters* will be used.
-
-            The data type of a value, or each item inside the value in case it is a list, must match the type defined in the Client response model
-
-            '
-        filters:
-          type: array
-          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
-
-
-            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
-
-            '
-          items:
-            $ref: '#/components/schemas/RadioStatsFilterObj'
-    IcapSettingsUpdateRequest:
-      type: object
-      properties:
-        settings:
-          $ref: '#/components/schemas/IcapPacketAnalysisSettings'
-      description: ICAP Settings update request model
-    IcapAnalysisReasoningSection:
-      type: object
-      properties:
-        results:
-          type: string
-          description: Reasoning of the analysis
-        jsonResults:
-          type: string
-          description: Frame by frame reasoning of the analysis
-      description: Reasoning section of the analysis
-    IcapAnalysisHighlightDetail:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Highlight category or field type
-        highlights:
-          type: array
-          description: Highlight strings for the given type
-          items:
-            type: string
-      description: Individual highlight detail for a frame
-    SpectrumSensorRawDataQueryResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/SpectrumSensorDetail'
-        page:
-          $ref: '#/components/schemas/PaginationTrendOffset'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-    RadioStatsFilterField:
-      type: string
-      description: Supported filter attributes related to radios
-      enum:
-      - apMac
-      - radioId
-      - band
-    IcapAnalysisHighlight:
-      type: object
-      properties:
-        frameNumber:
+        errorCode:
           type: integer
-          description: Packet frame number in the capture
-        details:
-          type: array
-          description: Highlight details for the frame
-          items:
-            $ref: '#/components/schemas/IcapAnalysisHighlightDetail'
-      description: Highlighted packet details extracted from the analysis
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
+          description: Application specific error code returned by the server
+        message:
           type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ClientStatsFilters:
-      maxItems: 10
-      type: array
-      description: 'List of filters to apply when querying the data
-
-
-
-        Filtering on numerical fields (integer, number,etc.) will support the
-
-        numerical operators:
-
-
-
-        [eq, lt, gt, lte, gte]
-
-
-
-        Filtering on text fields (string), will support the string operators:
-
-
-
-        [eq, in, notIn, like]
-
-
-
-        For the list of supported fields, please refer to the ClientFilterField model
-
-        model.
-
-        '
-      items:
-        $ref: '#/components/schemas/ClientStatsFilterObj'
-    CaptureFileAnalysisResponse:
-      type: object
-      properties:
-        version:
+          description: Brief message about the error condition
+        detail:
           type: string
-          description: The version of the response
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/CaptureFileAnalysis'
-      description: Packet capture analysis response model
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+      description: Error object containing error code and information about the error
     CaptureFileAnalysisRequest:
       type: object
       properties:
@@ -1870,45 +1746,432 @@ components:
             - flow
             - suggestedActions
       description: Packet capture analyze request payload
-    SpectrumInterferenceDeviceRawDataQueryResponse:
+    IcapSettingsUpdateRequest:
+      type: object
+      properties:
+        settings:
+          $ref: '#/components/schemas/IcapPacketAnalysisSettings'
+      description: ICAP Settings update request model
+    ClientStatsFilterObj:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/ClientStatsFilterField'
+        operator:
+          $ref: '#/components/schemas/StatsFilterOperator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
+
+
+            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
+
+
+            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters* will be used.
+
+            The data type of a value, or each item inside the value in case it is a list, must match the type defined in the Client response model
+
+            '
+        filters:
+          type: array
+          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
+
+
+            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
+
+            '
+          items:
+            $ref: '#/components/schemas/ClientStatsFilterObj'
+    IcapAnalysisSuggestedActionsSection:
+      type: object
+      properties:
+        actions:
+          type: array
+          description: List of suggested actions
+          items:
+            $ref: '#/components/schemas/IcapAnalysisSuggestedAction'
+      description: Suggested Actions section of the analysis
+    ClientStatsFilters:
+      maxItems: 10
+      type: array
+      description: 'List of filters to apply when querying the data
+
+
+
+        Filtering on numerical fields (integer, number,etc.) will support the
+
+        numerical operators:
+
+
+
+        [eq, lt, gt, lte, gte]
+
+
+
+        Filtering on text fields (string), will support the string operators:
+
+
+
+        [eq, in, notIn, like]
+
+
+
+        For the list of supported fields, please refer to the ClientFilterField model
+
+        model.
+
+        '
+      items:
+        $ref: '#/components/schemas/ClientStatsFilterObj'
+    SpectrumSensorRawDataQueryResponse:
       type: object
       properties:
         response:
           type: array
           items:
-            $ref: '#/components/schemas/SpectrumInterferenceDeviceDetail'
+            $ref: '#/components/schemas/SpectrumSensorDetail'
         page:
           $ref: '#/components/schemas/PaginationTrendOffset'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-    IcapSettingsUpdateResponse:
+    IcapAnalysisHighlightDetail:
       type: object
       properties:
+        type:
+          type: string
+          description: Highlight category or field type
+        highlights:
+          type: array
+          description: Highlight strings for the given type
+          items:
+            type: string
+      description: Individual highlight detail for a frame
+    ClientStatsRawDataQueryResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientStatsDetail'
+        page:
+          $ref: '#/components/schemas/PaginationTrendOffset'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-        response:
-          $ref: '#/components/schemas/IcapSettings'
-      description: ICAP Settings update response model
-    endTime:
-      type: integer
-      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-      format: int64
-      example: 1705435200000
+    RadioStatsFilterObj:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/RadioStatsFilterField'
+        operator:
+          $ref: '#/components/schemas/StatsFilterOperator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
+
+
+            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
+
+
+            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters* will be used.
+
+            The data type of a value, or each item inside the value in case it is a list, must match the type defined in the Client response model
+
+            '
+        filters:
+          type: array
+          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
+
+
+            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
+
+            '
+          items:
+            $ref: '#/components/schemas/RadioStatsFilterObj'
+  responses:
+    defaultError:
+      description: Unexpected Error
+    IcapSettingsUpdateResponse:
+      description: Response of the ICAP Settings update
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/IcapSettingsUpdateResponse'
+          examples:
+            ICAPSettingsUpdateResponseExample:
+              $ref: '#/components/examples/IcapSettingsUpdateResponseExample'
+    CaptureFileAnalysisResponse:
+      description: Response of the capture file anlysis
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/CaptureFileAnalysisResponse'
+          examples:
+            CaptureFileAnalysisResponseExample:
+              $ref: '#/components/examples/CaptureFileAnalysisResponseExample'
+    CaptureFileResponseModel:
+      description: Single ICAP Capture File Response model on success
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/CaptureFileResponseModel'
+    SpectrumInterferenceDeviceRawDataQueryResponse:
+      description: Collection of IDR raw data response model on success
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SpectrumInterferenceDeviceRawDataQueryResponse'
+    CountIntegerResponse:
+      description: Reponse object containing total count of the records after applying requested filters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CountIntegerResponse'
+    3XX:
+      description: Redirection Messages - The client must take additional action to complete the request.
+    DownloadCaptureFileResponseModel:
+      description: Download ICAP Packet Capture file model on success
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
+    IcapSettingsListResponse:
+      description: Response of the get ICAP Settings
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/IcapSettingsListResponse'
+          examples:
+            IcapSettingsListResponseExample:
+              $ref: '#/components/examples/IcapSettingsListResponseExample'
+    '400':
+      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    '404':
+      description: The client made a request for a resource that does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    1XX:
+      description: Informational Responses - The server received the request and sent an informational response.
+    '500':
+      description: The server could not fulfill the request due to internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    SpectrumSensorRawDataQueryResponse:
+      description: Collection of sensor raw data response model on success
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SpectrumSensorRawDataQueryResponse'
+    ClientStatsRawDataQueryResponse:
+      description: Collection of client raw data responses model on success
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientStatsRawDataQueryResponse'
+          examples:
+            clientStatsRawDataQueryResponse:
+              $ref: '#/components/examples/clientStatsRawDataQueryResponse'
+    RadioStatsRawDataQueryResponse:
+      description: Collection of Radio raw data response model on success
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/RadioStatsRawDataQueryResponse'
+          examples:
+            clientStatsRawDataQueryResponse:
+              $ref: '#/components/examples/radioStatsRawDataQueryResponse'
+    CaptureFilesResponseModel:
+      description: Collection of ICAP Capture File Response model on success
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/CaptureFilesResponseModel'
+  requestBodies:
+    RadioStatsRawDataQueryRequest:
+      description: Payload to query raw data for a radio
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/RadioStatsRawDataQueryRequest'
+          examples:
+            radioStatsRawDataRequest:
+              $ref: '#/components/examples/radioStatsRawDataQueryRequest'
+      required: true
+    IcapSettingsUpdateRequest:
+      description: Payload to update icap settings
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/IcapSettingsUpdateRequest'
+          examples:
+            IcapSettingsUpdateRequestExample:
+              $ref: '#/components/examples/IcapSettingsUpdateRequestExample'
+      required: true
+    ClientStatsRawDataQueryRequest:
+      description: Payload to query raw data for a client
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientStatsRawDataQueryRequest'
+          examples:
+            clientStatsRawDataRequest:
+              $ref: '#/components/examples/clientStatsRawDataQueryRequest'
+      required: true
+    CaptureFileAnalysisRequest:
+      description: Payload to analyze a specific capture file
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/CaptureFileAnalysisRequest'
+          examples:
+            CaptureFileAnalysisRequestExample:
+              $ref: '#/components/examples/CaptureFileAnalysisRequestExample'
+      required: true
   examples:
-    CaptureFileAnalysisRequestExample:
-      summary: Capture file analysis request
+    radioStatsRawDataQueryResponse:
+      summary: Radio Stats Query Response
       value:
-        clientMacs:
-        - 00:AA:BB:CC:DD:EE
-        views:
-        - summary
-        - reasoning
-    clientStatsRawDataQueryRequest:
-      summary: Client Stats Raw Data Request
+        response:
+        - timestamp: 1707759900000
+          apMac: AA:BB:CC:DD:EE:FF
+          radioId: 1
+          band: BAND_5_GHZ
+          utilization: 10
+          nonWifiUtilization: 0
+          rxOtherBSSUtilization: 8
+          rxInBSSUtilization: 0
+          txUtilization: 1
+          noiseFloor: -85
+          channel: 64
+          channelWidth: 40
+          txPower: -2
+          maxTxPower: 0
+          txBytes: 406695572
+          rxBytes: 2753889933
+          rxPackets: 3163
+          txPackets: 5647
+          rxMgmtPackets: 100
+          txMgmtPackets: 100
+          rxErrors: 1652
+          txErrors: 1052
+        - timestamp: 1707760200000
+          apMac: AA:BB:CC:DD:EE:FF
+          radioId: 1
+          band: BAND_6_GHZ
+          utilization: 20
+          nonWifiUtilization: 1
+          rxOtherBSSUtilization: 18
+          rxInBSSUtilization: 0
+          txUtilization: 1
+          noiseFloor: -85
+          channel: 5
+          channelWidth: 80
+          txPower: 2
+          maxTxPower: 6
+          txBytes: 506695572
+          rxBytes: 3753889933
+          rxPackets: 4163
+          txPackets: 6647
+          rxMgmtPackets: 200
+          txMgmtPackets: 200
+          rxErrors: 2652
+          txErrors: 2052
+        page:
+          limit: 100
+          offset: 2
+          count: 100
+          timeSortOrder: desc
+        version: '1.0'
+    clientStatsRawDataQueryResponse:
+      summary: Client Stats Raw Data Response
+      value:
+        response:
+        - id: WPG0T5EB5I3wVW9cC-pj
+          clientMac: 11:22:33:44:55:66
+          apMac: AA:BB:CC:DD:EE:FF
+          radioId: 2
+          timestamp: 1722733225070
+          band: BAND_5_GHZ
+          ssid: alpha
+          rssi: -52
+          snr: 41
+          txBytes: 406695572
+          rxBytes: 2753889933
+          rxPackets: 3163
+          txPackets: 5647
+          rxMgmtPackets: 100
+          txMgmtPackets: 100
+          rxDataPackets: 2963
+          txDataPackets: 5447
+          txUnicastDataPackets: 0
+          rxCtrlPackets: 100
+          txCtrlPackets: 100
+          rxRetries: 1652
+          rxRate: 1951
+          txRate: 60182
+          clientIp: 50.162.252.170
+        - id: WfG0T5EB5I3wVW9cC-pj
+          clientMac: 11:22:33:44:55:66
+          apMac: AA:BB:CC:DD:EE:FF
+          radioId: 2
+          timestamp: 1722743225070
+          band: BAND_5_GHZ
+          ssid: alpha
+          rssi: -72
+          snr: 31
+          txBytes: 506695572
+          rxBytes: 3753889933
+          rxPackets: 4163
+          txPackets: 6647
+          rxMgmtPackets: 200
+          txMgmtPackets: 200
+          rxDataPackets: 3963
+          txDataPackets: 6447
+          txUnicastDataPackets: 10
+          rxCtrlPackets: 200
+          txCtrlPackets: 200
+          rxRetries: 2652
+          rxRate: 2951
+          txRate: 70182
+          clientIp: 50.162.252.170
+        page:
+          limit: 100
+          offset: 2
+          count: 1000
+          timeSortOrder: desc
+        version: '1.0'
+    IcapSettingsUpdateRequestExample:
+      summary: ICAP Settings update request
+      value:
+        settings:
+          enablePacketAnalysis: true
+    IcapSettingsUpdateResponseExample:
+      summary: ICAP Settings update response
+      value:
+        version: '1.0'
+        response:
+          id: 69f0a87e00a4472a0967a912
+          name: packetAnalysis
+          settings:
+            enablePacketAnalysis: true
+    radioStatsRawDataQueryRequest:
+      summary: Radio Stats Query Request
       value:
         startTime: 1709110800000
         endTime: 1709197200000
@@ -1919,11 +2182,6 @@ components:
           - BAND_5_GHZ
           - BAND_24_GHZ
           - BAND_6_GHZ
-        - key: apMac
-          operator: in
-          value:
-          - 11:22:33:44:55:66
-          - A1:B1:C1:D1:E1:F1
         page:
           limit: 100
           offset: 2
@@ -1983,67 +2241,16 @@ components:
             actions:
             - action: Verify the Pre-Shared Key (PSK) or client driver/firmware configuration on the client side is correct. '4-way handshake failed' usually means client failed to complete 4-way EAP Key exchange
               priority: medium
-    radioStatsRawDataQueryResponse:
-      summary: Radio Stats Query Response
+    CaptureFileAnalysisRequestExample:
+      summary: Capture file analysis request
       value:
-        response:
-        - timestamp: 1707759900000
-          apMac: AA:BB:CC:DD:EE:FF
-          radioId: 1
-          band: BAND_5_GHZ
-          utilization: 10
-          nonWifiUtilization: 0
-          rxOtherBSSUtilization: 8
-          rxInBSSUtilization: 0
-          txUtilization: 1
-          noiseFloor: -85
-          channel: 64
-          channelWidth: 40
-          txPower: -2
-          maxTxPower: 0
-          txBytes: 406695572
-          rxBytes: 2753889933
-          rxPackets: 3163
-          txPackets: 5647
-          rxMgmtPackets: 100
-          txMgmtPackets: 100
-          rxErrors: 1652
-          txErrors: 1052
-        - timestamp: 1707760200000
-          apMac: AA:BB:CC:DD:EE:FF
-          radioId: 1
-          band: BAND_6_GHZ
-          utilization: 20
-          nonWifiUtilization: 1
-          rxOtherBSSUtilization: 18
-          rxInBSSUtilization: 0
-          txUtilization: 1
-          noiseFloor: -85
-          channel: 5
-          channelWidth: 80
-          txPower: 2
-          maxTxPower: 6
-          txBytes: 506695572
-          rxBytes: 3753889933
-          rxPackets: 4163
-          txPackets: 6647
-          rxMgmtPackets: 200
-          txMgmtPackets: 200
-          rxErrors: 2652
-          txErrors: 2052
-        page:
-          limit: 100
-          offset: 2
-          count: 100
-          timeSortOrder: desc
-        version: '1.0'
-    IcapSettingsUpdateRequestExample:
-      summary: ICAP Settings update request
-      value:
-        settings:
-          enablePacketAnalysis: true
-    radioStatsRawDataQueryRequest:
-      summary: Radio Stats Query Request
+        clientMacs:
+        - 00:AA:BB:CC:DD:EE
+        views:
+        - summary
+        - reasoning
+    clientStatsRawDataQueryRequest:
+      summary: Client Stats Raw Data Request
       value:
         startTime: 1709110800000
         endTime: 1709197200000
@@ -2054,19 +2261,15 @@ components:
           - BAND_5_GHZ
           - BAND_24_GHZ
           - BAND_6_GHZ
+        - key: apMac
+          operator: in
+          value:
+          - 11:22:33:44:55:66
+          - A1:B1:C1:D1:E1:F1
         page:
           limit: 100
           offset: 2
           timeSortOrder: desc
-    IcapSettingsUpdateResponseExample:
-      summary: ICAP Settings update response
-      value:
-        version: '1.0'
-        response:
-          id: 69f0a87e00a4472a0967a912
-          name: packetAnalysis
-          settings:
-            enablePacketAnalysis: true
     IcapSettingsListResponseExample:
       summary: ICAP Settings response
       value:
@@ -2076,212 +2279,6 @@ components:
           name: packetAnalysis
           settings:
             enablePacketAnalysis: true
-    clientStatsRawDataQueryResponse:
-      summary: Client Stats Raw Data Response
-      value:
-        response:
-        - id: WPG0T5EB5I3wVW9cC-pj
-          clientMac: 11:22:33:44:55:66
-          apMac: AA:BB:CC:DD:EE:FF
-          radioId: 2
-          timestamp: 1722733225070
-          band: BAND_5_GHZ
-          ssid: alpha
-          rssi: -52
-          snr: 41
-          txBytes: 406695572
-          rxBytes: 2753889933
-          rxPackets: 3163
-          txPackets: 5647
-          rxMgmtPackets: 100
-          txMgmtPackets: 100
-          rxDataPackets: 2963
-          txDataPackets: 5447
-          txUnicastDataPackets: 0
-          rxCtrlPackets: 100
-          txCtrlPackets: 100
-          rxRetries: 1652
-          rxRate: 1951
-          txRate: 60182
-          clientIp: 50.162.252.170
-        - id: WfG0T5EB5I3wVW9cC-pj
-          clientMac: 11:22:33:44:55:66
-          apMac: AA:BB:CC:DD:EE:FF
-          radioId: 2
-          timestamp: 1722743225070
-          band: BAND_5_GHZ
-          ssid: alpha
-          rssi: -72
-          snr: 31
-          txBytes: 506695572
-          rxBytes: 3753889933
-          rxPackets: 4163
-          txPackets: 6647
-          rxMgmtPackets: 200
-          txMgmtPackets: 200
-          rxDataPackets: 3963
-          txDataPackets: 6447
-          txUnicastDataPackets: 10
-          rxCtrlPackets: 200
-          txCtrlPackets: 200
-          rxRetries: 2652
-          rxRate: 2951
-          txRate: 70182
-          clientIp: 50.162.252.170
-        page:
-          limit: 100
-          offset: 2
-          count: 1000
-          timeSortOrder: desc
-        version: '1.0'
-  responses:
-    ClientStatsRawDataQueryResponse:
-      description: Collection of client raw data responses model on success
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientStatsRawDataQueryResponse'
-          examples:
-            clientStatsRawDataQueryResponse:
-              $ref: '#/components/examples/clientStatsRawDataQueryResponse'
-    CaptureFilesResponseModel:
-      description: Collection of ICAP Capture File Response model on success
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/CaptureFilesResponseModel'
-    IcapSettingsListResponse:
-      description: Response of the get ICAP Settings
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/IcapSettingsListResponse'
-          examples:
-            IcapSettingsListResponseExample:
-              $ref: '#/components/examples/IcapSettingsListResponseExample'
-    defaultError:
-      description: Unexpected Error
-    SpectrumInterferenceDeviceRawDataQueryResponse:
-      description: Collection of IDR raw data response model on success
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/SpectrumInterferenceDeviceRawDataQueryResponse'
-    '400':
-      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    RadioStatsRawDataQueryResponse:
-      description: Collection of Radio raw data response model on success
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/RadioStatsRawDataQueryResponse'
-          examples:
-            clientStatsRawDataQueryResponse:
-              $ref: '#/components/examples/radioStatsRawDataQueryResponse'
-    3XX:
-      description: Redirection Messages - The client must take additional action to complete the request.
-    SpectrumSensorRawDataQueryResponse:
-      description: Collection of sensor raw data response model on success
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/SpectrumSensorRawDataQueryResponse'
-    CaptureFileAnalysisResponse:
-      description: Response of the capture file anlysis
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/CaptureFileAnalysisResponse'
-          examples:
-            CaptureFileAnalysisResponseExample:
-              $ref: '#/components/examples/CaptureFileAnalysisResponseExample'
-    '404':
-      description: The client made a request for a resource that does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    CaptureFileResponseModel:
-      description: Single ICAP Capture File Response model on success
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/CaptureFileResponseModel'
-    1XX:
-      description: Informational Responses - The server received the request and sent an informational response.
-    DownloadCaptureFileResponseModel:
-      description: Download ICAP Packet Capture file model on success
-      content:
-        application/octet-stream:
-          schema:
-            type: string
-            format: binary
-    CountIntegerResponse:
-      description: Reponse object containing total count of the records after applying requested filters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CountIntegerResponse'
-    IcapSettingsUpdateResponse:
-      description: Response of the ICAP Settings update
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/IcapSettingsUpdateResponse'
-          examples:
-            ICAPSettingsUpdateResponseExample:
-              $ref: '#/components/examples/IcapSettingsUpdateResponseExample'
-    '500':
-      description: The server could not fulfill the request due to internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  requestBodies:
-    CaptureFileAnalysisRequest:
-      description: Payload to analyze a specific capture file
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/CaptureFileAnalysisRequest'
-          examples:
-            CaptureFileAnalysisRequestExample:
-              $ref: '#/components/examples/CaptureFileAnalysisRequestExample'
-      required: true
-    RadioStatsRawDataQueryRequest:
-      description: Payload to query raw data for a radio
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/RadioStatsRawDataQueryRequest'
-          examples:
-            radioStatsRawDataRequest:
-              $ref: '#/components/examples/radioStatsRawDataQueryRequest'
-      required: true
-    IcapSettingsUpdateRequest:
-      description: Payload to update icap settings
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/IcapSettingsUpdateRequest'
-          examples:
-            IcapSettingsUpdateRequestExample:
-              $ref: '#/components/examples/IcapSettingsUpdateRequestExample'
-      required: true
-    ClientStatsRawDataQueryRequest:
-      description: Payload to query raw data for a client
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientStatsRawDataQueryRequest'
-          examples:
-            clientStatsRawDataRequest:
-              $ref: '#/components/examples/clientStatsRawDataQueryRequest'
-      required: true
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

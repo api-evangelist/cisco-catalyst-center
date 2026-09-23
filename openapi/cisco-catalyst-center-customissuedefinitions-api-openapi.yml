@@ -35,8 +35,64 @@ paths:
     get:
       tags:
       - customIssueDefinitions
-      summary: Get all the custom issue definitions based on the given filters.
-      description: "Retrieve the existing syslog-based custom issue definitions. The supported filters are id, name, profileId,  definition enable status, priority, severity, facility and mnemonic. The issue definition configurations may vary across profiles, hence specifying the profile Id in the query parameter is important and the default profile is ``global``.\n\n  The assurance profile definitions can be obtain via the API endpoint ``/api/v1/siteprofile?namespace=assurance``. \n  The details about the each fields are below,\n  \n|Field Name | Description |\n| --- | --- |\n| `id` | The issue definition identifier\n| `name` | The name of the issue definition|\n| `description` | The description about the issue definition|\n| `profileId` | The issue definition  associated profile Id| \n| `rules` | One or more rules contain conditions for generating issues. Currently, the supported limit for rules is set to 1. A rule contains severity, facility, mnemonic pattern, occurrences and durationInMinutes fields.|\n| `severity` | The syslog severity levels supported include **0, 1, 2, 3, 4, 5, 6** |\n    |0| Emergency|\n    |1| Alert|\n    |2| Critical|\n    |3| Error|\n    |4| Warning|\n    |5| Notice|\n    |6| Info|\n| `facility` | The syslog facility name|\n| `pattern` | The message pattern specified within the issue definition.| \n| `occurrences`| The number of occurrences count required for the issue to trigger. The default occurrences count is 1|\n| `durationInMinutes` | The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minutes. The default is 1 minutes| \n| `isEnabled` |  The status of issue definition, can be either enabled or disabled. The default is disabled.|\n| `priority` | The Issue definition priority level. The supported levels are **P1, P2, P3, P4**.|\n| `isDeletable` | Specifies whether the definition can be deleted using the DELETE Post API. The deletion is only supported for the ``default`` profile associated definitions.|\n| `isNotificationEnabled` | The status of notification enablement can be either enabled or disabled. The default is disabled.|\n| `createdTime` |  The creation time of the issue definition, represented in UNIX epoch time in milliseconds|\n| `lastUpdatedTime` |  The last time of the issue definition, represented in UNIX epoch time in milliseconds|\n"
+      summary: Get all the custom issue definitions based on the given filters
+      description: 'Retrieve the existing syslog-based custom issue definitions. The supported filters are id, name, profileId, definition enable status, priority, severity, facility and mnemonic. The issue definition configurations may vary across profiles, hence specifying the profile Id in the query parameter is important and the default profile is ``global``.
+
+
+        The assurance profile definitions can be obtain via the API endpoint ``/api/v1/siteprofile?namespace=assurance``.
+
+        The details about the each fields are below,
+
+
+        |Field Name | Description |
+
+        | --- | --- |
+
+        | `id` | The issue definition identifier
+
+        | `name` | The name of the issue definition|
+
+        | `description` | The description about the issue definition|
+
+        | `profileId` | The issue definition associated profile Id|
+
+        | `rules` | One or more rules contain conditions for generating issues. Currently, the supported limit for rules is set to 1. A rule contains severity, facility, mnemonic pattern, occurrences and durationInMinutes fields.|
+
+        | `severity` | The syslog severity levels supported include **0, 1, 2, 3, 4, 5, 6** |
+
+        |0| Emergency|
+
+        |1| Alert|
+
+        |2| Critical|
+
+        |3| Error|
+
+        |4| Warning|
+
+        |5| Notice|
+
+        |6| Info|
+
+        | `facility` | The syslog facility name|
+
+        | `pattern` | The message pattern specified within the issue definition.|
+
+        | `occurrences`| The number of occurrences count required for the issue to trigger. The default occurrences count is 1|
+
+        | `durationInMinutes` | The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minutes. The default is 1 minutes|
+
+        | `isEnabled` | The status of issue definition, can be either enabled or disabled. The default is disabled.|
+
+        | `priority` | The Issue definition priority level. The supported levels are **P1, P2, P3, P4**.|
+
+        | `isDeletable` | Specifies whether the definition can be deleted using the DELETE Post API. The deletion is only supported for the ``default`` profile associated definitions.|
+
+        | `isNotificationEnabled` | The status of notification enablement can be either enabled or disabled. The default is disabled.|
+
+        | `createdTime` | The creation time of the issue definition, represented in UNIX epoch time in milliseconds|
+
+        | `lastUpdatedTime` | The last time of the issue definition, represented in UNIX epoch time in milliseconds|'
       operationId: readCustomIssueDefinitions
       parameters:
       - name: id
@@ -212,8 +268,56 @@ paths:
     post:
       tags:
       - customIssueDefinitions
-      summary: Creates one or more new user-defined issue definitions.
-      description: "Create a new custom issue definition using the provided input request data. The unique identifier for this issue definition is ``id``. Please note that the issue names cannot be duplicated. The definition is based on the syslog. The request should have the following details and Severity, facility, mnemonic & pattern should match.\n\n|Field Name | Description |\n| --- | --- |\n| `name` | The name of the issue definition|\n| `description` | The description about the issue definition\n| `isEnabled` |  The status of issue definition, can be either enabled or disabled. Issues will be generated solely when this flag is enabled, based on the specified pattern. The default is disabled.|\n| `priority` | The Issue definition priority level. The supported levels are **P1, P2, P3, P4**.|\n| `isNotificationEnabled` | The status of notification enablement can be either enabled or disabled. The default is disabled.\n| `severity` | The syslog severity levels supported include **0, 1, 2, 3, 4, 5, 6** \n    |0| Emergency|\n    |1| Alert|\n    |2| Critical|\n    |3| Error|\n    |4| Warning|\n    |5| Notice|\n    |6| Info|\n| `facility` | The syslog facility name|\n| `pattern` | The pattern is anticipated to encompass the message text, where dynamic values are substituted with ``*``<br/><br/>For example, in Syslog message \"**111769: *08 Mar 2024 19:59:14 GMT: %BGP-5-ADJCHANGE: neighbor 11.10.10.1 Down**.<br/>- Input ``neighbor 11.10.10.1 *``, if you expect to track BGP up/down messages with remote 11.10.10.1.<br>- Input ``neighbor * Down``, if you expect to track all BGP down messages with all remote IPs.<br>- Input ``neighbor * *``, if you expect to track all BGP down/up messages with all remote IPs| \n| `occurrences`| The number of occurrences count required for the issue to trigger. The default occurrences count is 1|\n| `durationInMinute` | The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minute. The default is 1 minutes| \n"
+      summary: Creates one or more new user-defined issue definitions
+      description: 'Create a new custom issue definition using the provided input request data. The unique identifier for this issue definition is ``id``. Please note that the issue names cannot be duplicated. The definition is based on the syslog. The request should have the following details and Severity, facility, mnemonic & pattern should match.
+
+
+        |Field Name | Description |
+
+        | --- | --- |
+
+        | `name` | The name of the issue definition|
+
+        | `description` | The description about the issue definition
+
+        | `isEnabled` | The status of issue definition, can be either enabled or disabled. Issues will be generated solely when this flag is enabled, based on the specified pattern. The default is disabled.|
+
+        | `priority` | The Issue definition priority level. The supported levels are **P1, P2, P3, P4**.|
+
+        | `isNotificationEnabled` | The status of notification enablement can be either enabled or disabled. The default is disabled.
+
+        | `severity` | The syslog severity levels supported include **0, 1, 2, 3, 4, 5, 6**
+
+        |0| Emergency|
+
+        |1| Alert|
+
+        |2| Critical|
+
+        |3| Error|
+
+        |4| Warning|
+
+        |5| Notice|
+
+        |6| Info|
+
+        | `facility` | The syslog facility name|
+
+        | `pattern` | The pattern is anticipated to encompass the message text, where dynamic values are substituted with ``*``
+
+
+        For example, in Syslog message "**111769: *08 Mar 2024 19:59:14 GMT: %BGP-5-ADJCHANGE: neighbor 11.10.10.1 Down**.
+
+        - Input ``neighbor 11.10.10.1 *``, if you expect to track BGP up/down messages with remote 11.10.10.1.
+
+        - Input ``neighbor * Down``, if you expect to track all BGP down messages with all remote IPs.
+
+        - Input ``neighbor * *``, if you expect to track all BGP down/up messages with all remote IPs|
+
+        | `occurrences`| The number of occurrences count required for the issue to trigger. The default occurrences count is 1|
+
+        | `durationInMinute` | The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minute. The default is 1 minutes|'
       operationId: postCustomIssueDefinitions
       requestBody:
         description: The issue definition details.
@@ -269,10 +373,8 @@ paths:
     get:
       tags:
       - customIssueDefinitions
-      summary: Get the total custom issue definitions count based on the provided filters.
-      description: 'Get the total number of Custom issue definitions count based on the provided filters. The supported filters are id, name, profileId and definition enable status, severity, facility and mnemonic.
-
-        '
+      summary: Get the total custom issue definitions count based on the provided filters
+      description: Get the total number of Custom issue definitions count based on the provided filters. The supported filters are id, name, profileId and definition enable status, severity, facility and mnemonic.
       operationId: readCusomIssueDefinitionsCount
       parameters:
       - name: id
@@ -417,10 +519,8 @@ paths:
     get:
       tags:
       - customIssueDefinitions
-      summary: Get the custom issue definition for the given custom issue definition Id.
-      description: 'Get the custom issue definition for the given custom issue definition Id.
-
-        '
+      summary: Get the custom issue definition for the given custom issue definition Id
+      description: Get the custom issue definition for the given custom issue definition Id.
       operationId: readCustomIssueDefinitionById
       parameters:
       - name: id
@@ -465,7 +565,7 @@ paths:
     put:
       tags:
       - customIssueDefinitions
-      summary: Updates an existing custom issue definition based on the provided Id.
+      summary: Updates an existing custom issue definition based on the provided Id
       description: Updates an existing custom issue definition based on the provided Id.
       operationId: putCustomIssueDefinitionById
       parameters:
@@ -530,7 +630,7 @@ paths:
     delete:
       tags:
       - customIssueDefinitions
-      summary: Deletes an existing custom issue definition.
+      summary: Deletes an existing custom issue definition
       description: Deletes an existing custom issue definition based on the Id. Only the Global profile issue has the access to delete the issue definition, so no profile id is required.
       operationId: deleteCustomIssueDefinitionById
       parameters:
@@ -583,25 +683,12 @@ paths:
           description: The server did not respond inside time restrictions and time-out.
 components:
   schemas:
-    CustomIssueDefinitionsResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully return list of custom issues definition
-          items:
-            $ref: '#/components/schemas/CustomIssueDefinitionDetail'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-        version:
-          type: string
-          example: '1.0'
-      description: The response object for the custom issues definition.
-    rules:
-      type: array
-      description: The list of more than one rule definition. Currently supported limit of rule is 1. Keep it as array for future usage.
-      items:
-        $ref: '#/components/schemas/rule'
+    profileId:
+      type: string
+      description: The profile id associated issue definitions
+      readOnly: true
+      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
+      default: global
     CustomIssueDefinitionDetail:
       type: object
       properties:
@@ -658,12 +745,14 @@ components:
           format: int64
           readOnly: true
           example: 1710958556000
-    profileId:
-      type: string
-      description: The profile id associated issue definitions
-      readOnly: true
-      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
-      default: global
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
     ErrorResponse:
       title: Error Response
       type: object
@@ -685,37 +774,26 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    CountIntegerResponse:
-      title: Count Integer Response
+    PaginationResponse:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    triggerId:
-      type: string
-      description: The common trigger definition id
-      format: uuid
-      readOnly: true
-      example: 7979b500-03aa-46d4-b1bb-bfeba4f3cfe0
-    CustomIssueDefinitionResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
-      description: The response object for the custom issue definition.
-    CountIntegerResponse_response:
-      type: object
-      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
         count:
           type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
     PaginationResponse_sortBy:
       type: object
       properties:
@@ -731,18 +809,17 @@ components:
           - asc
           - desc
       description: List of field names and corresponding order used to sort   the records.
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    rules:
+      type: array
+      description: The list of more than one rule definition. Currently supported limit of rule is 1. Keep it as array for future usage.
+      items:
+        $ref: '#/components/schemas/rule'
+    triggerId:
+      type: string
+      description: The common trigger definition id
+      format: uuid
+      readOnly: true
+      example: 7979b500-03aa-46d4-b1bb-bfeba4f3cfe0
     rule:
       type: object
       properties:
@@ -806,26 +883,49 @@ components:
           type: integer
           description: The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minutes.
           example: 10
-    PaginationResponse:
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
-        limit:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
           type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    CustomIssueDefinitionResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
+      description: The response object for the custom issue definition.
+    CustomIssueDefinitionsResponse:
+      type: object
+      properties:
+        response:
           type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
+          description: Successfully return list of custom issues definition
           items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
+            $ref: '#/components/schemas/CustomIssueDefinitionDetail'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+        version:
+          type: string
+          example: '1.0'
+      description: The response object for the custom issues definition.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

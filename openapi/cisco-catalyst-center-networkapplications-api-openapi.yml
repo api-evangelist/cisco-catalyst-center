@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: OpenAPI specification Network Applications API
-  description: 'OpenAPI specification for Catalyst Center - Appx Network Applications
-
-    '
+  description: OpenAPI specification for Catalyst Center - Appx Network Applications
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -40,7 +38,7 @@ paths:
     get:
       tags:
       - networkApplications
-      summary: Retrieves the list of network applications along with experience and health metrics
+      summary: Retrieves the list of network applications along with experience and health…
       description: Retrieves the list of network applications along with experience and health metrics. If startTime and endTime are not provided, the API defaults to the last 24 hours. `siteId` is mandatory. `siteId` must be a site UUID of a building.
       operationId: readNetworkApplications
       parameters:
@@ -448,7 +446,7 @@ paths:
     post:
       tags:
       - networkApplications
-      summary: Retrieves the Trend analytics data related to network applications.
+      summary: Retrieves the Trend analytics data related to network applications
       description: 'Retrieves the trend analytics of applications experience data for the specified time range. The data will be grouped based on the given trend time interval. This API facilitates obtaining consolidated insights into the performance and status of the network applications over the specified start and end time. If startTime and endTime are not provided, the API defaults to the last 24 hours. `siteId` and `trendInterval` are mandatory. `siteId` must be a site UUID of a building.
 
 
@@ -458,13 +456,13 @@ paths:
 
         | --- | --- |
 
-        | `startTime` | The start time indicates when the API begins retrieving data related to the resource. It must be specified in the UNIX epoch time format, measured in milliseconds. This value is inclusive, and if left unspecified, the default is 1 day before the  endTime.|
+        | `startTime` | The start time indicates when the API begins retrieving data related to the resource. It must be specified in the UNIX epoch time format, measured in milliseconds. This value is inclusive, and if left unspecified, the default is 1 day before the endTime.|
 
         | `endTime` | The end time indicates the upper limit until which the API retrieves data related to the resource. It must be defined in the UNIX epoch time format, measured in milliseconds. This value is inclusive, and if left unspecified, the default is the latest available data. |
 
-        | `siteIds` |  The list of site UUIDs. This is a mandatory field. Please note that only Building UUIDs are allowed for this field.|
+        | `siteIds` | The list of site UUIDs. This is a mandatory field. Please note that only Building UUIDs are allowed for this field.|
 
-        | `trendInterval` |  The time window for aggregating metrics. This is a mandatory request field. Possible values include *5 minutes, 10 minutes, 1 hour or 3 hour. Upto 3 hours time window allowed intervals 5MIN and 10MIN and more than 3 hours time window allowed intervals 1HR and 3HR. |
+        | `trendInterval` | The time window for aggregating metrics. This is a mandatory request field. Possible values include *5 minutes, 10 minutes, 1 hour or 3 hour. Upto 3 hours time window allowed intervals 5MIN and 10MIN and more than 3 hours time window allowed intervals 1HR and 3HR. |
 
         | `groupBy` | Specifies the attributes for grouping the data. Refer to `NetworkApplicationGroupByField` model for the supported grouping attributes|
 
@@ -529,7 +527,7 @@ paths:
     post:
       tags:
       - networkApplications
-      summary: Retrieves the Trend analytics related to specific network application.
+      summary: Retrieves the Trend analytics related to specific network application
       description: 'Retrieves the trend analytics of applications experience data to the specific network application for the specified time range. The data will be grouped based on the given trend time interval. This API facilitates obtaining consolidated insights into the performance and status of the network applications over the specified start and end time. If startTime and endTime are not provided, the API defaults to the last 24 hours.`siteId` and `trendInterval` are mandatory. `siteId` must be a site UUID of a building.
 
 
@@ -539,13 +537,13 @@ paths:
 
         | --- | --- |
 
-        | `startTime` | The start time indicates when the API begins retrieving data related to the resource. It must be specified in the UNIX epoch time format, measured in milliseconds. This value is inclusive, and if left unspecified, the default is 1 day before the  endTime.|
+        | `startTime` | The start time indicates when the API begins retrieving data related to the resource. It must be specified in the UNIX epoch time format, measured in milliseconds. This value is inclusive, and if left unspecified, the default is 1 day before the endTime.|
 
         | `endTime` | The end time indicates the upper limit until which the API retrieves data related to the resource. It must be defined in the UNIX epoch time format, measured in milliseconds. This value is inclusive, and if left unspecified, the default is the latest available data. |
 
-        | `siteIds` |  The list of site UUIDs. This is a mandatory field. Please note that only Building UUIDs are allowed for this field. |
+        | `siteIds` | The list of site UUIDs. This is a mandatory field. Please note that only Building UUIDs are allowed for this field. |
 
-        | `trendInterval` |  The time window for aggregating metrics. This is a mandatory request field. Possible values include *5 minutes, 10 minutes, 1 hour or 3 hour. Upto 1 day time window allowed intervals 5MIN and 10MIN and more than 1 day time window allowed intervals 1HR and 3HR. |
+        | `trendInterval` | The time window for aggregating metrics. This is a mandatory request field. Possible values include *5 minutes, 10 minutes, 1 hour or 3 hour. Upto 1 day time window allowed intervals 5MIN and 10MIN and more than 1 day time window allowed intervals 1HR and 3HR. |
 
         | `groupBy` | Specifies the attributes for grouping the data. Refer to `NetworkApplicationGroupByField` model for the supported grouping attributes|
 
@@ -620,8 +618,8 @@ paths:
     post:
       tags:
       - networkApplications
-      summary: Retrieves summary analytics data related to network applications along with health metrics.
-      description: 'Retrieves summary analytics data related to network applications while applying complex filtering, aggregate functions, and grouping.  This API facilitates obtaining consolidated insights into the performance and status of the network applications. If startTime and endTime are not provided, the API defaults to the last 24 hours.
+      summary: Retrieves summary analytics data related to network applications along with…
+      description: 'Retrieves summary analytics data related to network applications while applying complex filtering, aggregate functions, and grouping. This API facilitates obtaining consolidated insights into the performance and status of the network applications. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
 
         **The input payload contains the following fields:**
@@ -634,7 +632,7 @@ paths:
 
         | `endTime` | The end time indicates the upper limit until which the API retrieves data related to the resource. It must be defined in the UNIX epoch time format, measured in milliseconds. This value is inclusive, and if left unspecified, the default is the latest available data. |
 
-        | `siteIds` |  The list of site UUIDs. This is a mandatory field. Please note that only Building UUIDs are allowed for this field. |
+        | `siteIds` | The list of site UUIDs. This is a mandatory field. Please note that only Building UUIDs are allowed for this field. |
 
         | `groupBy` | Specifies the attributes for grouping the data. Refer to `NetworkApplicationGroupByField` model for the supported grouping attributes. |
 
@@ -699,7 +697,7 @@ paths:
     get:
       tags:
       - networkApplications
-      summary: Retrieves the list of clients metrics for the given application.
+      summary: Retrieves the list of clients metrics for the given application
       description: Retrieves the list of clients metrics for the given application. If startTime and endTime are not provided, the API defaults to the last 24 hours. `siteId` is mandatory. `siteId` must be a site UUID of a building. For the given time range and filters, the API will get the list of unique clients which matched the filter criteria.
       operationId: readNetworkApplicationClientsById
       parameters:
@@ -858,7 +856,7 @@ paths:
     get:
       tags:
       - networkApplications
-      summary: Retrieves the client count for the given application.
+      summary: Retrieves the client count for the given application
       description: Retrieves the client count for the given application. If startTime and endTime are not provided, the API defaults to the last 24 hours. `siteId` is mandatory. `siteId` must be a site UUID of a building.
       operationId: countNetworkApplicationClientsById
       parameters:
@@ -968,36 +966,970 @@ paths:
         default:
           description: Unexpected Error
 components:
-  examples:
-    networkApplicationsResponse:
-      summary: All Network Applications Response
-      value:
+  schemas:
+    NetworkApplicationAnalyticsAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute requested for analytics API.
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
+    NetworkApplicationTrendResponse:
+      type: object
+      properties:
         response:
-        - id: webex-meeting
-          applicationName: webex-meeting
-          businessRelevance: business-relevant
-          siteId: 0b9fc47b-577d-43fa-96ab-afceca55766c
-          exporterIpAddress: 10.225.125.82
-          exporterNetworkDeviceId: 5e7a7fcd-39a1-409c-9e7d-d054a8044bf0
-          healthScore: 10
-          usage: 29225903192
-          throughput: 6.495
-          packetLossPercent: 0.0
-          networkLatency: 9.969
-          applicationServerLatency: 3.435
-          clientNetworkLatency: 15.902
-          serverNetworkLatency: 4.036
-          trafficClass: multimedia-conferencing
-          jitter: 7482.857
-          ssid: abhi-site3-vlan33
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkApplicationsTrendGroupsResponse'
+        page:
+          $ref: '#/components/schemas/NetworkApplicationPaginationTrend'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    NetworkApplicationSummaryAttribute:
+      type: string
+      description: Attributes related to application experience that can be requested to only be part of the response along with the required attributes.
+      enum:
+      - applicationName
+      - applicationServerLatency
+      - businessRelevance
+      - clientNetworkLatency
+      - dscp
+      - exporterIpAddress
+      - exporterNetworkDeviceId
+      - jitter
+      - networkLatency
+      - packetLossPercent
+      - serverNetworkLatency
+      - siteId
+      - ssid
+      - throughput
+      - trafficClass
+      - usage
+      - healthScore
+    NetworkApplicationCountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    NetworkApplicationAggregateAttribute:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/NetworkApplicationAggregateField'
+        function:
+          $ref: '#/components/schemas/ApplicationFunction'
+      description: 'Field name and list of aggregate functions to be applied when
+
+        querying the data.
+
+        '
+    ApplicationFunction:
+      type: string
+      description: Type of aggregate function to apply on the field when querying   data
+      example: sum
+      enum:
+      - sum
+      - min
+      - max
+      - avg
+      - count
+      - latest
+      - distinctCount
+    appTrendInterval:
+      type: string
+      description: "The time window to aggregate the metrics. \nInterval can be 5 minutes or 10 minutes or 1 hour or 3 hours\n"
+      example: 5MIN
+      enum:
+      - 5MIN
+      - 10MIN
+      - 1HR
+      - 3HR
+    NetworkApplicationAggregateAttributes:
+      type: array
+      example:
+      - name: usage
+        function: min
+      - name: appliactionName
+        function: latest
+      - name: usage
+        function: sum
+      items:
+        $ref: '#/components/schemas/NetworkApplicationAggregateAttribute'
+    NetworkApplicationsTrendGroupsResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+        attributes:
+          $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/NetworkApplicationAggregateAttributesResponse'
+        groups:
+          type: array
+          description: 'Additional groups and their respective attributes are included under each group. The attributes belonging to each group are appended to the attributes list.
+
+            '
+          items:
+            $ref: '#/components/schemas/NetworkApplicationsGroupResponse'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
+    NetworkApplicationClient:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the client. It is same as the MAC address of the client.
+          example: AA:BB:CC:DD:EE:FF
+        name:
+          type: string
+          description: Host name of the client device.
+        ipv4Address:
+          $ref: '#/components/schemas/IPv4Address'
+        ipv6Addresses:
+          type: array
+          description: IPv6 addresses of the client.
+          items:
+            $ref: '#/components/schemas/IPv6Address'
+        osType:
+          type: string
+          description: Client operating system type.
+          example: iOS
+        usage:
+          type: integer
+          description: Client application data utilization in bytes for the given duration.
+          format: int64
+        siteName:
+          type: string
+          description: The name of the building.
+        macAddress:
+          $ref: '#/components/schemas/MacAddress'
+        type:
+          type: string
+          description: The client connectivity type, whether it is connected to network through wired or wireless medium.
+          example: Wireless
+          enum:
+          - Wired
+          - Wireless
+        appHealthScore:
+          maximum: 10
+          minimum: 1
+          type: integer
+          description: The latest health score for the client application experience in the given duration.
+        clientHealthScore:
+          maximum: 10
+          minimum: 1
+          type: integer
+          description: The latest health score of the client in the given duration.
+        exporterNetworkDeviceId:
+          type: string
+          description: Unique ID of the netflow exporter device.
+        siteId:
+          type: string
+          description: UUID of the building.
+        connectedNetworkDeviceName:
+          type: string
+          description: Connected network device name of the client.
+        connectedNetworkDeviceId:
+          type: string
+          description: Connected network device UUID of the client.
+        vlanId:
+          $ref: '#/components/schemas/vlanId'
+      description: Application experience information for the client
+    NetworkApplicationsResponseModel:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkApplication'
+        page:
+          $ref: '#/components/schemas/NetworkApplicationPaginationWithAggregate'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Collection of application experience records
+    appEndTime:
+      type: integer
+      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      format: int64
+      example: 1705435200000
+    NetworkApplicationAggregateAttributesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/NetworkApplicationAggregateAttributeResponse'
+    NetworkApplicationSortByObj:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Attributes related to network application resource that can be used to sort the response.
+          enum:
+          - applicationName
+          - siteId
+          - exporterIpAddress
+          - exporterNetworkDeviceId
+          - businessRelevance
+          - usage
+          - throughput
+          - packetLossPercent
+          - networkLatency
+          - applicationServerLatency
+          - clientNetworkLatency
+          - serverNetworkLatency
+          - trafficClass
+          - jitter
+          - ssid
+          - healthScore
+        function:
+          type: string
+          description: Type of aggregate function to apply on the field when querying data
+          enum:
+          - min
+          - max
+          - avg
+          - count
+          - latest
+          - sum
+          - distinctCount
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          enum:
+          - asc
+          - desc
+      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the colllection on  aggregated attribute. If function is not specified API will sort the collection on attribute.
+
+        '
+    IPv4Address:
+      type: string
+      example: 250.162.252.170
+    NetworkApplicationSummaryRequest:
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/appStartTime'
+        endTime:
+          $ref: '#/components/schemas/appEndTime'
+        siteIds:
+          type: array
+          description: The list of building UUID. This API /data/api/v1/siteHealthSummaries?attribute=siteHierarchyId can be used to get building UUID.
+          example:
+          - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
+          items:
+            type: string
+        groupBy:
+          $ref: '#/components/schemas/NetworkApplicationGroupByAttributes'
+        attributes:
+          $ref: '#/components/schemas/NetworkApplicationSummaryAttributes'
+        filters:
+          $ref: '#/components/schemas/NetworkApplicationFilters'
+        aggregateAttributes:
+          $ref: '#/components/schemas/NetworkApplicationAggregateAttributes'
+        page:
+          $ref: '#/components/schemas/NetworkApplicationPaginationWithAggregate'
+      description: Request payload used for summary query API. It contains
+    NetworkApplicationSummaryResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/NetworkApplicationsGroupsResponse'
+        page:
+          $ref: '#/components/schemas/NetworkApplicationPaginationWithAggregate'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    IPv6Address:
+      type: string
+      example: 2001:db8:3c4d:15::1a2f:1a2b
+    AppxErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the parameter and its value, that caused the condition and why it   caused it.
+    NetworkApplicationAggregateField:
+      type: string
+      description: 'Supported aggregated attributes related to network applications
+
+        | Aggregate Function | Supported Aggregate Fields |
+
+        | --- | --- |
+
+        | ''latest''| applicationName, applicationServerLatency, businessRelevance, clientNetworkLatency, dscp, exporterIpAddress, exporterNetworkDeviceId, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, trafficClass, usage, healthScore |
+
+        | `min` | applicationServerLatency, clientNetworkLatency, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, usage, healthScore |
+
+        | `max` | applicationServerLatency, clientNetworkLatency, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, usage, healthScore |
+
+        | `avg` | applicationServerLatency, clientNetworkLatency, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, usage, healthScore |
+
+        | `sum` | usage |
+
+        | `count` | applicationName, businessRelevance, dscp, exporterIpAddress, exporterNetworkDeviceId, trafficClass |
+
+        | ''distinctCount'' | applicationName, businessRelevance, dscp, exporterIpAddress, exporterNetworkDeviceId, trafficClass |'
+      enum:
+      - applicationName
+      - applicationServerLatency
+      - businessRelevance
+      - clientNetworkLatency
+      - dscp
+      - exporterIpAddress
+      - exporterNetworkDeviceId
+      - jitter
+      - networkLatency
+      - packetLossPercent
+      - serverNetworkLatency
+      - throughput
+      - trafficClass
+      - usage
+      - healthScore
+    NetworkApplicationAnalyticsAttributesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributeResponse'
+    NetworkApplicationFilters:
+      maxItems: 10
+      type: array
+      description: 'List of filters to apply when querying the data
+
+
+
+        Filtering on numerical fields (integer, number,etc.) will support the
+
+        numerical operators:
+
+
+
+        [eq, lt, gt, lte, gte]
+
+
+
+        Filtering on text fields (string), will support the string operators:
+
+
+
+        [eq, in, like]
+
+
+
+        For the list of supported fields, please refer to the NetworkApplicationFilterField model
+
+        model.
+
+        '
+      example:
+      - key: applicationName
+        operator: eq
+        value: webex-meeting
+      - key: trafficClass
+        operator: in
+        value:
+        - ops-admin-mgmt
+        - network-control
+      - logicalOperator: or
+        filters:
+        - key: networkLatency
+          operator: gt
+          value: 70
+        - key: ssid
+          operator: eq
+          value: CiscoSensorProvisioning
+      items:
+        $ref: '#/components/schemas/NetworkApplicationFilterObj'
+    vlanId:
+      type: string
+      description: VLAN identifier assigned to wired or wireless client
+      example: '596'
+    NetworkApplicationCommonDetail:
+      type: object
+      properties:
+        usage:
+          type: integer
+          description: The number of bytes transferred for the application.
+          format: int64
+          example: 3160585505
+        throughput:
+          type: number
+          description: The rate of application traffic per second between the client and server, measured in bits per second.
+          example: 8035448.32
+        healthScore:
+          type: integer
+          description: The health score of the application, has value in the range of 1 to 10.
+          example: 10
+        packetLossPercent:
+          type: number
+          description: The percentage of packet loss. This metric applies only to TCP-based and RTP-based applications. In TCP it is based on client retransmission, in RTP it is based on sequence number.
+          example: 3.5
+        networkLatency:
+          type: number
+          description: The average network latency time, in milliseconds. This metric applies only to TCP-based applications.
+          example: 9.5
+        applicationServerLatency:
+          type: number
+          description: The time it takes for the application server to respond to the first application request from the client, in milliseconds. This metric applies only to TCP-based applications.
+          example: 18.6
+        clientNetworkLatency:
+          type: number
+          description: The client RTT (round trip time), in milliseconds. This metric applies only to TCP-based applications.
+          example: 9.4
+        serverNetworkLatency:
+          type: number
+          description: The server RTT (round trip time), in milliseconds. This metric applies only to TCP-based applications.
+          example: 3.5
+        trafficClass:
+          type: string
+          description: Traffic Class of the application
+          example: multimedia-conferencing
+        jitter:
+          type: number
+          description: The variance in time delay between data packets over your network, in milliseconds. This metric applies only to RTP-based applications.
+          example: 9.5
+        ssid:
+          type: string
+          description: In the context of a network application, SSID refers to the name of the wireless network to which the client connects.
+          example: main-ssid
+      description: Network application experience information
+    NetworkApplicationPaginationTrend:
+      type: object
+      properties:
+        limit:
+          maximum: 500
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        cursor:
+          type: string
+          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
+          example: '{~modificationtime_histo=1.7218008E12, applicationName_terms=914c/g}'
+          default: ''
+        count:
+          type: integer
+          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+        timeSortOrder:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          enum:
+          - asc
+          - desc
+    NetworkApplicationAggregateAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the requested aggregate attribute
+        function:
+          type: string
+          description: Aggregate function requested for the attribute
+        value:
+          type: object
+          description: This is the aggregate value of the attribute after applying the function on the dataset
+    NetworkApplicationLogicalOperator:
+      type: string
+      description: 'Operator to use when attempting to apply a logical conjunction of more than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
+      enum:
+      - and
+      - or
+    NetworkApplicationCountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/NetworkApplicationCountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    NetworkApplicationClientsResponseModel:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkApplicationClient'
+        page:
+          $ref: '#/components/schemas/NetworkApplicationClientPaginationWithAggregate'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Collection of client records
+    NetworkApplicationTrendQueryRequest:
+      required:
+      - siteIds
+      - trendInterval
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/appStartTime'
+        endTime:
+          $ref: '#/components/schemas/appEndTime'
+        siteIds:
+          type: array
+          description: The site building UUID. This API can be used to get building UUID. /data/api/v1/siteHealthSummaries?attribute=siteHierarchyId
+          example: -364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
+          items:
+            type: string
+        trendInterval:
+          $ref: '#/components/schemas/appTrendInterval'
+        groupBy:
+          $ref: '#/components/schemas/NetworkApplicationGroupByAttributes'
+        attributes:
+          $ref: '#/components/schemas/NetworkApplicationTrendAttributes'
+        filters:
+          $ref: '#/components/schemas/NetworkApplicationFilters'
+        aggregateAttributes:
+          $ref: '#/components/schemas/NetworkApplicationAggregateAttributes'
+        page:
+          $ref: '#/components/schemas/NetworkApplicationPaginationTrend'
+      description: 'Request payload used for complex trend query API. It contains |
+
+        ''trend'' ''attributes'' - To provide the list of fields that user is interested in the response. |
+
+        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
+
+        ''aggregateAttributes'' - To provide list of fields and corresponding aggregation functions to run.
+
+        '
+    NetworkApplicationsGroupResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This is the group key. Unique value to identify the group. It is concatenation of groupBy attributes
+        attributes:
+          $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributeResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/NetworkApplicationAggregateAttributesResponse'
+    NetworkApplicationBasic:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the application, that is application name
+          example: webex-media
+        applicationName:
+          $ref: '#/components/schemas/ApplicationName'
+        ssid:
+          $ref: '#/components/schemas/ssid'
+        siteId:
+          type: string
+          description: Unique ID of the site.
+          example: 22eacca4-5282-4e99-9edf-40fb860278a8
+        exporterIpAddress:
+          type: string
+          description: IP address of the netflow exporter device.
+          example: 10.225.125.82
+        exporterNetworkDeviceId:
+          type: string
+          description: Unique ID of the netflow exporter device.
+          example: 865ab421-2c62-4ab7-bbb5-5091fd77f7be
+        businessRelevance:
+          type: string
+          description: The application can be chosen to be categorized as business-relevant, irrelevant, or default (neutral). By doing so, the assurance application prioritizes the monitoring and analysis of business-relevant data, ensuring critical insights are captured. Applications marked as irrelevant or default are selectively excluded from certain data sets, streamlining focus on what's most important for business outcomes.
+          example: business-relevant
+      description: Basic information about the network application
+    NetworkApplicationOperator:
+      type: string
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - neq
+      - lt
+      - gt
+      - lte
+      - gte
+      - eq
+      - like
+    NetworkApplicationClientPaginationWithAggregate:
+      type: object
+      properties:
+        limit:
+          maximum: 500
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+        sortBy:
+          type: array
+          example:
+          - name: macAddress
+            order: asc
+          items:
+            $ref: '#/components/schemas/NetworkApplicationClientSortByObj'
+    NetworkApplicationTrendAttributes:
+      type: array
+      example:
+      - applicationName
+      - jitter
+      items:
+        $ref: '#/components/schemas/NetworkApplicationTrendAttribute'
+    MacAddress:
+      pattern: ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$|^[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}$
+      type: string
+      description: Mac Address of the Client
+      readOnly: true
+      example: AA:BB:CC:DD:EE:FF
+    NetworkApplicationGroupByAttributes:
+      type: array
+      example:
+      - businessRelevance
+      - applicationName
+      items:
+        $ref: '#/components/schemas/NetworkApplicationGroupByField'
+    NetworkApplicationSummaryAttributes:
+      type: array
+      example:
+      - applicationName
+      - jitter
+      items:
+        $ref: '#/components/schemas/NetworkApplicationSummaryAttribute'
+    NetworkApplicationGroupByField:
+      type: string
+      description: Supported groupBy attributes related to network applications
+      enum:
+      - applicationName
+      - businessRelevance
+      - exporterIpAddress
+      - siteId
+      - trafficClass
+      - healthScore
+    NetworkApplicationsGroupsResponse:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/NetworkApplicationAggregateAttributesResponse'
+        groups:
+          type: array
+          description: 'Additional groups and respective attributes under the group.
+
+            The attributes comprising of each group are added to attributes list.
+
+            '
+          items:
+            $ref: '#/components/schemas/NetworkApplicationsGroupResponse'
+      description: "Network Application Summary response contains attributes, aggregateAttributes and groups\nattributes, aggregatedAttributes and groups are mutually exclusive.\nIf user requests for summary without groupBy attributes then response includes attributes, aggregateAttributes\nIf user requests for summary with groupBy attributes then response then includes groups array contain attributes, aggregatedAttributes for each array element \n"
+    appStartTime:
+      type: integer
+      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      format: int64
+      example: 1705348800000
+    NetworkApplicationClientSortByObj:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Attributes related to clients resource that can be used to sort the response.
+          enum:
+          - macAddress
+          - exporterNetworkDeviceId
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          enum:
+          - asc
+          - desc
+      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the colllection on  aggregated attribute. If function is not specified API will sort the collection on attribute.
+
+        '
+    NetworkApplicationTrendAttribute:
+      type: string
+      description: Attributes related to application experience that can be requested to only be part of the response along with the required attributes.
+      enum:
+      - applicationName
+      - applicationServerLatency
+      - businessRelevance
+      - clientNetworkLatency
+      - dscp
+      - exporterIpAddress
+      - exporterNetworkDeviceId
+      - jitter
+      - networkLatency
+      - packetLossPercent
+      - serverNetworkLatency
+      - siteId
+      - ssid
+      - throughput
+      - trafficClass
+      - usage
+      - healthScore
+    NetworkApplicationPaginationWithAggregate:
+      type: object
+      properties:
+        limit:
+          maximum: 500
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        cursor:
+          type: string
+          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
+          example: '{apMac_terms=AA:BB:CC:DD:EE:FF, frequency_terms=5.0}'
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+        sortBy:
+          type: array
+          example:
+          - name: overallScore
+            order: asc
+          - name: rssi
+            function: min
+            order: asc
+          - name: usage
+            function: sum
+            order: desc
+          items:
+            $ref: '#/components/schemas/NetworkApplicationSortByObj'
+    NetworkApplicationFilterObj:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/NetworkApplicationFilterField'
+        operator:
+          $ref: '#/components/schemas/NetworkApplicationOperator'
+        logicalOperator:
+          $ref: '#/components/schemas/NetworkApplicationLogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set. Array of values is used for "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
+
+
+            For other operators, filter value is of whatever type the specific field being filtered is defined with.
+
+
+            In the case of an "and" or "or" operator, this values array will be ignored, and the values arrays in each of the *nested filters*   will be used.
+
+            '
+        filters:
+          type: array
+          description: 'Nested array of filters in case of AND/OR based filters. Only one level of nesting will be supported.
+
+
+            Structure of nested filter is the same as parent with all operators supported except AND or OR.
+
+            '
+          items:
+            $ref: '#/components/schemas/NetworkApplicationFilterObj'
+    ssid:
+      type: string
+      description: In the context of a network application, SSID refers to the name of the wireless network to which the client connects.
+      example: alpha
+    NetworkApplication:
+      type: object
+      description: Application Experience details
+      allOf:
+      - $ref: '#/components/schemas/NetworkApplicationBasic'
+      - $ref: '#/components/schemas/NetworkApplicationCommonDetail'
+    AppxErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppxErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ApplicationName:
+      type: string
+      description: "Name of the application for which the experience data is intended.\n    "
+    NetworkApplicationFilterField:
+      type: string
+      description: Supported filter attributes related to network applications
+      enum:
+      - applicationName
+      - applicationServerLatency
+      - businessRelevance
+      - clientNetworkLatency
+      - dscp
+      - exporterIpAddress
+      - exporterNetworkDeviceId
+      - jitter
+      - ssid
+      - networkLatency
+      - packetLossPercent
+      - serverNetworkLatency
+      - throughput
+      - trafficClass
+      - usage
+      - healthScore
+  examples:
+    networkApplicationSummaryRequestWithGroupBy:
+      summary: Network Application Summary Request with GroupBy
+      value:
+        startTime: 1727326788793
+        endTime: 1727413188793
+        siteIds:
+        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
+        groupBy:
+        - exporterIpAddress
+        - applicationName
+        attributes:
+        - siteId
+        - ssid
+        filters:
+        - key: networkLatency
+          operator: gte
+          value: 10
+        aggregateAttributes:
+        - name: throughput
+          function: avg
+        - name: usage
+          function: min
         page:
           limit: 100
-          offset: 5
-          count: 100
+          offset: 1
+          cursor: ''
           sortBy:
-          - name: applicationName
-            order: asc
+          - name: usage
+            function: min
+            order: desc
+    networkApplicationSummaryRequestWithoutGroupBy:
+      summary: Network Application Summary Request without GroupBy
+      value:
+        startTime: 1727326788793
+        endTime: 1727413188793
+        siteIds:
+        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
+        attributes:
+        - siteId
+        - ssid
+        filters:
+        - key: networkLatency
+          operator: gte
+          value: 10
+        aggregateAttributes:
+        - name: throughput
+          function: avg
+        - name: usage
+          function: min
+        page:
+          limit: 100
+          offset: 1
+          cursor: ''
+          sortBy:
+          - name: usage
+            function: min
+            order: desc
+    networkApplicationSummaryResponseWithoutGroupBy:
+      summary: Network Application Summary Response without GroupBy
+      value:
+        response:
+          attributes:
+          - name: siteId
+            value: /2cb6cdfe-0223-4c62-b596-ed81bac9dde4/f9eddb72-754f-4366-8548-47f99d78210e/38c89851-28c8-4113-aaf6-e74c32f41bb7/
+          - name: ssid
+            value: unknown
+          aggregateAttributes:
+          - name: usage
+            function: min
+            value: 640
+          - name: throughput
+            function: avg
+            value: 7.167990464687968
+        page:
+          limit: 100
+          offset: 1
+          cursor: ''
+          sortBy:
+          - name: usage
+            function: min
+            order: desc
         version: '1.0'
+    networkApplicationTrendRequestWithoutGroupBy:
+      summary: Network Application Trend Request without GroupBy
+      value:
+        startTime: 1709110800000
+        endTime: 1709197200000
+        siteIds:
+        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
+        trendInterval: 5MIN
+        attributes:
+        - applicationName
+        - trafficClass
+        filters:
+        - key: businessRelevance
+          operator: eq
+          value: business-relevant
+        - key: ssid
+          operator: in
+          value:
+          - alpha
+          - hero
+        - logicalOperator: or
+          filters:
+          - key: trafficClass
+            operator: eq
+            value: multimedia-conferencing
+          - key: exporterIpAddress
+            operator: in
+            value:
+            - 10.225.0.0
+        aggregateAttributes:
+        - name: throughput
+          function: avg
+        - name: usage
+          function: sum
+        page:
+          limit: 100
+          cursor: ''
+          timeSortOrder: desc
     networkApplicationTrendResponseWithoutGroupBy:
       summary: Network Application Trend Response without GroupBy
       value:
@@ -1033,6 +1965,104 @@ components:
           cursor: ''
           count: 100
           timeSortOrder: desc
+        version: '1.0'
+    networkApplicationsResponse:
+      summary: All Network Applications Response
+      value:
+        response:
+        - id: webex-meeting
+          applicationName: webex-meeting
+          businessRelevance: business-relevant
+          siteId: 0b9fc47b-577d-43fa-96ab-afceca55766c
+          exporterIpAddress: 10.225.125.82
+          exporterNetworkDeviceId: 5e7a7fcd-39a1-409c-9e7d-d054a8044bf0
+          healthScore: 10
+          usage: 29225903192
+          throughput: 6.495
+          packetLossPercent: 0.0
+          networkLatency: 9.969
+          applicationServerLatency: 3.435
+          clientNetworkLatency: 15.902
+          serverNetworkLatency: 4.036
+          trafficClass: multimedia-conferencing
+          jitter: 7482.857
+          ssid: abhi-site3-vlan33
+        page:
+          limit: 100
+          offset: 5
+          count: 100
+          sortBy:
+          - name: applicationName
+            order: asc
+        version: '1.0'
+    networkApplicationTrendRequestWithGroupBy:
+      summary: Network Application Trend Request with GroupBy
+      value:
+        startTime: 1709110800000
+        endTime: 1709197200000
+        siteIds:
+        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
+        trendInterval: 5MIN
+        groupBy:
+        - businessRelevance
+        attributes:
+        - applicationName
+        - trafficClass
+        filters:
+        - key: jitter
+          operator: lt
+          value: 8000
+        - key: ssid
+          operator: in
+          value:
+          - assur-br1
+          - assur-br2
+        - logicalOperator: or
+          filters:
+          - key: trafficClass
+            operator: eq
+            value: multimedia-conferencing
+          - key: exporterIpAddress
+            operator: in
+            value:
+            - 10.225.0.0
+        aggregateAttributes:
+        - name: throughput
+          function: avg
+        - name: usage
+          function: sum
+        page:
+          limit: 100
+          cursor: ''
+          timeSortOrder: desc
+    networkApplicationsClientResponse:
+      summary: Clients metrics
+      value:
+        response:
+        - id: AA:BB:CC:DD:EE:FF
+          name: Appx-MacBook
+          ipv4Address: 10.225.125.82
+          ipv6Addresses: 2001:db8:3c4d:15::1a2f:1a2b
+          ipAddress: 10.225.125.82
+          osType: iOS
+          usage: 29225903192
+          siteName: India/Bangalore
+          macAddress: 00:1C:4F:7D:52:01
+          type: Wireless
+          appHealthScore: 10
+          clientHealthScore: 10
+          exporterNetworkDeviceId: 5e7a7fcd-39a1-409c-9e7d-d054a8044bf0
+          siteId: 0b9fc47b-577d-43fa-96ab-afceca55766c
+          connectedNetworkDeviceName: Switch-9300
+          connectedNetworkDeviceId: b0165ef2-8fda-4c30-9fb4-70b010984fb4
+          vlanId: 1
+        page:
+          limit: 100
+          offset: 5
+          count: 100
+          sortBy:
+          - name: macAddress
+            order: asc
         version: '1.0'
     networkApplicationTrendResponseWithGroupBy:
       summary: Network Application Trend Response with GroupBy
@@ -1100,44 +2130,6 @@ components:
           count: 100
           timeSortOrder: desc
         version: '1.0'
-    networkApplicationTrendRequestWithoutGroupBy:
-      summary: Network Application Trend Request without GroupBy
-      value:
-        startTime: 1709110800000
-        endTime: 1709197200000
-        siteIds:
-        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
-        trendInterval: 5MIN
-        attributes:
-        - applicationName
-        - trafficClass
-        filters:
-        - key: businessRelevance
-          operator: eq
-          value: business-relevant
-        - key: ssid
-          operator: in
-          value:
-          - alpha
-          - hero
-        - logicalOperator: or
-          filters:
-          - key: trafficClass
-            operator: eq
-            value: multimedia-conferencing
-          - key: exporterIpAddress
-            operator: in
-            value:
-            - 10.225.0.0
-        aggregateAttributes:
-        - name: throughput
-          function: avg
-        - name: usage
-          function: sum
-        page:
-          limit: 100
-          cursor: ''
-          timeSortOrder: desc
     networkApplicationSummaryResponseWithGroupBy:
       summary: Network Application Summary Response with GroupBy
       value:
@@ -1186,1000 +2178,6 @@ components:
               function: min
               order: desc
           version: '1.0'
-    networkApplicationSummaryRequestWithGroupBy:
-      summary: Network Application Summary Request with GroupBy
-      value:
-        startTime: 1727326788793
-        endTime: 1727413188793
-        siteIds:
-        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
-        groupBy:
-        - exporterIpAddress
-        - applicationName
-        attributes:
-        - siteId
-        - ssid
-        filters:
-        - key: networkLatency
-          operator: gte
-          value: 10
-        aggregateAttributes:
-        - name: throughput
-          function: avg
-        - name: usage
-          function: min
-        page:
-          limit: 100
-          offset: 1
-          cursor: ''
-          sortBy:
-          - name: usage
-            function: min
-            order: desc
-    networkApplicationsClientResponse:
-      summary: Clients metrics
-      value:
-        response:
-        - id: AA:BB:CC:DD:EE:FF
-          name: Appx-MacBook
-          ipv4Address: 10.225.125.82
-          ipv6Addresses: 2001:db8:3c4d:15::1a2f:1a2b
-          ipAddress: 10.225.125.82
-          osType: iOS
-          usage: 29225903192
-          siteName: India/Bangalore
-          macAddress: 00:1C:4F:7D:52:01
-          type: Wireless
-          appHealthScore: 10
-          clientHealthScore: 10
-          exporterNetworkDeviceId: 5e7a7fcd-39a1-409c-9e7d-d054a8044bf0
-          siteId: 0b9fc47b-577d-43fa-96ab-afceca55766c
-          connectedNetworkDeviceName: Switch-9300
-          connectedNetworkDeviceId: b0165ef2-8fda-4c30-9fb4-70b010984fb4
-          vlanId: 1
-        page:
-          limit: 100
-          offset: 5
-          count: 100
-          sortBy:
-          - name: macAddress
-            order: asc
-        version: '1.0'
-    networkApplicationSummaryRequestWithoutGroupBy:
-      summary: Network Application Summary Request without GroupBy
-      value:
-        startTime: 1727326788793
-        endTime: 1727413188793
-        siteIds:
-        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
-        attributes:
-        - siteId
-        - ssid
-        filters:
-        - key: networkLatency
-          operator: gte
-          value: 10
-        aggregateAttributes:
-        - name: throughput
-          function: avg
-        - name: usage
-          function: min
-        page:
-          limit: 100
-          offset: 1
-          cursor: ''
-          sortBy:
-          - name: usage
-            function: min
-            order: desc
-    networkApplicationTrendRequestWithGroupBy:
-      summary: Network Application Trend Request with GroupBy
-      value:
-        startTime: 1709110800000
-        endTime: 1709197200000
-        siteIds:
-        - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
-        trendInterval: 5MIN
-        groupBy:
-        - businessRelevance
-        attributes:
-        - applicationName
-        - trafficClass
-        filters:
-        - key: jitter
-          operator: lt
-          value: 8000
-        - key: ssid
-          operator: in
-          value:
-          - assur-br1
-          - assur-br2
-        - logicalOperator: or
-          filters:
-          - key: trafficClass
-            operator: eq
-            value: multimedia-conferencing
-          - key: exporterIpAddress
-            operator: in
-            value:
-            - 10.225.0.0
-        aggregateAttributes:
-        - name: throughput
-          function: avg
-        - name: usage
-          function: sum
-        page:
-          limit: 100
-          cursor: ''
-          timeSortOrder: desc
-    networkApplicationSummaryResponseWithoutGroupBy:
-      summary: Network Application Summary Response without GroupBy
-      value:
-        response:
-          attributes:
-          - name: siteId
-            value: /2cb6cdfe-0223-4c62-b596-ed81bac9dde4/f9eddb72-754f-4366-8548-47f99d78210e/38c89851-28c8-4113-aaf6-e74c32f41bb7/
-          - name: ssid
-            value: unknown
-          aggregateAttributes:
-          - name: usage
-            function: min
-            value: 640
-          - name: throughput
-            function: avg
-            value: 7.167990464687968
-        page:
-          limit: 100
-          offset: 1
-          cursor: ''
-          sortBy:
-          - name: usage
-            function: min
-            order: desc
-        version: '1.0'
-  schemas:
-    NetworkApplicationBasic:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the application, that is application name
-          example: webex-media
-        applicationName:
-          $ref: '#/components/schemas/ApplicationName'
-        ssid:
-          $ref: '#/components/schemas/ssid'
-        siteId:
-          type: string
-          description: Unique ID of the site.
-          example: 22eacca4-5282-4e99-9edf-40fb860278a8
-        exporterIpAddress:
-          type: string
-          description: IP address of the netflow exporter device.
-          example: 10.225.125.82
-        exporterNetworkDeviceId:
-          type: string
-          description: Unique ID of the netflow exporter device.
-          example: 865ab421-2c62-4ab7-bbb5-5091fd77f7be
-        businessRelevance:
-          type: string
-          description: The application can be chosen to be categorized as business-relevant, irrelevant, or default (neutral). By doing so, the assurance application prioritizes the monitoring and analysis of business-relevant data, ensuring critical insights are captured. Applications marked as irrelevant or default are selectively excluded from certain data sets, streamlining focus on what's most important for business outcomes.
-          example: business-relevant
-      description: Basic information about the network application
-    NetworkApplicationFilters:
-      maxItems: 10
-      type: array
-      description: 'List of filters to apply when querying the data
-
-
-
-        Filtering on numerical fields (integer, number,etc.) will support the
-
-        numerical operators:
-
-
-
-        [eq, lt, gt, lte, gte]
-
-
-
-        Filtering on text fields (string), will support the string operators:
-
-
-
-        [eq, in, like]
-
-
-
-        For the list of supported fields, please refer to the NetworkApplicationFilterField model
-
-        model.
-
-        '
-      example:
-      - key: applicationName
-        operator: eq
-        value: webex-meeting
-      - key: trafficClass
-        operator: in
-        value:
-        - ops-admin-mgmt
-        - network-control
-      - logicalOperator: or
-        filters:
-        - key: networkLatency
-          operator: gt
-          value: 70
-        - key: ssid
-          operator: eq
-          value: CiscoSensorProvisioning
-      items:
-        $ref: '#/components/schemas/NetworkApplicationFilterObj'
-    MacAddress:
-      pattern: ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$|^[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}$
-      type: string
-      description: Mac Address of the Client
-      readOnly: true
-      example: AA:BB:CC:DD:EE:FF
-    NetworkApplicationClient:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the client. It is same as the MAC address of the client.
-          example: AA:BB:CC:DD:EE:FF
-        name:
-          type: string
-          description: Host name of the client device.
-        ipv4Address:
-          $ref: '#/components/schemas/IPv4Address'
-        ipv6Addresses:
-          type: array
-          description: IPv6 addresses of the client.
-          items:
-            $ref: '#/components/schemas/IPv6Address'
-        osType:
-          type: string
-          description: Client operating system type.
-          example: iOS
-        usage:
-          type: integer
-          description: Client application data utilization in bytes for the given duration.
-          format: int64
-        siteName:
-          type: string
-          description: The name of the building.
-        macAddress:
-          $ref: '#/components/schemas/MacAddress'
-        type:
-          type: string
-          description: The client connectivity type, whether it is connected to network through wired or wireless medium.
-          example: Wireless
-          enum:
-          - Wired
-          - Wireless
-        appHealthScore:
-          maximum: 10
-          minimum: 1
-          type: integer
-          description: The latest health score for the client application experience in the given duration.
-        clientHealthScore:
-          maximum: 10
-          minimum: 1
-          type: integer
-          description: The latest health score of the client in the given duration.
-        exporterNetworkDeviceId:
-          type: string
-          description: Unique ID of the netflow exporter device.
-        siteId:
-          type: string
-          description: UUID of the building.
-        connectedNetworkDeviceName:
-          type: string
-          description: Connected network device name of the client.
-        connectedNetworkDeviceId:
-          type: string
-          description: Connected network device UUID of the client.
-        vlanId:
-          $ref: '#/components/schemas/vlanId'
-      description: Application experience information for the client
-    NetworkApplicationTrendAttribute:
-      type: string
-      description: Attributes related to application experience that can be requested to only be part of the response along with the required attributes.
-      enum:
-      - applicationName
-      - applicationServerLatency
-      - businessRelevance
-      - clientNetworkLatency
-      - dscp
-      - exporterIpAddress
-      - exporterNetworkDeviceId
-      - jitter
-      - networkLatency
-      - packetLossPercent
-      - serverNetworkLatency
-      - siteId
-      - ssid
-      - throughput
-      - trafficClass
-      - usage
-      - healthScore
-    NetworkApplicationClientsResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkApplicationClient'
-        page:
-          $ref: '#/components/schemas/NetworkApplicationClientPaginationWithAggregate'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Collection of client records
-    vlanId:
-      type: string
-      description: VLAN identifier assigned to wired or wireless client
-      example: '596'
-    IPv6Address:
-      type: string
-      example: 2001:db8:3c4d:15::1a2f:1a2b
-    NetworkApplicationPaginationTrend:
-      type: object
-      properties:
-        limit:
-          maximum: 500
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        cursor:
-          type: string
-          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
-          example: '{~modificationtime_histo=1.7218008E12, applicationName_terms=914c/g}'
-          default: ''
-        count:
-          type: integer
-          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-        timeSortOrder:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          enum:
-          - asc
-          - desc
-    NetworkApplicationTrendQueryRequest:
-      required:
-      - siteIds
-      - trendInterval
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/appStartTime'
-        endTime:
-          $ref: '#/components/schemas/appEndTime'
-        siteIds:
-          type: array
-          description: The site building UUID. This API can be used to get building UUID. /data/api/v1/siteHealthSummaries?attribute=siteHierarchyId
-          example: -364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
-          items:
-            type: string
-        trendInterval:
-          $ref: '#/components/schemas/appTrendInterval'
-        groupBy:
-          $ref: '#/components/schemas/NetworkApplicationGroupByAttributes'
-        attributes:
-          $ref: '#/components/schemas/NetworkApplicationTrendAttributes'
-        filters:
-          $ref: '#/components/schemas/NetworkApplicationFilters'
-        aggregateAttributes:
-          $ref: '#/components/schemas/NetworkApplicationAggregateAttributes'
-        page:
-          $ref: '#/components/schemas/NetworkApplicationPaginationTrend'
-      description: 'Request payload used for complex trend query API. It contains |
-
-        ''trend'' ''attributes'' - To provide the list of fields that user is interested in the response. |
-
-        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
-
-        ''aggregateAttributes'' - To provide list of fields and corresponding aggregation functions to run.
-
-        '
-    NetworkApplicationSummaryAttributes:
-      type: array
-      example:
-      - applicationName
-      - jitter
-      items:
-        $ref: '#/components/schemas/NetworkApplicationSummaryAttribute'
-    NetworkApplicationFilterObj:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/NetworkApplicationFilterField'
-        operator:
-          $ref: '#/components/schemas/NetworkApplicationOperator'
-        logicalOperator:
-          $ref: '#/components/schemas/NetworkApplicationLogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set. Array of values is used for "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
-
-
-            For other operators, filter value is of whatever type the specific field being filtered is defined with.
-
-
-            In the case of an "and" or "or" operator, this values array will be ignored, and the values arrays in each of the *nested filters*   will be used.
-
-            '
-        filters:
-          type: array
-          description: 'Nested array of filters in case of AND/OR based filters. Only one level of nesting will be supported.
-
-
-            Structure of nested filter is the same as parent with all operators supported except AND or OR.
-
-            '
-          items:
-            $ref: '#/components/schemas/NetworkApplicationFilterObj'
-    IPv4Address:
-      type: string
-      example: 250.162.252.170
-    NetworkApplicationCountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ssid:
-      type: string
-      description: In the context of a network application, SSID refers to the name of the wireless network to which the client connects.
-      example: alpha
-    NetworkApplicationsResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkApplication'
-        page:
-          $ref: '#/components/schemas/NetworkApplicationPaginationWithAggregate'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Collection of application experience records
-    NetworkApplicationSummaryResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/NetworkApplicationsGroupsResponse'
-        page:
-          $ref: '#/components/schemas/NetworkApplicationPaginationWithAggregate'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-    NetworkApplicationClientPaginationWithAggregate:
-      type: object
-      properties:
-        limit:
-          maximum: 500
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-        sortBy:
-          type: array
-          example:
-          - name: macAddress
-            order: asc
-          items:
-            $ref: '#/components/schemas/NetworkApplicationClientSortByObj'
-    NetworkApplicationGroupByField:
-      type: string
-      description: Supported groupBy attributes related to network applications
-      enum:
-      - applicationName
-      - businessRelevance
-      - exporterIpAddress
-      - siteId
-      - trafficClass
-      - healthScore
-    appEndTime:
-      type: integer
-      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-      format: int64
-      example: 1705435200000
-    ApplicationFunction:
-      type: string
-      description: Type of aggregate function to apply on the field when querying   data
-      example: sum
-      enum:
-      - sum
-      - min
-      - max
-      - avg
-      - count
-      - latest
-      - distinctCount
-    NetworkApplicationAnalyticsAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the attribute requested for analytics API.
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
-    NetworkApplicationCommonDetail:
-      type: object
-      properties:
-        usage:
-          type: integer
-          description: The number of bytes transferred for the application.
-          format: int64
-          example: 3160585505
-        throughput:
-          type: number
-          description: The rate of application traffic per second between the client and server, measured in bits per second.
-          example: 8035448.32
-        healthScore:
-          type: integer
-          description: The health score of the application, has value in the range of 1 to 10.
-          example: 10
-        packetLossPercent:
-          type: number
-          description: The percentage of packet loss. This metric applies only to TCP-based and RTP-based applications. In TCP it is based on client retransmission, in RTP it is based on sequence number.
-          example: 3.5
-        networkLatency:
-          type: number
-          description: The average network latency time, in milliseconds. This metric applies only to TCP-based applications.
-          example: 9.5
-        applicationServerLatency:
-          type: number
-          description: The time it takes for the application server to respond to the first application request from the client, in milliseconds. This metric applies only to TCP-based applications.
-          example: 18.6
-        clientNetworkLatency:
-          type: number
-          description: The client RTT (round trip time), in milliseconds. This metric applies only to TCP-based applications.
-          example: 9.4
-        serverNetworkLatency:
-          type: number
-          description: The server RTT (round trip time), in milliseconds. This metric applies only to TCP-based applications.
-          example: 3.5
-        trafficClass:
-          type: string
-          description: Traffic Class of the application
-          example: multimedia-conferencing
-        jitter:
-          type: number
-          description: The variance in time delay between data packets over your network, in milliseconds. This metric applies only to RTP-based applications.
-          example: 9.5
-        ssid:
-          type: string
-          description: In the context of a network application, SSID refers to the name of the wireless network to which the client connects.
-          example: main-ssid
-      description: Network application experience information
-    NetworkApplicationsTrendGroupsResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-        attributes:
-          $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/NetworkApplicationAggregateAttributesResponse'
-        groups:
-          type: array
-          description: 'Additional groups and their respective attributes are included under each group. The attributes belonging to each group are appended to the attributes list.
-
-            '
-          items:
-            $ref: '#/components/schemas/NetworkApplicationsGroupResponse'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
-    NetworkApplicationAggregateAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the requested aggregate attribute
-        function:
-          type: string
-          description: Aggregate function requested for the attribute
-        value:
-          type: object
-          description: This is the aggregate value of the attribute after applying the function on the dataset
-    NetworkApplicationTrendResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkApplicationsTrendGroupsResponse'
-        page:
-          $ref: '#/components/schemas/NetworkApplicationPaginationTrend'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-    NetworkApplicationAnalyticsAttributesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributeResponse'
-    NetworkApplicationTrendAttributes:
-      type: array
-      example:
-      - applicationName
-      - jitter
-      items:
-        $ref: '#/components/schemas/NetworkApplicationTrendAttribute'
-    NetworkApplicationsGroupResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This is the group key. Unique value to identify the group. It is concatenation of groupBy attributes
-        attributes:
-          $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributeResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/NetworkApplicationAggregateAttributesResponse'
-    NetworkApplicationOperator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - neq
-      - lt
-      - gt
-      - lte
-      - gte
-      - eq
-      - like
-    NetworkApplicationLogicalOperator:
-      type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
-      enum:
-      - and
-      - or
-    NetworkApplication:
-      type: object
-      description: Application Experience details
-      allOf:
-      - $ref: '#/components/schemas/NetworkApplicationBasic'
-      - $ref: '#/components/schemas/NetworkApplicationCommonDetail'
-    NetworkApplicationCountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/NetworkApplicationCountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    NetworkApplicationFilterField:
-      type: string
-      description: Supported filter attributes related to network applications
-      enum:
-      - applicationName
-      - applicationServerLatency
-      - businessRelevance
-      - clientNetworkLatency
-      - dscp
-      - exporterIpAddress
-      - exporterNetworkDeviceId
-      - jitter
-      - ssid
-      - networkLatency
-      - packetLossPercent
-      - serverNetworkLatency
-      - throughput
-      - trafficClass
-      - usage
-      - healthScore
-    NetworkApplicationGroupByAttributes:
-      type: array
-      example:
-      - businessRelevance
-      - applicationName
-      items:
-        $ref: '#/components/schemas/NetworkApplicationGroupByField'
-    NetworkApplicationClientSortByObj:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Attributes related to clients resource that can be used to sort the response.
-          enum:
-          - macAddress
-          - exporterNetworkDeviceId
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          enum:
-          - asc
-          - desc
-      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the colllection on  aggregated attribute. If function is not specified API will sort the collection on attribute.
-
-        '
-    AppxErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppxErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    AppxErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the parameter and its value, that caused the condition and why it   caused it.
-    ApplicationName:
-      type: string
-      description: "Name of the application for which the experience data is intended.\n    "
-    NetworkApplicationPaginationWithAggregate:
-      type: object
-      properties:
-        limit:
-          maximum: 500
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        cursor:
-          type: string
-          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
-          example: '{apMac_terms=AA:BB:CC:DD:EE:FF, frequency_terms=5.0}'
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-        sortBy:
-          type: array
-          example:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
-          items:
-            $ref: '#/components/schemas/NetworkApplicationSortByObj'
-    NetworkApplicationAggregateAttributes:
-      type: array
-      example:
-      - name: usage
-        function: min
-      - name: appliactionName
-        function: latest
-      - name: usage
-        function: sum
-      items:
-        $ref: '#/components/schemas/NetworkApplicationAggregateAttribute'
-    appStartTime:
-      type: integer
-      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-      format: int64
-      example: 1705348800000
-    NetworkApplicationsGroupsResponse:
-      type: object
-      properties:
-        attributes:
-          $ref: '#/components/schemas/NetworkApplicationAnalyticsAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/NetworkApplicationAggregateAttributesResponse'
-        groups:
-          type: array
-          description: 'Additional groups and respective attributes under the group.
-
-            The attributes comprising of each group are added to attributes list.
-
-            '
-          items:
-            $ref: '#/components/schemas/NetworkApplicationsGroupResponse'
-      description: "Network Application Summary response contains attributes, aggregateAttributes and groups\nattributes, aggregatedAttributes and groups are mutually exclusive.\nIf user requests for summary without groupBy attributes then response includes attributes, aggregateAttributes\nIf user requests for summary with groupBy attributes then response then includes groups array contain attributes, aggregatedAttributes for each array element \n"
-    NetworkApplicationAggregateAttributesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/NetworkApplicationAggregateAttributeResponse'
-    NetworkApplicationSummaryRequest:
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/appStartTime'
-        endTime:
-          $ref: '#/components/schemas/appEndTime'
-        siteIds:
-          type: array
-          description: The list of building UUID. This API /data/api/v1/siteHealthSummaries?attribute=siteHierarchyId can be used to get building UUID.
-          example:
-          - 364ff1bd-5125-4fa1-9ae3-55e7fb6ca592
-          items:
-            type: string
-        groupBy:
-          $ref: '#/components/schemas/NetworkApplicationGroupByAttributes'
-        attributes:
-          $ref: '#/components/schemas/NetworkApplicationSummaryAttributes'
-        filters:
-          $ref: '#/components/schemas/NetworkApplicationFilters'
-        aggregateAttributes:
-          $ref: '#/components/schemas/NetworkApplicationAggregateAttributes'
-        page:
-          $ref: '#/components/schemas/NetworkApplicationPaginationWithAggregate'
-      description: Request payload used for summary query API. It contains
-    appTrendInterval:
-      type: string
-      description: "The time window to aggregate the metrics. \nInterval can be 5 minutes or 10 minutes or 1 hour or 3 hours\n"
-      example: 5MIN
-      enum:
-      - 5MIN
-      - 10MIN
-      - 1HR
-      - 3HR
-    NetworkApplicationAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/NetworkApplicationAggregateField'
-        function:
-          $ref: '#/components/schemas/ApplicationFunction'
-      description: 'Field name and list of aggregate functions to be applied when
-
-        querying the data.
-
-        '
-    NetworkApplicationSummaryAttribute:
-      type: string
-      description: Attributes related to application experience that can be requested to only be part of the response along with the required attributes.
-      enum:
-      - applicationName
-      - applicationServerLatency
-      - businessRelevance
-      - clientNetworkLatency
-      - dscp
-      - exporterIpAddress
-      - exporterNetworkDeviceId
-      - jitter
-      - networkLatency
-      - packetLossPercent
-      - serverNetworkLatency
-      - siteId
-      - ssid
-      - throughput
-      - trafficClass
-      - usage
-      - healthScore
-    NetworkApplicationSortByObj:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Attributes related to network application resource that can be used to sort the response.
-          enum:
-          - applicationName
-          - siteId
-          - exporterIpAddress
-          - exporterNetworkDeviceId
-          - businessRelevance
-          - usage
-          - throughput
-          - packetLossPercent
-          - networkLatency
-          - applicationServerLatency
-          - clientNetworkLatency
-          - serverNetworkLatency
-          - trafficClass
-          - jitter
-          - ssid
-          - healthScore
-        function:
-          type: string
-          description: Type of aggregate function to apply on the field when querying data
-          enum:
-          - min
-          - max
-          - avg
-          - count
-          - latest
-          - sum
-          - distinctCount
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          enum:
-          - asc
-          - desc
-      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the colllection on  aggregated attribute. If function is not specified API will sort the collection on attribute.
-
-        '
-    NetworkApplicationAggregateField:
-      type: string
-      description: 'Supported aggregated attributes related to network applications
-
-        | Aggregate Function | Supported Aggregate Fields |
-
-        | --- | --- |
-
-        | ''latest''| applicationName, applicationServerLatency, businessRelevance, clientNetworkLatency, dscp, exporterIpAddress, exporterNetworkDeviceId, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, trafficClass, usage, healthScore |
-
-        | `min` | applicationServerLatency, clientNetworkLatency, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, usage, healthScore |
-
-        | `max` | applicationServerLatency, clientNetworkLatency, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, usage, healthScore |
-
-        | `avg` | applicationServerLatency, clientNetworkLatency, jitter, networkLatency, packetLossPercent, serverNetworkLatency, throughput, usage, healthScore |
-
-        | `sum` | usage |
-
-        | `count` | applicationName, businessRelevance, dscp, exporterIpAddress, exporterNetworkDeviceId, trafficClass |
-
-        | ''distinctCount'' | applicationName, businessRelevance, dscp, exporterIpAddress, exporterNetworkDeviceId, trafficClass |'
-      enum:
-      - applicationName
-      - applicationServerLatency
-      - businessRelevance
-      - clientNetworkLatency
-      - dscp
-      - exporterIpAddress
-      - exporterNetworkDeviceId
-      - jitter
-      - networkLatency
-      - packetLossPercent
-      - serverNetworkLatency
-      - throughput
-      - trafficClass
-      - usage
-      - healthScore
   requestBodies:
     NetworkApplicationTrendQueryRequest:
       description: Payload to query trend data for a network application

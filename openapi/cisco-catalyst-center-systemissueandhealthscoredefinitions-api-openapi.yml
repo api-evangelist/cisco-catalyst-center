@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Open API spec to define issue trigger violation and health score definitions. System Issue And Health Score Definitions API
+  title: Open API spec to define issue trigger violation and health…
   description: APIs to customize issue trigger priority, enable/disable issues, health thresholds and include status of KPI into overall health computations.
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
@@ -38,10 +38,8 @@ paths:
     get:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Returns all issue trigger definitions for given filters.
-      description: 'Get all system issue defintions. The supported filters are id, name, profileId and definition enable status. An issue trigger definition can be different across the profile and device type. So, `profileId` and `deviceType` in the query param is important and default is global profile and all device type.
-
-        '
+      summary: Returns all issue trigger definitions for given filters
+      description: Get all system issue defintions. The supported filters are id, name, profileId and definition enable status. An issue trigger definition can be different across the profile and device type. So, `profileId` and `deviceType` in the query param is important and default is global profile and all device type.
       operationId: readSystemsIssueDefinitions
       parameters:
       - name: deviceType
@@ -286,7 +284,7 @@ paths:
     get:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Get issue trigger definition for given id.
+      summary: Get issue trigger definition for given id
       description: Get system issue defintion for the given id. Definition includes all properties from IssueTriggerDefinition schema by default.
       operationId: readSystemIssueDefinitionById
       parameters:
@@ -374,13 +372,11 @@ paths:
     put:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Issue trigger definition update.
+      summary: Issue trigger definition update
       description: 'Update issue trigger threshold, priority for the given id.
 
 
-        Also enable or disable issue trigger for the given id.
-
-        '
+        Also enable or disable issue trigger for the given id.'
       operationId: putSystemIssueDefinitionById
       parameters:
       - name: id
@@ -490,10 +486,8 @@ paths:
     get:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Get the count of system defined issue definitions based on provided filters.
-      description: 'Get the count of system defined issue definitions based on provided filters. Supported filters are id, name, profileId and definition enable status.
-
-        '
+      summary: Get the count of system defined issue definitions based on provided filters
+      description: Get the count of system defined issue definitions based on provided filters. Supported filters are id, name, profileId and definition enable status.
       operationId: readSystemIssueDefinitionsCount
       parameters:
       - name: deviceType
@@ -648,16 +642,14 @@ paths:
     get:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Get all health score definitions for given filters.
+      summary: Get all health score definitions for given filters
       description: 'Get all health score defintions.
 
 
         Supported filters are id, name and overall health include status. A health score definition can be different across device type. So, deviceType in the query param is important and default is all device types.
 
 
-        By default all supported attributes are listed in response.
-
-        '
+        By default all supported attributes are listed in response.'
       operationId: readHealthDefinitions
       parameters:
       - name: deviceType
@@ -814,8 +806,8 @@ paths:
     get:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Get health score definition for the given id.
-      description: "Get health score defintion for the given id. Definition includes all properties from HealthScoreDefinition schema by default. \n"
+      summary: Get health score definition for the given id
+      description: Get health score defintion for the given id. Definition includes all properties from HealthScoreDefinition schema by default.
       operationId: readHealthDefinitionById
       parameters:
       - name: id
@@ -900,13 +892,11 @@ paths:
     put:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Update health score definition for the given id.
+      summary: Update health score definition for the given id
       description: 'Update health threshold, include status of overall health status.
 
 
-        And also to synchronize with global profile issue thresholds of the definition for given id.
-
-        '
+        And also to synchronize with global profile issue thresholds of the definition for given id.'
       operationId: putHealthDefinitionById
       parameters:
       - name: id
@@ -1011,8 +1001,11 @@ paths:
     post:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Update health score definitions.
-      description: "Update health thresholds, include status of overall health status for each metric.\n\nAnd also to synchronize with global profile issue thresholds of the definition for given metric. \n"
+      summary: Update health score definitions
+      description: 'Update health thresholds, include status of overall health status for each metric.
+
+
+        And also to synchronize with global profile issue thresholds of the definition for given metric.'
       operationId: postHealthDefinitions
       parameters:
       - name: X-CALLER-ID
@@ -1111,10 +1104,8 @@ paths:
     get:
       tags:
       - systemIssueAndHealthScoreDefinitions
-      summary: Get the count of health score definitions based on provided filters.
-      description: 'Get the count of health score definitions based on provided filters. Supported filters are id, name and overall health include status.
-
-        '
+      summary: Get the count of health score definitions based on provided filters
+      description: Get the count of health score definitions based on provided filters. Supported filters are id, name and overall health include status.
       operationId: readHealthDefinitionsCount
       parameters:
       - name: deviceType
@@ -1214,205 +1205,28 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
-    IssueTriggerDefinitionResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/IssueTriggerDefinition'
-        version:
-          type: string
-          example: '1.0'
-      description: Response object for issue trigger definition.
-    IssueDeviceType:
+    Priority:
       type: string
-      description: These are the device types supported for issue trigger definitions.
-      enum:
-      - Router
-      - Switch and Hub
-      - Wireless Controller
-      - Unified AP
-      - Wireless Client
-      - Wired Client
-      - Application
-      - Sensor
-      - Third Party Device
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    HealthDeviceType:
-      type: string
-      description: These are the device type supported for health score definitions.
-      readOnly: true
-      enum:
-      - Router
-      - Switch and Hub
-      - Wireless Controller
-      - Unified AP
-      - Wireless Client
-      - Wired Client
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    IssueCategory:
-      type: string
-      description: 'Category of the issue trigger definition. Indicates intent of grouped issues. To be more precise link related issues are grouped under connectivity.
+      description: 'Issue priority, possible values are P1, P2, P3, P4.
 
 
-        Example: WAN Interface Down is part of Connectivity category under Switches And Hubs device type.
+        `P1`: A critical issue that needs immediate attention and can have a wide impact on network operations.
+
+
+        `P2`: A major issue that can potentially impact multiple devices or clients.
+
+
+        `P3`: A minor issue that has a localized or minimal impact.
+
+
+        `P4`: A warning issue that may not be an immediate problem but addressing it can optimize the network performance.
 
         '
-      readOnly: true
       enum:
-      - Connectivity
-      - Connected
-      - Device
-      - Availability
-      - System
-      - Onboarding
-      - Utilization
-      - Application
-      - Sensor Test
-      - AP Anomaly
-    HealthScoreDefinitionResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/HealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-      description: Response object for list of health score definitions.
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    IssueTriggerDefinitionListResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssueTriggerDefinition'
-        version:
-          type: string
-          example: '1.0'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-      example:
-        response:
-        - id: 015d9cba-4f53-4087-8317-7e49e5ffef46
-          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
-          name: isis_adjacency_failure
-          deviceFamily: Router
-          description: ISIS Adjacency failed on Device.
-          priority: P2
-          defaultPriority: P3
-          deviceType: Router
-          issueEnabled: true
-          profileId: global
-          definitionStatus: CUSTOM
-          categoryName: Connectivity
-          synchronizeToHealthThreshold: false
-          thresholdValue: 90
-        - id: 015d9cba-4f53-4087-8317-7e49e5ffef47
-          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
-          name: isis_adjacency_failure
-          deviceFamily: Switch And Hub
-          description: ISIS Adjacency failed on Device.
-          priority: P2
-          defaultPriority: P2
-          deviceType: Switch And Hub
-          issueEnabled: true
-          profileId: global
-          definitionStatus: DEFAULT
-          categoryName: Connectivity
-          synchronizeToHealthThreshold: false
-          thresholdValue: 90
-        version: '1.0'
-        page:
-          offset: 5
-          limit: 10
-          sortBy: name
-          order: asc
-    HealthScoreDefinitionListWithoutPaginationResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/HealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-    HealthScoreDefinitionListResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/HealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
+      - P1
+      - P2
+      - P3
+      - P4
     IssueTriggerDefinition:
       type: object
       properties:
@@ -1489,6 +1303,111 @@ components:
             '
           readOnly: true
       description: Issue trigger definition.
+    IssueCategory:
+      type: string
+      description: 'Category of the issue trigger definition. Indicates intent of grouped issues. To be more precise link related issues are grouped under connectivity.
+
+
+        Example: WAN Interface Down is part of Connectivity category under Switches And Hubs device type.
+
+        '
+      readOnly: true
+      enum:
+      - Connectivity
+      - Connected
+      - Device
+      - Availability
+      - System
+      - Onboarding
+      - Utilization
+      - Application
+      - Sensor Test
+      - AP Anomaly
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    HealthScoreDefinitionResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/HealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+      description: Response object for list of health score definitions.
+    IssueTriggerDefinitionListResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssueTriggerDefinition'
+        version:
+          type: string
+          example: '1.0'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+      example:
+        response:
+        - id: 015d9cba-4f53-4087-8317-7e49e5ffef46
+          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
+          name: isis_adjacency_failure
+          deviceFamily: Router
+          description: ISIS Adjacency failed on Device.
+          priority: P2
+          defaultPriority: P3
+          deviceType: Router
+          issueEnabled: true
+          profileId: global
+          definitionStatus: CUSTOM
+          categoryName: Connectivity
+          synchronizeToHealthThreshold: false
+          thresholdValue: 90
+        - id: 015d9cba-4f53-4087-8317-7e49e5ffef47
+          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
+          name: isis_adjacency_failure
+          deviceFamily: Switch And Hub
+          description: ISIS Adjacency failed on Device.
+          priority: P2
+          defaultPriority: P2
+          deviceType: Switch And Hub
+          issueEnabled: true
+          profileId: global
+          definitionStatus: DEFAULT
+          categoryName: Connectivity
+          synchronizeToHealthThreshold: false
+          thresholdValue: 90
+        version: '1.0'
+        page:
+          offset: 5
+          limit: 10
+          sortBy: name
+          order: asc
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
     HealthScoreDefinition:
       type: object
       properties:
@@ -1548,48 +1467,120 @@ components:
             '
           readOnly: true
       description: Health score definition.
-    Priority:
-      type: string
-      description: 'Issue priority, possible values are P1, P2, P3, P4.
-
-
-        `P1`: A critical issue that needs immediate attention and can have a wide impact on network operations.
-
-
-        `P2`: A major issue that can potentially impact multiple devices or clients.
-
-
-        `P3`: A minor issue that has a localized or minimal impact.
-
-
-        `P4`: A warning issue that may not be an immediate problem but addressing it can optimize the network performance.
-
-        '
-      enum:
-      - P1
-      - P2
-      - P3
-      - P4
-    PaginationResponse:
+    PaginationResponse_sortBy:
       type: object
       properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    HealthScoreDefinitionListWithoutPaginationResponse:
+      type: object
+      properties:
+        response:
           type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
           items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
+            $ref: '#/components/schemas/HealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    IssueTriggerDefinitionResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/IssueTriggerDefinition'
+        version:
+          type: string
+          example: '1.0'
+      description: Response object for issue trigger definition.
+    HealthDeviceType:
+      type: string
+      description: These are the device type supported for health score definitions.
+      readOnly: true
+      enum:
+      - Router
+      - Switch and Hub
+      - Wireless Controller
+      - Unified AP
+      - Wireless Client
+      - Wired Client
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    IssueDeviceType:
+      type: string
+      description: These are the device types supported for issue trigger definitions.
+      enum:
+      - Router
+      - Switch and Hub
+      - Wireless Controller
+      - Unified AP
+      - Wireless Client
+      - Wired Client
+      - Application
+      - Sensor
+      - Third Party Device
+    HealthScoreDefinitionListResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/HealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

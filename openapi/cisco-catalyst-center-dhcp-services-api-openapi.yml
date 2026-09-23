@@ -3,9 +3,7 @@ info:
   title: OpenAPI Spec DHCP Services API
   description: 'This collection of APIs provides data related to DHCP Services offered in
 
-    Catalyst Center.
-
-    '
+    Catalyst Center.'
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -42,7 +40,7 @@ paths:
     get:
       tags:
       - DHCP Services
-      summary: Retrieves the list of DHCP Services for given parameters.
+      summary: Retrieves the list of DHCP Services for given parameters
       description: Retrieves the list of DHCP Services and offers basic filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is calculated for the given time range.
       operationId: readDHCPServices
       parameters:
@@ -255,7 +253,7 @@ paths:
     get:
       tags:
       - DHCP Services
-      summary: Retrieves the total number of DHCP Services for given parameters.
+      summary: Retrieves the total number of DHCP Services for given parameters
       description: Retrieves the total number of DHCP Services for given parameters. If startTime and endTime are not provided, the API defaults to the last 24 hours.
       operationId: readDHCPServicesCount
       parameters:
@@ -426,7 +424,7 @@ paths:
     get:
       tags:
       - DHCP Services
-      summary: Retrieves the details of a specific DHCP Service matching the id of the Service.
+      summary: Retrieves the details of a specific DHCP Service matching the id of the Service
       description: Retrieves the details of the DHCP Service matching the given id. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is from latest available snapshot in the given time range.
       operationId: readDHCPServiceById
       parameters:
@@ -512,7 +510,7 @@ paths:
     post:
       tags:
       - DHCP Services
-      summary: Retrieves the list of DHCP Services for given set of complex filters.
+      summary: Retrieves the list of DHCP Services for given set of complex filters
       description: 'Retrieves the list of DHCP Services and offers complex filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours. The data in the response is calculated for the given time range.
 
         |Field Name | Description |
@@ -585,7 +583,7 @@ paths:
     post:
       tags:
       - DHCP Services
-      summary: Retrieves the total number of DHCP Services for given set of complex filters.
+      summary: Retrieves the total number of DHCP Services for given set of complex filters
       description: 'Retrieves the total number of DHCP Services and offers complex filtering and sorting capabilities. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -656,7 +654,7 @@ paths:
     post:
       tags:
       - DHCP Services
-      summary: Get summary analytics data of DHCP Services for given set of complex filters.
+      summary: Get summary analytics data of DHCP Services for given set of complex filters
       description: 'Gets the summary analytics data related to DHCP Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -673,7 +671,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DHCPServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset and sortBy** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *sortBy* - attribute name, order to sort|'
       operationId: queryDHCPServicesSummaryAnalytics
@@ -730,7 +728,7 @@ paths:
     post:
       tags:
       - DHCP Services
-      summary: Get Top N analytics data of DHCP Services for given set of complex filters.
+      summary: Get Top N analytics data of DHCP Services for given set of complex filters
       description: 'Gets the Top N analytics data related to DHCP Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -749,7 +747,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DHCPServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset and sortBy** fields. *limit* - Number of records to be returned in response, *offset* - starting offset of data and *sortBy* - attribute name, order to sort|'
       operationId: queryDHCPServicesTopNAnalytics
@@ -806,7 +804,7 @@ paths:
     post:
       tags:
       - DHCP Services
-      summary: Get trend analytics data of DHCP Services for given set of complex filters.
+      summary: Get trend analytics data of DHCP Services for given set of complex filters
       description: 'Gets the trend analytics data related to DHCP Services based on given filters and group by field. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -825,7 +823,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DHCPServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset, and timestampOrder** fields. *limit* - number of records to be returned in response. *offset* - starting offset of data. *timestampOrder* - to sort the response based on the timestamp either in ascending or descending order. |'
       operationId: queryDHCPServicesTrendAnalytics
@@ -882,7 +880,7 @@ paths:
     post:
       tags:
       - DHCP Services
-      summary: Get trend analytics data for a given DHCP Service matching the id of the Service.
+      summary: Get trend analytics data for a given DHCP Service matching the id of the Service
       description: 'Gets the trend analytics data related to a particular DHCP Service matching the id. If startTime and endTime are not provided, the API defaults to the last 24 hours.
 
         |Field Name | Description |
@@ -901,7 +899,7 @@ paths:
 
         | `attributes` | attributes are used for obtaining one or more field''s data in addition to the aggregated data. The supported attributes are listed in `DHCPServicesAnalyticsAttributeKey` model|
 
-        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model  |
+        | `aggregateAttributes` | specifies the names of the attributes on which the aggregate function should be applied when querying the data. The supported attribute names are listed in `DHCPServicesAggregateAttributeKey` model |
 
         | `page` | contains **limit, offset, and timestampOrder** fields. *limit* - number of records to be returned in response. *offset* - starting offset of data. *timestampOrder* - to sort the response based on the timestamp either in ascending or descending order. |'
       operationId: queryDHCPServicesTrendAnalyticsById
@@ -974,54 +972,209 @@ paths:
           description: Unexpected Error
 components:
   schemas:
-    startAndEndTime:
+    NetworkServicesPaginationWithTrendRequest:
       type: object
       properties:
-        startTime:
+        limit:
+          minimum: 1
           type: integer
-          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `startTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705348800000
-        endTime:
+          description: Number of records to be returned in response
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
           type: integer
-          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `endTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705435200000
-      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
-    DHCPServicesAnalyticsFilter:
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    DHCPServiceResponseModel:
       type: object
       properties:
-        key:
-          $ref: '#/components/schemas/DHCPServicesAnalyticsFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/NetworkServicesOperator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set.
-
-            '
+        response:
+          $ref: '#/components/schemas/DHCPServiceResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: DHCP Service response
+    DHCPServicesTopNAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/DHCPServicesTopNAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/DHCPServicesAnalyticsSortResponse'
+      description: DHCP Services Top N Analytics Response Model
+    NetworkServicesFunction:
+      type: string
+      description: Name of the aggregate function that should be applied when querying the data.
+      enum:
+      - sum
+      - min
+      - max
+      - avg
+      - latest
+    DHCPServicesSummaryAnalyticsRequest:
+      type: object
+      properties:
+        groupBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAnalyticsGroupByKey'
         filters:
           type: array
-          description: 'This nested array of filters can be used when `logicalOperator` is used.
-
-            '
           items:
             $ref: '#/components/schemas/DHCPServicesAnalyticsFilter'
-      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
-
-        '
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/DHCPServicesAnalyticsPaginationRequest'
+      description: DHCP Services Summary Analytics requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    DHCPServicesAnalyticsSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name on which the data should be sorted
+          enum:
+          - serverIp
+          - deviceName
+          - deviceSiteHierarchy
+          - deviceFamily
+          - successRate
+          - failureRate
+          - transactions
+          - failedTransactions
+          - successfulTransactions
+          - latency
+          - discoverOfferLatency
+          - requestAcknowledgeLatency
+        function:
+          $ref: '#/components/schemas/NetworkServicesFunction'
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: Records are sorted based on the field specified.
+    DHCPServicesAggregateAttributeKey:
+      type: string
+      enum:
+      - transactions
+      - failedTransactions
+      - successfulTransactions
+      - latency
+      - discoverOfferLatency
+      - requestAcknowledgeLatency
+    DHCPServicesPaginationRequest:
+      type: object
+      properties:
+        limit:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 7
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesPaginationSortBy'
+    DHCPServicesTrendAnalyticsRequest:
+      required:
+      - groupBy
+      - trendInterval
+      type: object
+      properties:
+        trendInterval:
+          $ref: '#/components/schemas/NetworkServicesTrendInterval'
+        groupBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAnalyticsFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendRequest'
+      description: DHCP Services Trend Analytics requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    NetworkServicesOperator:
+      type: string
+      description: Type of filter operator to use for querying data. When `in` and `notIn` operators are used, the `value` should be array. For all other operators, the `value` should be a single value.
+      enum:
+      - in
+      - eq
+      - like
+      - lt
+      - lte
+      - gt
+      - gte
     DHCPServiceResponse:
       type: object
       properties:
@@ -1085,6 +1238,168 @@ components:
           description: Request-Acknowledge latency (milliseconds) in the last available interval of the given time range.
           example: 8
       description: Contains details of DHCP service.
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    startAndEndTime:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `startTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705348800000
+        endTime:
+          type: integer
+          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `endTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705435200000
+      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+    DHCPServicesQueryCountRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesFilter'
+      description: DHCP Services query count requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    NetworkServicesTrendInterval:
+      type: string
+      description: 'The time window to aggregate the Network Services data.
+
+        '
+      enum:
+      - 5MIN
+      - 15MIN
+      - 1HOUR
+      - 1DAY
+    NetworkServicesAggregateAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Aggregate attribute name
+        function:
+          type: string
+          description: Aggregate function
+        value:
+          type: object
+          description: This is the aggregate value of the attribute after applying the function on the dataset
+          example: 14
+    DHCPServicesAnalyticsPaginationRequest:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 25
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAnalyticsSortBy'
+    DHCPServicesAnalyticsAttributeKey:
+      type: string
+      enum:
+      - deviceSiteHierarchy
+      - deviceName
+      - deviceFamily
+      - successRate
+      - failureRate
+    NetworkServicesPaginationWithTrendResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          minimum: 1
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+          default: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    NetworkServicesAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute
+          example: deviceName
+        value:
+          type: object
+          description: Value of the attribute
+          example: wnbu.sjc12.cisco.com
+    DHCPServicesFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - serverIp
+      - deviceId
+      - deviceName
+      - deviceSiteHierarchy
+      - deviceSiteId
+      - deviceSiteHierarchyId
+      - transactions
+      - failedTransactions
+      - successfulTransactions
+      - latency
+      - requestAcknowledgeLatency
+      - discoverOfferLatency
+    DHCPServicesQueryRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesFilter'
+        page:
+          $ref: '#/components/schemas/DHCPServicesPaginationRequest'
+      description: DHCP Services query requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
     NetworkServicesAnalyticsGroup:
       type: object
       properties:
@@ -1103,59 +1418,69 @@ components:
           items:
             $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
       description: Network Services Analytics Group object
-    DHCPServicesTrendAnalyticsResponseModel:
+    DHCPServicesAnalyticsGroupByKey:
+      type: string
+      enum:
+      - serverIp
+      - deviceId
+      - deviceSiteId
+    DHCPServicesAnalyticsSortResponse:
       type: object
       properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesTrendAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendResponse'
-      description: DHCP Services Trend Analytics Response Model
-    DHCPServiceResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/DHCPServiceResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: DHCP Service response
-    DHCPServicesSummaryAnalyticsResponse:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: DHCP Services Summary Analytics Response object
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
+        limit:
+          minimum: 1
           type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+          description: Number of records to be returned in response
+          example: 25
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesAnalyticsSortBy'
+    topN:
+      maximum: 100
+      minimum: 5
+      type: integer
+      description: Number of records to retrieve
+      default: 5
+      enum:
+      - 5
+      - 10
+      - 50
+      - 100
+    DHCPServicesFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/DHCPServicesFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/NetworkServicesOperator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set.
+
+            '
+        filters:
+          type: array
+          description: 'This nested array of filters can be used when `logicalOperator` is used.
+
+            '
+          items:
+            $ref: '#/components/schemas/DHCPServicesFilter'
+      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
+
+        '
     DHCPServicesPaginationSortBy:
       type: object
       properties:
@@ -1180,56 +1505,136 @@ components:
           - asc
           - desc
       description: Records are sorted based on the field specified.
-    NetworkServicesFunction:
+    LogicalOperator:
       type: string
-      description: Name of the aggregate function that should be applied when querying the data.
+      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
       enum:
-      - sum
-      - min
-      - max
-      - avg
-      - latest
-    DHCPServicesAnalyticsGroupByKey:
-      type: string
-      enum:
-      - serverIp
-      - deviceId
-      - deviceSiteId
-    DHCPServicesTopNAnalyticsResponse:
-      type: array
-      description: Issues TopN Analytics Response object
-      items:
-        $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
-    DHCPServicesAnalyticsAttributeKey:
-      type: string
-      enum:
-      - deviceSiteHierarchy
-      - deviceName
-      - deviceFamily
-      - successRate
-      - failureRate
-    NetworkServicesAttributeResponse:
+      - and
+      - or
+    DHCPServicesAggregateAttribute:
       type: object
       properties:
         name:
+          $ref: '#/components/schemas/DHCPServicesAggregateAttributeKey'
+        function:
+          $ref: '#/components/schemas/NetworkServicesFunction'
+    DHCPServiceListResponseModel:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServiceResponse'
+        page:
+          $ref: '#/components/schemas/DHCPServicePaginationResponse'
+        version:
           type: string
-          description: Name of the attribute
-          example: deviceName
-        value:
-          type: object
-          description: Value of the attribute
-          example: wnbu.sjc12.cisco.com
-    DHCPServicesTopNAnalyticsResponseModel:
+          description: The version of the response
+          example: '1.0'
+      description: DHCP Service list response
+    DHCPServicePaginationResponse:
+      type: object
+      properties:
+        limit:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 7
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesPaginationSortBy'
+    DHCPServicesAnalyticsFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - serverIp
+      - deviceId
+      - deviceName
+      - deviceSiteHierarchy
+      - deviceSiteId
+      - deviceSiteHierarchyId
+    DHCPServicesTrendAnalyticsResponseModel:
       type: object
       properties:
         version:
           type: string
           example: '1.0'
         response:
-          $ref: '#/components/schemas/DHCPServicesTopNAnalyticsResponse'
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPServicesTrendAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendResponse'
+      description: DHCP Services Trend Analytics Response Model
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    DHCPServicesTopNAnalyticsResponse:
+      type: array
+      description: Issues TopN Analytics Response object
+      items:
+        $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
+    DHCPServicesTrendAnalyticsResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: Timestamp of the data (epoch time)
+          format: int64
+          example: 1709706600000
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkServicesAnalyticsGroup'
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
+      description: DHCP Services Trend Analytics Response object
+    DHCPServicesSummaryAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/DHCPServicesSummaryAnalyticsResponse'
         page:
           $ref: '#/components/schemas/DHCPServicesAnalyticsSortResponse'
-      description: DHCP Services Top N Analytics Response Model
+      description: DHCP Services Summary Analytics Response Model
     DHCPServicesTopNAnalyticsRequest:
       required:
       - groupBy
@@ -1259,153 +1664,9 @@ components:
       description: DHCP Services Top N Analytics requst payload
       allOf:
       - $ref: '#/components/schemas/startAndEndTime'
-    DHCPServicesQueryCountRequest:
+    DHCPServicesSummaryAnalyticsResponse:
       type: object
       properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesFilter'
-      description: DHCP Services query count requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    NetworkServicesTrendInterval:
-      type: string
-      description: 'The time window to aggregate the Network Services data.
-
-        '
-      enum:
-      - 5MIN
-      - 15MIN
-      - 1HOUR
-      - 1DAY
-    DHCPServicesAggregateAttributeKey:
-      type: string
-      enum:
-      - transactions
-      - failedTransactions
-      - successfulTransactions
-      - latency
-      - discoverOfferLatency
-      - requestAcknowledgeLatency
-    DHCPServicesSummaryAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/DHCPServicesSummaryAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/DHCPServicesAnalyticsSortResponse'
-      description: DHCP Services Summary Analytics Response Model
-    DHCPServicesAnalyticsSortResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 25
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsSortBy'
-    DHCPServiceListResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServiceResponse'
-        page:
-          $ref: '#/components/schemas/DHCPServicePaginationResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: DHCP Service list response
-    NetworkServicesPaginationWithTrendRequest:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    DHCPServicesPaginationRequest:
-      type: object
-      properties:
-        limit:
-          maximum: 100
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesPaginationSortBy'
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    DHCPServicesTrendAnalyticsResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: Timestamp of the data (epoch time)
-          format: int64
-          example: 1709706600000
         groups:
           type: array
           items:
@@ -1420,236 +1681,12 @@ components:
           description: List of aggregate attributes
           items:
             $ref: '#/components/schemas/NetworkServicesAggregateAttributeResponse'
-      description: DHCP Services Trend Analytics Response object
-    NetworkServicesAggregateAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Aggregate attribute name
-        function:
-          type: string
-          description: Aggregate function
-        value:
-          type: object
-          description: This is the aggregate value of the attribute after applying the function on the dataset
-          example: 14
-    LogicalOperator:
-      type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
-      enum:
-      - and
-      - or
-    DHCPServicePaginationResponse:
-      type: object
-      properties:
-        limit:
-          maximum: 100
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesPaginationSortBy'
-    DHCPServicesSummaryAnalyticsRequest:
-      type: object
-      properties:
-        groupBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/DHCPServicesAnalyticsPaginationRequest'
-      description: DHCP Services Summary Analytics requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    DHCPServicesAnalyticsPaginationRequest:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 25
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsSortBy'
-    topN:
-      maximum: 100
-      minimum: 5
-      type: integer
-      description: Number of records to retrieve
-      default: 5
-      enum:
-      - 5
-      - 10
-      - 50
-      - 100
-    DHCPServicesTrendAnalyticsRequest:
-      required:
-      - groupBy
-      - trendInterval
-      type: object
-      properties:
-        trendInterval:
-          $ref: '#/components/schemas/NetworkServicesTrendInterval'
-        groupBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/NetworkServicesPaginationWithTrendRequest'
-      description: DHCP Services Trend Analytics requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    NetworkServicesPaginationWithTrendResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          minimum: 1
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-          default: 1
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    DHCPServicesAnalyticsFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - serverIp
-      - deviceId
-      - deviceName
-      - deviceSiteHierarchy
-      - deviceSiteId
-      - deviceSiteHierarchyId
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    DHCPServicesAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/DHCPServicesAggregateAttributeKey'
-        function:
-          $ref: '#/components/schemas/NetworkServicesFunction'
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    DHCPServicesAnalyticsSortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name on which the data should be sorted
-          enum:
-          - serverIp
-          - deviceName
-          - deviceSiteHierarchy
-          - deviceFamily
-          - successRate
-          - failureRate
-          - transactions
-          - failedTransactions
-          - successfulTransactions
-          - latency
-          - discoverOfferLatency
-          - requestAcknowledgeLatency
-        function:
-          $ref: '#/components/schemas/NetworkServicesFunction'
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: Records are sorted based on the field specified.
-    DHCPServicesFilter:
+      description: DHCP Services Summary Analytics Response object
+    DHCPServicesAnalyticsFilter:
       type: object
       properties:
         key:
-          $ref: '#/components/schemas/DHCPServicesFilterAttribute'
+          $ref: '#/components/schemas/DHCPServicesAnalyticsFilterAttribute'
         operator:
           $ref: '#/components/schemas/NetworkServicesOperator'
         logicalOperator:
@@ -1665,49 +1702,10 @@ components:
 
             '
           items:
-            $ref: '#/components/schemas/DHCPServicesFilter'
+            $ref: '#/components/schemas/DHCPServicesAnalyticsFilter'
       description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
 
         '
-    DHCPServicesQueryRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPServicesFilter'
-        page:
-          $ref: '#/components/schemas/DHCPServicesPaginationRequest'
-      description: DHCP Services query requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    DHCPServicesFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - serverIp
-      - deviceId
-      - deviceName
-      - deviceSiteHierarchy
-      - deviceSiteId
-      - deviceSiteHierarchyId
-      - transactions
-      - failedTransactions
-      - successfulTransactions
-      - latency
-      - requestAcknowledgeLatency
-      - discoverOfferLatency
-    NetworkServicesOperator:
-      type: string
-      description: Type of filter operator to use for querying data. When `in` and `notIn` operators are used, the `value` should be array. For all other operators, the `value` should be a single value.
-      enum:
-      - in
-      - eq
-      - like
-      - lt
-      - lte
-      - gt
-      - gte
   examples:
     DHCPServicesQueryRequestExample1:
       description: This request has simple filters. The resulting query from this request is - get all DHCP Services whose `deviceId` is *"243faba9-7f9e-4f2d-9914-97c2756754cb"* OR *"681d442b-6df7-4583-990f-c6862d040f89"* AND have `serverIp` as *"10.55.32.109"*
@@ -1729,23 +1727,6 @@ components:
           sortBy:
           - name: mostRecentOccurredTime
             order: desc
-    DHCPServicesQueryCountRequestExample2:
-      description: This request has simple filters. The resulting query from this request is - get all DHCP Services whose `serverIp` is *"10.55.32.109"* AND either transactions > 5000 OR failedTransactions > 50
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: serverIp
-          operator: eq
-          value: 10.55.32.109
-        - logicalOperator: or
-          filters:
-          - key: transactions
-            operator: gt
-            value: 5000
-          - key: failedTransactions
-            operator: gt
-            value: 50
     DHCPServicesQueryCountRequestExample1:
       description: This request has simple filters. The resulting query from this request is - get all DHCP Services whose `deviceId` is *"243faba9-7f9e-4f2d-9914-97c2756754cb"* OR *"681d442b-6df7-4583-990f-c6862d040f89"* AND have `serverIp` as *"10.55.32.109"*
       value:
@@ -1783,6 +1764,23 @@ components:
           sortBy:
           - name: mostRecentOccurredTime
             order: desc
+    DHCPServicesQueryCountRequestExample2:
+      description: This request has simple filters. The resulting query from this request is - get all DHCP Services whose `serverIp` is *"10.55.32.109"* AND either transactions > 5000 OR failedTransactions > 50
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: serverIp
+          operator: eq
+          value: 10.55.32.109
+        - logicalOperator: or
+          filters:
+          - key: transactions
+            operator: gt
+            value: 5000
+          - key: failedTransactions
+            operator: gt
+            value: 50
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

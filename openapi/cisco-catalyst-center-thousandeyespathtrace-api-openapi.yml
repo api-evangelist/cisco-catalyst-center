@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Path traces for ThousandEyes test results Thousand Eyes Path Trace API
+  title: Path traces for ThousandEyes test results Thousand Eyes…
   description: APIs related to path trace data of ThousandEyes test results. Data from ThousandEyes is embellished with additional information available from the system to provide more context.
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
@@ -49,9 +49,7 @@ paths:
 
         * If `clientMacAddress` parameter is provided, then the trace would start from the given client. But if the given client is not connected to the switch where ThousandEyes agent is running, then the path trace will not be accurate. The path from agent onwards will be correct though.
 
-        * The last hop for each trace would be the target server hop, but in case the trace did not complete (packet lost), then the penultimate hop would have attribute `traceTerminated: true`, and it means that the packet was not forwarded till the target.
-
-        '
+        * The last hop for each trace would be the target server hop, but in case the trace did not complete (packet lost), then the penultimate hop would have attribute `traceTerminated: true`, and it means that the packet was not forwarded till the target.'
       operationId: readThousandEyesTestPathTraces
       parameters:
       - name: id
@@ -128,9 +126,7 @@ paths:
       tags:
       - thousandEyesPathTrace
       summary: Counts the number of path traces for the given ThousandEyes test result
-      description: 'Retrieves the count of path traces for the given ThousandEyes test result.
-
-        '
+      description: Retrieves the count of path traces for the given ThousandEyes test result.
       operationId: countThousandEyesTestPathTraces
       parameters:
       - name: id
@@ -198,6 +194,213 @@ paths:
         5XX:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
+  schemas:
+    AppxCountIntegerResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/AppxCountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Count of the results for the given filter
+    ThousandEyesPathTracesResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: List of ThousandEyes path traces.
+          items:
+            $ref: '#/components/schemas/ThousandEyesPathTrace'
+        appLink:
+          type: string
+          description: Direct link to the page for the current path trace in ThousandEyes portal.
+        version:
+          type: string
+          description: The version of the response.
+      description: List of ThousandEyes path traces.
+    ThousandEyesPathTraceHop:
+      required:
+      - index
+      - type
+      type: object
+      properties:
+        index:
+          minimum: 1
+          type: integer
+          description: Hop number in the path. It is possible that some hop numbers are missing in the path. This can happen in case where hop details are not available.
+          format: int32
+        type:
+          type: string
+          description: 'Type of the hop.
+
+
+            | Type       | Description  |
+
+            |------------|--------------|
+
+            | `CLIENT`   | Client node (typically first hop in the path). |
+
+            | `AP`       | Access point, if client is wireless. |
+
+            | `AGENT`    | Switch where ThousandEyes agent is running. |
+
+            | `SWITCH`   | Any other switch within the path. |
+
+            | `ROUTER`   | Router node. |
+
+            | `WLC`      | Wireless controller node. |
+
+            | `EXTERNAL` | Any node which is not managed within the system and is external. Typically, this would be WAN/internet hops. |
+
+            | `TARGET`   | Target server node. |
+
+            | `UNKNOWN`  | Any node which is in-between LAN nodes, but corresponding device was not found in inventory. e.g., a node was there in ThousandEyes path trace between a switch and a router, but system was not able to find any device that owned that IP address. |
+
+            '
+          enum:
+          - CLIENT
+          - AP
+          - AGENT
+          - SWITCH
+          - ROUTER
+          - WLC
+          - EXTERNAL
+          - TARGET
+          - UNKNOWN
+        identifier:
+          type: string
+          description: 'Identifier for the node.
+
+
+            * For client nodes, it would be client MAC address.
+
+            * For internal network device nodes, it would be the network device UUID as per inventory.
+
+            * For external nodes, this attribute will be null.
+
+            '
+        name:
+          type: string
+          description: Name of the node. For internal nodes, the name would be determined by data in inventory. For external nodes, the name would be RDNS lookup value from ThousandEyes trace.
+        wlcId:
+          type: string
+          description: Unique id of the wireless controller. This is applicable only for access point node.
+          format: uuid
+        ipAddress:
+          type: string
+          description: IP address of the node.
+        location:
+          type: string
+          description: Location of the node as determined by ThousandEyes trace. This attribute is not applicable for agent node and the nodes before that.
+        network:
+          type: string
+          description: Name of the network as determined by ThousandEyes trace. This attribute is not applicable for agent node and the nodes before that.
+        responseTime:
+          type: integer
+          description: Network response time in milliseconds from the agent till this node. This attribute is not applicable for agent node and the nodes before that.
+          format: int32
+        jitter:
+          type: number
+          description: Average jitter in milliseconds. This attribute is available only on the agent node, and it represents the jitter for complete path from the agent to the target.
+          format: double
+        healthScore:
+          maximum: 10
+          minimum: 1
+          type: integer
+          description: Health score of the node. This is applicable only for internal nodes.
+          format: int32
+        traceTerminated:
+          type: boolean
+          description: Flag to indicate whether path trace got terminated at this node without reaching the target server. This means that packet was lost at this node. Target server node would be after this node, but packet was not forwarded from this node to the same.
+      description: Single hop within a path trace
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ThousandEyesPathTrace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the path trace
+        hops:
+          type: array
+          description: List of the hops in the given path trace
+          items:
+            $ref: '#/components/schemas/ThousandEyesPathTraceHop'
+      description: A single ThousandEyes path trace.
+    AppxCountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    AppxErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppxErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    AppxErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
   examples:
     GreenPathTraceExample:
       summary: Green trace starting with client
@@ -311,213 +514,6 @@ components:
             name: server.example.com
         appLink: https://app.thousandeyes.com/net/path-vis?__a=123&testId=105&roundId=1747900125&serverId=98&agentId=100
         version: '1.0'
-  schemas:
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    AppxCountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    AppxErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppxErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    AppxErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    ThousandEyesPathTraceHop:
-      required:
-      - index
-      - type
-      type: object
-      properties:
-        index:
-          minimum: 1
-          type: integer
-          description: Hop number in the path. It is possible that some hop numbers are missing in the path. This can happen in case where hop details are not available.
-          format: int32
-        type:
-          type: string
-          description: 'Type of the hop.
-
-
-            | Type       | Description  |
-
-            |------------|--------------|
-
-            | `CLIENT`   | Client node (typically first hop in the path). |
-
-            | `AP`       | Access point, if client is wireless. |
-
-            | `AGENT`    | Switch where ThousandEyes agent is running. |
-
-            | `SWITCH`   | Any other switch within the path. |
-
-            | `ROUTER`   | Router node. |
-
-            | `WLC`      | Wireless controller node. |
-
-            | `EXTERNAL` | Any node which is not managed within the system and is external. Typically, this would be WAN/internet hops. |
-
-            | `TARGET`   | Target server node. |
-
-            | `UNKNOWN`  | Any node which is in-between LAN nodes, but corresponding device was not found in inventory. e.g., a node was there in ThousandEyes path trace between a switch and a router, but system was not able to find any device that owned that IP address. |
-
-            '
-          enum:
-          - CLIENT
-          - AP
-          - AGENT
-          - SWITCH
-          - ROUTER
-          - WLC
-          - EXTERNAL
-          - TARGET
-          - UNKNOWN
-        identifier:
-          type: string
-          description: 'Identifier for the node.
-
-
-            * For client nodes, it would be client MAC address.
-
-            * For internal network device nodes, it would be the network device UUID as per inventory.
-
-            * For external nodes, this attribute will be null.
-
-            '
-        name:
-          type: string
-          description: Name of the node. For internal nodes, the name would be determined by data in inventory. For external nodes, the name would be RDNS lookup value from ThousandEyes trace.
-        wlcId:
-          type: string
-          description: Unique id of the wireless controller. This is applicable only for access point node.
-          format: uuid
-        ipAddress:
-          type: string
-          description: IP address of the node.
-        location:
-          type: string
-          description: Location of the node as determined by ThousandEyes trace. This attribute is not applicable for agent node and the nodes before that.
-        network:
-          type: string
-          description: Name of the network as determined by ThousandEyes trace. This attribute is not applicable for agent node and the nodes before that.
-        responseTime:
-          type: integer
-          description: Network response time in milliseconds from the agent till this node. This attribute is not applicable for agent node and the nodes before that.
-          format: int32
-        jitter:
-          type: number
-          description: Average jitter in milliseconds. This attribute is available only on the agent node, and it represents the jitter for complete path from the agent to the target.
-          format: double
-        healthScore:
-          maximum: 10
-          minimum: 1
-          type: integer
-          description: Health score of the node. This is applicable only for internal nodes.
-          format: int32
-        traceTerminated:
-          type: boolean
-          description: Flag to indicate whether path trace got terminated at this node without reaching the target server. This means that packet was lost at this node. Target server node would be after this node, but packet was not forwarded from this node to the same.
-      description: Single hop within a path trace
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    ThousandEyesPathTrace:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the path trace
-        hops:
-          type: array
-          description: List of the hops in the given path trace
-          items:
-            $ref: '#/components/schemas/ThousandEyesPathTraceHop'
-      description: A single ThousandEyes path trace.
-    AppxCountIntegerResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/AppxCountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Count of the results for the given filter
-    ThousandEyesPathTracesResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: List of ThousandEyes path traces.
-          items:
-            $ref: '#/components/schemas/ThousandEyesPathTrace'
-        appLink:
-          type: string
-          description: Direct link to the page for the current path trace in ThousandEyes portal.
-        version:
-          type: string
-          description: The version of the response.
-      description: List of ThousandEyes path traces.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

@@ -1,7 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Open API Spec for Assurance Fabric Sites documentation Fabric Site Health Summaries API
-  description: "### OpenAPI specification defined for the purpose of providing visibility into the fabric sites and their health in Catalyst Center\n\n**Relevant Concepts**\n\n| Term | Description |\n| -- | -- |\n| `Fabric Site` | A fabric site is a logical subdivision of a larger network fabric, containing its own control plane nodes for management, border nodes for routing traffic between sites, and edge nodes that connect devices to the fabric. |\n| `Virtual Network` | A fabric virtual network is a logical network overlay created on top of a physical network fabric. This overlay network allows you to segment your network into isolated, secure, and policy-driven environments for different departments, applications, or security zones. |\n| `Transit Network` | A fabric transit site is a special type of fabric site that connects multiple other fabric sites within a single fabric domain.  This applies only to SD-Access transit networks because health status is only  monitored for these sites, not for IP transit sites|\n| `Fabric deployments` | There are 2 types of Fabric deployments, namely 'LISP' and 'EVPN'.| \n| `LISP-based deployments` | LISP based deployments accommodate the following fabric entities: 'Fabric sites', 'Virtual networks (L2/L3)', and 'Transit Networks'. L2 VN health is not applicable for LISP based deployments.|\n| `EVPN-based deployments` | EVPN based deployments support 'Fabric sites' and 'Virtual networks (L2/L3)' currently. Transit networks is not applicable for EVPN based deployments.|              \n| `Overall Fabric Site Health` | The health status of the fabric is determined by examining the session status among the  fabric sites. A valid Health score for Fabric entity ranges from 0-100 and is categorized as follows: Good (80-100), Fair (40-80), Poor (0-40), and No Health (--).|\n| `FabricSiteConnectivity Health` | Health of the connectivity with the fabric site.  Health score ranges from 0 to 100.|\n| `Fabric Infrastructure Health` | Health of the devices that make up the fabric sitee.  Health score ranges from 0 to 100.|\n| `FabricControlPlane Health` | Health of the control plane in the fabric site.  Health score ranges from 0 to 100.|\n**API Support Documentation**\n\n**Views**\n\nSpecified 'views' (upto 3) can be requested for non-count APIs. Each view corresponds to different sets of data. \n\n'views' an optional parameter which can be passed to get one or more (upto 3 views) of the specific health data summaries associated with fabric sites.\n\n| View | Response Data |\n| --- | --- |\n| `fabricSiteInfo` | id, name, totalDeviceCount, associatedL2VnCount, associatedL3VnCount, networkProtocol | \n| `overallHealth` | id, name, goodHealthPercentage, goodHealthDeviceCount, totalHealthDeviceCount, poorHealthDeviceCount, fairHealthDeviceCount, connectivityGoodHealthPercentage, connectivityTotalHealthDeviceCount, connectivityGoodHealthDeviceCount, connectivityPoorHealthDeviceCount, connectivityFairHealthDeviceCount, infraGoodHealthPercentage, infraTotalHealthDeviceCount, infraGoodHealthDeviceCount, infraPoorHealthDeviceCount, infraFairHealthDeviceCount, controlPlaneGoodHealthPercentage, controlPlaneTotalHealthDeviceCount, controlPlaneGoodHealthDeviceCount, controlPlanePoorHealthDeviceCount, controlPlaneFairHealthDeviceCount |  \n| `connectivityHealth` | id, name, connectivityGoodHealthPercentage, connectivityTotalHealthDeviceCount, connectivityGoodHealthDeviceCount, connectivityPoorHealthDeviceCount, connectivityFairHealthDeviceCount,  bgpEvpnGoodHealthPercentage, bgpEvpnTotalHealthDeviceCount, bgpEvpnGoodHealthDeviceCount, bgpEvpnPoorHealthDeviceCount, bgpEvpnFairHealthDeviceCount, portChannelGoodHealthPercentage, portChannelTotalHealthDeviceCount, portChannelGoodHealthDeviceCount,portChannelPoorHealthDeviceCount, portChannelFairHealthDeviceCount, borderToControlPlaneGoodHealthPercentage, borderToControlPlaneTotalHealthDeviceCount, borderToControlPlaneGoodHealthDeviceCount,borderToControlPlanePoorHealthDeviceCount, borderToControlPlaneFairHealthDeviceCount, bgpPubsubSiteGoodHealthPercentage, bgpPubsubSiteTotalHealthDeviceCount, bgpPubsubSiteGoodHealthDeviceCount,bgpPubsubSitePoorHealthDeviceCount, bgpPubsubSiteFairHealthDeviceCount |  \n| `infraHealth` | id, name,infraGoodHealthPercentage, infraTotalHealthDeviceCount, infraGoodHealthDeviceCount, infraPoorHealthDeviceCount, infraFairHealthDeviceCount, pubsubInfraVnGoodHealthPercentage,  pubsubInfraVnTotalHealthDeviceCount, pubsubInfraVnGoodHealthDeviceCount,  pubsubInfraVnPoorHealthDeviceCount, pubsubInfraVnFairHealthDeviceCount, ctsEnvDataDownloadGoodHealthPercentage, ctsEnvDataDownloadTotalHealthDeviceCount, ctsEnvDataDownloadGoodHealthDeviceCount, ctsEnvDataDownloadPoorHealthDeviceCount, ctsEnvDataDownloadFairHealthDeviceCount,  aaaStatusGoodHealthPercentage, aaaStatusTotalHealthDeviceCount, aaaStatusGoodHealthDeviceCount,aaaStatusPoorHealthDeviceCount, aaaStatusFairHealthDeviceCount, bgpPeerInfraVnScoreGoodHealthPercentage, bgpPeerInfraVnTotalHealthDeviceCount, bgpPeerInfraVnGoodHealthDeviceCount, bgpPeerInfraVnPoorHealthDeviceCount, bgpPeerInfraVnFairHealthDeviceCount,  peerScoreGoodHealthPercentage, peerScoreTotalHealthDeviceCount, peerScoreGoodHealthDeviceCount,peerScorePoorHealthDeviceCount, peerScoreFairHealthDeviceCount |\n| `controlPlaneHealth` | id, name, controlPlaneGoodHealthPercentage, controlPlaneTotalHealthDeviceCount, controlPlaneGoodHealthDeviceCount, controlPlanePoorHealthDeviceCount, controlPlaneFairHealthDeviceCount,  lispSessionGoodHealthPercentage, lispSessionTotalHealthDeviceCount, lispSessionGoodHealthDeviceCount,lispSessionPoorHealthDeviceCount, lispSessionFairHealthDeviceCount, bgpBgpSiteGoodHealthPercentage, bgpBgpSiteTotalHealthDeviceCount, bgpBgpSiteGoodHealthDeviceCount,bgpBgpSitePoorHealthDeviceCount, bgpBgpSiteFairHealthDeviceCount|\n\n  A maximum of 3 views can be queried at a time per request.\n  \n  When this query parameter is not added, the default summaries are:  [`fabricSiteInfo`, `overallHealth`]\n    \n    **Examples**:\n\n    Query Param:\n    1. view=overallHealth (single view requested)\n    2. view=fabricSiteInfo&view=overallHealth (multiple views requested)\n    \n### **Attributes** ###\n\nSpecified 'attributes' can be requested for non-count APIs. Each attribute requested will be part of the API response.\n\n**Supported Attributes:**\n\n1.`id`, `name`, `associatedL2VnCount`, `associatedL3VnCount`, `networkProtocol`,  `goodHealthPercentage`, `goodHealthDeviceCount`, `totalDeviceCount`,`poorHealthDeviceCount`,`fairHealthDeviceCount`, `totalHealthDeviceCount`, `connectivityGoodHealthPercentage`, `connectivityTotalHealthDeviceCount`, `connectivityGoodHealthDeviceCount`, `connectivityPoorHealthDeviceCount`, `connectivityFairHealthDeviceCount`, `infraGoodHealthPercentage`, `infraTotalHealthDeviceCount`, `infraGoodHealthDeviceCount`, `infraPoorHealthDeviceCount`, `infraFairHealthDeviceCount`, `controlPlaneGoodHealthPercentage`, `controlPlaneTotalHealthDeviceCount`, `controlPlaneGoodHealthDeviceCount`,`controlPlanePoorHealthDeviceCount`, `controlPlaneFairHealthDeviceCount`, `pubsubInfraVnGoodHealthPercentage`, `pubsubInfraVnTotalHealthDeviceCount`, `pubsubInfraVnGoodHealthDeviceCount`, `pubsubInfraVnPoorHealthDeviceCount`, `pubsubInfraVnFairHealthDeviceCount`, `bgpEvpnGoodHealthPercentage`, `bgpEvpnTotalHealthDeviceCount`, `bgpEvpnGoodHealthDeviceCount`,`bgpEvpnPoorHealthDeviceCount`, `bgpEvpnFairHealthDeviceCount`, `ctsEnvDataDownloadGoodHealthPercentage`, `ctsEnvDataDownloadTotalHealthDeviceCount`, `ctsEnvDataDownloadGoodHealthDeviceCount`, `ctsEnvDataDownloadPoorHealthDeviceCount`, `ctsEnvDataDownloadFairHealthDeviceCount`, `aaaStatusGoodHealthPercentage`, `aaaStatusTotalHealthDeviceCount`, `aaaStatusGoodHealthDeviceCount`, `aaaStatusPoorHealthDeviceCount`, `aaaStatusFairHealthDeviceCount`, `portChannelGoodHealthPercentage`, `portChannelTotalHealthDeviceCount`, `portChannelGoodHealthDeviceCount`, `portChannelPoorHealthDeviceCount`, `portChannelFairHealthDeviceCount`, `peerScoreGoodHealthPercentage`, `peerScoreTotalHealthDeviceCount`, `peerScoreGoodHealthDeviceCount`, `peerScorePoorHealthDeviceCount`, `peerScoreFairHealthDeviceCount`, `lispSessionGoodHealthPercentage`, `lispSessionTotalHealthDeviceCount`, `lispSessionGoodHealthDeviceCount`, `lispSessionPoorHealthDeviceCount`, `lispSessionFairHealthDeviceCount`, `borderToControlPlaneGoodHealthPercentage`, `borderToControlPlaneTotalHealthDeviceCount`, `borderToControlPlaneGoodHealthDeviceCount`, `borderToControlPlanePoorHealthDeviceCount`, `borderToControlPlaneFairHealthDeviceCount`, `bgpBgpSiteGoodHealthPercentage`, `bgpBgpSiteTotalHealthDeviceCount`, `bgpBgpSiteGoodHealthDeviceCount`, `bgpBgpSitePoorHealthDeviceCount`, `bgpBgpSiteFairHealthDeviceCount`, `bgpPubsubSiteGoodHealthPercentage`, `bgpPubsubSiteTotalHealthDeviceCount`, `bgpPubsubSiteGoodHealthDeviceCount`, `bgpPubsubSitePoorHealthDeviceCount`, `bgpPubsubSiteFairHealthDeviceCount`, `bgpPeerInfraVnScoreGoodHealthPercentage`, `bgpPeerInfraVnTotalHealthDeviceCount`, `bgpPeerInfraVnGoodHealthDeviceCount`, `bgpPeerInfraVnPoorHealthDeviceCount`, `bgpPeerInfraVnFairHealthDeviceCount`\nIf length of attribute list is too long, when using the query parameter for GET requests, please use `view` param instead.\n\n  Examples:\n  \n  1. query param:\n  \n    ?attribute=goodHealthPercentage (single attribute requested)\n  \n    ?attribute=pubsubInfraVnGoodHealthPercentage&attribute=goodHealthPercentage (multiple attributes requested)\n"
+  title: Open API Spec for Assurance Fabric Sites documentation…
+  description: '### OpenAPI specification defined for the purpose of providing visibility into the fabric sites and their health in Catalyst Center
+
+
+    **Relevant Concepts**
+
+
+    | Term | Description |
+
+    | -- | -- |
+
+    | `Fabric Site` | A fabric site is a logical subdivision of a larger network fabric, containing its own control plane nodes for management, border nodes for routing traffic between sites, and edge nodes that connect devices to the fabric.'
   termsOfService: https://www.cisco.com/c/en/us/about/legal/cloud-and-software/end_user_license_agreement.html
   contact:
     name: Cisco TAC World Wide
@@ -35,7 +45,10 @@ paths:
       tags:
       - fabricSiteHealthSummaries
       summary: Read list of Fabric Sites with their health summary
-      description: "Get a paginated list of Fabric sites Networks with health summary.\n\nThis API provides the latest health data until the given `endTime`. If data is not ready for the provided endTime, the request will fail with error code `400 Bad Request`, and the error message will indicate the recommended endTime to use to retrieve a complete data set. This behavior may occur if the provided endTime=currentTime, since we are not a real time system. When `endTime` is not provided, the API returns the latest data.\n\n        "
+      description: 'Get a paginated list of Fabric sites Networks with health summary.
+
+
+        This API provides the latest health data until the given `endTime`. If data is not ready for the provided endTime, the request will fail with error code `400 Bad Request`, and the error message will indicate the recommended endTime to use to retrieve a complete data set. This behavior may occur if the provided endTime=currentTime, since we are not a real time system. When `endTime` is not provided, the API returns the latest data.'
       operationId: readFabricSitesSummary
       parameters:
       - name: X-CALLER-ID
@@ -204,7 +217,9 @@ paths:
       tags:
       - fabricSiteHealthSummaries
       summary: Read list of Fabric Sites with their health summary
-      description: "Get Fabric site health summary for a specific fabric site by providing the unique fabric site id in the url path.\nThis API provides the latest health data until the given `endTime`. If data is not ready for the provided endTime, the request will fail with error code `400 Bad Request`, and the error message will indicate the recommended endTime to use to retrieve a complete data set. This behavior may occur if the provided endTime=currentTime, since we are not a real time system. When `endTime` is not provided, the API returns the latest data.\n\n  "
+      description: 'Get Fabric site health summary for a specific fabric site by providing the unique fabric site id in the url path.
+
+        This API provides the latest health data until the given `endTime`. If data is not ready for the provided endTime, the request will fail with error code `400 Bad Request`, and the error message will indicate the recommended endTime to use to retrieve a complete data set. This behavior may occur if the provided endTime=currentTime, since we are not a real time system. When `endTime` is not provided, the API returns the latest data.'
       operationId: readFabricSitesSummaryById
       parameters:
       - name: id
@@ -412,9 +427,7 @@ paths:
       tags:
       - fabricSiteHealthSummaries
       summary: Read fabric site count
-      description: '
-
-        Get a count of Fabric sites. Use available query parameters to get the count of a subset of fabric sites.
+      description: 'Get a count of Fabric sites. Use available query parameters to get the count of a subset of fabric sites.
 
         This API provides the latest health data until the given `endTime`. If data is not ready for the provided endTime, the request will fail with error code `400 Bad Request`, and the error message will indicate the recommended endTime to use to retrieve a complete data set. This behavior may occur if the provided endTime=currentTime, since we are not a real time system. When `endTime` is not provided, the API returns the latest data.'
       operationId: readFabricSiteCount
@@ -536,6 +549,58 @@ paths:
         default:
           $ref: '#/components/responses/defaultError'
 components:
+  responses:
+    defaultError:
+      description: Unexpected Error
+    2XX:
+      description: Successful Responses - The server received the client request, understood it, and accepted it.
+    FabricSiteTrendResponse:
+      description: Fabric site summmary response covering trend data for a given fabric site id.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/fabricSiteSummaryTrend'
+          examples:
+            fabricSiteTrend:
+              $ref: '#/components/examples/fabricSiteTrend'
+    5XX:
+      description: Server Error Responses - The server failed to fulfill the request.
+    3XX:
+      description: Redirection Messages - The client must take additional action to complete the request.
+    4XX:
+      description: Client Error Responses - The client request caused the error.
+    '400':
+      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    1XX:
+      description: Informational Responses - The server received the request and sent an informational response.
+    FabricSitesSummariesResponse:
+      description: Fabric site summmary response covering all fabric sites and their health.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/fabricSitesSummaries'
+          examples:
+            Response1:
+              $ref: '#/components/examples/FabricSitesSummariesResponseExample1'
+    '500':
+      description: The server could not fulfill the request due to internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    FabricSiteSummaryResponse:
+      description: Fabric site summmary response covering specific fabric sites and it's health.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/fabricSiteSummary'
+          examples:
+            Response1:
+              $ref: '#/components/examples/FabricSiteSummaryResponse1'
   schemas:
     fabricSitesSummaries:
       type: object
@@ -554,52 +619,80 @@ components:
           description: The version of the response
           example: '1.0'
       description: Fabric site summmary response schema
-    FabricSiteAttributeValuePair:
+    FabricSiteTrend:
       type: object
       properties:
-        name:
-          $ref: '#/components/schemas/FabricSiteAnalyticsAttribute'
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
+        timestamp:
           type: integer
-          description: Application specific error code returned by the server
-        message:
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/FabricSiteAttributeValuePair'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
           type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    TimeBasedPagination:
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    PaginationResponse:
       type: object
       properties:
         limit:
-          minimum: 1
           type: integer
-          description: Number of records to fetch in a page
-          example: 100
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
         offset:
-          minimum: 1
           type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timeSortOrder:
-          type: string
-          description: Sort order. `asc` for ascending and  `desc` for descending
-          example: asc
-          default: asc
-          enum:
-          - asc
-          - desc
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
         count:
           type: integer
-          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
+    fabricSiteSummary:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/FabricSiteSummary'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Fabric summmary response schema
     FabricSiteAnalyticsAttribute:
       type: string
       description: Supported filter attributes related to Fabric sites
@@ -680,6 +773,65 @@ components:
       - bgpPeerInfraVnGoodHealthDeviceCount
       - bgpPeerInfraVnPoorHealthDeviceCount
       - bgpPeerInfraVnFairHealthDeviceCount
+    fabricSiteSummaryTrend:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully return list of Fabric site health trend data
+          items:
+            $ref: '#/components/schemas/FabricSiteTrend'
+        page:
+          $ref: '#/components/schemas/TimeBasedPagination'
+        version:
+          type: string
+          example: '1.0'
+      description: Fabric Site score Response
+    TimeBasedPagination:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        timeSortOrder:
+          type: string
+          description: Sort order. `asc` for ascending and  `desc` for descending
+          example: asc
+          default: asc
+          enum:
+          - asc
+          - desc
+        count:
+          type: integer
+          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    FabricSiteAttributeValuePair:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/FabricSiteAnalyticsAttribute'
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
     FabricSiteSummary:
       required:
       - fabricSiteId
@@ -1095,42 +1247,18 @@ components:
           - PHASE_2
           - UNKNOWN
       description: Summary of fabric sites with health info.
-    FabricSiteTrend:
+    ErrorObject:
       type: object
       properties:
-        timestamp:
+        errorCode:
           type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FabricSiteAttributeValuePair'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
+          description: Application specific error code returned by the server
+        message:
           type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     PaginationResponse_sortBy:
       type: object
       properties:
@@ -1146,75 +1274,12 @@ components:
           - asc
           - desc
       description: List of field names and corresponding order used to sort   the records.
-    fabricSiteSummary:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/FabricSiteSummary'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Fabric summmary response schema
-    fabricSiteSummaryTrend:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully return list of Fabric site health trend data
-          items:
-            $ref: '#/components/schemas/FabricSiteTrend'
-        page:
-          $ref: '#/components/schemas/TimeBasedPagination'
-        version:
-          type: string
-          example: '1.0'
-      description: Fabric Site score Response
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
   examples:
-    FabricSiteSummaryResponse1:
+    FabricSitesSummariesResponseExample1:
       summary: Fabric Site Summary response example
       value:
         response:
-          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
           name: Global/area0
           goodHealthPercentage: 50
           goodHealthDeviceCount: 5
@@ -1293,11 +1358,11 @@ components:
           bgpPeerInfraVnGoodHealthDeviceCount: 4
           bgpPeerInfraVnPoorHealthDeviceCount: 1
           bgpPeerInfraVnFairHealthDeviceCount: 0
-    FabricSitesSummariesResponseExample1:
+    FabricSiteSummaryResponse1:
       summary: Fabric Site Summary response example
       value:
         response:
-        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
           name: Global/area0
           goodHealthPercentage: 50
           goodHealthDeviceCount: 5
@@ -1409,58 +1474,6 @@ components:
           offset: 0
           timeSortOrder: asc
         version: 2.0
-  responses:
-    FabricSiteTrendResponse:
-      description: Fabric site summmary response covering trend data for a given fabric site id.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/fabricSiteSummaryTrend'
-          examples:
-            fabricSiteTrend:
-              $ref: '#/components/examples/fabricSiteTrend'
-    defaultError:
-      description: Unexpected Error
-    4XX:
-      description: Client Error Responses - The client request caused the error.
-    '400':
-      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    FabricSiteSummaryResponse:
-      description: Fabric site summmary response covering specific fabric sites and it's health.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/fabricSiteSummary'
-          examples:
-            Response1:
-              $ref: '#/components/examples/FabricSiteSummaryResponse1'
-    5XX:
-      description: Server Error Responses - The server failed to fulfill the request.
-    3XX:
-      description: Redirection Messages - The client must take additional action to complete the request.
-    1XX:
-      description: Informational Responses - The server received the request and sent an informational response.
-    2XX:
-      description: Successful Responses - The server received the client request, understood it, and accepted it.
-    '500':
-      description: The server could not fulfill the request due to internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    FabricSitesSummariesResponse:
-      description: Fabric site summmary response covering all fabric sites and their health.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/fabricSitesSummaries'
-          examples:
-            Response1:
-              $ref: '#/components/examples/FabricSitesSummariesResponseExample1'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/
