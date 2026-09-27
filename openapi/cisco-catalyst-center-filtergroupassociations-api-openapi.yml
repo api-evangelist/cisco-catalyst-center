@@ -254,40 +254,6 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
-    FilterGroupAssociationsResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: List of filter group associations
-          items:
-            $ref: '#/components/schemas/FilterGroupAssociation'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Filter Group associations response
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     FilterGroupAssociationCreateResponse:
       type: object
       properties:
@@ -320,6 +286,52 @@ components:
           description: The type of the entity with which the Filter Group is associated.
           example: Custom Dashboard
       description: Contains details of an filter group association association.
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    FilterGroupAssociationsResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: List of filter group associations
+          items:
+            $ref: '#/components/schemas/FilterGroupAssociation'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Filter Group associations response
     FilterGroupAssociationCreateRequest:
       type: object
       properties:
@@ -340,18 +352,6 @@ components:
           description: The type of the entity with which the Filter Group is associated.
           example: Custom Dashboard
       description: Filter Group association create request payload
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

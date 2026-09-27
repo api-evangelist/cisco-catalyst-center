@@ -200,7 +200,135 @@ paths:
         '504':
           description: The server did not respond inside time restrictions and timed-out.
 components:
+  examples:
+    OTA:
+      summary: OTA (default radio role sniffer)
+      value:
+      - captureType: OTA
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 0
+        otaBand: '2.4'
+        otaChannel: 7
+        otaChannelWidth: 20
+    ANOMALY_WLC:
+      summary: ANOMALY on 1 WLC
+      value:
+      - captureType: ANOMALY
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+    RFSTATS_AP:
+      summary: RFSTATS on 1 AP
+      value:
+      - captureType: RFSTATS
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+    OTA_Radio_Role:
+      summary: OTA (radio role sniffer)
+      value:
+      - captureType: OTA
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 1
+        otaBand: '6'
+        otaChannel: 36
+        otaChannelWidth: 80
+        otaMode: RADIO
+    OTA_AP_Mode:
+      summary: OTA (AP mode sniffer)
+      value:
+      - captureType: OTA
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 0
+        otaBand: '5'
+        otaChannel: 32
+        otaChannelWidth: 40
+        otaMode: AP
+    FULL:
+      summary: FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices
+      value:
+      - captureType: FULL
+        durationInMins: 60
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        clientMac: AA:AA:AA:AA:AA:01
+      - captureType: FULL
+        durationInMins: 60
+        wlcId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        clientMac: AA:AA:AA:AA:AA:01
+    SPECTRUM:
+      summary: SPECTRUM on slot 0, 1, and 2
+      value:
+      - captureType: SPECTRUM
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 0
+        - 1
+        - 2
+    ONBOARDING:
+      summary: ONBOARDING for client AA:AA:AA:AA:AA:01 on 1 WLC
+      value:
+      - captureType: ONBOARDING
+        durationInMins: 60
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        clientMac: AA:AA:AA:AA:AA:01
+    ANOMALY_AP:
+      summary: ANOMALY on 1 AP
+      value:
+      - captureType: ANOMALY
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+    RFSTATS_WLC:
+      summary: RFSTATS on 1 WLC
+      value:
+      - captureType: RFSTATS
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
   schemas:
+    EpochMilliseconds:
+      minimum: 0
+      type: integer
+      description: A date and time represented as ***milliseconds*** since the Unix epoch.
+      format: int64
+      example: 1524880285900
+      externalDocs:
+        description: Unix time - Wikipedia
+        url: https://en.wikipedia.org/wiki/Unix_time
+    inline_response_202_2:
+      allOf:
+      - $ref: '#/components/schemas/TaskResponse'
+      - description: The task when complete will have the activity url in the resultLocation field. The progress of this deploy operation can be tracked using the activity.  The GET /intent/api/v1/icap with has the icapDeployedId for each ICAP intent in the deploy body.
+    PacketCaptureDeployInfoList:
+      type: array
+      description: A list of ICAP configuration intents
+      example:
+        FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
+        - captureType: FULL
+          durationInMins: 60
+          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+          clientMac: AA:AA:AA:AA:AA:01
+        ONBOARDING for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
+        - captureType: FULL
+          durationInMins: 60
+          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+          clientMac: AA:AA:AA:AA:AA:01
+      items:
+        $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
+    DeviceStatus:
+      type: string
+      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
+      enum:
+      - NOT_STARTED
+      - SUCCESS
+      - FAILED
+      - CONFIGURING
+      - ROLLBACK_SUCCESS
+      - ROLLBACK_FAILURE
+      - CANCELLED
+      - NOT_SUPPORTED
+      - PENDING
     PacketCaptureDeployInfoItem:
       required:
       - captureType
@@ -302,6 +430,18 @@ components:
       example: '{"captureType": "FULL","wlcId": "9079ce39-25fe-4ab0-88cb-e89f5e700ddb", "clientMac": "AA:AA:AA:AA:AA:02", "durationInMins": 10}
 
         '
+    ErrorResponse_response:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A message providing more context regarding the error
+        detail:
+          type: string
+          description: Detailed information regarding the error
     ErrorResponse:
       title: Error Response
       type: object
@@ -316,19 +456,6 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    EpochMilliseconds:
-      minimum: 0
-      type: integer
-      description: A date and time represented as ***milliseconds*** since the Unix epoch.
-      format: int64
-      example: 1524880285900
-      externalDocs:
-        description: Unix time - Wikipedia
-        url: https://en.wikipedia.org/wiki/Unix_time
-    inline_response_202_2:
-      allOf:
-      - $ref: '#/components/schemas/TaskResponse'
-      - description: The task when complete will have the activity url in the resultLocation field. The progress of this deploy operation can be tracked using the activity.  The GET /intent/api/v1/icap with has the icapDeployedId for each ICAP intent in the deploy body.
     TaskResponse:
       title: Task Response
       type: object
@@ -343,34 +470,6 @@ components:
       externalDocs:
         description: Asynchronous operations - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!asynchronous-apis/asynchronous-operations
-    ErrorResponse_response:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: A message providing more context regarding the error
-        detail:
-          type: string
-          description: Detailed information regarding the error
-    PacketCaptureDeployInfoList:
-      type: array
-      description: A list of ICAP configuration intents
-      example:
-        FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
-        - captureType: FULL
-          durationInMins: 60
-          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-          clientMac: AA:AA:AA:AA:AA:01
-        ONBOARDING for client AA:AA:AA:AA:AA:01 on 2 WLC devices:
-        - captureType: FULL
-          durationInMins: 60
-          wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-          clientMac: AA:AA:AA:AA:AA:01
-      items:
-        $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
     TaskResponse_response:
       type: object
       properties:
@@ -383,105 +482,6 @@ components:
           type: string
           description: The path to the API endpoint to GET for information on the task
           example: /intent/api/v1/task/85c95140-50fc-4a57-994d-db58d3afe6b3
-    DeviceStatus:
-      type: string
-      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
-      enum:
-      - NOT_STARTED
-      - SUCCESS
-      - FAILED
-      - CONFIGURING
-      - ROLLBACK_SUCCESS
-      - ROLLBACK_FAILURE
-      - CANCELLED
-      - NOT_SUPPORTED
-      - PENDING
-  examples:
-    SPECTRUM:
-      summary: SPECTRUM on slot 0, 1, and 2
-      value:
-      - captureType: SPECTRUM
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 0
-        - 1
-        - 2
-    OTA_Radio_Role:
-      summary: OTA (radio role sniffer)
-      value:
-      - captureType: OTA
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 1
-        otaBand: '6'
-        otaChannel: 36
-        otaChannelWidth: 80
-        otaMode: RADIO
-    ANOMALY_AP:
-      summary: ANOMALY on 1 AP
-      value:
-      - captureType: ANOMALY
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-    RFSTATS_AP:
-      summary: RFSTATS on 1 AP
-      value:
-      - captureType: RFSTATS
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-    OTA:
-      summary: OTA (default radio role sniffer)
-      value:
-      - captureType: OTA
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 0
-        otaBand: '2.4'
-        otaChannel: 7
-        otaChannelWidth: 20
-    FULL:
-      summary: FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices
-      value:
-      - captureType: FULL
-        durationInMins: 60
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        clientMac: AA:AA:AA:AA:AA:01
-      - captureType: FULL
-        durationInMins: 60
-        wlcId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        clientMac: AA:AA:AA:AA:AA:01
-    OTA_AP_Mode:
-      summary: OTA (AP mode sniffer)
-      value:
-      - captureType: OTA
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 0
-        otaBand: '5'
-        otaChannel: 32
-        otaChannelWidth: 40
-        otaMode: AP
-    ANOMALY_WLC:
-      summary: ANOMALY on 1 WLC
-      value:
-      - captureType: ANOMALY
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-    ONBOARDING:
-      summary: ONBOARDING for client AA:AA:AA:AA:AA:01 on 1 WLC
-      value:
-      - captureType: ONBOARDING
-        durationInMins: 60
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        clientMac: AA:AA:AA:AA:AA:01
-    RFSTATS_WLC:
-      summary: RFSTATS on 1 WLC
-      value:
-      - captureType: RFSTATS
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

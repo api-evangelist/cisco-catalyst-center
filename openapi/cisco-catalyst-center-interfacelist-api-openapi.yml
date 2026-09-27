@@ -971,6 +971,207 @@ paths:
           description: Unexpected Error
 components:
   schemas:
+    InterfacesFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/InterfacesAttributes'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
+
+
+            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
+
+
+            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters*   will be used.
+
+            '
+        filters:
+          type: array
+          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
+
+
+            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
+
+            '
+          items:
+            $ref: '#/components/schemas/InterfacesFilter'
+      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
+
+        '
+    InterfaceTrendResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          example: 1714771500000
+        attributes:
+          $ref: '#/components/schemas/InterfaceTrendAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/InterfaceTrendAggregatesResponse'
+    InterfaceWithAggregateResponse:
+      type: object
+      properties:
+        aggregateAttributes:
+          $ref: '#/components/schemas/InterfaceResponseAggregateAttributes'
+      description: 'Interface data with Aggregated value based on the data provided in the input payload.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/InterfaceData'
+    siteHierarchyId:
+      type: string
+      description: The full hierarchy breakdown of the site tree in id form starting from Global site UUID and ending with the specific site UUID.
+      example: globalUuid/areaUuid/buildingUuid/floorUuid
+    Pagination_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: name
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    Function:
+      type: string
+      description: The name of the aggregate function
+      enum:
+      - min
+      - max
+      - avg
+      - count
+      - latest
+      - sum
+      - distinct
+    InterfaceTrendRequest:
+      required:
+      - trendInterval
+      type: object
+      properties:
+        trendIntervalInMinutes:
+          type: integer
+          enum:
+          - 5
+          - 10
+          - 30
+          - 60
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterfacesTrendAttributes'
+        filters:
+          $ref: '#/components/schemas/InterfacesAnalyticsFilters'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterfacesTrendAggregateAttributes'
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          enum:
+          - asc
+          - desc
+      description: The input payload schema to query the Trend Analytics Interface data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    InterfacesViews:
+      type: string
+      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **configuration**\n[id,name,adminStatus,description,duplexConfig,duplexOper,interfaceIfIndex,interfaceType,ipv4Address,ipv6AddressList,isL3Interface,isWan,macAddress,mediaType,name,operStatus, portChannelId,portMode, portType,speed,timestamp,vlanId,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId]  \n\n2. **statistics**\n[id,name,rxDiscards,rxError,rxRate,rxUtilization,txDiscards,txError,txRate,txUtilization,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId]  \n3. **stackPort**\n[id,name,peerStackMember,peerStackPort,stackPortType,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId] \n4. **poE**  \n[id, name,rxDiscards,rxError,rxRate,rxUtilization,txDiscards,txError,txRate,txUtilization,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId]  \n\n\nWhen this query parameter is not added by default all configuration attributes will be available in the response.\n\n**[configuration,statistics,stackPort]**\n"
+      enum:
+      - configuration
+      - statistics
+      - stackPort
+      - poE
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    InterfaceAggregateAttribute:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/InterfaceAnalyticsAggregateName'
+        function:
+          $ref: '#/components/schemas/Function_1'
+      example:
+        name: txUtilization
+        function: max
+    InterfacesTrendAggregateAttributes:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/InterfacesTrendAggregateName'
+        function:
+          $ref: '#/components/schemas/Function'
+    InterfacesFilters:
+      type: array
+      items:
+        $ref: '#/components/schemas/InterfacesFilter'
+    InterfaceTrendAttributesResponse:
+      type: array
+      example:
+      - name: poeOperStatus
+        value: POWER_STATE_ON
+      items:
+        $ref: '#/components/schemas/InterfaceTrendAttributesResponse_inner'
+    InterfaceAnalyticsAggregateName:
+      type: string
+      description: "Field name on which the aggregate function should be applied when querying the data. The fields supported for aggregation in the API\n    response object are,\n    [rxDiscards,rxError,rxRate,rxUtilization,txDiscards,txError,txRate,txUtilization,pdPowerAdminMax, pdPowerBudgetInWatt,pdPowerConsumed,pdPowerRemaining,pdMaxPowerDrawn]"
+      enum:
+      - txDiscards
+      - rxDiscards
+      - txError
+      - rxError
+      - txRate
+      - rxRate
+      - txUtilization
+      - rxUtilization
+      - pdPowerAdminMax
+      - pdPowerBudgetInWatt
+      - pdPowerConsumed
+      - pdPowerRemaining
+      - pdMaxPowerDrawn
+    AggregateResponseAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field name of the aggregate attributes
+        values:
+          type: array
+          description: List of values based on the functions requested in the input data
+          items:
+            $ref: '#/components/schemas/AggregateResponseAttributes_values'
+    InterfaceResponseAggregateAttribute:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/InterfaceAnalyticsAggregateName'
+      allOf:
+      - $ref: '#/components/schemas/AggregateResponseAttributes'
+    InterfaceTrendAggregatesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/InterfaceTrendAggregateResponse'
     InterfaceData:
       type: object
       properties:
@@ -1324,280 +1525,6 @@ components:
           description: PD Conneted switch Type
           example: Cisco Catalyst 38xx stack-able ethernet switch
       description: Assurance Network Device interface details
-    InterfacesFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/InterfacesAttributes'
-        operator:
-          $ref: '#/components/schemas/Operator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
-
-
-            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
-
-
-            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters*   will be used.
-
-            '
-        filters:
-          type: array
-          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
-
-
-            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
-
-            '
-          items:
-            $ref: '#/components/schemas/InterfacesFilter'
-      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
-
-        '
-    InterfacesResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully returned list of Interfaces
-          items:
-            $ref: '#/components/schemas/InterfaceData'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-        version:
-          type: string
-          example: '1.0'
-      description: Interfaces Response model on success
-    InterfacesFilters:
-      type: array
-      items:
-        $ref: '#/components/schemas/InterfacesFilter'
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination Request.
-          example: 500
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering
-          example: 1000
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
-    Pagination_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: name
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    InterfacesAnalyticsFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/InterfacesTrendAttributes'
-        operator:
-          $ref: '#/components/schemas/Operator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
-
-
-            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
-
-
-            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters*   will be used.
-
-            '
-        filters:
-          type: array
-          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
-
-
-            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
-
-            '
-          items:
-            $ref: '#/components/schemas/InterfacesAnalyticsFilter'
-      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
-
-        '
-    InterfaceTrendResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          format: int64
-          example: 1714771500000
-        attributes:
-          $ref: '#/components/schemas/InterfaceTrendAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/InterfaceTrendAggregatesResponse'
-    Operator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - neq
-      - lt
-      - gt
-      - lte
-      - gte
-      - eq
-      - notIn
-      - like
-    AggregateResponseAttributes_values:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/Function_1'
-        value:
-          type: number
-          description: The value for the attribute field in the given time range
-    InterfaceResponseAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/InterfaceAnalyticsAggregateName'
-      allOf:
-      - $ref: '#/components/schemas/AggregateResponseAttributes'
-    InterfaceTrendAggregateResponse:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/InterfacesTrendAggregateName'
-        function:
-          $ref: '#/components/schemas/Function'
-        value:
-          type: number
-          description: The value for the attribute field in the given time rang
-          example: 78.29
-    Function:
-      type: string
-      description: The name of the aggregate function
-      enum:
-      - min
-      - max
-      - avg
-      - count
-      - latest
-      - sum
-      - distinct
-    InterfaceTrendAggregatesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/InterfaceTrendAggregateResponse'
-    InterfaceResponseAggregateAttributes:
-      type: array
-      items:
-        $ref: '#/components/schemas/InterfaceResponseAggregateAttribute'
-    InterfacesTrendAggregateAttributes:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/InterfacesTrendAggregateName'
-        function:
-          $ref: '#/components/schemas/Function'
-    InterfaceWithAggregateResponse:
-      type: object
-      properties:
-        aggregateAttributes:
-          $ref: '#/components/schemas/InterfaceResponseAggregateAttributes'
-      description: 'Interface data with Aggregated value based on the data provided in the input payload.
-
-        '
-      allOf:
-      - $ref: '#/components/schemas/InterfaceData'
-    siteHierarchy:
-      type: string
-      description: The full hierarchy breakdown of the site tree in name form   starting from Global site name and ending with the specific site site.   'Global' is the Root name of the site hierarchy tree. Site name including   the hierarchy where the network device or client is located. For clients   site is derived based on site assigned to network device where the client   is connected to. For Wireless client its the connected Access Point site   and for Wired client its the connected switch site. For network device its   the site assigned to it.
-      example: Global/USA/CA/HQ/Building1/Floor1
-    InterfaceAggregateAttributes:
-      type: array
-      items:
-        $ref: '#/components/schemas/InterfaceAggregateAttribute'
-    InterfacesViews:
-      type: string
-      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **configuration**\n[id,name,adminStatus,description,duplexConfig,duplexOper,interfaceIfIndex,interfaceType,ipv4Address,ipv6AddressList,isL3Interface,isWan,macAddress,mediaType,name,operStatus, portChannelId,portMode, portType,speed,timestamp,vlanId,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId]  \n\n2. **statistics**\n[id,name,rxDiscards,rxError,rxRate,rxUtilization,txDiscards,txError,txRate,txUtilization,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId]  \n3. **stackPort**\n[id,name,peerStackMember,peerStackPort,stackPortType,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId] \n4. **poE**  \n[id, name,rxDiscards,rxError,rxRate,rxUtilization,txDiscards,txError,txRate,txUtilization,networkDeviceId,networkDeviceIpAddress,networkDeviceMacAddress,siteName,siteHierarchy,siteHierarchyId]  \n\n\nWhen this query parameter is not added by default all configuration attributes will be available in the response.\n\n**[configuration,statistics,stackPort]**\n"
-      enum:
-      - configuration
-      - statistics
-      - stackPort
-      - poE
-    Function_1:
-      type: string
-      description: Type of aggregate function to apply on the field when querying   data
-      example: sum
-      enum:
-      - sum
-      - min
-      - max
-      - avg
-      - count
-      - latest
-      - distinctCount
-      - median
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
     startAndEndTime:
       type: object
       properties:
@@ -1622,279 +1549,6 @@ components:
           format: int64
           example: 1705435200000
       description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
-    InterfaceResponse:
-      type: object
-      properties:
-        response:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/InterfaceData'
-        version:
-          type: string
-          example: '1.0'
-      description: Interfaces Response model on success
-    InterfacesTrendAggregateName:
-      type: string
-      description: "Field name on which the aggregate function should be applied when querying the data. The supported field details are available in the enum definition. The following are the supported functions for each field \n\n  | Field | Functions Supported |\n  | --- | --- |\n  | `pdPowerBudgetInWatt` | min,max,avg,latest,sum |\n  | `pdPowerConsumed` | min,max,avg,latest,sum |\n  | `pdPowerConsumedPercent` | min,max,avg,latest |\n  | `pdPowerRemaining` | min,max,avg,latest,sum |\n  | `pdPowerAdminMaxInWatt` | min,max,avg,latest,sum |\n  | `interfacePowerMax` | min,max,avg,latest,sum |\n  | `rxDiscards` | min,max,avg,latest,sum |\n  | `rxError` | min,max,avg,latest,sum |\n  | `rxRate` | min,max,avg,latest,sum |\n  | `rxUtilization` | min,max,avg,latest,sum |\n  | `txDiscards` | min,max,avg,latest,sum |\n  | `txError` | min,max,avg,latest,sum |\n  | `txRate` | min,max,avg,latest,sum |\n  | `txUtilization` | min,max,avg,latest,sum |"
-      example: '["pdPowerBudgetInWatt"]'
-      enum:
-      - pdPowerBudgetInWatt
-      - pdPowerConsumedInWatt
-      - pdPowerConsumedPercent
-      - pdPowerRemainingInWatt
-      - pdPowerAdminMaxInWatt
-      - interfacePowerMax
-      - rxDiscards
-      - rxError
-      - rxRate
-      - rxUtilization
-      - txDiscards
-      - txError
-      - txRate
-      - txUtilization
-    InterfaceAnalyticsAggregateName:
-      type: string
-      description: "Field name on which the aggregate function should be applied when querying the data. The fields supported for aggregation in the API\n    response object are,\n    [rxDiscards,rxError,rxRate,rxUtilization,txDiscards,txError,txRate,txUtilization,pdPowerAdminMax, pdPowerBudgetInWatt,pdPowerConsumed,pdPowerRemaining,pdMaxPowerDrawn]"
-      enum:
-      - txDiscards
-      - rxDiscards
-      - txError
-      - rxError
-      - txRate
-      - rxRate
-      - txUtilization
-      - rxUtilization
-      - pdPowerAdminMax
-      - pdPowerBudgetInWatt
-      - pdPowerConsumed
-      - pdPowerRemaining
-      - pdMaxPowerDrawn
-    InterfacesAnalyticsFilters:
-      type: array
-      description: "List of filters to apply when querying the Network devices data. \n\nSupported operators are [in, eq, neq, notIn, like]\n"
-      example:
-      - key: pdDeviceType
-        operator: eq
-        value: IEEE PD
-      - key: pdClassSignal
-        operator: in
-        value:
-        - IEE3
-        - IEE4
-      - logicalOperator: or
-        filters:
-        - key: siteHierarchy
-          operator: like
-          value: Global/Paris*
-        - key: siteHierarchy
-          operator: eq
-          value: Global/Eiffel Tower
-      items:
-        type: object
-        allOf:
-        - $ref: '#/components/schemas/InterfacesAnalyticsFilter'
-    InterfaceTrendAttributesResponse:
-      type: array
-      example:
-      - name: poeOperStatus
-        value: POWER_STATE_ON
-      items:
-        $ref: '#/components/schemas/InterfaceTrendAttributesResponse_inner'
-    InterfacesQueryRequest:
-      type: object
-      properties:
-        views:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterfacesViews'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterfacesAttributes'
-        filters:
-          $ref: '#/components/schemas/InterfacesFilters'
-        aggregateAttributes:
-          $ref: '#/components/schemas/InterfaceAggregateAttributes'
-        page:
-          $ref: '#/components/schemas/Pagination'
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    InterfacesTrendAttributes:
-      type: string
-      description: "The interface trend attributes. The following fields have set potential values.\n\n  | Field | Functions Supported |\n  | --- | --- |\n  | `poeOperStatus` | OFF:POWER_DENY, OFF:PD_FAULTY, ON, OFF, OFF:ERROR_DISABLED  |\n  | `pdClassSignal` | NONE, UNKNOWN, CISCO, IEEE0, IEEE1, IEEE2, IEEE3, IEEE4, IEEE5, IEEE_UNKNOWN, IEEE6, IEEE7, IEEE8, MISMATCH |"
-      example: poeOperStatus
-      enum:
-      - name
-      - poeOperStatus
-      - pdPowerBudgetInWatt
-      - pdPowerBudgetRange
-      - pdClassSignal
-      - pdType
-      - ieeeCompliant
-      - siteHierarchyId
-      - siteHierarchy
-      - pdPowerConsumedInWatt
-      - pdPowerConsumedRange
-      - pdPowerConsumedPercent
-      - apPowerMode
-      - poeVersion
-      - connectedSwitchUuid
-      - connectedSwitchType
-      - fastPoEEnabled
-      - perpetualPoEEnabled
-      - ieeeCompliant
-      - upoePlusEnabled
-      - apPowerType
-      - fourPairEnabled
-      - apPowerSaveMode
-      - pdPowerRemaining
-      - powerAllocationLoadRange
-      - pdPowerAdminMaxInWatt
-      - poePoliceEnabled
-      - poeOperPriority
-      - rxDiscards
-      - rxError
-      - rxRate
-      - rxUtilization
-      - txDiscards
-      - txError
-      - txRate
-      - txUtilization
-    AggregateResponseAttributes:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The field name of the aggregate attributes
-        values:
-          type: array
-          description: List of values based on the functions requested in the input data
-          items:
-            $ref: '#/components/schemas/AggregateResponseAttributes_values'
-    LogicalOperator:
-      type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
-      enum:
-      - and
-      - or
-    InterfaceAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/InterfaceAnalyticsAggregateName'
-        function:
-          $ref: '#/components/schemas/Function_1'
-      example:
-        name: txUtilization
-        function: max
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    siteHierarchyId:
-      type: string
-      description: The full hierarchy breakdown of the site tree in id form starting from Global site UUID and ending with the specific site UUID.
-      example: globalUuid/areaUuid/buildingUuid/floorUuid
-    InterfaceTrendResponseList:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterfaceTrendResponse'
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          enum:
-          - asc
-          - desc
-    InterfaceTrendRequest:
-      required:
-      - trendInterval
-      type: object
-      properties:
-        trendIntervalInMinutes:
-          type: integer
-          enum:
-          - 5
-          - 10
-          - 30
-          - 60
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterfacesTrendAttributes'
-        filters:
-          $ref: '#/components/schemas/InterfacesAnalyticsFilters'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterfacesTrendAggregateAttributes'
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          enum:
-          - asc
-          - desc
-      description: The input payload schema to query the Trend Analytics Interface data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    InterfaceTrendAttributesResponse_inner:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/InterfacesTrendAttributes'
-        value:
-          type: object
-          description: Value will always be latest within the interval
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: name
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort the records.
-    Pagination:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 500
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          description: Records are sorted based on the fields specified in the   array.
-          items:
-            $ref: '#/components/schemas/Pagination_sortBy'
     InterfacesAttributes:
       type: string
       description: Field names which are supported by this API as attributes or filter keys
@@ -1964,6 +1618,93 @@ components:
       - connectedSwitchUuid
       - ieeeCompliant
       - connectedSwitchType
+    InterfaceTrendAggregateResponse:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/InterfacesTrendAggregateName'
+        function:
+          $ref: '#/components/schemas/Function'
+        value:
+          type: number
+          description: The value for the attribute field in the given time rang
+          example: 78.29
+    AggregateResponseAttributes_values:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/Function_1'
+        value:
+          type: number
+          description: The value for the attribute field in the given time range
+    InterfacesResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully returned list of Interfaces
+          items:
+            $ref: '#/components/schemas/InterfaceData'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+        version:
+          type: string
+          example: '1.0'
+      description: Interfaces Response model on success
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: name
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort the records.
+    InterfacesTrendAggregateName:
+      type: string
+      description: "Field name on which the aggregate function should be applied when querying the data. The supported field details are available in the enum definition. The following are the supported functions for each field \n\n  | Field | Functions Supported |\n  | --- | --- |\n  | `pdPowerBudgetInWatt` | min,max,avg,latest,sum |\n  | `pdPowerConsumed` | min,max,avg,latest,sum |\n  | `pdPowerConsumedPercent` | min,max,avg,latest |\n  | `pdPowerRemaining` | min,max,avg,latest,sum |\n  | `pdPowerAdminMaxInWatt` | min,max,avg,latest,sum |\n  | `interfacePowerMax` | min,max,avg,latest,sum |\n  | `rxDiscards` | min,max,avg,latest,sum |\n  | `rxError` | min,max,avg,latest,sum |\n  | `rxRate` | min,max,avg,latest,sum |\n  | `rxUtilization` | min,max,avg,latest,sum |\n  | `txDiscards` | min,max,avg,latest,sum |\n  | `txError` | min,max,avg,latest,sum |\n  | `txRate` | min,max,avg,latest,sum |\n  | `txUtilization` | min,max,avg,latest,sum |"
+      example: '["pdPowerBudgetInWatt"]'
+      enum:
+      - pdPowerBudgetInWatt
+      - pdPowerConsumedInWatt
+      - pdPowerConsumedPercent
+      - pdPowerRemainingInWatt
+      - pdPowerAdminMaxInWatt
+      - interfacePowerMax
+      - rxDiscards
+      - rxError
+      - rxRate
+      - rxUtilization
+      - txDiscards
+      - txError
+      - txRate
+      - txUtilization
+    Pagination:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 500
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        sortBy:
+          type: array
+          description: Records are sorted based on the fields specified in the   array.
+          items:
+            $ref: '#/components/schemas/Pagination_sortBy'
     InterfacesQueryResponse:
       type: object
       properties:
@@ -1976,7 +1717,282 @@ components:
         version:
           type: string
           example: '1.0'
+    InterfaceResponseAggregateAttributes:
+      type: array
+      items:
+        $ref: '#/components/schemas/InterfaceResponseAggregateAttribute'
+    InterfacesQueryRequest:
+      type: object
+      properties:
+        views:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterfacesViews'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterfacesAttributes'
+        filters:
+          $ref: '#/components/schemas/InterfacesFilters'
+        aggregateAttributes:
+          $ref: '#/components/schemas/InterfaceAggregateAttributes'
+        page:
+          $ref: '#/components/schemas/Pagination'
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    InterfacesTrendAttributes:
+      type: string
+      description: "The interface trend attributes. The following fields have set potential values.\n\n  | Field | Functions Supported |\n  | --- | --- |\n  | `poeOperStatus` | OFF:POWER_DENY, OFF:PD_FAULTY, ON, OFF, OFF:ERROR_DISABLED  |\n  | `pdClassSignal` | NONE, UNKNOWN, CISCO, IEEE0, IEEE1, IEEE2, IEEE3, IEEE4, IEEE5, IEEE_UNKNOWN, IEEE6, IEEE7, IEEE8, MISMATCH |"
+      example: poeOperStatus
+      enum:
+      - name
+      - poeOperStatus
+      - pdPowerBudgetInWatt
+      - pdPowerBudgetRange
+      - pdClassSignal
+      - pdType
+      - ieeeCompliant
+      - siteHierarchyId
+      - siteHierarchy
+      - pdPowerConsumedInWatt
+      - pdPowerConsumedRange
+      - pdPowerConsumedPercent
+      - apPowerMode
+      - poeVersion
+      - connectedSwitchUuid
+      - connectedSwitchType
+      - fastPoEEnabled
+      - perpetualPoEEnabled
+      - ieeeCompliant
+      - upoePlusEnabled
+      - apPowerType
+      - fourPairEnabled
+      - apPowerSaveMode
+      - pdPowerRemaining
+      - powerAllocationLoadRange
+      - pdPowerAdminMaxInWatt
+      - poePoliceEnabled
+      - poeOperPriority
+      - rxDiscards
+      - rxError
+      - rxRate
+      - rxUtilization
+      - txDiscards
+      - txError
+      - txRate
+      - txUtilization
+    InterfacesAnalyticsFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/InterfacesTrendAttributes'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
+
+
+            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
+
+
+            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters*   will be used.
+
+            '
+        filters:
+          type: array
+          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
+
+
+            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
+
+            '
+          items:
+            $ref: '#/components/schemas/InterfacesAnalyticsFilter'
+      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
+
+        '
+    InterfaceTrendAttributesResponse_inner:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/InterfacesTrendAttributes'
+        value:
+          type: object
+          description: Value will always be latest within the interval
+    Operator:
+      type: string
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - neq
+      - lt
+      - gt
+      - lte
+      - gte
+      - eq
+      - notIn
+      - like
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    Function_1:
+      type: string
+      description: Type of aggregate function to apply on the field when querying   data
+      example: sum
+      enum:
+      - sum
+      - min
+      - max
+      - avg
+      - count
+      - latest
+      - distinctCount
+      - median
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    InterfaceResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/InterfaceData'
+        version:
+          type: string
+          example: '1.0'
+      description: Interfaces Response model on success
+    InterfaceAggregateAttributes:
+      type: array
+      items:
+        $ref: '#/components/schemas/InterfaceAggregateAttribute'
+    LogicalOperator:
+      type: string
+      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
+      enum:
+      - and
+      - or
+    siteHierarchy:
+      type: string
+      description: The full hierarchy breakdown of the site tree in name form   starting from Global site name and ending with the specific site site.   'Global' is the Root name of the site hierarchy tree. Site name including   the hierarchy where the network device or client is located. For clients   site is derived based on site assigned to network device where the client   is connected to. For Wireless client its the connected Access Point site   and for Wired client its the connected switch site. For network device its   the site assigned to it.
+      example: Global/USA/CA/HQ/Building1/Floor1
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination Request.
+          example: 500
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering
+          example: 1000
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
+    InterfaceTrendResponseList:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterfaceTrendResponse'
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          enum:
+          - asc
+          - desc
+    InterfacesAnalyticsFilters:
+      type: array
+      description: "List of filters to apply when querying the Network devices data. \n\nSupported operators are [in, eq, neq, notIn, like]\n"
+      example:
+      - key: pdDeviceType
+        operator: eq
+        value: IEEE PD
+      - key: pdClassSignal
+        operator: in
+        value:
+        - IEE3
+        - IEE4
+      - logicalOperator: or
+        filters:
+        - key: siteHierarchy
+          operator: like
+          value: Global/Paris*
+        - key: siteHierarchy
+          operator: eq
+          value: Global/Eiffel Tower
+      items:
+        type: object
+        allOf:
+        - $ref: '#/components/schemas/InterfacesAnalyticsFilter'
   examples:
+    TrendRequestPowerBudgetExample:
+      summary: TrendPowerBudgetExample
+      value:
+        startTime: 1720547128000
+        endTime: 1720633528000
+        trendIntervalInMinutes: 5
+        attributes:
+        - pdPowerBudgetRange
+        filters:
+        - key: connectedSwitchUuid
+          operator: eq
+          value: ded5b59a-98dc-4883-b44b-68b17a9fb854
+        aggregateAttributes:
+        - name: powerBudget
+          function: max
+        timestampOrder: desc
     TrendResponsePowerBudgetExample:
       summary: TrendResponsePowerBudgetExample
       value:
@@ -1998,6 +2014,20 @@ components:
           - function: max
           - value: 19.2
         timestampOrder: desc
+    InterfaceQueryCountExample:
+      summary: InterfaceQueryCountExample
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: name
+          operator: eq
+          value: Gigabite01/1
+        - logicalOperator: and
+          filters:
+          - key: site
+            operator: eq
+            value: Global/San Jose
     TrendResponsePdClassExample:
       summary: TrendResponsePdClassExample
       value:
@@ -2019,22 +2049,6 @@ components:
           - function: min
           - value: 52.29
         timestampOrder: asc
-    TrendRequestPowerBudgetExample:
-      summary: TrendPowerBudgetExample
-      value:
-        startTime: 1720547128000
-        endTime: 1720633528000
-        trendIntervalInMinutes: 5
-        attributes:
-        - pdPowerBudgetRange
-        filters:
-        - key: connectedSwitchUuid
-          operator: eq
-          value: ded5b59a-98dc-4883-b44b-68b17a9fb854
-        aggregateAttributes:
-        - name: powerBudget
-          function: max
-        timestampOrder: desc
     TrendRequestPdClassExample:
       summary: TrendRequestPdClassExample
       value:
@@ -2060,20 +2074,6 @@ components:
         - name: txDiscards
           function: min
         timestampOrder: asc
-    InterfaceQueryCountExample:
-      summary: InterfaceQueryCountExample
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: name
-          operator: eq
-          value: Gigabite01/1
-        - logicalOperator: and
-          filters:
-          - key: site
-            operator: eq
-            value: Global/San Jose
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

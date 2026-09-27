@@ -773,6 +773,21 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
+    ThousandEyesTestResultsResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: List of test results
+          items:
+            $ref: '#/components/schemas/ThousandEyesTestResult'
+        page:
+          $ref: '#/components/schemas/ThousandEyesTestResultPagination'
+        version:
+          type: string
+          description: The version of the response.
+          example: '1.0'
+      description: Response for the list of ThousandEyes test results.
     AppxCountIntegerResponse:
       type: object
       properties:
@@ -783,6 +798,34 @@ components:
           description: The version of the response
           example: '1.0'
       description: Count of the results for the given filter
+    ThousandEyesTestResultPagination:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 136
+        sortBy:
+          type: array
+          description: The attribute by which the results are sorted
+          example:
+          - name: testName
+            order: asc
+          items:
+            $ref: '#/components/schemas/ThousandEyesTestResultSortByObj'
+      description: Pagination details
     ThousandEyesTestResultSortByObj:
       type: object
       properties:
@@ -804,6 +847,27 @@ components:
           - asc
           - desc
       description: Properties for sorting the results
+    AppxErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppxErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     ThousandEyesTestResult:
       type: object
       properties:
@@ -975,57 +1039,6 @@ components:
           type: integer
           description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
           example: 100
-    ThousandEyesTestResultPagination:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 136
-        sortBy:
-          type: array
-          description: The attribute by which the results are sorted
-          example:
-          - name: testName
-            order: asc
-          items:
-            $ref: '#/components/schemas/ThousandEyesTestResultSortByObj'
-      description: Pagination details
-    AppxCountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ThousandEyesTestResultsResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: List of test results
-          items:
-            $ref: '#/components/schemas/ThousandEyesTestResult'
-        page:
-          $ref: '#/components/schemas/ThousandEyesTestResultPagination'
-        version:
-          type: string
-          description: The version of the response.
-          example: '1.0'
-      description: Response for the list of ThousandEyes test results.
     ThousandEyesTestResultsAttributeValuePair:
       type: object
       properties:
@@ -1037,39 +1050,6 @@ components:
           type: object
           description: This is the value of the attribute requested for trend analytics.
           example: 23
-    AppxErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppxErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    AppxErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     ThousandEyesTestResultsTrend:
       type: object
       properties:
@@ -1084,6 +1064,18 @@ components:
           items:
             $ref: '#/components/schemas/ThousandEyesTestResultsAttributeValuePair'
       description: The aggregate trend response includes timestamp and attributes.
+    AppxErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     ThousandEyesTestResultsTrendResponse:
       type: object
       properties:
@@ -1099,6 +1091,14 @@ components:
           description: Version of the response
           example: '1.0'
       description: ThousandEyes test results trend
+    AppxCountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

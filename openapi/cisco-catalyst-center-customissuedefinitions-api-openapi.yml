@@ -683,12 +683,58 @@ paths:
           description: The server did not respond inside time restrictions and time-out.
 components:
   schemas:
-    profileId:
-      type: string
-      description: The profile id associated issue definitions
-      readOnly: true
-      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
-      default: global
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    rules:
+      type: array
+      description: The list of more than one rule definition. Currently supported limit of rule is 1. Keep it as array for future usage.
+      items:
+        $ref: '#/components/schemas/rule'
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
     CustomIssueDefinitionDetail:
       type: object
       properties:
@@ -745,81 +791,6 @@ components:
           format: int64
           readOnly: true
           example: 1710958556000
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    rules:
-      type: array
-      description: The list of more than one rule definition. Currently supported limit of rule is 1. Keep it as array for future usage.
-      items:
-        $ref: '#/components/schemas/rule'
-    triggerId:
-      type: string
-      description: The common trigger definition id
-      format: uuid
-      readOnly: true
-      example: 7979b500-03aa-46d4-b1bb-bfeba4f3cfe0
     rule:
       type: object
       properties:
@@ -883,17 +854,12 @@ components:
           type: integer
           description: The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minutes.
           example: 10
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
+    triggerId:
+      type: string
+      description: The common trigger definition id
+      format: uuid
+      readOnly: true
+      example: 7979b500-03aa-46d4-b1bb-bfeba4f3cfe0
     ErrorObject:
       type: object
       properties:
@@ -906,12 +872,20 @@ components:
         detail:
           type: string
           description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    CustomIssueDefinitionResponse:
+    profileId:
+      type: string
+      description: The profile id associated issue definitions
+      readOnly: true
+      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
+      default: global
+    CountIntegerResponse_response:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
-      description: The response object for the custom issue definition.
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
     CustomIssueDefinitionsResponse:
       type: object
       properties:
@@ -926,6 +900,32 @@ components:
           type: string
           example: '1.0'
       description: The response object for the custom issues definition.
+    CustomIssueDefinitionResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
+      description: The response object for the custom issue definition.
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

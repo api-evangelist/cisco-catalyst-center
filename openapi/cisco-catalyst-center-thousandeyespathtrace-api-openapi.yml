@@ -205,6 +205,27 @@ components:
           description: The version of the response
           example: '1.0'
       description: Count of the results for the given filter
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     ThousandEyesPathTracesResponse:
       type: object
       properties:
@@ -220,6 +241,51 @@ components:
           type: string
           description: The version of the response.
       description: List of ThousandEyes path traces.
+    AppxErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppxErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    ThousandEyesPathTrace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the path trace
+        hops:
+          type: array
+          description: List of the hops in the given path trace
+          items:
+            $ref: '#/components/schemas/ThousandEyesPathTraceHop'
+      description: A single ThousandEyes path trace.
     ThousandEyesPathTraceHop:
       required:
       - index
@@ -315,80 +381,6 @@ components:
           type: boolean
           description: Flag to indicate whether path trace got terminated at this node without reaching the target server. This means that packet was lost at this node. Target server node would be after this node, but packet was not forwarded from this node to the same.
       description: Single hop within a path trace
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    ThousandEyesPathTrace:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the path trace
-        hops:
-          type: array
-          description: List of the hops in the given path trace
-          items:
-            $ref: '#/components/schemas/ThousandEyesPathTraceHop'
-      description: A single ThousandEyes path trace.
-    AppxCountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    AppxErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppxErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     AppxErrorObject:
       type: object
       properties:
@@ -401,7 +393,64 @@ components:
         detail:
           type: string
           description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    AppxCountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
   examples:
+    RedPathTraceExample:
+      summary: Trace from agent with packet loss
+      value:
+        response:
+        - id: '5603034966043041906030585277706380995535467971123266443188431236403'
+          hops:
+          - index: 1
+            type: AGENT
+            identifier: 6995d1f2-dd46-4058-8a9e-aea80e8b75b3
+            name: b1-access7.example.com
+            ipAddress: 10.211.101.102
+            jitter: 23.59
+            healthScore: 9
+          - index: 2
+            type: SWITCH
+            identifier: 095655ad-a7d9-4da1-92d1-ccd5c6f9e4a2
+            name: b1-core3.example.com
+            ipAddress: 10.211.101.102
+            healthScore: 8
+            location: Bengaluru, Karnataka, India
+            responseTime: 0
+          - index: 3
+            type: ROUTER
+            identifier: f6073913-013d-4331-b17d-cf3403cad37e
+            name: b1-router.example.com
+            ipAddress: 10.211.29.11
+            healthScore: 10
+            location: Bengaluru, Karnataka, India
+            network: Example Systems, Inc. (AS 110)
+            responseTime: 1
+          - index: 4
+            type: EXTERNAL
+            name: bangdp-33-33.mantraonline.com
+            ipAddress: 202.56.248.33
+            location: Bengaluru, Karnataka, India
+            network: Bharti Airtel Ltd. (AS 9498)
+            responseTime: 7
+          - index: 8
+            type: EXTERNAL
+            ipAddress: 10.30.128.106
+            location: Bengaluru, Karnataka, India
+            responseTime: 201
+            traceTerminated: true
+          - index: 9
+            type: TARGET
+            ipAddress: 142.250.68.78
+            name: server.example.com
+        appLink: https://app.thousandeyes.com/net/path-vis?__a=123&testId=105&roundId=1747900125&serverId=98&agentId=100
+        version: '1.0'
     GreenPathTraceExample:
       summary: Green trace starting with client
       value:
@@ -464,55 +513,6 @@ components:
             network: Google Inc. (AS 15169)
             responseTime: 215
         appLink: https://app.thousandeyes.com/net/path-vis?__a=123&testId=105&roundId=1747900800&serverId=339&agentId=107
-        version: '1.0'
-    RedPathTraceExample:
-      summary: Trace from agent with packet loss
-      value:
-        response:
-        - id: '5603034966043041906030585277706380995535467971123266443188431236403'
-          hops:
-          - index: 1
-            type: AGENT
-            identifier: 6995d1f2-dd46-4058-8a9e-aea80e8b75b3
-            name: b1-access7.example.com
-            ipAddress: 10.211.101.102
-            jitter: 23.59
-            healthScore: 9
-          - index: 2
-            type: SWITCH
-            identifier: 095655ad-a7d9-4da1-92d1-ccd5c6f9e4a2
-            name: b1-core3.example.com
-            ipAddress: 10.211.101.102
-            healthScore: 8
-            location: Bengaluru, Karnataka, India
-            responseTime: 0
-          - index: 3
-            type: ROUTER
-            identifier: f6073913-013d-4331-b17d-cf3403cad37e
-            name: b1-router.example.com
-            ipAddress: 10.211.29.11
-            healthScore: 10
-            location: Bengaluru, Karnataka, India
-            network: Example Systems, Inc. (AS 110)
-            responseTime: 1
-          - index: 4
-            type: EXTERNAL
-            name: bangdp-33-33.mantraonline.com
-            ipAddress: 202.56.248.33
-            location: Bengaluru, Karnataka, India
-            network: Bharti Airtel Ltd. (AS 9498)
-            responseTime: 7
-          - index: 8
-            type: EXTERNAL
-            ipAddress: 10.30.128.106
-            location: Bengaluru, Karnataka, India
-            responseTime: 201
-            traceTerminated: true
-          - index: 9
-            type: TARGET
-            ipAddress: 142.250.68.78
-            name: server.example.com
-        appLink: https://app.thousandeyes.com/net/path-vis?__a=123&testId=105&roundId=1747900125&serverId=98&agentId=100
         version: '1.0'
 externalDocs:
   description: Catalyst Center Developer API resources

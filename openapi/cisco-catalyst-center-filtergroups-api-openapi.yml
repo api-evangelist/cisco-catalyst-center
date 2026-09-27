@@ -407,6 +407,69 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
+    FilterGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Filter Gorup id
+          example: b654e071-f99d-48d4-957b-6638e9f3a2c9
+        name:
+          type: string
+          description: Filter Group name.
+          example: SJC Wireless
+        type:
+          type: string
+          description: The type of the Filter Group.
+        filters:
+          type: array
+          description: List of filters used in this Filter Group.
+          items:
+            $ref: '#/components/schemas/FilterGroupFilter'
+      description: Contains details of an filter group.
+    FilterGroupCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Filter Group name. Only alphabhets, digits and space is allowed for name.
+          example: SJCWireless
+        type:
+          type: string
+          description: The type of the Filter Group.
+          example: Generic
+          enum:
+          - Generic
+          - Site
+          - Network
+          - Client
+        filters:
+          type: array
+          description: List of filters used in this Filter Group
+          items:
+            $ref: '#/components/schemas/FilterGroupFilter'
+      description: Filter Group create request payload
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     FilterGroupFilter:
       type: object
       properties:
@@ -440,26 +503,31 @@ components:
           description: This field stores desriptive equivalent of the `value` field. For example, this field can be used to store site hierarchy name while the `value` field stores site hierarchy id.
           readOnly: true
       description: Defines a filter with combination of `key`, `operator` and `value`.
-    FilterGroup:
+    FilterGroupResponse:
       type: object
       properties:
-        id:
+        response:
+          $ref: '#/components/schemas/FilterGroup'
+        version:
           type: string
-          description: Filter Gorup id
-          example: b654e071-f99d-48d4-957b-6638e9f3a2c9
-        name:
-          type: string
-          description: Filter Group name.
-          example: SJC Wireless
-        type:
-          type: string
-          description: The type of the Filter Group.
-        filters:
+          description: The version of the response
+          example: '1.0'
+      description: Filter Group response
+    FilterGroupListResponse:
+      type: object
+      properties:
+        response:
           type: array
-          description: List of filters used in this Filter Group.
+          description: List of filter groups
           items:
-            $ref: '#/components/schemas/FilterGroupFilter'
-      description: Contains details of an filter group.
+            $ref: '#/components/schemas/FilterGroup'
+        page:
+          $ref: '#/components/schemas/FilterGroupPaginationResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Filter Group list response
     ErrorObject:
       type: object
       properties:
@@ -472,59 +540,6 @@ components:
         detail:
           type: string
           description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    FilterGroupCreateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Filter Group name. Only alphabhets, digits and space is allowed for name.
-          example: SJCWireless
-        type:
-          type: string
-          description: The type of the Filter Group.
-          example: Generic
-          enum:
-          - Generic
-          - Site
-          - Network
-          - Client
-        filters:
-          type: array
-          description: List of filters used in this Filter Group
-          items:
-            $ref: '#/components/schemas/FilterGroupFilter'
-      description: Filter Group create request payload
-    FilterGroupResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/FilterGroup'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Filter Group response
     FilterGroupPaginationResponse:
       type: object
       properties:
@@ -551,21 +566,6 @@ components:
           description: Filter Group id
           example: 015d9cba-4f53-4087-8317-7e49e5ffef46
       description: Filter Group create response
-    FilterGroupListResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: List of filter groups
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-        page:
-          $ref: '#/components/schemas/FilterGroupPaginationResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Filter Group list response
   examples:
     FilterGroupCreateRequestExample1:
       description: Sample reuest to create an Filter Group

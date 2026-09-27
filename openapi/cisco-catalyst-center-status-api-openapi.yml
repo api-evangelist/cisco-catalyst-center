@@ -191,9 +191,6 @@ paths:
           description: The server did not respond inside time restrictions and timed-out.
 components:
   schemas:
-    ConfigGroupVersion:
-      type: integer
-      description: version of the config group that has been provisioned. version increments everytime for a provisioning operation.
     ErrorResponse_response:
       type: object
       properties:
@@ -206,6 +203,52 @@ components:
         detail:
           type: string
           description: Detailed information regarding the error
+    NetworkDeviceId:
+      type: string
+      description: Id of the device
+      format: uuid
+      example: efab65ed-dcbe-4857-999e-af3e477aed1a
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/ErrorResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured processing this request.
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    CountResponse:
+      title: Count Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports a count, for example, a total count of records in a given resource.
+    ConfigGroupVersion:
+      type: integer
+      description: version of the config group that has been provisioned. version increments everytime for a provisioning operation.
+    DeviceStatus:
+      type: string
+      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
+      enum:
+      - NOT_STARTED
+      - SUCCESS
+      - FAILED
+      - CONFIGURING
+      - ROLLBACK_SUCCESS
+      - ROLLBACK_FAILURE
+      - CANCELLED
+      - NOT_SUPPORTED
+      - PENDING
     DeviceDeploymentStatusListResponse:
       type: object
       properties:
@@ -224,6 +267,10 @@ components:
           startTime: 1724968922353
           endTime: 1724968935093
         version: '1.0'
+    DeviceDeploymentStatusList:
+      type: array
+      items:
+        $ref: '#/components/schemas/DeviceDeployment'
     DeviceDeployment:
       required:
       - configGroupName
@@ -268,30 +315,15 @@ components:
           - $ref: '#/components/schemas/DeviceStatus'
           - description: provisioning status on the device
           - example: SUCCESS
+    ActivityId:
+      type: string
+      description: activity id from intent/api/v1/activity
+      format: uuid
+      example: 7f422eeb-effe-4938-9371-ccf6dc2fe15e
     ConfigGroupName:
       type: string
       description: name of the config group that has been provisioned.
       example: application.telemetry
-    EpochMilliseconds:
-      minimum: 0
-      type: integer
-      description: A date and time represented as ***milliseconds*** since the Unix epoch.
-      format: int64
-      example: 1524880285900
-      externalDocs:
-        description: Unix time - Wikipedia
-        url: https://en.wikipedia.org/wiki/Unix_time
-    CountResponse:
-      title: Count Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports a count, for example, a total count of records in a given resource.
     DeviceError:
       type: object
       properties:
@@ -303,47 +335,15 @@ components:
           type: string
           description: A brief message to suggest remedy to the failure
           example: Upgrade the IOS version
-    ActivityId:
-      type: string
-      description: activity id from intent/api/v1/activity
-      format: uuid
-      example: 7f422eeb-effe-4938-9371-ccf6dc2fe15e
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/ErrorResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured processing this request.
+    EpochMilliseconds:
+      minimum: 0
+      type: integer
+      description: A date and time represented as ***milliseconds*** since the Unix epoch.
+      format: int64
+      example: 1524880285900
       externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    DeviceDeploymentStatusList:
-      type: array
-      items:
-        $ref: '#/components/schemas/DeviceDeployment'
-    DeviceStatus:
-      type: string
-      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
-      enum:
-      - NOT_STARTED
-      - SUCCESS
-      - FAILED
-      - CONFIGURING
-      - ROLLBACK_SUCCESS
-      - ROLLBACK_FAILURE
-      - CANCELLED
-      - NOT_SUPPORTED
-      - PENDING
-    NetworkDeviceId:
-      type: string
-      description: Id of the device
-      format: uuid
-      example: efab65ed-dcbe-4857-999e-af3e477aed1a
+        description: Unix time - Wikipedia
+        url: https://en.wikipedia.org/wiki/Unix_time
     CountResponse_response:
       type: object
       properties:

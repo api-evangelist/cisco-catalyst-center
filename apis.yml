@@ -65,7 +65,7 @@ tags:
 - Observability
 - Telemetry
 - MCP
-- agent-native
+- Agent-Native
 - Cisco
 tags_raw:
 - Network Automation
@@ -82,6 +82,7 @@ tags_raw:
 - MCP
 - Agent Native
 - Cisco
+- agent-native
 apis:
 - name: Cisco Catalyst Center MCP Server
   description: >-
@@ -95,7 +96,7 @@ apis:
   baseURL: http://localhost:7001/v1/mcp
   tags:
   - MCP
-  - agent-native
+  - Agent-Native
   - Network Automation
   - Assurance
   tags_raw:
@@ -103,6 +104,7 @@ apis:
   - Agent Native
   - Network Automation
   - Assurance
+  - agent-native
   properties:
   - type: MCPServer
     url: mcp/cisco-catalyst-center-mcp.yml

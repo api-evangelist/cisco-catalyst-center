@@ -2731,99 +2731,6 @@ paths:
     - url: https://developer.cisco.com/data/api/v1
 components:
   schemas:
-    ClientDeviceEnergy:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Mac address of the device.
-          example: 54:9F:C6:43:FF:80
-        connectedDeviceName:
-          type: string
-          description: It is the switch name that the device is connected to.
-          example: sda-c9k-100.cisco.com
-        connectedInterfaceName:
-          type: string
-          description: Interface name. Will be empty in case of a switch.
-          example: GigabitEthernet1/1/0
-      description: Assurance Client Device Energy Summaries details
-      allOf:
-      - $ref: '#/components/schemas/DeviceEnergy'
-    DeviceEnergyAttributesResponse_inner:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/DeviceEnergyAttribute'
-        value:
-          type: object
-          example: sda-c9k-100.cisco.com
-    ClientDeviceEnergySortByObj:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/ClientDeviceEnergyAttribute'
-        order:
-          type: string
-          description: The sort order of the field ascending or descending.
-          example: asc
-          enum:
-          - asc
-          - desc
-        function:
-          $ref: '#/components/schemas/Function'
-      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the collection on aggregated attribute. If function is not specified API will sort the collection on attribute.
-
-        '
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    DevicesEnergyAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/DeviceEnergyAggregateAttributeKey'
-        function:
-          $ref: '#/components/schemas/Function'
-      description: Aggregate attribute object for device energy summaries. Name and function supported are in their respective enum objects.
-      example:
-        name: energyConsumed
-        function: sum
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    DeviceEnergyResponse_groups:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the Analytics response. The ID is the concatenation of all grouped attributes.
-        attributes:
-          $ref: '#/components/schemas/DeviceEnergyAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
     DeviceEnergySummaryAnalyticsResponse:
       type: object
       properties:
@@ -2835,395 +2742,6 @@ components:
           type: string
           description: The version of the response
           example: '2.0'
-    Operator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - neq
-      - lt
-      - gt
-      - lte
-      - gte
-      - eq
-      - notIn
-      - like
-    NetworkDeviceEnergySortByObj:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/NetworkDeviceEnergyAttribute'
-        order:
-          type: string
-          description: The sort order of the field ascending or descending.
-          example: asc
-          enum:
-          - asc
-          - desc
-        function:
-          $ref: '#/components/schemas/Function'
-      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the collection on aggregated attribute. If function is not specified API will sort the collection on attribute.
-
-        '
-    Function:
-      type: string
-      description: Type of aggregate function to apply on the field when querying   data
-      example: sum
-      enum:
-      - sum
-      - min
-      - max
-      - avg
-      - count
-      - latest
-      - distinctCount
-      - median
-    ClientDeviceEnergyResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/ClientDeviceEnergy'
-        version:
-          type: string
-          description: The version of the response
-          example: '2.0'
-    DeviceEnergyTrendAnalyticsRequest:
-      type: object
-      properties:
-        filters:
-          $ref: '#/components/schemas/DeviceEnergyFilters'
-        attributes:
-          type: array
-          example:
-          - deviceCategory
-          - energyConsumed
-          items:
-            $ref: '#/components/schemas/DeviceEnergyAttribute'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
-        groupBy:
-          $ref: '#/components/schemas/DeviceEnergyGroupBy'
-        trendInterval:
-          $ref: '#/components/schemas/DeviceEnergyTrendInterval'
-        page:
-          $ref: '#/components/schemas/TrendPaginationRequest'
-      description: Request object for device energy summaries trend analytics.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    ClientDeviceEnergyAttribute:
-      type: string
-      description: Field names which are supported by this API as attributes.
-      enum:
-      - id
-      - deviceName
-      - deviceCategory
-      - deviceSubCategory
-      - connectedDeviceName
-      - connectedInterfaceName
-      - siteId
-      - siteHierarchy
-      - siteHierarchyId
-      - energyConsumed
-      - estimatedCost
-      - estimatedEmission
-      - carbonIntensity
-      - nuclearEnergyConsumed
-      - geothermalEnergyConsumed
-      - biomassEnergyConsumed
-      - coalEnergyConsumed
-      - windEnergyConsumed
-      - solarEnergyConsumed
-      - hydroEnergyConsumed
-      - gasEnergyConsumed
-      - oilEnergyConsumed
-      - unknownEnergyConsumed
-      - hydroDischargeEnergyConsumed
-      - batteryDischargeEnergyConsumed
-      - renewableEnergyConsumed
-      - nonRenewableEnergyConsumed
-      - fossilEnergyConsumed
-      - fossilFreeEnergyConsumed
-      - energySavings
-      - costSavings
-      - emissionSavings
-    NetworkDeviceEnergyQueryRequest:
-      type: object
-      properties:
-        views:
-          type: array
-          example:
-          - device
-          - energy
-          items:
-            $ref: '#/components/schemas/NetworkDeviceEnergyView'
-        attributes:
-          type: array
-          example:
-          - deviceCategory
-          - energyConsumed
-          items:
-            $ref: '#/components/schemas/NetworkDeviceEnergyAttribute'
-        filters:
-          $ref: '#/components/schemas/NetworkDeviceEnergyFilters'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/NetworkDeviceEnergyPaginationWithAggregateSortBy'
-      description: Request object for device energy summaries query request.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    TrendPaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination Request.
-          example: 500
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering
-          example: 250
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending.
-          enum:
-          - asc
-          - desc
-      description: Pagination response object for trend analytics.
-    DeviceEnergySummaryAnalyticsRequest:
-      type: object
-      properties:
-        filters:
-          $ref: '#/components/schemas/DeviceEnergyFilters'
-        attributes:
-          type: array
-          example:
-          - deviceCategory
-          - energyConsumed
-          items:
-            $ref: '#/components/schemas/DeviceEnergyAttribute'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/DeviceEnergyPaginationWithAggregateSortBy'
-        groupBy:
-          $ref: '#/components/schemas/DeviceEnergyGroupBy'
-      description: Request object for device summary analytics.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    DeviceEnergyGroupBy:
-      type: array
-      description: "List of group by supported. GroupBy should be in a specific sequence ex - deviceCategory, deviceSubCategory and not  deviceSubCategory, deviceCategory \n"
-      example:
-      - deviceCategory
-      - deviceSubCategory
-      items:
-        type: string
-        description: List of field names to group by.
-        enum:
-        - deviceCategory
-        - deviceSubCategory
-        - siteId
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    DeviceEnergyTrendAnalyticsResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully returned list of Devices Energy Summaries information grouped by time
-          items:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/DeviceEnergyResponse'
-            - type: object
-              properties:
-                timestamp:
-                  type: number
-                  example: 1710435600000
-        page:
-          $ref: '#/components/schemas/TrendPaginationResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '2.0'
-    DeviceEnergyAttributesResponse:
-      type: array
-      description: Response object for device summary analytics attributes.
-      items:
-        $ref: '#/components/schemas/DeviceEnergyAttributesResponse_inner'
-    DeviceEnergyAggregateAttributeKey:
-      type: string
-      description: Field name on which the aggregate function should be applied when querying the data. The fields supported for aggregation in the API response object are, [energyConsumed, estimatedEmission, estimatedCost, carbonIntensity, deviceCount]
-      enum:
-      - energyConsumed
-      - estimatedEmission
-      - estimatedCost
-      - carbonIntensity
-      - deviceCount
-      - nuclearEnergyConsumed
-      - geothermalEnergyConsumed
-      - biomassEnergyConsumed
-      - coalEnergyConsumed
-      - windEnergyConsumed
-      - solarEnergyConsumed
-      - hydroEnergyConsumed
-      - gasEnergyConsumed
-      - oilEnergyConsumed
-      - unknownEnergyConsumed
-      - hydroDischargeEnergyConsumed
-      - batteryDischargeEnergyConsumed
-      - renewableEnergyConsumed
-      - nonRenewableEnergyConsumed
-      - fossilEnergyConsumed
-      - fossilFreeEnergyConsumed
-      - energySavings
-      - costSavings
-      - emissionSavings
-    NetworkDeviceEnergyPaginationWithAggregateSortBy:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination Request.
-          example: 500
-        cursor:
-          type: string
-          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
-          example: eyJ1dWlkX3Rlcm1zIjoiZTBlM2VkMDgtNjE5OS00ZmVmLWFiNDEtZjA4OTcwMTMzYjdkIn0=
-          default: ''
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering
-          example: 12500
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkDeviceEnergySortByObj'
-      description: Pagination model with support for aggregate sort by.
-    startAndEndTime:
-      type: object
-      properties:
-        startTime:
-          type: integer
-          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `startTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705348800000
-        endTime:
-          type: integer
-          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `endTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705435200000
-      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
-    NetworkDeviceEnergyFilterKey:
-      type: string
-      description: Field names which are supported by this API for filter keys.
-      enum:
-      - id
-      - deviceName
-      - deviceCategory
-      - deviceSubCategory
-      - siteId
-      - siteHierarchy
-      - siteHierarchyId
-    TrendPaginationRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination Request.
-          example: 500
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the Pagination Request.
-          example: 1
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          enum:
-          - asc
-          - desc
-      description: Pagination request object for trend analytics.
-    ClientDeviceEnergyFilterKey:
-      type: string
-      description: Field names which are supported by this API for filter keys.
-      enum:
-      - id
-      - deviceName
-      - deviceCategory
-      - deviceSubCategory
-      - connectedDeviceName
-      - connectedInterfaceName
-      - siteId
-      - siteHierarchy
-      - siteHierarchyId
-    NetworkDeviceEnergyFilters:
-      type: array
-      description: 'List of filters to apply when querying the device energy data.
-
-
-        Supported operators are [in, eq, like]
-
-        '
-      example:
-      - key: deviceCategory
-        operator: eq
-        value: Switch
-      - key: deviceSubCategory
-        operator: in
-        value:
-        - Cisco Catalyst 9300 Switch
-        - Cisco Catalyst 9400 Switch
-      - logicalOperator: or
-        filters:
-        - key: deviceCategory
-          operator: eq
-          value: Switch
-        - key: deviceSubCategory
-          operator: in
-          value:
-          - Cisco Catalyst 9300 Switch
-          - Cisco Catalyst 9400 Switch
-      items:
-        $ref: '#/components/schemas/NetworkDeviceEnergyFilter'
-    ClientDeviceEnergyView:
-      type: string
-      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **device**\n[id, deviceId, deviceCategory, deviceSubCategory]  \n\n2. **site**\n[id, siteId, siteHierarchy, siteHierarchyId]  \n\n3. **energy**\n[id, energyConsumed, estimatedCost, estimatedEmission, carbonIntensity]    \n\n4. **energyMix**\n[nuclearEnergyConsumed, geothermalEnergyConsumed,biomassEnergyConsumed,coalEnergyConsumed,\n  windEnergyConsumed,solarEnergyConsumed,hydroEnergyConsumed\",gasEnergyConsumed,oilEnergyConsumed,unknownEnergyConsumed,hydroDischargeEnergyConsumed,batteryDischargeEnergyConsumed, fossilFreeEnergyConsumed, renewableEnergyConsumed, fossilEnergyConsumed, nonRenewableEnergyConsumed]\nWhen this list is not added the default summaries will be: \n\n5. **energySavings**\n[\"energySavings\", \"costSavings\", \"emissionSavings\"]\n\n**[device, site, energy]**\n"
-      enum:
-      - device
-      - site
-      - energy
-      - energyMix
-      - energySavings
     DeviceEnergyPaginationWithAggregateSortBy:
       type: object
       properties:
@@ -3244,166 +2762,36 @@ components:
           items:
             $ref: '#/components/schemas/DeviceEnergySortByObj'
       description: Pagination model with support for aggregate sort by.
-    ClientDeviceEnergyFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/ClientDeviceEnergyFilterKey'
-        operator:
-          $ref: '#/components/schemas/Operator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
-
-
-            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
-
-
-            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters*   will be used.
-
-            '
-        filters:
-          type: array
-          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
-
-
-            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
-
-            '
-          items:
-            $ref: '#/components/schemas/ClientDeviceEnergyFilter'
-      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
-
-        '
-    ClientDeviceEnergyQueryRequest:
-      type: object
-      properties:
-        views:
-          type: array
-          example:
-          - device
-          - energy
-          items:
-            $ref: '#/components/schemas/ClientDeviceEnergyView'
-        attributes:
-          type: array
-          example:
-          - deviceCategory
-          - energyConsumed
-          items:
-            $ref: '#/components/schemas/ClientDeviceEnergyAttribute'
-        filters:
-          $ref: '#/components/schemas/ClientDeviceEnergyFilters'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/ClientDeviceEnergyPaginationWithAggregateSortBy'
-      description: Request object for device energy summaries query request.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    NetworkDeviceEnergy:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the Device.
-          example: 8f741bdf-788c-48f7-8ab1-017a826e4521
-      description: Assurance Network Device Energy Summaries details
-      allOf:
-      - $ref: '#/components/schemas/DeviceEnergy'
-    LogicalOperator:
+    Function:
       type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
+      description: Type of aggregate function to apply on the field when querying   data
+      example: sum
       enum:
-      - and
-      - or
-    DeviceEnergyFilters:
-      type: array
-      description: 'List of filters to apply when querying the device energy data.
-
-
-        Supported operators are [in, eq, like]
+      - sum
+      - min
+      - max
+      - avg
+      - count
+      - latest
+      - distinctCount
+      - median
+    DeviceEnergySortByObj:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DeviceEnergyAttribute'
+        order:
+          type: string
+          description: The sort order of the field ascending or descending.
+          example: asc
+          enum:
+          - asc
+          - desc
+        function:
+          $ref: '#/components/schemas/Function'
+      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the collection on aggregated attribute. If function is not specified API will sort the collection on attribute.
 
         '
-      example:
-      - key: deviceCategory
-        operator: eq
-        value: Switch
-      - key: deviceSubCategory
-        operator: in
-        value:
-        - Cisco Catalyst 9300 Switch
-        - Cisco Catalyst 9400 Switch
-      - logicalOperator: or
-        filters:
-        - key: deviceCategory
-          operator: eq
-          value: Switch
-        - key: deviceSubCategory
-          operator: in
-          value:
-          - Cisco Catalyst 9300 Switch
-          - Cisco Catalyst 9400 Switch
-      items:
-        $ref: '#/components/schemas/DeviceEnergyFilter'
-    ClientDevicesEnergyQueryResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully returned list of Devices Energy information
-          items:
-            allOf:
-            - $ref: '#/components/schemas/ClientDeviceEnergy'
-            - type: object
-              properties:
-                aggregateAttributes:
-                  $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
-              description: Response object for device energy summaries query API.
-        page:
-          $ref: '#/components/schemas/ClientDeviceEnergyPaginationWithAggregateSortBy'
-        version:
-          type: string
-          description: The version of the response
-          example: '2.0'
-    DeviceEnergyAggregateAttributesResponse:
-      type: array
-      description: Response object for device energy aggregate attributes.
-      items:
-        $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse_inner'
-    DeviceEnergyResponse:
-      type: object
-      properties:
-        attributes:
-          $ref: '#/components/schemas/DeviceEnergyAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceEnergyResponse_groups'
-      description: Response object for device summary analytics.
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     DeviceEnergy:
       type: object
       properties:
@@ -3512,101 +2900,52 @@ components:
           format: double
           example: 89
       description: Assurance Device Energy Summaries details
-    NetworkDeviceEnergyAttribute:
-      type: string
-      description: Field names which are supported by this API as attributes.
-      enum:
-      - id
-      - deviceName
-      - deviceCategory
-      - deviceSubCategory
-      - siteId
-      - siteHierarchy
-      - siteHierarchyId
-      - energyConsumed
-      - estimatedCost
-      - estimatedEmission
-      - carbonIntensity
-      - nuclearEnergyConsumed
-      - geothermalEnergyConsumed
-      - biomassEnergyConsumed
-      - coalEnergyConsumed
-      - windEnergyConsumed
-      - solarEnergyConsumed
-      - hydroEnergyConsumed
-      - gasEnergyConsumed
-      - oilEnergyConsumed
-      - unknownEnergyConsumed
-      - hydroDischargeEnergyConsumed
-      - batteryDischargeEnergyConsumed
-      - renewableEnergyConsumed
-      - nonRenewableEnergyConsumed
-      - fossilEnergyConsumed
-      - fossilFreeEnergyConsumed
-      - energySavings
-      - costSavings
-      - emissionSavings
-    ClientDeviceEnergyFilters:
-      type: array
-      description: 'List of filters to apply when querying the device energy data.
-
-
-        Supported operators are [in, eq, like]
-
-        '
-      example:
-      - key: deviceCategory
-        operator: eq
-        value: OtherPOEDevice
-      - key: deviceSubCategory
-        operator: in
-        value:
-        - IEEE PD
-        - IP Phone 7821
-      - logicalOperator: or
-        filters:
-        - key: deviceCategory
-          operator: eq
-          value: Switch
-        - key: deviceSubCategory
-          operator: in
-          value:
-          - Cisco Catalyst 9300 Switch
-          - Cisco Catalyst 9400 Switch
-      items:
-        $ref: '#/components/schemas/ClientDeviceEnergyFilter'
-    DeviceEnergyAggregateAttributesResponse_inner:
+    ClientDeviceEnergyResponse:
       type: object
       properties:
-        name:
-          $ref: '#/components/schemas/DeviceEnergyAggregateAttributeKey'
-        function:
-          $ref: '#/components/schemas/Function'
-        value:
-          type: number
-          description: The value for the attribute field in the given time rang
-          example: 78.76
-    ClientDeviceEnergyPaginationWithAggregateSortBy:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination Request.
-          example: 500
-        cursor:
+        response:
+          $ref: '#/components/schemas/ClientDeviceEnergy'
+        version:
           type: string
-          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
-          example: eyJ1dWlkX3Rlcm1zIjoiZTBlM2VkMDgtNjE5OS00ZmVmLWFiNDEtZjA4OTcwMTMzYjdkIn0=
-          default: ''
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering
-          example: 12500
-        sortBy:
+          description: The version of the response
+          example: '2.0'
+    ClientDeviceEnergyQueryRequest:
+      type: object
+      properties:
+        views:
+          type: array
+          example:
+          - device
+          - energy
+          items:
+            $ref: '#/components/schemas/ClientDeviceEnergyView'
+        attributes:
+          type: array
+          example:
+          - deviceCategory
+          - energyConsumed
+          items:
+            $ref: '#/components/schemas/ClientDeviceEnergyAttribute'
+        filters:
+          $ref: '#/components/schemas/ClientDeviceEnergyFilters'
+        aggregateAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/ClientDeviceEnergySortByObj'
-      description: Pagination model with support for aggregate sort by.
+            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/ClientDeviceEnergyPaginationWithAggregateSortBy'
+      description: Request object for device energy summaries query request.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    ClientDeviceEnergyView:
+      type: string
+      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **device**\n[id, deviceId, deviceCategory, deviceSubCategory]  \n\n2. **site**\n[id, siteId, siteHierarchy, siteHierarchyId]  \n\n3. **energy**\n[id, energyConsumed, estimatedCost, estimatedEmission, carbonIntensity]    \n\n4. **energyMix**\n[nuclearEnergyConsumed, geothermalEnergyConsumed,biomassEnergyConsumed,coalEnergyConsumed,\n  windEnergyConsumed,solarEnergyConsumed,hydroEnergyConsumed\",gasEnergyConsumed,oilEnergyConsumed,unknownEnergyConsumed,hydroDischargeEnergyConsumed,batteryDischargeEnergyConsumed, fossilFreeEnergyConsumed, renewableEnergyConsumed, fossilEnergyConsumed, nonRenewableEnergyConsumed]\nWhen this list is not added the default summaries will be: \n\n5. **energySavings**\n[\"energySavings\", \"costSavings\", \"emissionSavings\"]\n\n**[device, site, energy]**\n"
+      enum:
+      - device
+      - site
+      - energy
+      - energyMix
+      - energySavings
     NetworkDevicesEnergyResponse:
       type: object
       properties:
@@ -3621,25 +2960,20 @@ components:
           type: string
           description: The version of the response
           example: '2.0'
-    ClientDevicesEnergyResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully returned list of Devices Energy information
-          items:
-            $ref: '#/components/schemas/ClientDeviceEnergy'
-        page:
-          $ref: '#/components/schemas/ClientDeviceEnergyPaginationWithAggregateSortBy'
-        version:
-          type: string
-          description: The version of the response
-          example: '2.0'
-    NetworkDeviceEnergyFilter:
+    NetworkDeviceEnergyView:
+      type: string
+      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **device**\n[id, deviceId, deviceCategory, deviceSubCategory]  \n\n2. **site**\n[id, siteId, siteHierarchy, siteHierarchyId]  \n\n3. **energy**\n[id, energyConsumed, estimatedCost, estimatedEmission, carbonIntensity]    \n\n4. **energyMix**\n[nuclearEnergyConsumed, geothermalEnergyConsumed,biomassEnergyConsumed,coalEnergyConsumed,\n  windEnergyConsumed,solarEnergyConsumed,hydroEnergyConsumed\",gasEnergyConsumed,oilEnergyConsumed,unknownEnergyConsumed,hydroDischargeEnergyConsumed,batteryDischargeEnergyConsumed]\nWhen this list is not added the default summaries will be: \n\n**[device, site, energy]**\n"
+      enum:
+      - device
+      - site
+      - energy
+      - energyMix
+      - energySavings
+    DeviceEnergyFilter:
       type: object
       properties:
         key:
-          $ref: '#/components/schemas/NetworkDeviceEnergyFilterKey'
+          $ref: '#/components/schemas/DeviceEnergyFilterKey'
         operator:
           $ref: '#/components/schemas/Operator'
         logicalOperator:
@@ -3664,15 +2998,26 @@ components:
 
             '
           items:
-            $ref: '#/components/schemas/NetworkDeviceEnergyFilter'
+            $ref: '#/components/schemas/DeviceEnergyFilter'
       description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
 
         '
-    DeviceEnergySortByObj:
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    NetworkDeviceEnergySortByObj:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/DeviceEnergyAttribute'
+          $ref: '#/components/schemas/NetworkDeviceEnergyAttribute'
         order:
           type: string
           description: The sort order of the field ascending or descending.
@@ -3685,14 +3030,27 @@ components:
       description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the collection on aggregated attribute. If function is not specified API will sort the collection on attribute.
 
         '
-    DeviceEnergyTrendInterval:
-      type: string
-      description: "The time window to aggregate the metrics. \nInterval can be 1 hour or 1 day.\n"
-      example: 1HR
-      default: 1HR
-      enum:
-      - 1HR
-      - 1DAY
+    ClientDeviceEnergyPaginationWithAggregateSortBy:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination Request.
+          example: 500
+        cursor:
+          type: string
+          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
+          example: eyJ1dWlkX3Rlcm1zIjoiZTBlM2VkMDgtNjE5OS00ZmVmLWFiNDEtZjA4OTcwMTMzYjdkIn0=
+          default: ''
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering
+          example: 12500
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientDeviceEnergySortByObj'
+      description: Pagination model with support for aggregate sort by.
     DeviceEnergyAttribute:
       type: string
       description: Field names which are supported by this API as attributes.
@@ -3729,51 +3087,32 @@ components:
       - energySavings
       - costSavings
       - emissionSavings
-    DeviceEnergyFilterKey:
-      type: string
-      description: Field names which are supported by this API for filter keys.
-      enum:
-      - id
-      - deviceName
-      - deviceCategory
-      - deviceSubCategory
-      - siteId
-      - siteHierarchy
-      - siteHierarchyId
-    NetworkDeviceEnergyView:
-      type: string
-      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **device**\n[id, deviceId, deviceCategory, deviceSubCategory]  \n\n2. **site**\n[id, siteId, siteHierarchy, siteHierarchyId]  \n\n3. **energy**\n[id, energyConsumed, estimatedCost, estimatedEmission, carbonIntensity]    \n\n4. **energyMix**\n[nuclearEnergyConsumed, geothermalEnergyConsumed,biomassEnergyConsumed,coalEnergyConsumed,\n  windEnergyConsumed,solarEnergyConsumed,hydroEnergyConsumed\",gasEnergyConsumed,oilEnergyConsumed,unknownEnergyConsumed,hydroDischargeEnergyConsumed,batteryDischargeEnergyConsumed]\nWhen this list is not added the default summaries will be: \n\n**[device, site, energy]**\n"
-      enum:
-      - device
-      - site
-      - energy
-      - energyMix
-      - energySavings
-    NetworkDevicesEnergyQueryResponse:
+    DevicesEnergyAggregateAttribute:
       type: object
       properties:
-        response:
-          type: array
-          description: Successfully returned list of Devices Energy information
-          items:
-            allOf:
-            - $ref: '#/components/schemas/NetworkDeviceEnergy'
-            - type: object
-              properties:
-                aggregateAttributes:
-                  $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
-              description: Response object for device energy summaries query API.
-        page:
-          $ref: '#/components/schemas/NetworkDeviceEnergyPaginationWithAggregateSortBy'
-        version:
+        name:
+          $ref: '#/components/schemas/DeviceEnergyAggregateAttributeKey'
+        function:
+          $ref: '#/components/schemas/Function'
+      description: Aggregate attribute object for device energy summaries. Name and function supported are in their respective enum objects.
+      example:
+        name: energyConsumed
+        function: sum
+    DeviceEnergyResponse_groups:
+      type: object
+      properties:
+        id:
           type: string
-          description: The version of the response
-          example: '2.0'
-    DeviceEnergyFilter:
+          description: Unique ID of the Analytics response. The ID is the concatenation of all grouped attributes.
+        attributes:
+          $ref: '#/components/schemas/DeviceEnergyAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
+    NetworkDeviceEnergyFilter:
       type: object
       properties:
         key:
-          $ref: '#/components/schemas/DeviceEnergyFilterKey'
+          $ref: '#/components/schemas/NetworkDeviceEnergyFilterKey'
         operator:
           $ref: '#/components/schemas/Operator'
         logicalOperator:
@@ -3798,10 +3137,333 @@ components:
 
             '
           items:
-            $ref: '#/components/schemas/DeviceEnergyFilter'
+            $ref: '#/components/schemas/NetworkDeviceEnergyFilter'
       description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
 
         '
+    DeviceEnergyAttributesResponse_inner:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DeviceEnergyAttribute'
+        value:
+          type: object
+          example: sda-c9k-100.cisco.com
+    DeviceEnergyTrendAnalyticsRequest:
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/DeviceEnergyFilters'
+        attributes:
+          type: array
+          example:
+          - deviceCategory
+          - energyConsumed
+          items:
+            $ref: '#/components/schemas/DeviceEnergyAttribute'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
+        groupBy:
+          $ref: '#/components/schemas/DeviceEnergyGroupBy'
+        trendInterval:
+          $ref: '#/components/schemas/DeviceEnergyTrendInterval'
+        page:
+          $ref: '#/components/schemas/TrendPaginationRequest'
+      description: Request object for device energy summaries trend analytics.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    DeviceEnergyAggregateAttributesResponse_inner:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DeviceEnergyAggregateAttributeKey'
+        function:
+          $ref: '#/components/schemas/Function'
+        value:
+          type: number
+          description: The value for the attribute field in the given time rang
+          example: 78.76
+    ClientDeviceEnergySortByObj:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/ClientDeviceEnergyAttribute'
+        order:
+          type: string
+          description: The sort order of the field ascending or descending.
+          example: asc
+          enum:
+          - asc
+          - desc
+        function:
+          $ref: '#/components/schemas/Function'
+      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the collection on aggregated attribute. If function is not specified API will sort the collection on attribute.
+
+        '
+    NetworkDeviceEnergyFilters:
+      type: array
+      description: 'List of filters to apply when querying the device energy data.
+
+
+        Supported operators are [in, eq, like]
+
+        '
+      example:
+      - key: deviceCategory
+        operator: eq
+        value: Switch
+      - key: deviceSubCategory
+        operator: in
+        value:
+        - Cisco Catalyst 9300 Switch
+        - Cisco Catalyst 9400 Switch
+      - logicalOperator: or
+        filters:
+        - key: deviceCategory
+          operator: eq
+          value: Switch
+        - key: deviceSubCategory
+          operator: in
+          value:
+          - Cisco Catalyst 9300 Switch
+          - Cisco Catalyst 9400 Switch
+      items:
+        $ref: '#/components/schemas/NetworkDeviceEnergyFilter'
+    ClientDevicesEnergyQueryResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully returned list of Devices Energy information
+          items:
+            allOf:
+            - $ref: '#/components/schemas/ClientDeviceEnergy'
+            - type: object
+              properties:
+                aggregateAttributes:
+                  $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
+              description: Response object for device energy summaries query API.
+        page:
+          $ref: '#/components/schemas/ClientDeviceEnergyPaginationWithAggregateSortBy'
+        version:
+          type: string
+          description: The version of the response
+          example: '2.0'
+    DeviceEnergyGroupBy:
+      type: array
+      description: "List of group by supported. GroupBy should be in a specific sequence ex - deviceCategory, deviceSubCategory and not  deviceSubCategory, deviceCategory \n"
+      example:
+      - deviceCategory
+      - deviceSubCategory
+      items:
+        type: string
+        description: List of field names to group by.
+        enum:
+        - deviceCategory
+        - deviceSubCategory
+        - siteId
+    ClientDeviceEnergyFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/ClientDeviceEnergyFilterKey'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
+
+
+            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
+
+
+            In the case of an "and" or "or" operator, this values array will be   ignored, and the values arrays in each of the *nested filters*   will be used.
+
+            '
+        filters:
+          type: array
+          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
+
+
+            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
+
+            '
+          items:
+            $ref: '#/components/schemas/ClientDeviceEnergyFilter'
+      description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex   queries.
+
+        '
+    NetworkDeviceEnergy:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the Device.
+          example: 8f741bdf-788c-48f7-8ab1-017a826e4521
+      description: Assurance Network Device Energy Summaries details
+      allOf:
+      - $ref: '#/components/schemas/DeviceEnergy'
+    TrendPaginationRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination Request.
+          example: 500
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the Pagination Request.
+          example: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          enum:
+          - asc
+          - desc
+      description: Pagination request object for trend analytics.
+    NetworkDeviceEnergyFilterKey:
+      type: string
+      description: Field names which are supported by this API for filter keys.
+      enum:
+      - id
+      - deviceName
+      - deviceCategory
+      - deviceSubCategory
+      - siteId
+      - siteHierarchy
+      - siteHierarchyId
+    startAndEndTime:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `startTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705348800000
+        endTime:
+          type: integer
+          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `endTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705435200000
+      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+    NetworkDeviceEnergyQueryRequest:
+      type: object
+      properties:
+        views:
+          type: array
+          example:
+          - device
+          - energy
+          items:
+            $ref: '#/components/schemas/NetworkDeviceEnergyView'
+        attributes:
+          type: array
+          example:
+          - deviceCategory
+          - energyConsumed
+          items:
+            $ref: '#/components/schemas/NetworkDeviceEnergyAttribute'
+        filters:
+          $ref: '#/components/schemas/NetworkDeviceEnergyFilters'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/NetworkDeviceEnergyPaginationWithAggregateSortBy'
+      description: Request object for device energy summaries query request.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    ClientDevicesEnergyResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully returned list of Devices Energy information
+          items:
+            $ref: '#/components/schemas/ClientDeviceEnergy'
+        page:
+          $ref: '#/components/schemas/ClientDeviceEnergyPaginationWithAggregateSortBy'
+        version:
+          type: string
+          description: The version of the response
+          example: '2.0'
+    DeviceEnergyResponse:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/DeviceEnergyAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceEnergyResponse_groups'
+      description: Response object for device summary analytics.
+    DeviceEnergyTrendAnalyticsResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully returned list of Devices Energy Summaries information grouped by time
+          items:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/DeviceEnergyResponse'
+            - type: object
+              properties:
+                timestamp:
+                  type: number
+                  example: 1710435600000
+        page:
+          $ref: '#/components/schemas/TrendPaginationResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '2.0'
+    ClientDeviceEnergyFilters:
+      type: array
+      description: 'List of filters to apply when querying the device energy data.
+
+
+        Supported operators are [in, eq, like]
+
+        '
+      example:
+      - key: deviceCategory
+        operator: eq
+        value: OtherPOEDevice
+      - key: deviceSubCategory
+        operator: in
+        value:
+        - IEEE PD
+        - IP Phone 7821
+      - logicalOperator: or
+        filters:
+        - key: deviceCategory
+          operator: eq
+          value: Switch
+        - key: deviceSubCategory
+          operator: in
+          value:
+          - Cisco Catalyst 9300 Switch
+          - Cisco Catalyst 9400 Switch
+      items:
+        $ref: '#/components/schemas/ClientDeviceEnergyFilter'
     NetworkDeviceEnergyResponse:
       type: object
       properties:
@@ -3811,44 +3473,363 @@ components:
           type: string
           description: The version of the response
           example: '2.0'
-    asyncInfo:
+    ClientDeviceEnergyAttribute:
+      type: string
+      description: Field names which are supported by this API as attributes.
+      enum:
+      - id
+      - deviceName
+      - deviceCategory
+      - deviceSubCategory
+      - connectedDeviceName
+      - connectedInterfaceName
+      - siteId
+      - siteHierarchy
+      - siteHierarchyId
+      - energyConsumed
+      - estimatedCost
+      - estimatedEmission
+      - carbonIntensity
+      - nuclearEnergyConsumed
+      - geothermalEnergyConsumed
+      - biomassEnergyConsumed
+      - coalEnergyConsumed
+      - windEnergyConsumed
+      - solarEnergyConsumed
+      - hydroEnergyConsumed
+      - gasEnergyConsumed
+      - oilEnergyConsumed
+      - unknownEnergyConsumed
+      - hydroDischargeEnergyConsumed
+      - batteryDischargeEnergyConsumed
+      - renewableEnergyConsumed
+      - nonRenewableEnergyConsumed
+      - fossilEnergyConsumed
+      - fossilFreeEnergyConsumed
+      - energySavings
+      - costSavings
+      - emissionSavings
+    NetworkDevicesEnergyQueryResponse:
+      type: object
       properties:
-        taskLocation:
+        response:
+          type: array
+          description: Successfully returned list of Devices Energy information
+          items:
+            allOf:
+            - $ref: '#/components/schemas/NetworkDeviceEnergy'
+            - type: object
+              properties:
+                aggregateAttributes:
+                  $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse'
+              description: Response object for device energy summaries query API.
+        page:
+          $ref: '#/components/schemas/NetworkDeviceEnergyPaginationWithAggregateSortBy'
+        version:
           type: string
-          description: url resource where the client can fetch their task's lifecycle updates
-          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-        taskId:
-          type: string
-          description: the specific task id associated with the specific request made
-          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
-    SiteEnergyFilters:
+          description: The version of the response
+          example: '2.0'
+    DeviceEnergyAggregateAttributesResponse:
       type: array
-      description: 'List of filters to apply when querying the site energy data.
+      description: Response object for device energy aggregate attributes.
+      items:
+        $ref: '#/components/schemas/DeviceEnergyAggregateAttributesResponse_inner'
+    DeviceEnergyFilterKey:
+      type: string
+      description: Field names which are supported by this API for filter keys.
+      enum:
+      - id
+      - deviceName
+      - deviceCategory
+      - deviceSubCategory
+      - siteId
+      - siteHierarchy
+      - siteHierarchyId
+    DeviceEnergyFilters:
+      type: array
+      description: 'List of filters to apply when querying the device energy data.
 
 
         Supported operators are [in, eq, like]
 
         '
       example:
-      - key: siteHierarchy
+      - key: deviceCategory
         operator: eq
-        value: Global/Ottawa
-      - key: siteHierarchyId
+        value: Switch
+      - key: deviceSubCategory
         operator: in
         value:
-        - /57df4064-82d8-4314-8059-00aaf146e6fe/20e0a1db-96ec-4b3e-b787-827edd12dc1e/
-        - /57df4064-82d8-4314-8059-00aaf146e6fe/
+        - Cisco Catalyst 9300 Switch
+        - Cisco Catalyst 9400 Switch
       - logicalOperator: or
         filters:
-        - key: siteHierarchy
-          operator: like
-          value: Global/.*
-        - key: siteHierarchyId
+        - key: deviceCategory
           operator: eq
-          value: /57df4064-82d8-4314-8059-00aaf146e6fe/20e0a1db-96ec-4b3e-b787-827edd12dc1e/
+          value: Switch
+        - key: deviceSubCategory
+          operator: in
+          value:
+          - Cisco Catalyst 9300 Switch
+          - Cisco Catalyst 9400 Switch
       items:
-        $ref: '#/components/schemas/SiteEnergyFilter'
+        $ref: '#/components/schemas/DeviceEnergyFilter'
+    ClientDeviceEnergy:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Mac address of the device.
+          example: 54:9F:C6:43:FF:80
+        connectedDeviceName:
+          type: string
+          description: It is the switch name that the device is connected to.
+          example: sda-c9k-100.cisco.com
+        connectedInterfaceName:
+          type: string
+          description: Interface name. Will be empty in case of a switch.
+          example: GigabitEthernet1/1/0
+      description: Assurance Client Device Energy Summaries details
+      allOf:
+      - $ref: '#/components/schemas/DeviceEnergy'
+    Operator:
+      type: string
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - neq
+      - lt
+      - gt
+      - lte
+      - gte
+      - eq
+      - notIn
+      - like
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ClientDeviceEnergyFilterKey:
+      type: string
+      description: Field names which are supported by this API for filter keys.
+      enum:
+      - id
+      - deviceName
+      - deviceCategory
+      - deviceSubCategory
+      - connectedDeviceName
+      - connectedInterfaceName
+      - siteId
+      - siteHierarchy
+      - siteHierarchyId
+    DeviceEnergyTrendInterval:
+      type: string
+      description: "The time window to aggregate the metrics. \nInterval can be 1 hour or 1 day.\n"
+      example: 1HR
+      default: 1HR
+      enum:
+      - 1HR
+      - 1DAY
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    NetworkDeviceEnergyAttribute:
+      type: string
+      description: Field names which are supported by this API as attributes.
+      enum:
+      - id
+      - deviceName
+      - deviceCategory
+      - deviceSubCategory
+      - siteId
+      - siteHierarchy
+      - siteHierarchyId
+      - energyConsumed
+      - estimatedCost
+      - estimatedEmission
+      - carbonIntensity
+      - nuclearEnergyConsumed
+      - geothermalEnergyConsumed
+      - biomassEnergyConsumed
+      - coalEnergyConsumed
+      - windEnergyConsumed
+      - solarEnergyConsumed
+      - hydroEnergyConsumed
+      - gasEnergyConsumed
+      - oilEnergyConsumed
+      - unknownEnergyConsumed
+      - hydroDischargeEnergyConsumed
+      - batteryDischargeEnergyConsumed
+      - renewableEnergyConsumed
+      - nonRenewableEnergyConsumed
+      - fossilEnergyConsumed
+      - fossilFreeEnergyConsumed
+      - energySavings
+      - costSavings
+      - emissionSavings
+    LogicalOperator:
+      type: string
+      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
+      enum:
+      - and
+      - or
+    DeviceEnergyAggregateAttributeKey:
+      type: string
+      description: Field name on which the aggregate function should be applied when querying the data. The fields supported for aggregation in the API response object are, [energyConsumed, estimatedEmission, estimatedCost, carbonIntensity, deviceCount]
+      enum:
+      - energyConsumed
+      - estimatedEmission
+      - estimatedCost
+      - carbonIntensity
+      - deviceCount
+      - nuclearEnergyConsumed
+      - geothermalEnergyConsumed
+      - biomassEnergyConsumed
+      - coalEnergyConsumed
+      - windEnergyConsumed
+      - solarEnergyConsumed
+      - hydroEnergyConsumed
+      - gasEnergyConsumed
+      - oilEnergyConsumed
+      - unknownEnergyConsumed
+      - hydroDischargeEnergyConsumed
+      - batteryDischargeEnergyConsumed
+      - renewableEnergyConsumed
+      - nonRenewableEnergyConsumed
+      - fossilEnergyConsumed
+      - fossilFreeEnergyConsumed
+      - energySavings
+      - costSavings
+      - emissionSavings
+    NetworkDeviceEnergyPaginationWithAggregateSortBy:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination Request.
+          example: 500
+        cursor:
+          type: string
+          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
+          example: eyJ1dWlkX3Rlcm1zIjoiZTBlM2VkMDgtNjE5OS00ZmVmLWFiNDEtZjA4OTcwMTMzYjdkIn0=
+          default: ''
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering
+          example: 12500
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkDeviceEnergySortByObj'
+      description: Pagination model with support for aggregate sort by.
+    TrendPaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination Request.
+          example: 500
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering
+          example: 250
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending.
+          enum:
+          - asc
+          - desc
+      description: Pagination response object for trend analytics.
+    DeviceEnergyAttributesResponse:
+      type: array
+      description: Response object for device summary analytics attributes.
+      items:
+        $ref: '#/components/schemas/DeviceEnergyAttributesResponse_inner'
+    DeviceEnergySummaryAnalyticsRequest:
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/DeviceEnergyFilters'
+        attributes:
+          type: array
+          example:
+          - deviceCategory
+          - energyConsumed
+          items:
+            $ref: '#/components/schemas/DeviceEnergyAttribute'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DevicesEnergyAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/DeviceEnergyPaginationWithAggregateSortBy'
+        groupBy:
+          $ref: '#/components/schemas/DeviceEnergyGroupBy'
+      description: Request object for device summary analytics.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    SiteEnergyAggregateAttributeKey:
+      type: string
+      description: Field name on which the aggregate function should be applied when querying the data. The fields supported for aggregation in the API response object are, [energyConsumed, estimatedEmission, estimatedCost, carbonIntensity]
+      enum:
+      - energyConsumed
+      - estimatedEmission
+      - estimatedCost
+      - carbonIntensity
+      - numberOfDevices
+    SiteEnergyAggregateAttribute:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/SiteEnergyAggregateAttributeKey'
+        function:
+          $ref: '#/components/schemas/Function'
+      example:
+        name: energyConsumed
+        function: sum
     SiteEnergyFilter:
       type: object
       properties:
@@ -3882,106 +3863,6 @@ components:
       description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of ''filters'' with a   combination of FilterObj. Filters can be nested to build complex queries.
 
         '
-    SiteEnergyAttribute:
-      type: string
-      description: Field names which are supported by this API as attributes or filter keys
-      enum:
-      - id
-      - siteName
-      - siteHierarchy
-      - siteHierarchyId
-      - siteType
-      - latitude
-      - longitude
-      - numberOfDevices
-      - deviceCategories
-      - energyConsumed
-      - estimatedCost
-      - estimatedEmission
-      - carbonIntensity
-    SiteEnergyAggregateAttributesResponse_inner:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/SiteEnergyAggregateAttributeKey'
-        function:
-          $ref: '#/components/schemas/Function'
-        value:
-          type: number
-          description: The value based on the functions requested in the input data
-    SitesEnergyResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully returned list of Sites Energy information
-          items:
-            $ref: '#/components/schemas/SiteEnergy'
-        page:
-          $ref: '#/components/schemas/SiteEnergyPaginationWithAggregateSortBy'
-        version:
-          type: string
-          description: The version of the response
-          example: '2.0'
-    SiteEnergyView:
-      type: string
-      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **Site**\n[id, siteHierarchy, siteHierarchyId, siteType, latitude, longitude]  \n\n2. **Energy**\n[energyConsumed, estimatedCost, estimatedEmission, carbonIntensity]   \n\nWhen this list is not added the default summaries will be: \n\n**[site,energy]**\n"
-      enum:
-      - site
-      - energy
-    SiteEnergyAggregateAttributeKey:
-      type: string
-      description: Field name on which the aggregate function should be applied when querying the data. The fields supported for aggregation in the API response object are, [energyConsumed, estimatedEmission, estimatedCost, carbonIntensity]
-      enum:
-      - energyConsumed
-      - estimatedEmission
-      - estimatedCost
-      - carbonIntensity
-      - numberOfDevices
-    SiteEnergySortByObj:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/SiteEnergyAttribute'
-        order:
-          type: string
-          description: The sort order of the field ascending or descending.
-          example: asc
-          enum:
-          - asc
-          - desc
-        function:
-          $ref: '#/components/schemas/Function'
-      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the collection on aggregated attribute. If function is not specified API will sort the collection on attribute.
-
-        '
-    SitesEnergyQueryRequest:
-      type: object
-      properties:
-        views:
-          type: array
-          example:
-          - site
-          - energy
-          items:
-            $ref: '#/components/schemas/SiteEnergyView'
-        attributes:
-          type: array
-          example:
-          - estimatedEmission
-          - energyConsumed
-          items:
-            $ref: '#/components/schemas/SiteEnergyAttribute'
-        filters:
-          $ref: '#/components/schemas/SiteEnergyFilters'
-        aggregateAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteEnergyAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/SiteEnergyPaginationWithAggregateSortBy'
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
     SitesEnergyQueryResponse:
       type: object
       properties:
@@ -4002,20 +3883,23 @@ components:
           type: string
           description: The version of the response
           example: '2.0'
-    asyncInfoContainer:
+    SiteEnergySortByObj:
+      type: object
       properties:
-        response:
-          $ref: '#/components/schemas/asyncInfo'
-        version:
+        name:
+          $ref: '#/components/schemas/SiteEnergyAttribute'
+        order:
           type: string
-          example: '1.0'
-      description: 'Generic model that will contain the asynchronous task/process information
+          description: The sort order of the field ascending or descending.
+          example: asc
+          enum:
+          - asc
+          - desc
+        function:
+          $ref: '#/components/schemas/Function'
+      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the collection on aggregated attribute. If function is not specified API will sort the collection on attribute.
 
         '
-    SiteEnergyAggregateAttributesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/SiteEnergyAggregateAttributesResponse_inner'
     SiteEnergy:
       type: object
       properties:
@@ -4083,29 +3967,33 @@ components:
 
             '
       description: Assurance site and corresponding energy details
-    SiteEnergyAggregateAttribute:
+    SitesEnergyQueryRequest:
       type: object
       properties:
-        name:
-          $ref: '#/components/schemas/SiteEnergyAggregateAttributeKey'
-        function:
-          $ref: '#/components/schemas/Function'
-      example:
-        name: energyConsumed
-        function: sum
-    SiteEnergyFilterKey:
-      type: string
-      description: Field names which are supported by this API for filter keys.
-      enum:
-      - id
-      - siteName
-      - siteHierarchy
-      - siteHierarchyId
-      - siteType
-      - latitude
-      - longitude
-      - numberOfDevices
-      - deviceCategory
+        views:
+          type: array
+          example:
+          - site
+          - energy
+          items:
+            $ref: '#/components/schemas/SiteEnergyView'
+        attributes:
+          type: array
+          example:
+          - estimatedEmission
+          - energyConsumed
+          items:
+            $ref: '#/components/schemas/SiteEnergyAttribute'
+        filters:
+          $ref: '#/components/schemas/SiteEnergyFilters'
+        aggregateAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteEnergyAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/SiteEnergyPaginationWithAggregateSortBy'
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
     SiteEnergyResponse:
       type: object
       properties:
@@ -4115,6 +4003,57 @@ components:
           type: string
           description: The version of the response
           example: '2.0'
+    asyncInfoContainer:
+      properties:
+        response:
+          $ref: '#/components/schemas/asyncInfo'
+        version:
+          type: string
+          example: '1.0'
+      description: 'Generic model that will contain the asynchronous task/process information
+
+        '
+    SitesEnergyResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully returned list of Sites Energy information
+          items:
+            $ref: '#/components/schemas/SiteEnergy'
+        page:
+          $ref: '#/components/schemas/SiteEnergyPaginationWithAggregateSortBy'
+        version:
+          type: string
+          description: The version of the response
+          example: '2.0'
+    asyncInfo:
+      properties:
+        taskLocation:
+          type: string
+          description: url resource where the client can fetch their task's lifecycle updates
+          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+        taskId:
+          type: string
+          description: the specific task id associated with the specific request made
+          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
+    SiteEnergyAggregateAttributesResponse_inner:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/SiteEnergyAggregateAttributeKey'
+        function:
+          $ref: '#/components/schemas/Function'
+        value:
+          type: number
+          description: The value based on the functions requested in the input data
+    SiteEnergyView:
+      type: string
+      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data provided by each view:  \n\n1. **Site**\n[id, siteHierarchy, siteHierarchyId, siteType, latitude, longitude]  \n\n2. **Energy**\n[energyConsumed, estimatedCost, estimatedEmission, carbonIntensity]   \n\nWhen this list is not added the default summaries will be: \n\n**[site,energy]**\n"
+      enum:
+      - site
+      - energy
     SiteEnergyPaginationWithAggregateSortBy:
       type: object
       properties:
@@ -4142,66 +4081,68 @@ components:
         - name: energyConsumed
           order: desc
           function: sum
+    SiteEnergyFilters:
+      type: array
+      description: 'List of filters to apply when querying the site energy data.
+
+
+        Supported operators are [in, eq, like]
+
+        '
+      example:
+      - key: siteHierarchy
+        operator: eq
+        value: Global/Ottawa
+      - key: siteHierarchyId
+        operator: in
+        value:
+        - /57df4064-82d8-4314-8059-00aaf146e6fe/20e0a1db-96ec-4b3e-b787-827edd12dc1e/
+        - /57df4064-82d8-4314-8059-00aaf146e6fe/
+      - logicalOperator: or
+        filters:
+        - key: siteHierarchy
+          operator: like
+          value: Global/.*
+        - key: siteHierarchyId
+          operator: eq
+          value: /57df4064-82d8-4314-8059-00aaf146e6fe/20e0a1db-96ec-4b3e-b787-827edd12dc1e/
+      items:
+        $ref: '#/components/schemas/SiteEnergyFilter'
+    SiteEnergyFilterKey:
+      type: string
+      description: Field names which are supported by this API for filter keys.
+      enum:
+      - id
+      - siteName
+      - siteHierarchy
+      - siteHierarchyId
+      - siteType
+      - latitude
+      - longitude
+      - numberOfDevices
+      - deviceCategory
+    SiteEnergyAggregateAttributesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/SiteEnergyAggregateAttributesResponse_inner'
+    SiteEnergyAttribute:
+      type: string
+      description: Field names which are supported by this API as attributes or filter keys
+      enum:
+      - id
+      - siteName
+      - siteHierarchy
+      - siteHierarchyId
+      - siteType
+      - latitude
+      - longitude
+      - numberOfDevices
+      - deviceCategories
+      - energyConsumed
+      - estimatedCost
+      - estimatedEmission
+      - carbonIntensity
   examples:
-    SummaryAnalyticsWithoutGroupByRequestExample:
-      summary: SummaryAnalyticsWithoutGroupByRequest
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        groupBy: []
-        attributes: []
-        filters:
-        - key: siteHierarchy
-          operator: eq
-          value: Global/Ottawa
-        aggregateAttributes:
-        - name: energyConsumed
-          function: sum
-        page:
-          limit: 100
-          offset: 1
-          sortBy: []
-    QueryWithViewPassedRequestExample:
-      summary: QueryWithViewPassedRequest
-      value:
-        startTime: 1703195600000
-        endTime: 1707800400000
-        filters:
-        - key: id
-          value:
-          - f4b8bceb-588b-490c-b726-3dd8caf65071
-          operator: in
-        views:
-        - device
-        attributes:
-        - deviceCategory
-        page:
-          limit: 100
-          cursor: ''
-    SummaryAnalyticsWithGroupByRequestExample:
-      summary: SummaryAnalyticsWithGroupByRequest
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        groupBy:
-        - siteId
-        attributes:
-        - name
-        - deviceCategory
-        filters:
-        - key: siteHierarchy
-          operator: eq
-          value: Global/Ottawa
-        aggregateAttributes:
-        - name: energyConsumed
-          function: sum
-        page:
-          limit: 2
-          offset: 1
-          sortBy:
-          - name: energyConsumed
-            order: asc
-            function: sum
     TrendAnalyticsWithoutGroupByResponseExample:
       summary: TrendAnalyticsWithoutGroupByResponse
       value:
@@ -4222,6 +4163,24 @@ components:
           limit: 2
           offset: 1
           count: 250
+          timestampOrder: desc
+    TrendAnalyticsWithoutGroupByRequestExample:
+      summary: TrendAnalyticsWithoutGroupByRequest
+      value:
+        startTime: 1705348800000
+        endTime: 1705348800000
+        trendInterval: 5MIN
+        attributes:
+        - energyConsumed
+        groupBy: []
+        filters:
+        - key: siteHierarchy
+          operator: eq
+          value: Global/Ottawa
+        aggregateAttributes: []
+        page:
+          limit: 2
+          offset: 1
           timestampOrder: desc
     ClientDeviceQueryWithoutViewPassedResponseExample:
       summary: QueryWithoutViewPassedResponse
@@ -4249,48 +4208,38 @@ components:
           cursor: ''
           count: 1
         version: '1.0'
-    TrendAnalyticsWithoutGroupByRequestExample:
-      summary: TrendAnalyticsWithoutGroupByRequest
+    QueryWithoutViewPassedRequestExample:
+      summary: QueryWithoutViewPassedRequest
       value:
-        startTime: 1705348800000
-        endTime: 1705348800000
-        trendInterval: 5MIN
-        attributes:
-        - energyConsumed
-        groupBy: []
+        startTime: 1703195600000
+        endTime: 1707800400000
         filters:
-        - key: siteHierarchy
-          operator: eq
-          value: Global/Ottawa
-        aggregateAttributes: []
+        - key: id
+          value:
+          - f4b8bceb-588b-490c-b726-3dd8caf65071
+          operator: in
+        views: []
+        attributes: []
         page:
-          limit: 2
-          offset: 1
-          timestampOrder: desc
-    SummaryAnalyticsWithGroupByResponseExample:
-      summary: SummaryAnalyticsWithGroupByResponse
+          limit: 100
+          cursor: ''
+    QueryWithViewPassedRequestExample:
+      summary: QueryWithViewPassedRequest
       value:
-        response:
-          attributes: []
-          aggregateAttributes: []
-          groups:
-          - id: siteId=12345678
-            attributes:
-            - name: siteHierarchy
-              value: Global/Ottawa
-            - name: deviceCategory
-              value: Switches and Hubs
-            aggregateAttributes:
-            - name: energyConsumed
-              function: sum
-              value: 55.12
+        startTime: 1703195600000
+        endTime: 1707800400000
+        filters:
+        - key: id
+          value:
+          - f4b8bceb-588b-490c-b726-3dd8caf65071
+          operator: in
+        views:
+        - device
+        attributes:
+        - deviceCategory
         page:
-        - limit: 2
-          offset: 1
-          count: 20
-          sortBy:
-          - name: name
-            order: asc
+          limit: 100
+          cursor: ''
     TrendAnalyticsWithGroupByRequestExample:
       summary: TrendAnalyticsWithGroupByRequest
       value:
@@ -4311,59 +4260,38 @@ components:
           limit: 2
           offset: 1
           timestampOrder: desc
-    QueryWithoutViewPassedResponseExample:
-      summary: QueryWithoutViewPassedResponse
+    QueryWithViewPassedResponseExample:
+      summary: QueryWithViewPassedResponse
       value:
         response:
-        - id: d77de6d8-aad9-4f45-8eca-d1abc1334e1a
-          deviceName: ott-sda-c9k-21.cisco.com
+        - id: f4b8bceb-588b-490c-b726-3dd8caf65071
+          deviceId: f4b8bceb-588b-490c-b726-3dd8caf65071
+          deviceName: ott-sda-c9k-01.cisco.com
           deviceCategory: Switch
           deviceSubCategory: Cisco Catalyst 9300 Switch
-          siteId: 1af85e89-d976-4773-b87c-0a4b5235e028
-          siteHierarchy: Global/Ottawa/3000 innovation
-          siteHierarchyId: /4f92c9ba-4602-4a32-a3f0-ded242897884/a1029e8d-f397-4e7d-94c6-bcf140c2474f/1af85e89-d976-4773-b87c-0a4b5235e028/
-          energyConsumed: 123.75
-          estimatedCost: 0
-          estimatedEmission: 2284.25
-          carbonIntensity: 1.5
-          aggregateAttributes:
-          - name: energyConsumed
-            function: sum
-            value: 251895
         page:
           limit: 100
           cursor: ''
           count: 1
         version: '1.0'
-    QueryWithoutViewPassedRequestExample:
-      summary: QueryWithoutViewPassedRequest
+    SummaryAnalyticsWithoutGroupByRequestExample:
+      summary: SummaryAnalyticsWithoutGroupByRequest
       value:
-        startTime: 1703195600000
-        endTime: 1707800400000
-        filters:
-        - key: id
-          value:
-          - f4b8bceb-588b-490c-b726-3dd8caf65071
-          operator: in
-        views: []
+        startTime: 1705348800000
+        endTime: 1705435200000
+        groupBy: []
         attributes: []
+        filters:
+        - key: siteHierarchy
+          operator: eq
+          value: Global/Ottawa
+        aggregateAttributes:
+        - name: energyConsumed
+          function: sum
         page:
           limit: 100
-          cursor: ''
-    SummaryAnalyticsWithoutGroupByResponseExample:
-      summary: SummaryAnalyticsWithoutGroupByResponse
-      value:
-        response:
-          attributes: []
-          aggregateAttributes:
-          - name: energyConsumed
-            function: sum
-            value: 1002.3
-          groups: []
-        page:
-        - limit: 100
           offset: 1
-          count: 1
+          sortBy: []
     TrendAnalyticsWithGroupByResponseExample:
       summary: TrendAnalyticsWithGroupByResponse
       value:
@@ -4429,20 +4357,115 @@ components:
           offset: 1
           count: 250
           timestampOrder: desc
-    QueryWithViewPassedResponseExample:
-      summary: QueryWithViewPassedResponse
+    SummaryAnalyticsWithGroupByRequestExample:
+      summary: SummaryAnalyticsWithGroupByRequest
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        groupBy:
+        - siteId
+        attributes:
+        - name
+        - deviceCategory
+        filters:
+        - key: siteHierarchy
+          operator: eq
+          value: Global/Ottawa
+        aggregateAttributes:
+        - name: energyConsumed
+          function: sum
+        page:
+          limit: 2
+          offset: 1
+          sortBy:
+          - name: energyConsumed
+            order: asc
+            function: sum
+    QueryWithoutViewPassedResponseExample:
+      summary: QueryWithoutViewPassedResponse
       value:
         response:
-        - id: f4b8bceb-588b-490c-b726-3dd8caf65071
-          deviceId: f4b8bceb-588b-490c-b726-3dd8caf65071
-          deviceName: ott-sda-c9k-01.cisco.com
+        - id: d77de6d8-aad9-4f45-8eca-d1abc1334e1a
+          deviceName: ott-sda-c9k-21.cisco.com
           deviceCategory: Switch
           deviceSubCategory: Cisco Catalyst 9300 Switch
+          siteId: 1af85e89-d976-4773-b87c-0a4b5235e028
+          siteHierarchy: Global/Ottawa/3000 innovation
+          siteHierarchyId: /4f92c9ba-4602-4a32-a3f0-ded242897884/a1029e8d-f397-4e7d-94c6-bcf140c2474f/1af85e89-d976-4773-b87c-0a4b5235e028/
+          energyConsumed: 123.75
+          estimatedCost: 0
+          estimatedEmission: 2284.25
+          carbonIntensity: 1.5
+          aggregateAttributes:
+          - name: energyConsumed
+            function: sum
+            value: 251895
         page:
           limit: 100
           cursor: ''
           count: 1
         version: '1.0'
+    SummaryAnalyticsWithoutGroupByResponseExample:
+      summary: SummaryAnalyticsWithoutGroupByResponse
+      value:
+        response:
+          attributes: []
+          aggregateAttributes:
+          - name: energyConsumed
+            function: sum
+            value: 1002.3
+          groups: []
+        page:
+        - limit: 100
+          offset: 1
+          count: 1
+    SummaryAnalyticsWithGroupByResponseExample:
+      summary: SummaryAnalyticsWithGroupByResponse
+      value:
+        response:
+          attributes: []
+          aggregateAttributes: []
+          groups:
+          - id: siteId=12345678
+            attributes:
+            - name: siteHierarchy
+              value: Global/Ottawa
+            - name: deviceCategory
+              value: Switches and Hubs
+            aggregateAttributes:
+            - name: energyConsumed
+              function: sum
+              value: 55.12
+        page:
+        - limit: 2
+          offset: 1
+          count: 20
+          sortBy:
+          - name: name
+            order: asc
+    SiteEnergyQueryAPIWithViewPassedRequestExample:
+      summary: SiteEnergyQueryAPIWithViewPassedRequestExample
+      value:
+        startTime: 1710959466452
+        endTime: 1713210303205
+        filters:
+        - key: siteHierarchyId
+          operator: like
+          value: /9722c7e7-90c5-4af0-a77b-fa007f391f64/bba8d2b8-f3cb-45bd-9a0c-ded436246e0e.*
+        attributes: []
+        views:
+        - site
+        - energy
+        aggregateAttributes:
+        - name: energyConsumed
+          function: sum
+        page:
+          limit: 100
+          offset: 1
+        sortBy:
+        - name: energyConsumed
+          order: desc
+          function: sum
     SiteEnergyQueryAPIWithViewPassedResponseExample:
       summary: SiteEnergyQueryAPIWithViewPassedRequestExample
       value:
@@ -4512,29 +4535,6 @@ components:
             order: desc
             function: sum
         version: '1.0'
-    SiteEnergyQueryAPIWithViewPassedRequestExample:
-      summary: SiteEnergyQueryAPIWithViewPassedRequestExample
-      value:
-        startTime: 1710959466452
-        endTime: 1713210303205
-        filters:
-        - key: siteHierarchyId
-          operator: like
-          value: /9722c7e7-90c5-4af0-a77b-fa007f391f64/bba8d2b8-f3cb-45bd-9a0c-ded436246e0e.*
-        attributes: []
-        views:
-        - site
-        - energy
-        aggregateAttributes:
-        - name: energyConsumed
-          function: sum
-        page:
-          limit: 100
-          offset: 1
-        sortBy:
-        - name: energyConsumed
-          order: desc
-          function: sum
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

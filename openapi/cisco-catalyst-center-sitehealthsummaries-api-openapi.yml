@@ -1486,86 +1486,26 @@ paths:
           description: Unexpected Error
 components:
   schemas:
-    asyncInfo:
-      properties:
-        taskLocation:
-          type: string
-          description: url resource where the client can fetch their task's lifecycle updates
-          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-        taskId:
-          type: string
-          description: the specific task id associated with the specific request made
-          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
-    site:
+    SiteHealthTrendObject:
       type: object
       properties:
-        id:
-          type: string
-          description: 'Unique uuid of the site.
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteHealthAnalyticsAttributeValuePair'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
 
-            For aggregation requests, the value will be null since the unique   identifier will not apply.
-
-            '
-          example: 50c01c29-b09e-49bf-b6ce-2e7d3395f3a3
-        siteHierarchy:
-          type: string
-          description: 'The full hierarchical breakdown of the site tree, including the   specific site name. All site trees start with Global.
-
-            For aggregation requests, the value will be null since the unique   identifier will not apply.
-
-            '
-          example: Global/AreaName/BuildingName/FloorName
-        siteHierarchyId:
-          type: string
-          description: 'The full hierarchy breakdown of the site tree in id form, including   the specific site id.
-
-            For aggregation requests, the value will be null since the unique   identifier will not apply
-
-            '
-          example: 31e57cb2-06af-4c5c-87d1-16af536095d2/54d3f243-509e-436d-9821  -ebe01daf80db/f52fbe48-fcc9-4551-947b-e144e20c0311/50c01c29-b09e  -49bf-b6ce-2e7d3395f3a3
-        siteType:
-          type: string
-          description: 'Type of site
-
-            For aggregation requests, the value may be null since the unique   identifier may not apply
-
-            '
-          enum:
-          - floor
-          - building
-          - area
-          - global
-        latitude:
-          type: number
-          description: 'buildings can have their latitude attribute populated to help with   locating.
-
-            non-buildings will have a null value for this field
-
-            For aggregation requests, the value will be null since the unique   identifier will not apply
-
-            '
-          example: 37.2
-        longitude:
-          type: number
-          description: 'buildings can have their longitude attribute populated to help with   locating
-
-            non-buildings will have a null value for this field
-
-            For aggregation requests, the value will be null since the unique   identifier will not apply
-
-            '
-          example: -121.8
-      description: generic catalyst center site object
-    siteHealthSummariesNoAggregatesWrapper:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/SiteHealthSummary'
-        version:
-          type: string
-          example: '2.0'
-      description: "Sites health summaries aggregated response model  \n\n*Unique identifiers may not be populated in response (ex. siteHierarchy, id, etc)*\n"
+        '
+    endTime:
+      type: integer
+      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      format: int64
+      example: 1705435200000
     SitesSummaryAnalyticsRequest:
       type: object
       properties:
@@ -1583,60 +1523,43 @@ components:
           description: list of applied attributes
           items:
             $ref: '#/components/schemas/SiteHealthKey'
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ErrorResponse:
-      title: Error Response
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
         response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
+          $ref: '#/components/schemas/CountIntegerResponse_response'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    PaginationResponse:
+      description: Reports
+    SiteHealthAnalyticsAttributeValuePair:
       type: object
       properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
-    endTime:
+        name:
+          $ref: '#/components/schemas/SiteHealthAnalyticsAttribute'
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
+    startTime:
       type: integer
-      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
       format: int64
-      example: 1705435200000
+      example: 1705348800000
+    SiteHealthSummariesTrend:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteHealthTrendObject'
+        page:
+          $ref: '#/components/schemas/TimeBasedPagination'
+        version:
+          type: string
+          description: The version of the response
+          example: '2.0'
     TimeBasedPagination:
       type: object
       properties:
@@ -1663,32 +1586,36 @@ components:
           type: integer
           description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
           example: 100
-    CountIntegerResponse:
-      title: Count Integer Response
+    siteHealthSummariesNoAggregatesWrapper:
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
+          $ref: '#/components/schemas/SiteHealthSummary'
         version:
           type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    SiteHealthTrendObject:
-      type: object
+          example: '2.0'
+      description: "Sites health summaries aggregated response model  \n\n*Unique identifiers may not be populated in response (ex. siteHierarchy, id, etc)*\n"
+    asyncInfoContainer:
       properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteHealthAnalyticsAttributeValuePair'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+        response:
+          $ref: '#/components/schemas/asyncInfo'
+        version:
+          type: string
+          example: '1.0'
+      description: 'Generic model that will contain the asynchronous task/process information
 
         '
+    asyncInfo:
+      properties:
+        taskLocation:
+          type: string
+          description: url resource where the client can fetch their task's lifecycle updates
+          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+        taskId:
+          type: string
+          description: the specific task id associated with the specific request made
+          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
     SiteHealthSummary:
       required:
       - id
@@ -1956,54 +1883,163 @@ components:
       description: catalyst center site and corresponding assurance health details
       allOf:
       - $ref: '#/components/schemas/site'
-    startTime:
-      type: integer
-      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-      format: int64
-      example: 1705348800000
-    asyncInfoContainer:
-      properties:
-        response:
-          $ref: '#/components/schemas/asyncInfo'
-        version:
-          type: string
-          example: '1.0'
-      description: 'Generic model that will contain the asynchronous task/process information
-
-        '
-    ErrorObject:
+    PaginationResponse_sortBy:
       type: object
       properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
+        name:
           type: string
-          description: Brief message about the error condition
-        detail:
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
           type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    SiteHealthView:
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    SiteHealthAnalyticsAttribute:
       type: string
-      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data proviced by each view:  \n\n1. **site**\n[id, siteHierarchy, siteHierarchyId, siteType, latitude, longitude]  \n\n2. **network**\n[id, networkDeviceCount, networkDeviceGoodHealthCount,wirelessDeviceCount, wirelessDeviceGoodHealthCount, accessDeviceCount, accessDeviceGoodHealthCount, coreDeviceCount, coreDeviceGoodHealthCount, distributionDeviceCount, distributionDeviceGoodHealthCount, routerDeviceCount, routerDeviceGoodHealthCount, apDeviceCount, apDeviceGoodHealthCount, wlcDeviceCount, wlcDeviceGoodHealthCount, switchDeviceCount, switchDeviceGoodHealthCount, networkDeviceGoodHealthPercentage, accessDeviceGoodHealthPercentage, coreDeviceGoodHealthPercentage, distributionDeviceGoodHealthPercentage, routerDeviceGoodHealthPercentage, apDeviceGoodHealthPercentage, wlcDeviceGoodHealthPercentage, switchDeviceGoodHealthPercentage, wirelessDeviceGoodHealthPercentage]  \n\n3. **client**\n[id, clientCount, clientGoodHealthCount, wiredClientCount, wirelessClientCount, wiredClientGoodHealthCount, wirelessClientGoodHealthCount, clientGoodHealthPercentage, wiredClientGoodHealthPercentage, wirelessClientGoodHealthPercentage, clientDataUsage]  \n\n4. **issue**\n[id, p1IssueCount, p2IssueCount, p3IssueCount, p4IssueCount, issueCount]  \n\n\nWhen this list is not added the default summaries will be: \n\n**[site,client,network,issue]**\n"
       enum:
-      - site
-      - client
-      - network
-      - issue
-    SiteHealthSummariesTrend:
+      - networkDeviceGoodHealthPercentage
+      - clientGoodHealthPercentage
+      - wiredClientGoodHealthPercentage
+      - wirelessClientGoodHealthPercentage
+      - clientCount
+      - clientGoodHealthCount
+      - wiredClientCount
+      - wirelessClientCount
+      - wiredClientGoodHealthCount
+      - wirelessClientGoodHealthCount
+      - networkDeviceCount
+      - networkDeviceGoodHealthCount
+      - accessDeviceCount
+      - accessDeviceGoodHealthCount
+      - coreDeviceCount
+      - coreDeviceGoodHealthCount
+      - distributionDeviceCount
+      - distributionDeviceGoodHealthCount
+      - routerDeviceCount
+      - routerDeviceGoodHealthCount
+      - wirelessDeviceCount
+      - wirelessDeviceGoodHealthCount
+      - apDeviceCount
+      - apDeviceGoodHealthCount
+      - wlcDeviceCount
+      - wlcDeviceGoodHealthCount
+      - switchDeviceCount
+      - switchDeviceGoodHealthCount
+      - accessDeviceGoodHealthPercentage
+      - coreDeviceGoodHealthPercentage
+      - distributionDeviceGoodHealthPercentage
+      - routerDeviceGoodHealthPercentage
+      - apDeviceGoodHealthPercentage
+      - wlcDeviceGoodHealthPercentage
+      - switchDeviceGoodHealthPercentage
+      - wirelessDeviceGoodHealthPercentage
+      - clientDataUsage
+      - p1IssueCount
+      - p2IssueCount
+      - p3IssueCount
+      - p4IssueCount
+      - issueCount
+    ErrorResponse:
+      title: Error Response
       type: object
       properties:
         response:
           type: array
           items:
-            $ref: '#/components/schemas/SiteHealthTrendObject'
-        page:
-          $ref: '#/components/schemas/TimeBasedPagination'
+            $ref: '#/components/schemas/ErrorObject'
         version:
           type: string
           description: The version of the response
-          example: '2.0'
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    siteHealthSummaries:
+      type: object
+      properties:
+        response:
+          type: array
+          description: 'Successfully returned list of Sites
+
+            '
+          items:
+            $ref: '#/components/schemas/SiteHealthSummary'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+        version:
+          type: string
+          example: '1.0'
+      description: Site health summaries response model
+    site:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'Unique uuid of the site.
+
+            For aggregation requests, the value will be null since the unique   identifier will not apply.
+
+            '
+          example: 50c01c29-b09e-49bf-b6ce-2e7d3395f3a3
+        siteHierarchy:
+          type: string
+          description: 'The full hierarchical breakdown of the site tree, including the   specific site name. All site trees start with Global.
+
+            For aggregation requests, the value will be null since the unique   identifier will not apply.
+
+            '
+          example: Global/AreaName/BuildingName/FloorName
+        siteHierarchyId:
+          type: string
+          description: 'The full hierarchy breakdown of the site tree in id form, including   the specific site id.
+
+            For aggregation requests, the value will be null since the unique   identifier will not apply
+
+            '
+          example: 31e57cb2-06af-4c5c-87d1-16af536095d2/54d3f243-509e-436d-9821  -ebe01daf80db/f52fbe48-fcc9-4551-947b-e144e20c0311/50c01c29-b09e  -49bf-b6ce-2e7d3395f3a3
+        siteType:
+          type: string
+          description: 'Type of site
+
+            For aggregation requests, the value may be null since the unique   identifier may not apply
+
+            '
+          enum:
+          - floor
+          - building
+          - area
+          - global
+        latitude:
+          type: number
+          description: 'buildings can have their latitude attribute populated to help with   locating.
+
+            non-buildings will have a null value for this field
+
+            For aggregation requests, the value will be null since the unique   identifier will not apply
+
+            '
+          example: 37.2
+        longitude:
+          type: number
+          description: 'buildings can have their longitude attribute populated to help with   locating
+
+            non-buildings will have a null value for this field
+
+            For aggregation requests, the value will be null since the unique   identifier will not apply
+
+            '
+          example: -121.8
+      description: generic catalyst center site object
     SiteHealthKey:
       type: string
       description: Field names which are supported by this API as attributes or filter keys
@@ -2056,90 +2092,54 @@ components:
       - p3IssueCount
       - p4IssueCount
       - issueCount
-    PaginationResponse_sortBy:
+    ErrorObject:
       type: object
       properties:
-        name:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
           type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
+          description: Brief message about the error condition
+        detail:
           type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    SiteHealthAnalyticsAttributeValuePair:
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    CountIntegerResponse_response:
       type: object
       properties:
-        name:
-          $ref: '#/components/schemas/SiteHealthAnalyticsAttribute'
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
-    siteHealthSummaries:
-      type: object
-      properties:
-        response:
-          type: array
-          description: 'Successfully returned list of Sites
-
-            '
-          items:
-            $ref: '#/components/schemas/SiteHealthSummary'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-        version:
-          type: string
-          example: '1.0'
-      description: Site health summaries response model
-    SiteHealthAnalyticsAttribute:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    SiteHealthView:
       type: string
+      description: "Views which are supported by this API. Each view represents a specific data set.\n\n### Response data proviced by each view:  \n\n1. **site**\n[id, siteHierarchy, siteHierarchyId, siteType, latitude, longitude]  \n\n2. **network**\n[id, networkDeviceCount, networkDeviceGoodHealthCount,wirelessDeviceCount, wirelessDeviceGoodHealthCount, accessDeviceCount, accessDeviceGoodHealthCount, coreDeviceCount, coreDeviceGoodHealthCount, distributionDeviceCount, distributionDeviceGoodHealthCount, routerDeviceCount, routerDeviceGoodHealthCount, apDeviceCount, apDeviceGoodHealthCount, wlcDeviceCount, wlcDeviceGoodHealthCount, switchDeviceCount, switchDeviceGoodHealthCount, networkDeviceGoodHealthPercentage, accessDeviceGoodHealthPercentage, coreDeviceGoodHealthPercentage, distributionDeviceGoodHealthPercentage, routerDeviceGoodHealthPercentage, apDeviceGoodHealthPercentage, wlcDeviceGoodHealthPercentage, switchDeviceGoodHealthPercentage, wirelessDeviceGoodHealthPercentage]  \n\n3. **client**\n[id, clientCount, clientGoodHealthCount, wiredClientCount, wirelessClientCount, wiredClientGoodHealthCount, wirelessClientGoodHealthCount, clientGoodHealthPercentage, wiredClientGoodHealthPercentage, wirelessClientGoodHealthPercentage, clientDataUsage]  \n\n4. **issue**\n[id, p1IssueCount, p2IssueCount, p3IssueCount, p4IssueCount, issueCount]  \n\n\nWhen this list is not added the default summaries will be: \n\n**[site,client,network,issue]**\n"
       enum:
-      - networkDeviceGoodHealthPercentage
-      - clientGoodHealthPercentage
-      - wiredClientGoodHealthPercentage
-      - wirelessClientGoodHealthPercentage
-      - clientCount
-      - clientGoodHealthCount
-      - wiredClientCount
-      - wirelessClientCount
-      - wiredClientGoodHealthCount
-      - wirelessClientGoodHealthCount
-      - networkDeviceCount
-      - networkDeviceGoodHealthCount
-      - accessDeviceCount
-      - accessDeviceGoodHealthCount
-      - coreDeviceCount
-      - coreDeviceGoodHealthCount
-      - distributionDeviceCount
-      - distributionDeviceGoodHealthCount
-      - routerDeviceCount
-      - routerDeviceGoodHealthCount
-      - wirelessDeviceCount
-      - wirelessDeviceGoodHealthCount
-      - apDeviceCount
-      - apDeviceGoodHealthCount
-      - wlcDeviceCount
-      - wlcDeviceGoodHealthCount
-      - switchDeviceCount
-      - switchDeviceGoodHealthCount
-      - accessDeviceGoodHealthPercentage
-      - coreDeviceGoodHealthPercentage
-      - distributionDeviceGoodHealthPercentage
-      - routerDeviceGoodHealthPercentage
-      - apDeviceGoodHealthPercentage
-      - wlcDeviceGoodHealthPercentage
-      - switchDeviceGoodHealthPercentage
-      - wirelessDeviceGoodHealthPercentage
-      - clientDataUsage
-      - p1IssueCount
-      - p2IssueCount
-      - p3IssueCount
-      - p4IssueCount
-      - issueCount
+      - site
+      - client
+      - network
+      - issue
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
   examples:
     SiteHealthTrend:
       summary: Site health trend response example

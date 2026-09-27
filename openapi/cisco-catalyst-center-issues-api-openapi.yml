@@ -1713,67 +1713,30 @@ paths:
     - url: https://developer.cisco.com
 components:
   schemas:
-    ResolveIssuesResponseModel:
+    ResolveIssuesRequest:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/ResolveIssuesResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-    SuggestedAction:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Suggested action message
-          example: Check the switch interface operational status for each port.
-        steps:
+        issueIds:
+          maxItems: 100
+          minItems: 1
           type: array
-          description: List of commands to be executed on the device
-          items:
-            $ref: '#/components/schemas/SuggestedActionStep'
-      description: Suggested actions to be performed to address this issue
-    ResolveIssuesResponse:
-      type: object
-      properties:
-        successfulIssueIds:
-          type: array
-          description: List of issue ids which were resovled successfully
           example:
           - f031fc13-38e6-47f4-ad1c-75a7af97da7e
           - 9704d351-eef9-4c6f-8a02-051fa2364dbf
           items:
             type: string
-        failureIssueIds:
-          type: array
-          description: List of issue ids which were not resovled
-          example:
-          - 0750fda2-b8a6-4fea-8ff5-1663307857b7
-          - f031fc13-38e6-47f4-ad1c-75a7af97da7e
-          items:
-            type: string
-    SuggestedActionStep:
+            description: List of issue ids to be resolved. Issue Ids can be retrieved using the API - data/api/v1/issues
+    IssuesAdditionalAttribute:
       type: object
       properties:
-        command:
+        key:
           type: string
-          description: The actual command to be exected
-          example: show interface GigabitEthernet1/0/10
-        description:
+          description: Attribute key
+          example: areaName
+        value:
           type: string
-          description: The description of the command
-          example: Shows details of the given interface
-        entityId:
-          type: string
-          description: UUID of the device on which the command should be executed
-          example: 51cb8491-0aa2-4e69-b52e-7bb744d4abcc
-        stepType:
-          type: string
-          description: Type of this step
-          example: command-Runner
-      description: Details of the command to be executed on the device
+          description: Attribute value
+          example: Global/San Jose
     IssueDetailResponse:
       type: object
       properties:
@@ -1925,6 +1888,65 @@ components:
           items:
             $ref: '#/components/schemas/IssuesAdditionalAttribute'
       description: Contains all details of an issue including suggested actions.
+    IssueDetailResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/IssueDetailResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    ResolveIssuesResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/ResolveIssuesResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    UpdateIssueRequest:
+      type: object
+      properties:
+        notes:
+          maxLength: 500
+          minProperties: 1
+          type: string
+          description: The notes to be added
+          example: This issue is currently under investigation by network admin
+    SuggestedAction:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Suggested action message
+          example: Check the switch interface operational status for each port.
+        steps:
+          type: array
+          description: List of commands to be executed on the device
+          items:
+            $ref: '#/components/schemas/SuggestedActionStep'
+      description: Suggested actions to be performed to address this issue
+    ResolveIssuesResponse:
+      type: object
+      properties:
+        successfulIssueIds:
+          type: array
+          description: List of issue ids which were resovled successfully
+          example:
+          - f031fc13-38e6-47f4-ad1c-75a7af97da7e
+          - 9704d351-eef9-4c6f-8a02-051fa2364dbf
+          items:
+            type: string
+        failureIssueIds:
+          type: array
+          description: List of issue ids which were not resovled
+          example:
+          - 0750fda2-b8a6-4fea-8ff5-1663307857b7
+          - f031fc13-38e6-47f4-ad1c-75a7af97da7e
+          items:
+            type: string
     ErrorResponse:
       title: Error Response
       type: object
@@ -1946,15 +1968,38 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    IssueDetailResponseModel:
+    SuggestedActionStep:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/IssueDetailResponse'
-        version:
+        command:
           type: string
-          description: The version of the response
-          example: '1.0'
+          description: The actual command to be exected
+          example: show interface GigabitEthernet1/0/10
+        description:
+          type: string
+          description: The description of the command
+          example: Shows details of the given interface
+        entityId:
+          type: string
+          description: UUID of the device on which the command should be executed
+          example: 51cb8491-0aa2-4e69-b52e-7bb744d4abcc
+        stepType:
+          type: string
+          description: Type of this step
+          example: command-Runner
+      description: Details of the command to be executed on the device
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     IgnoreIssuesResponseModel:
       type: object
       properties:
@@ -1983,51 +2028,6 @@ components:
           - f031fc13-38e6-47f4-ad1c-75a7af97da7e
           items:
             type: string
-    UpdateIssueRequest:
-      type: object
-      properties:
-        notes:
-          maxLength: 500
-          minProperties: 1
-          type: string
-          description: The notes to be added
-          example: This issue is currently under investigation by network admin
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    ResolveIssuesRequest:
-      type: object
-      properties:
-        issueIds:
-          maxItems: 100
-          minItems: 1
-          type: array
-          example:
-          - f031fc13-38e6-47f4-ad1c-75a7af97da7e
-          - 9704d351-eef9-4c6f-8a02-051fa2364dbf
-          items:
-            type: string
-            description: List of issue ids to be resolved. Issue Ids can be retrieved using the API - data/api/v1/issues
-    IssuesAdditionalAttribute:
-      type: object
-      properties:
-        key:
-          type: string
-          description: Attribute key
-          example: areaName
-        value:
-          type: string
-          description: Attribute value
-          example: Global/San Jose
     IgnoreIssuesRequest:
       type: object
       properties:
@@ -2046,280 +2046,6 @@ components:
           type: integer
           description: Number of hours this issue needs to be ignored. This period applies to all issues given in issueIds. If different issues need to have different ignore periods, then this API should to be called separately for each issue.
           example: 24
-    IssuesTrendInterval:
-      type: string
-      description: 'The time window to aggregate the issues data.
-
-        '
-      example: 30MIN
-      enum:
-      - 15MIN
-      - 30MIN
-      - 1HOUR
-      - 4HOUR
-    IssuesTopNAnalyticsRequest:
-      required:
-      - groupBy
-      - topN
-      type: object
-      properties:
-        topN:
-          $ref: '#/components/schemas/topN'
-        groupBy:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          example:
-          - name: deviceId
-            function: distinctCount
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortRequest'
-      description: The input payload to query Top-N Analytics Issue data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    IssuesTrendAnalyticsRequest:
-      required:
-      - trendInterval
-      type: object
-      properties:
-        trendInterval:
-          $ref: '#/components/schemas/IssuesTrendInterval'
-        groupBy:
-          maxItems: 2
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          example:
-          - name: deviceId
-            function: distinctCount
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/IssuesPaginationWithTrendRequest'
-      description: The input payload to query Trend Analytics Issue data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    IssuesTopNAnalyticsResponse:
-      type: array
-      description: Issues TopN Analytics Response object
-      items:
-        $ref: '#/components/schemas/IssuesAnalyticsGroup'
-    IssuesTrendAnalyticsResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: Timestamp of the data (epoch time)
-          format: int64
-          example: 1709706600000
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsGroup'
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttributeResponse'
-      description: Issues Trend Analytics Response object
-    IssuesPaginationSortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Records are sorted based on the field specified.
-          enum:
-          - name
-          - priority
-          - severity
-          - deviceType
-          - deviceFamily
-          - category
-          - entityType
-          - entityId
-          - firstOccurredTime
-          - mostRecentOccurredTime
-          - status
-          - updatedBy
-          - updatedTime
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: Records are sorted based on the field specified.
-    IssuesAnalyticsAggregateAttributeKey:
-      type: string
-      description: Field name on which the aggregate function should be applied when querying the data.
-      enum:
-      - issueId
-      - deviceId
-      - floorId
-      - buildingId
-      - areaId
-      - outdoorId
-    IssuesAnalyticsAttributeKey:
-      type: string
-      enum:
-      - areaName
-      - buildingName
-      - floorName
-      - outdoorName
-      - siteHierarchy
-      - siteHierarchyId
-      - displayName
-      - firstOccurredTime
-      - mostRecentOccurredTime
-    IssueDetailListResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssueDetailResponse_2'
-        page:
-          $ref: '#/components/schemas/IssuesPaginationWithSortResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Issue detail list response
-    IssuesAnalyticsAggregateAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Aggregate attribute name
-        function:
-          type: string
-          description: Aggregate function
-        value:
-          type: object
-          description: This is the aggregate value of the attribute after applying the function on the dataset
-          example: 14
-    IssuesView:
-      type: string
-      description: 'View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. If no views are specified, all attributes will be returned.
-
-
-        | View Name | Included Attributes |
-
-        | --- | --- |
-
-        | `update` | updatedTime, updatedBy |
-
-        | `site` | siteName, siteHierarchy, siteId, siteHierarchyId |
-
-
-        Examples: view=update (single view requested) view=update&view=site (multiple views requested)
-
-        '
-      enum:
-      - update
-      - site
-    IssuesAnalyticsFunction:
-      type: string
-      description: Name of the aggregate function that should be applied when querying the data.
-      enum:
-      - distinctCount
-    IssuesOperator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - neq
-      - eq
-      - notIn
-      - like
-    topN:
-      maximum: 100
-      minimum: 5
-      type: integer
-      description: Number of records to retrieve
-      default: 5
-      enum:
-      - 5
-      - 10
-      - 50
-      - 100
-    IssuesAnalyticsAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the attribute
-        value:
-          type: string
-          description: Value of the attribute
-          example: P1
-    IssuesQueryRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesResponseAttribute'
-        views:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesView'
-        page:
-          $ref: '#/components/schemas/IssuesPaginationWithSortRequest'
-      description: Issues query requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    IssuesAnalyticsGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This is the group key. Its the concatination of groupBy attributes
-          example: priority=P1_site=SJC24
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAttributeResponse'
-        aggregateAttributes:
-          type: array
-          description: List of aggregate attributes
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttributeResponse'
-      description: Issues Analytics Group object
     IssuesPaginationWithAggregateSortBy:
       type: object
       properties:
@@ -2360,79 +2086,48 @@ components:
           - asc
           - desc
       description: Records are sorted based on the field specified.
-    IssuesPaginationWithSortResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 25
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        count:
-          minimum: 1
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesPaginationSortBy'
-    IssuesPaginationWithTrendRequest:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    IssuesResponseAttribute:
+    IssuesView:
       type: string
-      description: Field names which are supported by this API as response attributes
-      example: siteId
+      description: 'View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. If no views are specified, all attributes will be returned.
+
+
+        | View Name | Included Attributes |
+
+        | --- | --- |
+
+        | `update` | updatedTime, updatedBy |
+
+        | `site` | siteName, siteHierarchy, siteId, siteHierarchyId |
+
+
+        Examples: view=update (single view requested) view=update&view=site (multiple views requested)
+
+        '
       enum:
-      - deviceType
+      - update
+      - site
+    IssuesAnalyticsAggregateAttributeKey:
+      type: string
+      description: Field name on which the aggregate function should be applied when querying the data.
+      enum:
+      - issueId
+      - deviceId
+      - floorId
+      - buildingId
+      - areaId
+      - outdoorId
+    IssuesAnalyticsAttributeKey:
+      type: string
+      enum:
+      - areaName
+      - buildingName
+      - floorName
+      - outdoorName
       - siteHierarchy
       - siteHierarchyId
-      - siteName
-      - siteId
-      - notes
-      - updatedBy
-      - updatedTime
-      - suggestedActions
-      - additionalAttributes
-    IssuesSummaryAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/IssuesSummaryAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortResponse'
-      description: Issues Summary Analytics Response
+      - displayName
+      - firstOccurredTime
+      - mostRecentOccurredTime
     IssueDetailResponse_2:
       type: object
       properties:
@@ -2594,68 +2289,11 @@ components:
           items:
             $ref: '#/components/schemas/IssuesAdditionalAttribute'
       description: Contains all details of an issue including suggested actions.
-    IssuesSummaryAnalyticsRequest:
-      type: object
-      properties:
-        groupBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAttributeKey'
-        aggregateAttributes:
-          type: array
-          example:
-          - name: deviceId
-            function: distinctCount
-          items:
-            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttribute'
-        page:
-          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortRequest'
-      description: The input payload to query Summary Analytics Issue data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    IssuesTopNAnalyticsResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/IssuesTopNAnalyticsResponse'
-        page:
-          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortResponse'
-      description: Issues Top N Analytics Response
-    IssuesPaginationWithSortRequest:
+    IssuesPaginationWithAggregateSortRequest:
       type: object
       properties:
         limit:
-          maximum: 25
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 7
-          default: 10
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesPaginationSortBy'
-    IssuesPaginationWithTrendResponse:
-      type: object
-      properties:
-        limit:
+          maximum: 500
           minimum: 1
           type: integer
           description: Number of records to be returned in response
@@ -2667,19 +2305,37 @@ components:
           description: Starting offset of data to fetch and returned
           example: 5
           default: 1
-        count:
-          minimum: 1
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-          default: 1
-        timestampOrder:
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesPaginationWithAggregateSortBy'
+    IssuesTopNAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
           type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/IssuesTopNAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortResponse'
+      description: Issues Top N Analytics Response
+    IssuesTopNAnalyticsResponse:
+      type: array
+      description: Issues TopN Analytics Response object
+      items:
+        $ref: '#/components/schemas/IssuesAnalyticsGroup'
+    IssuesTrendInterval:
+      type: string
+      description: 'The time window to aggregate the issues data.
+
+        '
+      example: 30MIN
+      enum:
+      - 15MIN
+      - 30MIN
+      - 1HOUR
+      - 4HOUR
     IssuesFilterAttribute:
       type: string
       description: Field names which are supported by this API as filter keys
@@ -2710,6 +2366,19 @@ components:
       - fabricSiteDriven
       - fabricVnDriven
       - fabricTransitDriven
+    IssuesAnalyticsAggregateAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Aggregate attribute name
+        function:
+          type: string
+          description: Aggregate function
+        value:
+          type: object
+          description: This is the aggregate value of the attribute after applying the function on the dataset
+          example: 14
     IssuesQueryCountRequest:
       type: object
       properties:
@@ -2719,49 +2388,25 @@ components:
             $ref: '#/components/schemas/IssuesFilter'
       allOf:
       - $ref: '#/components/schemas/startAndEndTime'
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    CountIntegerResponse:
-      title: Count Integer Response
+    IssueDetailListResponseModel:
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
+          type: array
+          items:
+            $ref: '#/components/schemas/IssueDetailResponse_2'
+        page:
+          $ref: '#/components/schemas/IssuesPaginationWithSortResponse'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-      description: Reports
-    startAndEndTime:
-      type: object
-      properties:
-        startTime:
-          type: integer
-          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `startTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705348800000
-        endTime:
-          type: integer
-          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `endTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705435200000
-      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+      description: Issue detail list response
+    IssuesAnalyticsFunction:
+      type: string
+      description: Name of the aggregate function that should be applied when querying the data.
+      enum:
+      - distinctCount
     IssuesTrendAnalyticsResponseModel:
       type: object
       properties:
@@ -2775,26 +2420,6 @@ components:
         page:
           $ref: '#/components/schemas/IssuesPaginationWithTrendResponse'
       description: Issues Trend Analytics Response
-    IssuesPaginationWithAggregateSortRequest:
-      type: object
-      properties:
-        limit:
-          maximum: 500
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        sortBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssuesPaginationWithAggregateSortBy'
     IssuesAnalyticsAggregateAttribute:
       type: object
       properties:
@@ -2802,17 +2427,66 @@ components:
           $ref: '#/components/schemas/IssuesAnalyticsAggregateAttributeKey'
         function:
           $ref: '#/components/schemas/IssuesAnalyticsFunction'
-    LogicalOperator:
+    IssuesTopNAnalyticsRequest:
+      required:
+      - groupBy
+      - topN
+      type: object
+      properties:
+        topN:
+          $ref: '#/components/schemas/topN'
+        groupBy:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          example:
+          - name: deviceId
+            function: distinctCount
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortRequest'
+      description: The input payload to query Top-N Analytics Issue data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    IssuesAnalyticsAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute
+        value:
+          type: string
+          description: Value of the attribute
+          example: P1
+    IssuesAnalyticsGroupByKey:
       type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
+      description: Field names which are supported as groupBy in Summary, TopN and Trend Aanalytics API
       enum:
-      - and
-      - or
+      - priority
+      - deviceType
+      - deviceFamily
+      - category
+      - status
+      - entityType
+      - severity
+      - name
+      - floorId
+      - buildingId
+      - areaId
+      - outdoorId
+      - entityId
     IssuesSummaryAnalyticsResponse:
       type: object
       properties:
@@ -2831,6 +2505,134 @@ components:
           items:
             $ref: '#/components/schemas/IssuesAnalyticsAggregateAttributeResponse'
       description: Issues Summary Analytics Group Response object
+    IssuesTrendAnalyticsResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: Timestamp of the data (epoch time)
+          format: int64
+          example: 1709706600000
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsGroup'
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttributeResponse'
+      description: Issues Trend Analytics Response object
+    IssuesSummaryAnalyticsRequest:
+      type: object
+      properties:
+        groupBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          example:
+          - name: deviceId
+            function: distinctCount
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortRequest'
+      description: The input payload to query Summary Analytics Issue data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    IssuesPaginationWithTrendRequest:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    IssuesPaginationWithTrendResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          minimum: 1
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+          default: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    IssuesQueryRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesResponseAttribute'
+        views:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesView'
+        page:
+          $ref: '#/components/schemas/IssuesPaginationWithSortRequest'
+      description: Issues query requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
     IssuesFilter:
       type: object
       properties:
@@ -2864,6 +2666,120 @@ components:
       description: 'In case of single filter, please use `key`, `operator` and `value` combination. If multiple filters need to be applied using a logical   operation, please use `logicalOperator` and populate the list of `filters`. Filters can be nested to build complex queries.
 
         '
+    topN:
+      maximum: 100
+      minimum: 5
+      type: integer
+      description: Number of records to retrieve
+      default: 5
+      enum:
+      - 5
+      - 10
+      - 50
+      - 100
+    IssuesPaginationWithSortResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 25
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          minimum: 1
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+          default: 1
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesPaginationSortBy'
+    IssuesTrendAnalyticsRequest:
+      required:
+      - trendInterval
+      type: object
+      properties:
+        trendInterval:
+          $ref: '#/components/schemas/IssuesTrendInterval'
+        groupBy:
+          maxItems: 2
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAttributeKey'
+        aggregateAttributes:
+          type: array
+          example:
+          - name: deviceId
+            function: distinctCount
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttribute'
+        page:
+          $ref: '#/components/schemas/IssuesPaginationWithTrendRequest'
+      description: The input payload to query Trend Analytics Issue data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    IssuesSummaryAnalyticsResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/IssuesSummaryAnalyticsResponse'
+        page:
+          $ref: '#/components/schemas/IssuesPaginationWithAggregateSortResponse'
+      description: Issues Summary Analytics Response
+    startAndEndTime:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `startTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705348800000
+        endTime:
+          type: integer
+          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `endTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705435200000
+      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
     IssuesPaginationWithAggregateSortResponse:
       type: object
       properties:
@@ -2886,23 +2802,107 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/IssuesPaginationWithAggregateSortBy'
-    IssuesAnalyticsGroupByKey:
+    IssuesPaginationSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Records are sorted based on the field specified.
+          enum:
+          - name
+          - priority
+          - severity
+          - deviceType
+          - deviceFamily
+          - category
+          - entityType
+          - entityId
+          - firstOccurredTime
+          - mostRecentOccurredTime
+          - status
+          - updatedBy
+          - updatedTime
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: Records are sorted based on the field specified.
+    IssuesAnalyticsGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This is the group key. Its the concatination of groupBy attributes
+          example: priority=P1_site=SJC24
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAttributeResponse'
+        aggregateAttributes:
+          type: array
+          description: List of aggregate attributes
+          items:
+            $ref: '#/components/schemas/IssuesAnalyticsAggregateAttributeResponse'
+      description: Issues Analytics Group object
+    IssuesOperator:
       type: string
-      description: Field names which are supported as groupBy in Summary, TopN and Trend Aanalytics API
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
       enum:
-      - priority
+      - in
+      - neq
+      - eq
+      - notIn
+      - like
+    IssuesPaginationWithSortRequest:
+      type: object
+      properties:
+        limit:
+          maximum: 25
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 7
+          default: 10
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        sortBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuesPaginationSortBy'
+    LogicalOperator:
+      type: string
+      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
+      enum:
+      - and
+      - or
+    IssuesResponseAttribute:
+      type: string
+      description: Field names which are supported by this API as response attributes
+      example: siteId
+      enum:
       - deviceType
-      - deviceFamily
-      - category
-      - status
-      - entityType
-      - severity
-      - name
-      - floorId
-      - buildingId
-      - areaId
-      - outdoorId
-      - entityId
+      - siteHierarchy
+      - siteHierarchyId
+      - siteName
+      - siteId
+      - notes
+      - updatedBy
+      - updatedTime
+      - suggestedActions
+      - additionalAttributes
   examples:
     IssuesQueryResponseExample2:
       description: This response has only selected fields. It has all default attributes and the attributes which are part of 'site' view.
@@ -3035,6 +3035,746 @@ components:
           - key: status
             value: active
         version: '1.0'
+    IssuesTopNAnalyticsResponseExample1:
+      description: This response is for a request which has one element in `groupBy` - [*"name"*] and does not have `attributes`. This response is for top issue names by their count.
+      value:
+        version: '1.0'
+        response:
+        - id: name=ap_down
+          attributes:
+          - name: name
+            value: ap_down
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 14
+        - id: name=device_time_drift
+          attributes:
+          - name: name
+            value: device_time_drift
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 9
+        - id: name=global_ap_disconnect_trigger
+          attributes:
+          - name: name
+            value: global_ap_disconnect_trigger
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 10
+        - id: name=ap_flap
+          attributes:
+          - name: name
+            value: ap_flap
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 6
+        page:
+          limit: 10
+          offset: 1
+          count: 4
+          sortBy:
+          - name: name
+            order: asc
+    IssuesQueryRequestExample2:
+      description: This request has complex nested filters. The resulting query from this request is - get all issues whose `priority` is *"P1"* AND either `siteId` is *"243faba9-7f9e-4f2d-9914-97c2756754cb"* OR `entityId` is *"10:F9:20:3A:B4:A0"*
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: priority
+          operator: eq
+          value: P1
+        - logicalOperator: or
+          filters:
+          - key: siteId
+            operator: eq
+            value: 243faba9-7f9e-4f2d-9914-97c2756754cb
+          - key: entityId
+            operator: eq
+            value: 10:F9:20:3A:B4:A0
+        page:
+          limit: 25
+          offset: 1
+          sortBy:
+          - name: mostRecentOccurredTime
+            order: desc
+    IssuesTopNAnalyticsRequestExample2:
+      description: This request is to get top 50 site & priority combinations by their issue count
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        topN: 50
+        groupBy:
+        - priority
+        - floorId
+        filters:
+        - key: deviceType
+          operator: eq
+          value: access
+        attributes:
+        - siteHierarchy
+        - siteHierarchyId
+        aggregateAttributes:
+        - name: issueId
+          function: distinctCount
+        page:
+          limit: 100
+          offset: 1
+          sortBy:
+          - name: issueId
+            function: distinctCount
+            order: desc
+    IssuesTrendAnalyticsResponseExample2:
+      description: This response is for a request without groupBy. This is trend of number of devices having issues.
+      value:
+        version: '1.0'
+        response:
+        - timestamp: 1710486000000
+          attributes: []
+          aggregateAttributes:
+          - name: deviceId
+            function: distinctCount
+            value: 13
+          groups: []
+        - timestamp: 1710486900000
+          attributes: []
+          aggregateAttributes:
+          - name: deviceId
+            function: distinctCount
+            value: 4
+          groups: []
+        - timestamp: 1710487800000
+          attributes: []
+          aggregateAttributes:
+          - name: deviceId
+            function: distinctCount
+            value: 10
+          groups: []
+        page:
+          limit: 5
+          offset: 1
+          count: 100
+          timestampOrder: asc
+    IssuesTrendAnalyticsResponseExample3:
+      description: This response is for a request with first and last occurred time in attributes.
+      value:
+        version: '1.0'
+        response:
+          groups:
+          - id: name=OSPF_Down_category=connectivity_deviceType=access_floorId=b1524f5e-bc0f-4dab-a1ef-e51c09df256c
+            attributes:
+            - name: name
+              value: OSPF_Down
+            - name: category
+              value: connectivity
+            - name: deviceType
+              value: access
+            - name: floorId
+              value: /c280048b-33fd-4cd0-9b66-a0654bea5332/4be66ba0-2520-458b-9c78-f8ac6d650000/fdd50e86-3309-4301-9125-fa8edb664d88/b1524f5e-bc0f-4dab-a1ef-e51c09df256c/
+            - name: firstOccurredTime
+              value: '1726668883000'
+            - name: mostRecentOccurredTime
+              value: '1726697683000'
+            aggregateAttributes:
+            - name: issueId
+              function: distinctCount
+              value: 30
+            - name: deviceId
+              function: distinctCount
+              value: 6
+          - id: name=OSPF_Down_category=connectivity_deviceType=border router_floorId=d40da2f9-1dd8-4096-a0da-e5ee287e9127
+            attributes:
+            - name: name
+              value: OSPF_Down
+            - name: category
+              value: connectivity
+            - name: deviceType
+              value: border router
+            - name: floorId
+              value: /c280048b-33fd-4cd0-9b66-a0654bea5332/4be66ba0-2520-458b-9c78-f8ac6d650000/fdd50e86-3309-4301-9125-fa8edb664d88/d40da2f9-1dd8-4096-a0da-e5ee287e9127/
+            - name: firstOccurredTime
+              value: '1726438483000'
+            - name: mostRecentOccurredTime
+              value: '1726445683000'
+            aggregateAttributes:
+            - name: issueId
+              function: distinctCount
+              value: 41
+            - name: deviceId
+              function: distinctCount
+              value: 6
+          - id: name=OSPF_Down_category=connectivity_deviceType=core_floorId=51181c9c-7713-480d-8b87-5d61d24ecd56
+            attributes:
+            - name: name
+              value: OSPF_Down
+            - name: category
+              value: connectivity
+            - name: deviceType
+              value: core
+            - name: floorId
+              value: /c280048b-33fd-4cd0-9b66-a0654bea5332/4be66ba0-2520-458b-9c78-f8ac6d650000/fdd50e86-3309-4301-9125-fa8edb664d88/51181c9c-7713-480d-8b87-5d61d24ecd56/
+            - name: firstOccurredTime
+              value: '1726272883000'
+            - name: mostRecentOccurredTime
+              value: '1726275283000'
+            aggregateAttributes:
+            - name: issueId
+              function: distinctCount
+              value: 12
+            - name: deviceId
+              function: distinctCount
+              value: 1
+        page:
+          limit: 500
+          offset: 1
+          count: 3
+          sortBy:
+          - name: name
+            order: asc
+    IssuesTrendAnalyticsRequestExample1:
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        trendInterval: 15MIN
+        groupBy:
+        - priority
+        filters:
+        - key: siteId
+          operator: eq
+          value: fa08a067-807d-475b-83f8-139c616dbead
+        attributes: []
+        aggregateAttributes:
+        - name: issueId
+          function: distinctCount
+        page:
+          limit: 100
+          offset: 1
+          timestampOrder: asc
+    IssuesSummaryAnalyticsResponseExample1:
+      description: This response is for a request with groupBy
+      value:
+        version: '1.0'
+        response:
+          attributes: []
+          aggregateAttributes: []
+          groups:
+          - id: floorId=f5ec4526-20b9-4542-9486-fd906c05d7e3
+            attributes:
+            - name: floorId
+              value: c5b7bf20-17e2-413f-81af-ff0304490cc9
+            - name: siteHierarchy
+              value: Global/California/SJC-15/Floor2
+            - name: siteHierarchyId
+              value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/88ec4526-20b9-4542-9486-fd906c05d30b/c5b7bf20-17e2-413f-81af-ff0304490cc9/
+            aggregateAttributes:
+            - name: issueId
+              function: distinctCount
+              value: 14
+          - id: floorId=f8d85686-9405-4791-a08f-7fb88c119320
+            attributes:
+            - name: floorId
+              value: f8d85686-9405-4791-a08f-7fb88c119320
+            - name: siteHierarchy
+              value: Global/California/SJC-24/Floor3
+            - name: siteHierarchyId
+              value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/f5ec4526-20b9-4542-9486-fd906c05d7e3/76a370e2-dad1-41c2-9730-e08f62cb58fe/f8d85686-9405-4791-a08f-7fb88c119320/
+            aggregateAttributes:
+            - name: issueId
+              function: distinctCount
+              value: 6
+        page:
+          limit: 100
+          offset: 1
+          count: 2
+          sortBy:
+          - name: issueId
+            function: distinctCount
+            order: desc
+    IssuesTrendAnalyticsRequestExample2:
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        trendInterval: 15MIN
+        groupBy: []
+        filters:
+        - key: priority
+          operator: eq
+          value: P1
+        attributes: []
+        aggregateAttributes:
+        - name: deviceId
+          function: distinctCount
+        page:
+          limit: 100
+          offset: 1
+          timestampOrder: asc
+    IssuesTopNAnalyticsRequestExample1:
+      description: This request is to get top 10 issues by their count.
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        topN: 10
+        groupBy:
+        - name
+        filters:
+        - key: siteId
+          operator: eq
+          value: fa08a067-807d-475b-83f8-139c616dbead
+        aggregateAttributes:
+        - name: issueId
+          function: distinctCount
+        page:
+          limit: 10
+          offset: 1
+          sortBy:
+          - name: issueId
+            function: distinctCount
+            order: desc
+    IssuesSummaryAnalyticsRequestExample2:
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        groupBy: []
+        filters:
+        - key: deviceType
+          operator: eq
+          value: access
+        attributes: []
+        aggregateAttributes:
+        - name: issueId
+          function: distinctCount
+        - name: siteId
+          function: distinctCount
+        - name: deviceId
+          function: distinctCount
+        page:
+          limit: 10
+          offset: 1
+          sortBy:
+          - name: issueId
+            function: distinctCount
+            order: desc
+    IssuesQueryResponseExample1_2:
+      description: This response has all possible fields. This is default behavior when specific `views` or `attributes` are not requested
+      value:
+        response:
+          issueId: c5b7bf20-17e2-413f-81af-ff0304490cc9
+          name: switch_cpu_high
+          description: Network device "assur-sw-23.cisco.com" is experiencing high CPU utilization of 4%
+          summary: Network Device assur-sw-23.cisco.com is experiencing high CPU utilization
+          priority: P3
+          severity: high
+          deviceType: access
+          deviceFamily: Switches and Hubs
+          category: device
+          entityType: network device
+          entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+          firstOccurredTime: 1711647900000
+          mostRecentOccurredTime: 1711647900000
+          status: active
+          isGlobal: true
+          siteId: fa08a067-807d-475b-83f8-139c616dbead
+          siteHierarchyId: /99d370e2-dad1-41c2-9730-e08f62cb53a0/f5ec4526-20b9-4542-9486-fd906c05d7e3/f8d85686-9405-4791-a08f-7fb88c119320/fa08a067-807d-475b-83f8-139c616dbead/
+          siteName: Floor1
+          siteHierarchy: Global/California/SJC24/Floor1
+          suggestedActions:
+          - message: Run embedded wireshark to see what (if any) traffic is being sent to the CPU.
+          - message: Verify configuration is compliant.
+          - message: Check the CPU history for the last 60sec, 60min, 72hours
+            steps:
+            - command: show proc cpu history
+              description: Check the CPU history for the last 60sec, 60min, 72hours
+              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+              stepType: command-Runner
+          - message: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
+            steps:
+            - command: show controllers cpu-interface
+              description: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
+              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+              stepType: command-Runner
+          - message: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
+            steps:
+            - command: show platform hardware fed switch active qos queue stats internal cpu policer
+              description: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
+              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+              stepType: command-Runner
+          - message: Verify the device logs for CPU related event messages
+          - message: Check the release notes for known bugs, if it is known issue, check if SMU is available and apply on the switch
+          - message: Contact Cisco TAC World Wide – https://www.cisco.com/c/en/us/support/web/tsd-cisco-worldwide-contacts.html
+          additionalAttributes:
+          - key: managementIpAddr
+            value: 121.7.180.1
+          - key: platformType
+            value: Switches and Hubs
+          - key: floorId
+            value: fa08a067-807d-475b-83f8-139c616dbead
+          - key: _count
+            value: '405'
+          - key: areaName
+            value: Global/California
+          - key: scope
+            value: global
+          - key: floorName
+            value: Global/California/SJC24/Floor1
+          - key: siteType
+            value: floor
+          - key: deviceType
+            value: Cisco Catalyst 38xx stack-able ethernet switch
+          - key: severity
+            value: HIGH
+          - key: deviceUuid
+            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+          - key: deviceRole
+            value: ACCESS
+          - key: _suppression
+            value: '0'
+          - key: entityType
+            value: network_device
+          - key: deviceOS
+            value: 16.12.4
+          - key: nwDeviceName
+            value: assur-sw-23.cisco.com
+          - key: cpu
+            value: '4.0'
+          - key: eventUniqueId
+            value: 121.7.180.1
+          - key: entityId
+            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+          - key: deviceFamily
+            value: Switches and Hubs
+          - key: message
+            value: This Device is experiencing high CPU utilization
+          - key: priority
+            value: P3
+          - key: buildingId
+            value: f8d85686-9405-4791-a08f-7fb88c119320
+          - key: buildingName
+            value: Global/California/SJC24
+          - key: areaId
+            value: f5ec4526-20b9-4542-9486-fd906c05d7e3
+          - key: siteHierarchy
+            value: Global/California/SJC24/Floor1
+          - key: deviceModel
+            value: WS-C3850-24P-E
+          - key: category
+            value: Device
+          - key: status
+            value: active
+        version: '1.0'
+    IssuesQueryRequestExample3:
+      description: This request has `views` and `attributes` in addition to `filters`. They are used to specifiy which fields need to be included in the response. The default fields are always included. Any fileds which are not requested (except default) will not be part of response.
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: name
+          operator: in
+          value:
+          - ap_down
+          - ap_flap
+        - key: siteId
+          operator: eq
+          value: 243faba9-7f9e-4f2d-9914-97c2756754cb
+        views:
+        - site
+        - update
+        attributes:
+        - notes
+        - deviceType
+        page:
+          limit: 25
+          offset: 1
+          sortBy:
+          - name: mostRecentOccurredTime
+            order: desc
+    IssuesQueryRequestExample1:
+      description: This request has simple filters. The resulting query from this request is - get all issues whose `name` is *"ap_down"* OR *"ap_flap"* AND have `siteId` as *"243faba9-7f9e-4f2d-9914-97c2756754cb"*
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: name
+          operator: in
+          value:
+          - ap_down
+          - ap_flap
+        - key: siteId
+          operator: eq
+          value: 243faba9-7f9e-4f2d-9914-97c2756754cb
+        page:
+          limit: 25
+          offset: 1
+          sortBy:
+          - name: mostRecentOccurredTime
+            order: desc
+    IssuesQueryListResponseExample2:
+      description: This response has only selected fields. It has all default attributes and the attributes which are part of 'site' view.
+      value:
+        response:
+        - issueId: c5b7bf20-17e2-413f-81af-ff0304490cc9
+          name: switch_cpu_high
+          description: Network device "assur-sw-23.cisco.com" is experiencing high CPU utilization of 4%
+          summary: Network Device assur-sw-23.cisco.com is experiencing high CPU utilization
+          priority: P3
+          severity: high
+          category: device
+          entityType: network device
+          entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+          firstOccurredTime: 1711661100000
+          mostRecentOccurredTime: 1711661100000
+          status: active
+          isGlobal: true
+          siteId: fa08a067-807d-475b-83f8-139c616dbead
+          siteHierarchyId: /99d370e2-dad1-41c2-9730-e08f62cb53a0/f5ec4526-20b9-4542-9486-fd906c05d7e3/f8d85686-9405-4791-a08f-7fb88c119320/fa08a067-807d-475b-83f8-139c616dbead/
+          siteName: Floor1
+          siteHierarchy: Global/California/SJC24/Floor1
+        page:
+          limit: 10
+          offset: 1
+          count: 1
+          sortBy:
+          - name: entityId
+            order: asc
+        version: '1.0'
+    IssuesSummaryAnalyticsResponseExample2:
+      description: This response is for a request without groupBy. This gives total number of devices and sites having issues along with total number issues for given filters.
+      value:
+        version: '1.0'
+        response:
+          attributes: []
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 10
+          - name: siteId
+            function: distinctCount
+            value: 2
+          - name: deviceId
+            function: distinctCount
+            value: 3
+          groups: []
+        page:
+          limit: 100
+          offset: 1
+          count: 2
+          sortBy:
+          - name: issueId
+            function: distinctCount
+            order: desc
+    IssuesQueryListResponseExample1:
+      description: This response has only selected fields. It has all default attributes and the attributes which are part of 'site' view.
+      value:
+        response:
+        - issueId: c5b7bf20-17e2-413f-81af-ff0304490cc9
+          name: switch_cpu_high
+          description: Network device "assur-sw-23.cisco.com" is experiencing high CPU utilization of 4%
+          summary: Network Device assur-sw-23.cisco.com is experiencing high CPU utilization
+          priority: P3
+          severity: high
+          deviceType: access
+          deviceFamily: Switches and Hubs
+          category: device
+          entityType: network device
+          entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+          firstOccurredTime: 1711647900000
+          mostRecentOccurredTime: 1711647900000
+          status: active
+          isGlobal: true
+          siteId: fa08a067-807d-475b-83f8-139c616dbead
+          siteHierarchyId: /99d370e2-dad1-41c2-9730-e08f62cb53a0/f5ec4526-20b9-4542-9486-fd906c05d7e3/f8d85686-9405-4791-a08f-7fb88c119320/fa08a067-807d-475b-83f8-139c616dbead/
+          siteName: Floor1
+          siteHierarchy: Global/California/SJC24/Floor1
+          suggestedActions:
+          - message: Run embedded wireshark to see what (if any) traffic is being sent to the CPU.
+          - message: Verify configuration is compliant.
+          - message: Check the CPU history for the last 60sec, 60min, 72hours
+            steps:
+            - command: show proc cpu history
+              description: Check the CPU history for the last 60sec, 60min, 72hours
+              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+              stepType: command-Runner
+          - message: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
+            steps:
+            - command: show controllers cpu-interface
+              description: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
+              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+              stepType: command-Runner
+          - message: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
+            steps:
+            - command: show platform hardware fed switch active qos queue stats internal cpu policer
+              description: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
+              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+              stepType: command-Runner
+          - message: Verify the device logs for CPU related event messages
+          - message: Check the release notes for known bugs, if it is known issue, check if SMU is available and apply on the switch
+          - message: Contact Cisco TAC World Wide – https://www.cisco.com/c/en/us/support/web/tsd-cisco-worldwide-contacts.html
+          additionalAttributes:
+          - key: managementIpAddr
+            value: 121.7.180.1
+          - key: platformType
+            value: Switches and Hubs
+          - key: floorId
+            value: fa08a067-807d-475b-83f8-139c616dbead
+          - key: _count
+            value: '405'
+          - key: areaName
+            value: Global/California
+          - key: scope
+            value: global
+          - key: floorName
+            value: Global/California/SJC24/Floor1
+          - key: siteType
+            value: floor
+          - key: deviceType
+            value: Cisco Catalyst 38xx stack-able ethernet switch
+          - key: severity
+            value: HIGH
+          - key: deviceUuid
+            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+          - key: deviceRole
+            value: ACCESS
+          - key: _suppression
+            value: '0'
+          - key: entityType
+            value: network_device
+          - key: deviceOS
+            value: 16.12.4
+          - key: nwDeviceName
+            value: assur-sw-23.cisco.com
+          - key: cpu
+            value: '4.0'
+          - key: eventUniqueId
+            value: 121.7.180.1
+          - key: entityId
+            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
+          - key: deviceFamily
+            value: Switches and Hubs
+          - key: message
+            value: This Device is experiencing high CPU utilization
+          - key: priority
+            value: P3
+          - key: buildingId
+            value: f8d85686-9405-4791-a08f-7fb88c119320
+          - key: buildingName
+            value: Global/California/SJC24
+          - key: areaId
+            value: f5ec4526-20b9-4542-9486-fd906c05d7e3
+          - key: siteHierarchy
+            value: Global/California/SJC24/Floor1
+          - key: deviceModel
+            value: WS-C3850-24P-E
+          - key: category
+            value: Device
+          - key: status
+            value: active
+        page:
+          limit: 10
+          offset: 1
+          count: 1
+          sortBy:
+          - name: entityId
+            order: asc
+        version: '1.0'
+    IssuesTopNAnalyticsResponseExample2:
+      description: This response is for a request which has 2 elements in `groupBy` - [*"priority"*, *"floorId"*]
+      value:
+        version: '1.0'
+        response:
+        - id: priority=p1_floorId=99d370e2-dad1-41c2-9730-e08f62cb53a0
+          attributes:
+          - name: priority
+            value: P1
+          - name: floorId
+            value: 37df40e2-dad1-41c2-9730-e08f62cb52a0
+          - name: siteHierarchy
+            value: Global/California/SJC24/Floor1
+          - name: siteHierarchyId
+            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/5aec4526-20b9-4542-9486-fd906c05d766/37df40e2-dad1-41c2-9730-e08f62cb52a0
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 14
+        - id: priority=p2_areaId=99d370e2-dad1-41c2-9730-e08f62cb53a0
+          attributes:
+          - name: priority
+            value: P2
+          - name: floorId
+            value: 37df40e2-dad1-41c2-9730-e08f62cb52a0
+          - name: siteHierarchy
+            value: Global/California/SJC24/Floor1
+          - name: siteHierarchyId
+            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/5aec4526-20b9-4542-9486-fd906c05d766/37df40e2-dad1-41c2-9730-e08f62cb52a0
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 9
+        - id: priority=p1_floorId=f8d85686-9405-4791-a08f-7fb88c119320
+          attributes:
+          - name: priority
+            value: P1
+          - name: floorId
+            value: f8d85686-9405-4791-a08f-7fb88c119320
+          - name: siteHierarchy
+            value: Global/California/SJC-24/Floor3
+          - name: siteHierarchyId
+            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/f5ec4526-20b9-4542-9486-fd906c05d7e3/76a370e2-dad1-41c2-9730-e08f62cb58fe/f8d85686-9405-4791-a08f-7fb88c119320/
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 10
+        - id: priority=p2_floorId=f8d85686-9405-4791-a08f-7fb88c119320
+          attributes:
+          - name: priority
+            value: P2
+          - name: floorId
+            value: SJC-24
+          - name: siteHierarchy
+            value: Global/California/SJC-24/Floor3
+          - name: siteHierarchyId
+            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/f5ec4526-20b9-4542-9486-fd906c05d7e3/76a370e2-dad1-41c2-9730-e08f62cb58fe/f8d85686-9405-4791-a08f-7fb88c119320/
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 6
+        - id: priority=p1_floorId=c5b7bf20-17e2-413f-81af-ff0304490cc9
+          attributes:
+          - name: priority
+            value: P1
+          - name: floorId
+            value: c5b7bf20-17e2-413f-81af-ff0304490cc9
+          - name: siteHierarchy
+            value: Global/California/SJC-15/Floor2
+          - name: siteHierarchyId
+            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/88ec4526-20b9-4542-9486-fd906c05d30b/c5b7bf20-17e2-413f-81af-ff0304490cc9/
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 4
+        - id: priority=p2_floorId=c5b7bf20-17e2-413f-81af-ff0304490cc9
+          attributes:
+          - name: priority
+            value: P2
+          - name: floorId
+            value: c5b7bf20-17e2-413f-81af-ff0304490cc9
+          - name: siteHierarchy
+            value: Global/California/SJC-15/Floor2
+          - name: siteHierarchyId
+            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/88ec4526-20b9-4542-9486-fd906c05d30b/c5b7bf20-17e2-413f-81af-ff0304490cc9/
+          aggregateAttributes:
+          - name: issueId
+            function: distinctCount
+            value: 3
+        page:
+          limit: 6
+          offset: 1
+          count: 10
+          sortBy:
+          - name: name
+            order: asc
     IssuesSummaryAnalyticsRequestExample1:
       value:
         startTime: 1705348800000
@@ -3164,749 +3904,30 @@ components:
           offset: 1
           count: 100
           timestampOrder: asc
-    IssuesTrendAnalyticsResponseExample3:
-      description: This response is for a request with first and last occurred time in attributes.
-      value:
-        version: '1.0'
-        response:
-          groups:
-          - id: name=OSPF_Down_category=connectivity_deviceType=access_floorId=b1524f5e-bc0f-4dab-a1ef-e51c09df256c
-            attributes:
-            - name: name
-              value: OSPF_Down
-            - name: category
-              value: connectivity
-            - name: deviceType
-              value: access
-            - name: floorId
-              value: /c280048b-33fd-4cd0-9b66-a0654bea5332/4be66ba0-2520-458b-9c78-f8ac6d650000/fdd50e86-3309-4301-9125-fa8edb664d88/b1524f5e-bc0f-4dab-a1ef-e51c09df256c/
-            - name: firstOccurredTime
-              value: '1726668883000'
-            - name: mostRecentOccurredTime
-              value: '1726697683000'
-            aggregateAttributes:
-            - name: issueId
-              function: distinctCount
-              value: 30
-            - name: deviceId
-              function: distinctCount
-              value: 6
-          - id: name=OSPF_Down_category=connectivity_deviceType=border router_floorId=d40da2f9-1dd8-4096-a0da-e5ee287e9127
-            attributes:
-            - name: name
-              value: OSPF_Down
-            - name: category
-              value: connectivity
-            - name: deviceType
-              value: border router
-            - name: floorId
-              value: /c280048b-33fd-4cd0-9b66-a0654bea5332/4be66ba0-2520-458b-9c78-f8ac6d650000/fdd50e86-3309-4301-9125-fa8edb664d88/d40da2f9-1dd8-4096-a0da-e5ee287e9127/
-            - name: firstOccurredTime
-              value: '1726438483000'
-            - name: mostRecentOccurredTime
-              value: '1726445683000'
-            aggregateAttributes:
-            - name: issueId
-              function: distinctCount
-              value: 41
-            - name: deviceId
-              function: distinctCount
-              value: 6
-          - id: name=OSPF_Down_category=connectivity_deviceType=core_floorId=51181c9c-7713-480d-8b87-5d61d24ecd56
-            attributes:
-            - name: name
-              value: OSPF_Down
-            - name: category
-              value: connectivity
-            - name: deviceType
-              value: core
-            - name: floorId
-              value: /c280048b-33fd-4cd0-9b66-a0654bea5332/4be66ba0-2520-458b-9c78-f8ac6d650000/fdd50e86-3309-4301-9125-fa8edb664d88/51181c9c-7713-480d-8b87-5d61d24ecd56/
-            - name: firstOccurredTime
-              value: '1726272883000'
-            - name: mostRecentOccurredTime
-              value: '1726275283000'
-            aggregateAttributes:
-            - name: issueId
-              function: distinctCount
-              value: 12
-            - name: deviceId
-              function: distinctCount
-              value: 1
-        page:
-          limit: 500
-          offset: 1
-          count: 3
-          sortBy:
-          - name: name
-            order: asc
-    IssuesTopNAnalyticsResponseExample1:
-      description: This response is for a request which has one element in `groupBy` - [*"name"*] and does not have `attributes`. This response is for top issue names by their count.
-      value:
-        version: '1.0'
-        response:
-        - id: name=ap_down
-          attributes:
-          - name: name
-            value: ap_down
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 14
-        - id: name=device_time_drift
-          attributes:
-          - name: name
-            value: device_time_drift
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 9
-        - id: name=global_ap_disconnect_trigger
-          attributes:
-          - name: name
-            value: global_ap_disconnect_trigger
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 10
-        - id: name=ap_flap
-          attributes:
-          - name: name
-            value: ap_flap
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 6
-        page:
-          limit: 10
-          offset: 1
-          count: 4
-          sortBy:
-          - name: name
-            order: asc
-    IssuesQueryResponseExample1_2:
-      description: This response has all possible fields. This is default behavior when specific `views` or `attributes` are not requested
-      value:
-        response:
-          issueId: c5b7bf20-17e2-413f-81af-ff0304490cc9
-          name: switch_cpu_high
-          description: Network device "assur-sw-23.cisco.com" is experiencing high CPU utilization of 4%
-          summary: Network Device assur-sw-23.cisco.com is experiencing high CPU utilization
-          priority: P3
-          severity: high
-          deviceType: access
-          deviceFamily: Switches and Hubs
-          category: device
-          entityType: network device
-          entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-          firstOccurredTime: 1711647900000
-          mostRecentOccurredTime: 1711647900000
-          status: active
-          isGlobal: true
-          siteId: fa08a067-807d-475b-83f8-139c616dbead
-          siteHierarchyId: /99d370e2-dad1-41c2-9730-e08f62cb53a0/f5ec4526-20b9-4542-9486-fd906c05d7e3/f8d85686-9405-4791-a08f-7fb88c119320/fa08a067-807d-475b-83f8-139c616dbead/
-          siteName: Floor1
-          siteHierarchy: Global/California/SJC24/Floor1
-          suggestedActions:
-          - message: Run embedded wireshark to see what (if any) traffic is being sent to the CPU.
-          - message: Verify configuration is compliant.
-          - message: Check the CPU history for the last 60sec, 60min, 72hours
-            steps:
-            - command: show proc cpu history
-              description: Check the CPU history for the last 60sec, 60min, 72hours
-              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-              stepType: command-Runner
-          - message: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
-            steps:
-            - command: show controllers cpu-interface
-              description: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
-              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-              stepType: command-Runner
-          - message: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
-            steps:
-            - command: show platform hardware fed switch active qos queue stats internal cpu policer
-              description: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
-              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-              stepType: command-Runner
-          - message: Verify the device logs for CPU related event messages
-          - message: Check the release notes for known bugs, if it is known issue, check if SMU is available and apply on the switch
-          - message: Contact Cisco TAC World Wide – https://www.cisco.com/c/en/us/support/web/tsd-cisco-worldwide-contacts.html
-          additionalAttributes:
-          - key: managementIpAddr
-            value: 121.7.180.1
-          - key: platformType
-            value: Switches and Hubs
-          - key: floorId
-            value: fa08a067-807d-475b-83f8-139c616dbead
-          - key: _count
-            value: '405'
-          - key: areaName
-            value: Global/California
-          - key: scope
-            value: global
-          - key: floorName
-            value: Global/California/SJC24/Floor1
-          - key: siteType
-            value: floor
-          - key: deviceType
-            value: Cisco Catalyst 38xx stack-able ethernet switch
-          - key: severity
-            value: HIGH
-          - key: deviceUuid
-            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-          - key: deviceRole
-            value: ACCESS
-          - key: _suppression
-            value: '0'
-          - key: entityType
-            value: network_device
-          - key: deviceOS
-            value: 16.12.4
-          - key: nwDeviceName
-            value: assur-sw-23.cisco.com
-          - key: cpu
-            value: '4.0'
-          - key: eventUniqueId
-            value: 121.7.180.1
-          - key: entityId
-            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-          - key: deviceFamily
-            value: Switches and Hubs
-          - key: message
-            value: This Device is experiencing high CPU utilization
-          - key: priority
-            value: P3
-          - key: buildingId
-            value: f8d85686-9405-4791-a08f-7fb88c119320
-          - key: buildingName
-            value: Global/California/SJC24
-          - key: areaId
-            value: f5ec4526-20b9-4542-9486-fd906c05d7e3
-          - key: siteHierarchy
-            value: Global/California/SJC24/Floor1
-          - key: deviceModel
-            value: WS-C3850-24P-E
-          - key: category
-            value: Device
-          - key: status
-            value: active
-        version: '1.0'
-    IssuesTrendAnalyticsRequestExample2:
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        trendInterval: 15MIN
-        groupBy: []
-        filters:
-        - key: priority
-          operator: eq
-          value: P1
-        attributes: []
-        aggregateAttributes:
-        - name: deviceId
-          function: distinctCount
-        page:
-          limit: 100
-          offset: 1
-          timestampOrder: asc
-    IssuesQueryRequestExample3:
-      description: This request has `views` and `attributes` in addition to `filters`. They are used to specifiy which fields need to be included in the response. The default fields are always included. Any fileds which are not requested (except default) will not be part of response.
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: name
-          operator: in
-          value:
-          - ap_down
-          - ap_flap
-        - key: siteId
-          operator: eq
-          value: 243faba9-7f9e-4f2d-9914-97c2756754cb
-        views:
-        - site
-        - update
-        attributes:
-        - notes
-        - deviceType
-        page:
-          limit: 25
-          offset: 1
-          sortBy:
-          - name: mostRecentOccurredTime
-            order: desc
-    IssuesTopNAnalyticsRequestExample2:
-      description: This request is to get top 50 site & priority combinations by their issue count
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        topN: 50
-        groupBy:
-        - priority
-        - floorId
-        filters:
-        - key: deviceType
-          operator: eq
-          value: access
-        attributes:
-        - siteHierarchy
-        - siteHierarchyId
-        aggregateAttributes:
-        - name: issueId
-          function: distinctCount
-        page:
-          limit: 100
-          offset: 1
-          sortBy:
-          - name: issueId
-            function: distinctCount
-            order: desc
-    IssuesTopNAnalyticsRequestExample1:
-      description: This request is to get top 10 issues by their count.
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        topN: 10
-        groupBy:
-        - name
-        filters:
-        - key: siteId
-          operator: eq
-          value: fa08a067-807d-475b-83f8-139c616dbead
-        aggregateAttributes:
-        - name: issueId
-          function: distinctCount
-        page:
-          limit: 10
-          offset: 1
-          sortBy:
-          - name: issueId
-            function: distinctCount
-            order: desc
-    IssuesSummaryAnalyticsResponseExample1:
-      description: This response is for a request with groupBy
-      value:
-        version: '1.0'
-        response:
-          attributes: []
-          aggregateAttributes: []
-          groups:
-          - id: floorId=f5ec4526-20b9-4542-9486-fd906c05d7e3
-            attributes:
-            - name: floorId
-              value: c5b7bf20-17e2-413f-81af-ff0304490cc9
-            - name: siteHierarchy
-              value: Global/California/SJC-15/Floor2
-            - name: siteHierarchyId
-              value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/88ec4526-20b9-4542-9486-fd906c05d30b/c5b7bf20-17e2-413f-81af-ff0304490cc9/
-            aggregateAttributes:
-            - name: issueId
-              function: distinctCount
-              value: 14
-          - id: floorId=f8d85686-9405-4791-a08f-7fb88c119320
-            attributes:
-            - name: floorId
-              value: f8d85686-9405-4791-a08f-7fb88c119320
-            - name: siteHierarchy
-              value: Global/California/SJC-24/Floor3
-            - name: siteHierarchyId
-              value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/f5ec4526-20b9-4542-9486-fd906c05d7e3/76a370e2-dad1-41c2-9730-e08f62cb58fe/f8d85686-9405-4791-a08f-7fb88c119320/
-            aggregateAttributes:
-            - name: issueId
-              function: distinctCount
-              value: 6
-        page:
-          limit: 100
-          offset: 1
-          count: 2
-          sortBy:
-          - name: issueId
-            function: distinctCount
-            order: desc
-    IssuesTrendAnalyticsRequestExample1:
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        trendInterval: 15MIN
-        groupBy:
-        - priority
-        filters:
-        - key: siteId
-          operator: eq
-          value: fa08a067-807d-475b-83f8-139c616dbead
-        attributes: []
-        aggregateAttributes:
-        - name: issueId
-          function: distinctCount
-        page:
-          limit: 100
-          offset: 1
-          timestampOrder: asc
-    IssuesQueryListResponseExample2:
-      description: This response has only selected fields. It has all default attributes and the attributes which are part of 'site' view.
-      value:
-        response:
-        - issueId: c5b7bf20-17e2-413f-81af-ff0304490cc9
-          name: switch_cpu_high
-          description: Network device "assur-sw-23.cisco.com" is experiencing high CPU utilization of 4%
-          summary: Network Device assur-sw-23.cisco.com is experiencing high CPU utilization
-          priority: P3
-          severity: high
-          category: device
-          entityType: network device
-          entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-          firstOccurredTime: 1711661100000
-          mostRecentOccurredTime: 1711661100000
-          status: active
-          isGlobal: true
-          siteId: fa08a067-807d-475b-83f8-139c616dbead
-          siteHierarchyId: /99d370e2-dad1-41c2-9730-e08f62cb53a0/f5ec4526-20b9-4542-9486-fd906c05d7e3/f8d85686-9405-4791-a08f-7fb88c119320/fa08a067-807d-475b-83f8-139c616dbead/
-          siteName: Floor1
-          siteHierarchy: Global/California/SJC24/Floor1
-        page:
-          limit: 10
-          offset: 1
-          count: 1
-          sortBy:
-          - name: entityId
-            order: asc
-        version: '1.0'
-    IssuesQueryRequestExample2:
-      description: This request has complex nested filters. The resulting query from this request is - get all issues whose `priority` is *"P1"* AND either `siteId` is *"243faba9-7f9e-4f2d-9914-97c2756754cb"* OR `entityId` is *"10:F9:20:3A:B4:A0"*
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: priority
-          operator: eq
-          value: P1
-        - logicalOperator: or
-          filters:
-          - key: siteId
-            operator: eq
-            value: 243faba9-7f9e-4f2d-9914-97c2756754cb
-          - key: entityId
-            operator: eq
-            value: 10:F9:20:3A:B4:A0
-        page:
-          limit: 25
-          offset: 1
-          sortBy:
-          - name: mostRecentOccurredTime
-            order: desc
-    IssuesTrendAnalyticsResponseExample2:
-      description: This response is for a request without groupBy. This is trend of number of devices having issues.
-      value:
-        version: '1.0'
-        response:
-        - timestamp: 1710486000000
-          attributes: []
-          aggregateAttributes:
-          - name: deviceId
-            function: distinctCount
-            value: 13
-          groups: []
-        - timestamp: 1710486900000
-          attributes: []
-          aggregateAttributes:
-          - name: deviceId
-            function: distinctCount
-            value: 4
-          groups: []
-        - timestamp: 1710487800000
-          attributes: []
-          aggregateAttributes:
-          - name: deviceId
-            function: distinctCount
-            value: 10
-          groups: []
-        page:
-          limit: 5
-          offset: 1
-          count: 100
-          timestampOrder: asc
-    IssuesTopNAnalyticsResponseExample2:
-      description: This response is for a request which has 2 elements in `groupBy` - [*"priority"*, *"floorId"*]
-      value:
-        version: '1.0'
-        response:
-        - id: priority=p1_floorId=99d370e2-dad1-41c2-9730-e08f62cb53a0
-          attributes:
-          - name: priority
-            value: P1
-          - name: floorId
-            value: 37df40e2-dad1-41c2-9730-e08f62cb52a0
-          - name: siteHierarchy
-            value: Global/California/SJC24/Floor1
-          - name: siteHierarchyId
-            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/5aec4526-20b9-4542-9486-fd906c05d766/37df40e2-dad1-41c2-9730-e08f62cb52a0
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 14
-        - id: priority=p2_areaId=99d370e2-dad1-41c2-9730-e08f62cb53a0
-          attributes:
-          - name: priority
-            value: P2
-          - name: floorId
-            value: 37df40e2-dad1-41c2-9730-e08f62cb52a0
-          - name: siteHierarchy
-            value: Global/California/SJC24/Floor1
-          - name: siteHierarchyId
-            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/5aec4526-20b9-4542-9486-fd906c05d766/37df40e2-dad1-41c2-9730-e08f62cb52a0
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 9
-        - id: priority=p1_floorId=f8d85686-9405-4791-a08f-7fb88c119320
-          attributes:
-          - name: priority
-            value: P1
-          - name: floorId
-            value: f8d85686-9405-4791-a08f-7fb88c119320
-          - name: siteHierarchy
-            value: Global/California/SJC-24/Floor3
-          - name: siteHierarchyId
-            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/f5ec4526-20b9-4542-9486-fd906c05d7e3/76a370e2-dad1-41c2-9730-e08f62cb58fe/f8d85686-9405-4791-a08f-7fb88c119320/
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 10
-        - id: priority=p2_floorId=f8d85686-9405-4791-a08f-7fb88c119320
-          attributes:
-          - name: priority
-            value: P2
-          - name: floorId
-            value: SJC-24
-          - name: siteHierarchy
-            value: Global/California/SJC-24/Floor3
-          - name: siteHierarchyId
-            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/f5ec4526-20b9-4542-9486-fd906c05d7e3/76a370e2-dad1-41c2-9730-e08f62cb58fe/f8d85686-9405-4791-a08f-7fb88c119320/
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 6
-        - id: priority=p1_floorId=c5b7bf20-17e2-413f-81af-ff0304490cc9
-          attributes:
-          - name: priority
-            value: P1
-          - name: floorId
-            value: c5b7bf20-17e2-413f-81af-ff0304490cc9
-          - name: siteHierarchy
-            value: Global/California/SJC-15/Floor2
-          - name: siteHierarchyId
-            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/88ec4526-20b9-4542-9486-fd906c05d30b/c5b7bf20-17e2-413f-81af-ff0304490cc9/
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 4
-        - id: priority=p2_floorId=c5b7bf20-17e2-413f-81af-ff0304490cc9
-          attributes:
-          - name: priority
-            value: P2
-          - name: floorId
-            value: c5b7bf20-17e2-413f-81af-ff0304490cc9
-          - name: siteHierarchy
-            value: Global/California/SJC-15/Floor2
-          - name: siteHierarchyId
-            value: /f5ec4526-20b9-4542-9486-fd906c05d7e3/99d370e2-dad1-41c2-9730-e08f62cb53a0/88ec4526-20b9-4542-9486-fd906c05d30b/c5b7bf20-17e2-413f-81af-ff0304490cc9/
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 3
-        page:
-          limit: 6
-          offset: 1
-          count: 10
-          sortBy:
-          - name: name
-            order: asc
-    IssuesQueryListResponseExample1:
-      description: This response has only selected fields. It has all default attributes and the attributes which are part of 'site' view.
-      value:
-        response:
-        - issueId: c5b7bf20-17e2-413f-81af-ff0304490cc9
-          name: switch_cpu_high
-          description: Network device "assur-sw-23.cisco.com" is experiencing high CPU utilization of 4%
-          summary: Network Device assur-sw-23.cisco.com is experiencing high CPU utilization
-          priority: P3
-          severity: high
-          deviceType: access
-          deviceFamily: Switches and Hubs
-          category: device
-          entityType: network device
-          entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-          firstOccurredTime: 1711647900000
-          mostRecentOccurredTime: 1711647900000
-          status: active
-          isGlobal: true
-          siteId: fa08a067-807d-475b-83f8-139c616dbead
-          siteHierarchyId: /99d370e2-dad1-41c2-9730-e08f62cb53a0/f5ec4526-20b9-4542-9486-fd906c05d7e3/f8d85686-9405-4791-a08f-7fb88c119320/fa08a067-807d-475b-83f8-139c616dbead/
-          siteName: Floor1
-          siteHierarchy: Global/California/SJC24/Floor1
-          suggestedActions:
-          - message: Run embedded wireshark to see what (if any) traffic is being sent to the CPU.
-          - message: Verify configuration is compliant.
-          - message: Check the CPU history for the last 60sec, 60min, 72hours
-            steps:
-            - command: show proc cpu history
-              description: Check the CPU history for the last 60sec, 60min, 72hours
-              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-              stepType: command-Runner
-          - message: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
-            steps:
-            - command: show controllers cpu-interface
-              description: Check for the CPU queue with the highest hits/drops to determine type of traffic sent to CPU (if applicable)
-              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-              stepType: command-Runner
-          - message: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
-            steps:
-            - command: show platform hardware fed switch active qos queue stats internal cpu policer
-              description: Check for the CoPP class with the highest hits/drops in case the conform rate is set too high
-              entityId: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-              stepType: command-Runner
-          - message: Verify the device logs for CPU related event messages
-          - message: Check the release notes for known bugs, if it is known issue, check if SMU is available and apply on the switch
-          - message: Contact Cisco TAC World Wide – https://www.cisco.com/c/en/us/support/web/tsd-cisco-worldwide-contacts.html
-          additionalAttributes:
-          - key: managementIpAddr
-            value: 121.7.180.1
-          - key: platformType
-            value: Switches and Hubs
-          - key: floorId
-            value: fa08a067-807d-475b-83f8-139c616dbead
-          - key: _count
-            value: '405'
-          - key: areaName
-            value: Global/California
-          - key: scope
-            value: global
-          - key: floorName
-            value: Global/California/SJC24/Floor1
-          - key: siteType
-            value: floor
-          - key: deviceType
-            value: Cisco Catalyst 38xx stack-able ethernet switch
-          - key: severity
-            value: HIGH
-          - key: deviceUuid
-            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-          - key: deviceRole
-            value: ACCESS
-          - key: _suppression
-            value: '0'
-          - key: entityType
-            value: network_device
-          - key: deviceOS
-            value: 16.12.4
-          - key: nwDeviceName
-            value: assur-sw-23.cisco.com
-          - key: cpu
-            value: '4.0'
-          - key: eventUniqueId
-            value: 121.7.180.1
-          - key: entityId
-            value: c30cd70d-6665-4985-b27c-0f2e3c00edd1
-          - key: deviceFamily
-            value: Switches and Hubs
-          - key: message
-            value: This Device is experiencing high CPU utilization
-          - key: priority
-            value: P3
-          - key: buildingId
-            value: f8d85686-9405-4791-a08f-7fb88c119320
-          - key: buildingName
-            value: Global/California/SJC24
-          - key: areaId
-            value: f5ec4526-20b9-4542-9486-fd906c05d7e3
-          - key: siteHierarchy
-            value: Global/California/SJC24/Floor1
-          - key: deviceModel
-            value: WS-C3850-24P-E
-          - key: category
-            value: Device
-          - key: status
-            value: active
-        page:
-          limit: 10
-          offset: 1
-          count: 1
-          sortBy:
-          - name: entityId
-            order: asc
-        version: '1.0'
-    IssuesQueryRequestExample1:
-      description: This request has simple filters. The resulting query from this request is - get all issues whose `name` is *"ap_down"* OR *"ap_flap"* AND have `siteId` as *"243faba9-7f9e-4f2d-9914-97c2756754cb"*
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: name
-          operator: in
-          value:
-          - ap_down
-          - ap_flap
-        - key: siteId
-          operator: eq
-          value: 243faba9-7f9e-4f2d-9914-97c2756754cb
-        page:
-          limit: 25
-          offset: 1
-          sortBy:
-          - name: mostRecentOccurredTime
-            order: desc
-    IssuesSummaryAnalyticsRequestExample2:
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        groupBy: []
-        filters:
-        - key: deviceType
-          operator: eq
-          value: access
-        attributes: []
-        aggregateAttributes:
-        - name: issueId
-          function: distinctCount
-        - name: siteId
-          function: distinctCount
-        - name: deviceId
-          function: distinctCount
-        page:
-          limit: 10
-          offset: 1
-          sortBy:
-          - name: issueId
-            function: distinctCount
-            order: desc
-    IssuesSummaryAnalyticsResponseExample2:
-      description: This response is for a request without groupBy. This gives total number of devices and sites having issues along with total number issues for given filters.
-      value:
-        version: '1.0'
-        response:
-          attributes: []
-          aggregateAttributes:
-          - name: issueId
-            function: distinctCount
-            value: 10
-          - name: siteId
-            function: distinctCount
-            value: 2
-          - name: deviceId
-            function: distinctCount
-            value: 3
-          groups: []
-        page:
-          limit: 100
-          offset: 1
-          count: 2
-          sortBy:
-          - name: issueId
-            function: distinctCount
-            order: desc
   responses:
+    IssuesSummaryAnalyticsResponseModel:
+      description: Issues Summary Analytics Response
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/IssuesSummaryAnalyticsResponseModel'
+          examples:
+            Response with groupBy:
+              $ref: '#/components/examples/IssuesSummaryAnalyticsResponseExample1'
+            Response without groupBy:
+              $ref: '#/components/examples/IssuesSummaryAnalyticsResponseExample2'
+            Response with first and last occurred time:
+              $ref: '#/components/examples/IssuesTrendAnalyticsResponseExample3'
     4XX:
       description: Client Error Responses - The client request caused the error.
+    2XX:
+      description: Successful Responses - The server received the client request, understood it, and accepted it.
+    '400':
+      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     IssueDetailResponseModel:
       description: Response containing issue details of a given issue
       content:
@@ -3918,6 +3939,42 @@ components:
               $ref: '#/components/examples/IssuesQueryResponseExample1_2'
             Response with requested fields:
               $ref: '#/components/examples/IssuesQueryResponseExample2'
+    IssuesTrendAnalyticsResponseModel:
+      description: Issues Trend Analytics Response
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/IssuesTrendAnalyticsResponseModel'
+          examples:
+            Response with groupBy:
+              $ref: '#/components/examples/IssuesTrendAnalyticsResponseExample1'
+            Response without groupBy:
+              $ref: '#/components/examples/IssuesTrendAnalyticsResponseExample2'
+    IssueDetailListResponseModel:
+      description: Response containing issues details for given filters
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/IssueDetailListResponseModel'
+          examples:
+            Response with all fields:
+              $ref: '#/components/examples/IssuesQueryListResponseExample1'
+            Response with requested fields:
+              $ref: '#/components/examples/IssuesQueryListResponseExample2'
+    CountIntegerResponse:
+      description: Reponse object containing total count of the records after applying requested filters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CountIntegerResponse'
+    3XX:
+      description: Redirection Messages - The client must take additional action to complete the request.
+    5XX:
+      description: Server Error Responses - The server failed to fulfill the request.
+    defaultError:
+      description: Unexpected Error
+    1XX:
+      description: Informational Responses - The server received the request and sent an informational response.
     IssuesTopNAnalyticsResponseModel:
       description: Issues Top N Analytics Response
       content:
@@ -3935,69 +3992,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    IssueDetailListResponseModel:
-      description: Response containing issues details for given filters
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/IssueDetailListResponseModel'
-          examples:
-            Response with all fields:
-              $ref: '#/components/examples/IssuesQueryListResponseExample1'
-            Response with requested fields:
-              $ref: '#/components/examples/IssuesQueryListResponseExample2'
-    2XX:
-      description: Successful Responses - The server received the client request, understood it, and accepted it.
-    IssuesTrendAnalyticsResponseModel:
-      description: Issues Trend Analytics Response
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/IssuesTrendAnalyticsResponseModel'
-          examples:
-            Response with groupBy:
-              $ref: '#/components/examples/IssuesTrendAnalyticsResponseExample1'
-            Response without groupBy:
-              $ref: '#/components/examples/IssuesTrendAnalyticsResponseExample2'
-    5XX:
-      description: Server Error Responses - The server failed to fulfill the request.
-    '400':
-      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    1XX:
-      description: Informational Responses - The server received the request and sent an informational response.
     '500':
       description: The server could not fulfill the request due to internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    defaultError:
-      description: Unexpected Error
-    CountIntegerResponse:
-      description: Reponse object containing total count of the records after applying requested filters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CountIntegerResponse'
-    3XX:
-      description: Redirection Messages - The client must take additional action to complete the request.
-    IssuesSummaryAnalyticsResponseModel:
-      description: Issues Summary Analytics Response
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/IssuesSummaryAnalyticsResponseModel'
-          examples:
-            Response with groupBy:
-              $ref: '#/components/examples/IssuesSummaryAnalyticsResponseExample1'
-            Response without groupBy:
-              $ref: '#/components/examples/IssuesSummaryAnalyticsResponseExample2'
-            Response with first and last occurred time:
-              $ref: '#/components/examples/IssuesTrendAnalyticsResponseExample3'
 x-refined-from:
 - cisco-catalyst-center-issues-lifecycle-openapi.yml
 - cisco-catalyst-center-issues-list-openapi.yml
