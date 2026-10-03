@@ -558,93 +558,137 @@ paths:
         default:
           description: Unexpected Error
 components:
+  examples:
+    TransitNetworkResponseExample1:
+      summary: Virtual Network Summary response example
+      value:
+        response:
+          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+          name: transit_1
+          controlPlaneCount: 2
+          transitType: SD-TRANSIT
+          fabricSitesCount: 2
+          goodHealthPercentage: 40
+          goodHealthDeviceCount: 2
+          totalDeviceCount: 5
+          poorHealthDeviceCount: 2
+          fairHealthDeviceCount: 1
+          transitControlPlaneHealthPercentage: 60
+          transitControlPlaneTotalDeviceCount: 5
+          transitControlPlaneGoodHealthDeviceCount: 3
+          transitControlPlanePoorHealthDeviceCount: 1
+          transitControlPlaneFairHealthDeviceCount: 1
+          transitServicesHealthPercentage: 80
+          transitServicesTotalDeviceCount: 5
+          transitServicesGoodHealthDeviceCount: 4
+          transitServicesPoorHealthDeviceCount: 0
+          transitServicesFairHealthDeviceCount: 1
+          pubsubTransitHealthPercentage: 60
+          pubsubTransitTotalDeviceCount: 5
+          pubsubTransitGoodHealthDeviceCount: 3
+          pubsubTransitPoorHealthDeviceCount: 1
+          pubsubTransitFairHealthDeviceCount: 1
+          lispTransitHealthPercentage: 80
+          lispTransitTotalDeviceCount: 5
+          lispTransitGoodHealthDeviceCount: 4
+          lispTransitPoorHealthDeviceCount: 0
+          lispTransitFairHealthDeviceCount: 1
+          internetAvailTransitHealthPercentage: 60
+          internetAvailTransitTotalDeviceCount: 5
+          internetAvailTransitGoodHealthDeviceCount: 3
+          internetAvailTransitPoorHealthDeviceCount: 1
+          internetAvailTransitFairHealthDeviceCount: 1
+          bgpTcpHealthPercentage: 60
+          bgpTcpTotalDeviceCount: 5
+          bgpTcpGoodHealthDeviceCount: 3
+          bgpTcpPoorHealthDeviceCount: 1
+          bgpTcpFairHealthDeviceCount: 1
+    TransitNetworksResponseExample1:
+      summary: Virtual Network Summary response example
+      value:
+        response:
+        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+          name: transit_1
+          controlPlaneCount: 2
+          transitType: SD-TRANSIT
+          fabricSitesCount: 2
+          goodHealthPercentage: 40
+          goodHealthDeviceCount: 2
+          totalDeviceCount: 5
+          poorHealthDeviceCount: 2
+          fairHealthDeviceCount: 1
+          transitControlPlaneHealthPercentage: 60
+          transitControlPlaneTotalDeviceCount: 5
+          transitControlPlaneGoodHealthDeviceCount: 3
+          transitControlPlanePoorHealthDeviceCount: 1
+          transitControlPlaneFairHealthDeviceCount: 1
+          transitServicesHealthPercentage: 80
+          transitServicesTotalDeviceCount: 5
+          transitServicesGoodHealthDeviceCount: 4
+          transitServicesPoorHealthDeviceCount: 0
+          transitServicesFairHealthDeviceCount: 1
+          pubsubTransitHealthPercentage: 60
+          pubsubTransitTotalDeviceCount: 5
+          pubsubTransitGoodHealthDeviceCount: 3
+          pubsubTransitPoorHealthDeviceCount: 1
+          pubsubTransitFairHealthDeviceCount: 1
+          lispTransitHealthPercentage: 80
+          lispTransitTotalDeviceCount: 5
+          lispTransitGoodHealthDeviceCount: 4
+          lispTransitPoorHealthDeviceCount: 0
+          lispTransitFairHealthDeviceCount: 1
+          internetAvailTransitHealthPercentage: 60
+          internetAvailTransitTotalDeviceCount: 5
+          internetAvailTransitGoodHealthDeviceCount: 3
+          internetAvailTransitPoorHealthDeviceCount: 1
+          internetAvailTransitFairHealthDeviceCount: 1
+          bgpTcpHealthPercentage: 60
+          bgpTcpTotalDeviceCount: 5
+          bgpTcpGoodHealthDeviceCount: 3
+          bgpTcpPoorHealthDeviceCount: 1
+          bgpTcpFairHealthDeviceCount: 1
+    TransitNetworkTrendExample1:
+      summary: Transit Network health trend response example
+      value:
+        response:
+        - timestamp: 1718582400000
+          attributes:
+          - name: goodHealthPercentage
+            value: 70
+        - timestamp: 1718586000000
+          attributes:
+          - name: goodHealthPercentage
+            value: 50
+        - timestamp: 1718589600000
+          attributes:
+          - name: goodHealthPercentage
+            value: 80
+        - timestamp: 1718593200000
+          attributes:
+          - name: goodHealthPercentage
+            value: 60
+        - timestamp: 1718596800000
+          attributes:
+          - name: goodHealthPercentage
+            value: 30
+        - timestamp: 1718600400000
+          attributes:
+          - name: goodHealthPercentage
+            value: 50
+        page:
+          limit: 6
+          offset: 0
+          timeSortOrder: asc
+        version: 2.0
   schemas:
-    TransitNetworkTrend:
+    CountIntegerResponse_response:
       type: object
       properties:
-        timestamp:
+        count:
           type: integer
-          description: For trend API timestamp is the default groupBy attribute.
+          description: The total number of records related to the resource
           format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransitNetworkAttributeValuePair'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    TransitNetworkAnalyticsAttribute:
-      type: string
-      description: Supported filter attributes related to clients
-      enum:
-      - goodHealthPercentage
-      - goodHealthDeviceCount
-      - totalDeviceCount
-      - poorHealthDeviceCount
-      - fairHealthDeviceCount
-      - transitControlPlaneHealthPercentage
-      - transitControlPlaneTotalDeviceCount
-      - transitControlPlaneGoodHealthDeviceCount
-      - transitControlPlanePoorHealthDeviceCount
-      - transitControlPlaneFairHealthDeviceCount
-      - transitServicesHealthPercentage
-      - transitServicesTotalDeviceCount
-      - transitServicesGoodHealthDeviceCount
-      - transitServicesPoorHealthDeviceCount
-      - transitServicesFairHealthDeviceCount
-      - pubsubTransitHealthPercentage
-      - pubsubTransitTotalDeviceCount
-      - pubsubTransitGoodHealthDeviceCount
-      - pubsubTransitPoorHealthDeviceCount
-      - pubsubTransitFairHealthDeviceCount
-      - lispTransitHealthPercentage
-      - lispTransitTotalDeviceCount
-      - lispTransitGoodHealthDeviceCount
-      - lispTransitPoorHealthDeviceCount
-      - lispTransitFairHealthDeviceCount
-      - internetAvailTransitHealthPercentage
-      - internetAvailTransitTotalDeviceCount
-      - internetAvailTransitGoodHealthDeviceCount
-      - internetAvailTransitPoorHealthDeviceCount
-      - internetAvailTransitFairHealthDeviceCount
-      - bgpTcpHealthPercentage
-      - bgpTcpTotalDeviceCount
-      - bgpTcpGoodHealthDeviceCount
-      - bgpTcpPoorHealthDeviceCount
-      - bgpTcpFairHealthDeviceCount
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+          example: 1000
     TransitNetworkSummary:
       required:
       - transitNetworksId
@@ -842,28 +886,23 @@ components:
           description: The full hierarchy breakdown of the site tree in name form starting from Global site name and ending with the specific site site. 'Global' is the Root name of the site hierarchy tree. Site name including the hierarchy where the network device or client is located. For clients site is derived based on site assigned to network device where the client is connected to. For Wireless client its the connected Access Point site and for Wired client its the connected switch site. For network device its the site assigned to it.
           example: Global/AreaName/BuildingName/FloorName
       description: Summary of transit networks with health info.
-    TransitNetworkAttributeValuePair:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/TransitNetworkAnalyticsAttribute'
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
-    transitNetworkSummaryTrend:
+    TransitNetworksSummaries:
       type: object
       properties:
         response:
           type: array
-          description: Successfully return list of Transit networks health trend data
+          description: 'Successfully returned list of Transit Networks
+
+            '
           items:
-            $ref: '#/components/schemas/TransitNetworkTrend'
+            $ref: '#/components/schemas/TransitNetworkSummary'
         page:
-          $ref: '#/components/schemas/TimeBasedPagination'
+          $ref: '#/components/schemas/PaginationResponse'
         version:
           type: string
+          description: The version of the response
           example: '1.0'
-      description: Transit Networks score Response
+      description: Transit Networks summmary response schema
     TimeBasedPagination:
       type: object
       properties:
@@ -890,58 +929,6 @@ components:
           type: integer
           description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
           example: 100
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    TransitNetworksSummaries:
-      type: object
-      properties:
-        response:
-          type: array
-          description: 'Successfully returned list of Transit Networks
-
-            '
-          items:
-            $ref: '#/components/schemas/TransitNetworkSummary'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Transit Networks summmary response schema
     PaginationResponse:
       type: object
       properties:
@@ -962,128 +949,141 @@ components:
           description: Reference to the sortBy that was applied in the Pagination   Request.
           items:
             $ref: '#/components/schemas/PaginationResponse_sortBy'
-  examples:
-    TransitNetworksResponseExample1:
-      summary: Virtual Network Summary response example
-      value:
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    transitNetworkSummaryTrend:
+      type: object
+      properties:
         response:
-        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
-          name: transit_1
-          controlPlaneCount: 2
-          transitType: SD-TRANSIT
-          fabricSitesCount: 2
-          goodHealthPercentage: 40
-          goodHealthDeviceCount: 2
-          totalDeviceCount: 5
-          poorHealthDeviceCount: 2
-          fairHealthDeviceCount: 1
-          transitControlPlaneHealthPercentage: 60
-          transitControlPlaneTotalDeviceCount: 5
-          transitControlPlaneGoodHealthDeviceCount: 3
-          transitControlPlanePoorHealthDeviceCount: 1
-          transitControlPlaneFairHealthDeviceCount: 1
-          transitServicesHealthPercentage: 80
-          transitServicesTotalDeviceCount: 5
-          transitServicesGoodHealthDeviceCount: 4
-          transitServicesPoorHealthDeviceCount: 0
-          transitServicesFairHealthDeviceCount: 1
-          pubsubTransitHealthPercentage: 60
-          pubsubTransitTotalDeviceCount: 5
-          pubsubTransitGoodHealthDeviceCount: 3
-          pubsubTransitPoorHealthDeviceCount: 1
-          pubsubTransitFairHealthDeviceCount: 1
-          lispTransitHealthPercentage: 80
-          lispTransitTotalDeviceCount: 5
-          lispTransitGoodHealthDeviceCount: 4
-          lispTransitPoorHealthDeviceCount: 0
-          lispTransitFairHealthDeviceCount: 1
-          internetAvailTransitHealthPercentage: 60
-          internetAvailTransitTotalDeviceCount: 5
-          internetAvailTransitGoodHealthDeviceCount: 3
-          internetAvailTransitPoorHealthDeviceCount: 1
-          internetAvailTransitFairHealthDeviceCount: 1
-          bgpTcpHealthPercentage: 60
-          bgpTcpTotalDeviceCount: 5
-          bgpTcpGoodHealthDeviceCount: 3
-          bgpTcpPoorHealthDeviceCount: 1
-          bgpTcpFairHealthDeviceCount: 1
-    TransitNetworkResponseExample1:
-      summary: Virtual Network Summary response example
-      value:
-        response:
-          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
-          name: transit_1
-          controlPlaneCount: 2
-          transitType: SD-TRANSIT
-          fabricSitesCount: 2
-          goodHealthPercentage: 40
-          goodHealthDeviceCount: 2
-          totalDeviceCount: 5
-          poorHealthDeviceCount: 2
-          fairHealthDeviceCount: 1
-          transitControlPlaneHealthPercentage: 60
-          transitControlPlaneTotalDeviceCount: 5
-          transitControlPlaneGoodHealthDeviceCount: 3
-          transitControlPlanePoorHealthDeviceCount: 1
-          transitControlPlaneFairHealthDeviceCount: 1
-          transitServicesHealthPercentage: 80
-          transitServicesTotalDeviceCount: 5
-          transitServicesGoodHealthDeviceCount: 4
-          transitServicesPoorHealthDeviceCount: 0
-          transitServicesFairHealthDeviceCount: 1
-          pubsubTransitHealthPercentage: 60
-          pubsubTransitTotalDeviceCount: 5
-          pubsubTransitGoodHealthDeviceCount: 3
-          pubsubTransitPoorHealthDeviceCount: 1
-          pubsubTransitFairHealthDeviceCount: 1
-          lispTransitHealthPercentage: 80
-          lispTransitTotalDeviceCount: 5
-          lispTransitGoodHealthDeviceCount: 4
-          lispTransitPoorHealthDeviceCount: 0
-          lispTransitFairHealthDeviceCount: 1
-          internetAvailTransitHealthPercentage: 60
-          internetAvailTransitTotalDeviceCount: 5
-          internetAvailTransitGoodHealthDeviceCount: 3
-          internetAvailTransitPoorHealthDeviceCount: 1
-          internetAvailTransitFairHealthDeviceCount: 1
-          bgpTcpHealthPercentage: 60
-          bgpTcpTotalDeviceCount: 5
-          bgpTcpGoodHealthDeviceCount: 3
-          bgpTcpPoorHealthDeviceCount: 1
-          bgpTcpFairHealthDeviceCount: 1
-    TransitNetworkTrendExample1:
-      summary: Transit Network health trend response example
-      value:
-        response:
-        - timestamp: 1718582400000
-          attributes:
-          - name: goodHealthPercentage
-            value: 70
-        - timestamp: 1718586000000
-          attributes:
-          - name: goodHealthPercentage
-            value: 50
-        - timestamp: 1718589600000
-          attributes:
-          - name: goodHealthPercentage
-            value: 80
-        - timestamp: 1718593200000
-          attributes:
-          - name: goodHealthPercentage
-            value: 60
-        - timestamp: 1718596800000
-          attributes:
-          - name: goodHealthPercentage
-            value: 30
-        - timestamp: 1718600400000
-          attributes:
-          - name: goodHealthPercentage
-            value: 50
+          type: array
+          description: Successfully return list of Transit networks health trend data
+          items:
+            $ref: '#/components/schemas/TransitNetworkTrend'
         page:
-          limit: 6
-          offset: 0
-          timeSortOrder: asc
-        version: 2.0
+          $ref: '#/components/schemas/TimeBasedPagination'
+        version:
+          type: string
+          example: '1.0'
+      description: Transit Networks score Response
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    TransitNetworkTrend:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransitNetworkAttributeValuePair'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    TransitNetworkAnalyticsAttribute:
+      type: string
+      description: Supported filter attributes related to clients
+      enum:
+      - goodHealthPercentage
+      - goodHealthDeviceCount
+      - totalDeviceCount
+      - poorHealthDeviceCount
+      - fairHealthDeviceCount
+      - transitControlPlaneHealthPercentage
+      - transitControlPlaneTotalDeviceCount
+      - transitControlPlaneGoodHealthDeviceCount
+      - transitControlPlanePoorHealthDeviceCount
+      - transitControlPlaneFairHealthDeviceCount
+      - transitServicesHealthPercentage
+      - transitServicesTotalDeviceCount
+      - transitServicesGoodHealthDeviceCount
+      - transitServicesPoorHealthDeviceCount
+      - transitServicesFairHealthDeviceCount
+      - pubsubTransitHealthPercentage
+      - pubsubTransitTotalDeviceCount
+      - pubsubTransitGoodHealthDeviceCount
+      - pubsubTransitPoorHealthDeviceCount
+      - pubsubTransitFairHealthDeviceCount
+      - lispTransitHealthPercentage
+      - lispTransitTotalDeviceCount
+      - lispTransitGoodHealthDeviceCount
+      - lispTransitPoorHealthDeviceCount
+      - lispTransitFairHealthDeviceCount
+      - internetAvailTransitHealthPercentage
+      - internetAvailTransitTotalDeviceCount
+      - internetAvailTransitGoodHealthDeviceCount
+      - internetAvailTransitPoorHealthDeviceCount
+      - internetAvailTransitFairHealthDeviceCount
+      - bgpTcpHealthPercentage
+      - bgpTcpTotalDeviceCount
+      - bgpTcpGoodHealthDeviceCount
+      - bgpTcpPoorHealthDeviceCount
+      - bgpTcpFairHealthDeviceCount
+    TransitNetworkAttributeValuePair:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/TransitNetworkAnalyticsAttribute'
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

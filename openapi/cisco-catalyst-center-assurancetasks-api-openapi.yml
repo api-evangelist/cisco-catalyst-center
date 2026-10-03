@@ -252,38 +252,14 @@ paths:
           description: Unexpected Error
 components:
   schemas:
-    CountIntegerResponse:
-      title: Count Integer Response
+    CountIntegerResponse_response:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
     AssuranceTasks:
       type: object
       properties:
@@ -300,6 +276,26 @@ components:
           type: string
           example: '1.0'
       description: List of assurance tasks
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
     AssuranceTaskInfo:
       type: object
       properties:
@@ -324,6 +320,27 @@ components:
           - asc
           - desc
       description: List of field names and corresponding order used to sort   the records.
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
     ErrorObject:
       type: object
       properties:
@@ -336,14 +353,17 @@ components:
         detail:
           type: string
           description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    CountIntegerResponse_response:
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
     AssuranceTask:
       type: object
       properties:
@@ -411,58 +431,7 @@ components:
           type: string
           description: in a success scenario, this will be the URL needed to retrieve the response data pertaining to the original request made
           example: /data/api/v1/siteHealthSummaries?taskId=ad2ebd0d-dd80-422e-8066-dc55c458e970
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
   examples:
-    AssuranceTaskErrorInfo:
-      summary: Assurance Task that is in an error state
-      value:
-        response:
-          id: bba22b5a-b9f6-4df1-8965-3fb076aaf802
-          status: FAILURE
-          startTime: 1717955183000
-          endTime: 1716213175000
-          updateTime: 1716213175000
-          progress: Process has failed
-          failureReason: An internal exception was hit while processing the request.
-          errorCode: 500
-          requestType: SITE_QUERY_API
-          data:
-            startTime: 1718646534000
-            endTime: 1718732934000
-            attributes:
-            - networkDeviceCount
-            - clientCount
-            filters:
-            - key: networkDeviceCount
-              operator: gt
-              value: 10
-            page:
-              limit: 100
-              offset: 5
-              sortBy:
-              - name: clientCount
-                order: asc
-          resultUrl: /data/api/v1/siteHealthSummaries?taskId=bba22b5a-b9f6-4df1-8965-3fb076aaf802
-        version: '1.0'
     AssuranceTaskList:
       value:
         response:
@@ -585,6 +554,37 @@ components:
           startTime: 1717955183000
           updateTime: 1716213175000
           progress: Querying data in progress.
+          requestType: SITE_QUERY_API
+          data:
+            startTime: 1718646534000
+            endTime: 1718732934000
+            attributes:
+            - networkDeviceCount
+            - clientCount
+            filters:
+            - key: networkDeviceCount
+              operator: gt
+              value: 10
+            page:
+              limit: 100
+              offset: 5
+              sortBy:
+              - name: clientCount
+                order: asc
+          resultUrl: /data/api/v1/siteHealthSummaries?taskId=bba22b5a-b9f6-4df1-8965-3fb076aaf802
+        version: '1.0'
+    AssuranceTaskErrorInfo:
+      summary: Assurance Task that is in an error state
+      value:
+        response:
+          id: bba22b5a-b9f6-4df1-8965-3fb076aaf802
+          status: FAILURE
+          startTime: 1717955183000
+          endTime: 1716213175000
+          updateTime: 1716213175000
+          progress: Process has failed
+          failureReason: An internal exception was hit while processing the request.
+          errorCode: 500
           requestType: SITE_QUERY_API
           data:
             startTime: 1718646534000

@@ -550,18 +550,6 @@ paths:
           $ref: '#/components/responses/defaultError'
 components:
   responses:
-    5XX:
-      description: Server Error Responses - The server failed to fulfill the request.
-    defaultError:
-      description: Unexpected Error
-    4XX:
-      description: Client Error Responses - The client request caused the error.
-    1XX:
-      description: Informational Responses - The server received the request and sent an informational response.
-    3XX:
-      description: Redirection Messages - The client must take additional action to complete the request.
-    2XX:
-      description: Successful Responses - The server received the client request, understood it, and accepted it.
     FabricSiteTrendResponse:
       description: Fabric site summmary response covering trend data for a given fabric site id.
       content:
@@ -571,21 +559,16 @@ components:
           examples:
             fabricSiteTrend:
               $ref: '#/components/examples/fabricSiteTrend'
-    '400':
-      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+    '500':
+      description: The server could not fulfill the request due to internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    FabricSiteSummaryResponse:
-      description: Fabric site summmary response covering specific fabric sites and it's health.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/fabricSiteSummary'
-          examples:
-            Response1:
-              $ref: '#/components/examples/FabricSiteSummaryResponse1'
+    1XX:
+      description: Informational Responses - The server received the request and sent an informational response.
+    5XX:
+      description: Server Error Responses - The server failed to fulfill the request.
     FabricSitesSummariesResponse:
       description: Fabric site summmary response covering all fabric sites and their health.
       content:
@@ -595,13 +578,61 @@ components:
           examples:
             Response1:
               $ref: '#/components/examples/FabricSitesSummariesResponseExample1'
-    '500':
-      description: The server could not fulfill the request due to internal server error
+    4XX:
+      description: Client Error Responses - The client request caused the error.
+    '400':
+      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    2XX:
+      description: Successful Responses - The server received the client request, understood it, and accepted it.
+    defaultError:
+      description: Unexpected Error
+    FabricSiteSummaryResponse:
+      description: Fabric site summmary response covering specific fabric sites and it's health.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/fabricSiteSummary'
+          examples:
+            Response1:
+              $ref: '#/components/examples/FabricSiteSummaryResponse1'
+    3XX:
+      description: Redirection Messages - The client must take additional action to complete the request.
   schemas:
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
     FabricSiteSummary:
       required:
       - fabricSiteId
@@ -1017,17 +1048,109 @@ components:
           - PHASE_2
           - UNKNOWN
       description: Summary of fabric sites with health info.
-    CountIntegerResponse:
-      title: Count Integer Response
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    ErrorResponse:
+      title: Error Response
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-      description: Reports
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    FabricSiteAttributeValuePair:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/FabricSiteAnalyticsAttribute'
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
+    fabricSiteSummary:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/FabricSiteSummary'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Fabric summmary response schema
+    TimeBasedPagination:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        timeSortOrder:
+          type: string
+          description: Sort order. `asc` for ascending and  `desc` for descending
+          example: asc
+          default: asc
+          enum:
+          - asc
+          - desc
+        count:
+          type: integer
+          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    FabricSiteTrend:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/FabricSiteAttributeValuePair'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
     FabricSiteAnalyticsAttribute:
       type: string
       description: Supported filter attributes related to Fabric sites
@@ -1108,32 +1231,20 @@ components:
       - bgpPeerInfraVnGoodHealthDeviceCount
       - bgpPeerInfraVnPoorHealthDeviceCount
       - bgpPeerInfraVnFairHealthDeviceCount
-    TimeBasedPagination:
+    fabricSiteSummaryTrend:
       type: object
       properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timeSortOrder:
+        response:
+          type: array
+          description: Successfully return list of Fabric site health trend data
+          items:
+            $ref: '#/components/schemas/FabricSiteTrend'
+        page:
+          $ref: '#/components/schemas/TimeBasedPagination'
+        version:
           type: string
-          description: Sort order. `asc` for ascending and  `desc` for descending
-          example: asc
-          default: asc
-          enum:
-          - asc
-          - desc
-        count:
-          type: integer
-          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
+          example: '1.0'
+      description: Fabric Site score Response
     fabricSitesSummaries:
       type: object
       properties:
@@ -1151,89 +1262,6 @@ components:
           description: The version of the response
           example: '1.0'
       description: Fabric site summmary response schema
-    fabricSiteSummaryTrend:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully return list of Fabric site health trend data
-          items:
-            $ref: '#/components/schemas/FabricSiteTrend'
-        page:
-          $ref: '#/components/schemas/TimeBasedPagination'
-        version:
-          type: string
-          example: '1.0'
-      description: Fabric Site score Response
-    FabricSiteTrend:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FabricSiteAttributeValuePair'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
-    fabricSiteSummary:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/FabricSiteSummary'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Fabric summmary response schema
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    FabricSiteAttributeValuePair:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/FabricSiteAnalyticsAttribute'
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
     ErrorObject:
       type: object
       properties:
@@ -1246,34 +1274,6 @@ components:
         detail:
           type: string
           description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
   examples:
     FabricSiteSummaryResponse1:
       summary: Fabric Site Summary response example

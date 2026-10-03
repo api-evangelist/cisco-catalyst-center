@@ -788,6 +788,20 @@ components:
           description: The version of the response.
           example: '1.0'
       description: Response for the list of ThousandEyes test results.
+    ThousandEyesTestResultsTrend:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          description: List of trend attributes
+          items:
+            $ref: '#/components/schemas/ThousandEyesTestResultsAttributeValuePair'
+      description: The aggregate trend response includes timestamp and attributes.
     AppxCountIntegerResponse:
       type: object
       properties:
@@ -798,7 +812,7 @@ components:
           description: The version of the response
           example: '1.0'
       description: Count of the results for the given filter
-    ThousandEyesTestResultPagination:
+    TimeBasedPagination:
       type: object
       properties:
         limit:
@@ -806,26 +820,24 @@ components:
           type: integer
           description: Number of records to fetch in a page
           example: 100
-          default: 100
         offset:
           minimum: 1
           type: integer
           description: Starting offset of data to fetch and returned
           example: 5
           default: 1
+        timeSortOrder:
+          type: string
+          description: Sort order. `asc` for ascending and  `desc` for descending
+          example: asc
+          default: asc
+          enum:
+          - asc
+          - desc
         count:
           type: integer
-          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 136
-        sortBy:
-          type: array
-          description: The attribute by which the results are sorted
-          example:
-          - name: testName
-            order: asc
-          items:
-            $ref: '#/components/schemas/ThousandEyesTestResultSortByObj'
-      description: Pagination details
+          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
     ThousandEyesTestResultSortByObj:
       type: object
       properties:
@@ -1013,69 +1025,6 @@ components:
           description: Total number of sampled tests that had error
           format: int32
       description: A single ThousandEyes test result.
-    TimeBasedPagination:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timeSortOrder:
-          type: string
-          description: Sort order. `asc` for ascending and  `desc` for descending
-          example: asc
-          default: asc
-          enum:
-          - asc
-          - desc
-        count:
-          type: integer
-          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-    ThousandEyesTestResultsAttributeValuePair:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Attribute name
-          example: failurePercentage
-        value:
-          type: object
-          description: This is the value of the attribute requested for trend analytics.
-          example: 23
-    ThousandEyesTestResultsTrend:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          description: List of trend attributes
-          items:
-            $ref: '#/components/schemas/ThousandEyesTestResultsAttributeValuePair'
-      description: The aggregate trend response includes timestamp and attributes.
-    AppxErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     ThousandEyesTestResultsTrendResponse:
       type: object
       properties:
@@ -1099,6 +1048,57 @@ components:
           description: The total number of records related to the resource
           format: int64
           example: 1000
+    AppxErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    ThousandEyesTestResultsAttributeValuePair:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Attribute name
+          example: failurePercentage
+        value:
+          type: object
+          description: This is the value of the attribute requested for trend analytics.
+          example: 23
+    ThousandEyesTestResultPagination:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 136
+        sortBy:
+          type: array
+          description: The attribute by which the results are sorted
+          example:
+          - name: testName
+            order: asc
+          items:
+            $ref: '#/components/schemas/ThousandEyesTestResultSortByObj'
+      description: Pagination details
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

@@ -645,30 +645,113 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
-    CountIntegerResponse:
-      title: Count Integer Response
+    ApplicationHealthScoreDefinitionListWithoutPaginationResponse:
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    ApplicationHealthScoreDefinitionListResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
+    ApplicationHealthScoreDefinitionResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+      description: Response object for list of health score definitions.
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-      description: Reports
-    ApplicationHealthScoreDefinitionRequest:
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ErrorObject:
       type: object
       properties:
-        id:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
           type: string
-          description: Application health score definition id.
-          format: uuid
-          readOnly: false
-          example: 015d9cba-4f53-4087-8317-7e49e5ffef47
-      description: Application health score definition.
-      example: ''
-      allOf:
-      - $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     ApplicationHealthScoreDefinition:
       type: object
       properties:
@@ -894,113 +977,30 @@ components:
         includeForHealthScore: true
         includeForHealthScoreDefault: true
         lastModified: 1739626032281
-    ErrorResponse:
-      title: Error Response
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
         response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
+          $ref: '#/components/schemas/CountIntegerResponse_response'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    ApplicationHealthScoreDefinitionListResponse:
+      description: Reports
+    ApplicationHealthScoreDefinitionRequest:
       type: object
       properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
-        version:
+        id:
           type: string
-          example: '1.0'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-    ApplicationHealthScoreDefinitionListWithoutPaginationResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ApplicationHealthScoreDefinitionResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-      description: Response object for list of health score definitions.
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
+          description: Application health score definition id.
+          format: uuid
+          readOnly: false
+          example: 015d9cba-4f53-4087-8317-7e49e5ffef47
+      description: Application health score definition.
+      example: ''
+      allOf:
+      - $ref: '#/components/schemas/ApplicationHealthScoreDefinition'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

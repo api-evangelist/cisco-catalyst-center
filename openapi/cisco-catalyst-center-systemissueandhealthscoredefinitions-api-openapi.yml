@@ -1205,6 +1205,26 @@ paths:
           description: Server Error Responses - The server failed to fulfill the request.
 components:
   schemas:
+    IssueCategory:
+      type: string
+      description: 'Category of the issue trigger definition. Indicates intent of grouped issues. To be more precise link related issues are grouped under connectivity.
+
+
+        Example: WAN Interface Down is part of Connectivity category under Switches And Hubs device type.
+
+        '
+      readOnly: true
+      enum:
+      - Connectivity
+      - Connected
+      - Device
+      - Availability
+      - System
+      - Onboarding
+      - Utilization
+      - Application
+      - Sensor Test
+      - AP Anomaly
     IssueDeviceType:
       type: string
       description: These are the device types supported for issue trigger definitions.
@@ -1218,50 +1238,25 @@ components:
       - Application
       - Sensor
       - Third Party Device
-    CountIntegerResponse:
-      title: Count Integer Response
+    CountIntegerResponse_response:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    HealthScoreDefinitionListResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/HealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    HealthDeviceType:
+      type: string
+      description: These are the device type supported for health score definitions.
+      readOnly: true
+      enum:
+      - Router
+      - Switch and Hub
+      - Wireless Controller
+      - Unified AP
+      - Wireless Client
+      - Wired Client
     IssueTriggerDefinitionResponse:
       type: object
       properties:
@@ -1271,15 +1266,16 @@ components:
           type: string
           example: '1.0'
       description: Response object for issue trigger definition.
-    HealthScoreDefinitionResponse:
+    HealthScoreDefinitionListWithoutPaginationResponse:
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/HealthScoreDefinition'
+          type: array
+          items:
+            $ref: '#/components/schemas/HealthScoreDefinition'
         version:
           type: string
           example: '1.0'
-      description: Response object for list of health score definitions.
     Priority:
       type: string
       description: 'Issue priority, possible values are P1, P2, P3, P4.
@@ -1302,189 +1298,6 @@ components:
       - P2
       - P3
       - P4
-    HealthScoreDefinitionListWithoutPaginationResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/HealthScoreDefinition'
-        version:
-          type: string
-          example: '1.0'
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    HealthDeviceType:
-      type: string
-      description: These are the device type supported for health score definitions.
-      readOnly: true
-      enum:
-      - Router
-      - Switch and Hub
-      - Wireless Controller
-      - Unified AP
-      - Wireless Client
-      - Wired Client
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    IssueCategory:
-      type: string
-      description: 'Category of the issue trigger definition. Indicates intent of grouped issues. To be more precise link related issues are grouped under connectivity.
-
-
-        Example: WAN Interface Down is part of Connectivity category under Switches And Hubs device type.
-
-        '
-      readOnly: true
-      enum:
-      - Connectivity
-      - Connected
-      - Device
-      - Availability
-      - System
-      - Onboarding
-      - Utilization
-      - Application
-      - Sensor Test
-      - AP Anomaly
-    HealthScoreDefinition:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Health score definition id.
-          format: uuid
-          readOnly: true
-          example: 015d9cba-4f53-4087-8317-7e49e5ffef47
-        name:
-          type: string
-          description: Health score definition name.
-          readOnly: true
-          example: cpuUtilizationThreshold
-        displayName:
-          type: string
-          description: Health score definition name for display purposes.
-          readOnly: true
-          example: CPU Utilization
-        deviceFamily:
-          $ref: '#/components/schemas/HealthDeviceType'
-        description:
-          type: string
-          description: Description of the health score definition.
-          readOnly: true
-          example: CPU Utilization
-        includeForOverallHealth:
-          type: boolean
-          description: "Flag to indicate whether the KPI is included for overall health calulations or not. \n"
-          default: true
-        definitionStatus:
-          type: string
-          description: Status of the health score definition.
-          readOnly: true
-          default: DEFAULT
-          enum:
-          - CUSTOM
-          - DEFAULT
-        thresholdValue:
-          type: number
-          description: 'Threshold value to determine whether health is good or bad.
-
-            Example: cpuUtilizationThreshold > 90, makes health score for device 1/poor if it exceeds cpu utilization 90%.
-
-            '
-          example: 90
-        synchronizeToIssueThreshold:
-          type: boolean
-          description: 'Flag to indicate whether to synchronize with assurance issue trigger definitions. Applicable only to global profile issue trigger definitions.
-
-            '
-          default: false
-        lastModified:
-          type: string
-          description: 'Last modification time. This is applicable for modified threshold in epoch format, by default it will be empty.
-
-            '
-          readOnly: true
-      description: Health score definition.
-    IssueTriggerDefinitionListResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssueTriggerDefinition'
-        version:
-          type: string
-          example: '1.0'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
-      example:
-        response:
-        - id: 015d9cba-4f53-4087-8317-7e49e5ffef46
-          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
-          name: isis_adjacency_failure
-          deviceFamily: Router
-          description: ISIS Adjacency failed on Device.
-          priority: P2
-          defaultPriority: P3
-          deviceType: Router
-          issueEnabled: true
-          profileId: global
-          definitionStatus: CUSTOM
-          categoryName: Connectivity
-          synchronizeToHealthThreshold: false
-          thresholdValue: 90
-        - id: 015d9cba-4f53-4087-8317-7e49e5ffef47
-          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
-          name: isis_adjacency_failure
-          deviceFamily: Switch And Hub
-          description: ISIS Adjacency failed on Device.
-          priority: P2
-          defaultPriority: P2
-          deviceType: Switch And Hub
-          issueEnabled: true
-          profileId: global
-          definitionStatus: DEFAULT
-          categoryName: Connectivity
-          synchronizeToHealthThreshold: false
-          thresholdValue: 90
-        version: '1.0'
-        page:
-          offset: 5
-          limit: 10
-          sortBy: name
-          order: asc
     IssueTriggerDefinition:
       type: object
       properties:
@@ -1561,6 +1374,65 @@ components:
             '
           readOnly: true
       description: Issue trigger definition.
+    HealthScoreDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Health score definition id.
+          format: uuid
+          readOnly: true
+          example: 015d9cba-4f53-4087-8317-7e49e5ffef47
+        name:
+          type: string
+          description: Health score definition name.
+          readOnly: true
+          example: cpuUtilizationThreshold
+        displayName:
+          type: string
+          description: Health score definition name for display purposes.
+          readOnly: true
+          example: CPU Utilization
+        deviceFamily:
+          $ref: '#/components/schemas/HealthDeviceType'
+        description:
+          type: string
+          description: Description of the health score definition.
+          readOnly: true
+          example: CPU Utilization
+        includeForOverallHealth:
+          type: boolean
+          description: "Flag to indicate whether the KPI is included for overall health calulations or not. \n"
+          default: true
+        definitionStatus:
+          type: string
+          description: Status of the health score definition.
+          readOnly: true
+          default: DEFAULT
+          enum:
+          - CUSTOM
+          - DEFAULT
+        thresholdValue:
+          type: number
+          description: 'Threshold value to determine whether health is good or bad.
+
+            Example: cpuUtilizationThreshold > 90, makes health score for device 1/poor if it exceeds cpu utilization 90%.
+
+            '
+          example: 90
+        synchronizeToIssueThreshold:
+          type: boolean
+          description: 'Flag to indicate whether to synchronize with assurance issue trigger definitions. Applicable only to global profile issue trigger definitions.
+
+            '
+          default: false
+        lastModified:
+          type: string
+          description: 'Last modification time. This is applicable for modified threshold in epoch format, by default it will be empty.
+
+            '
+          readOnly: true
+      description: Health score definition.
     PaginationResponse:
       type: object
       properties:
@@ -1581,6 +1453,134 @@ components:
           description: Reference to the sortBy that was applied in the Pagination   Request.
           items:
             $ref: '#/components/schemas/PaginationResponse_sortBy'
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    IssueTriggerDefinitionListResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssueTriggerDefinition'
+        version:
+          type: string
+          example: '1.0'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+      example:
+        response:
+        - id: 015d9cba-4f53-4087-8317-7e49e5ffef46
+          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
+          name: isis_adjacency_failure
+          deviceFamily: Router
+          description: ISIS Adjacency failed on Device.
+          priority: P2
+          defaultPriority: P3
+          deviceType: Router
+          issueEnabled: true
+          profileId: global
+          definitionStatus: CUSTOM
+          categoryName: Connectivity
+          synchronizeToHealthThreshold: false
+          thresholdValue: 90
+        - id: 015d9cba-4f53-4087-8317-7e49e5ffef47
+          displayName: Network Device Interface Connectivity - ISIS Adjacency Failure
+          name: isis_adjacency_failure
+          deviceFamily: Switch And Hub
+          description: ISIS Adjacency failed on Device.
+          priority: P2
+          defaultPriority: P2
+          deviceType: Switch And Hub
+          issueEnabled: true
+          profileId: global
+          definitionStatus: DEFAULT
+          categoryName: Connectivity
+          synchronizeToHealthThreshold: false
+          thresholdValue: 90
+        version: '1.0'
+        page:
+          offset: 5
+          limit: 10
+          sortBy: name
+          order: asc
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    HealthScoreDefinitionListResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/HealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    HealthScoreDefinitionResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/HealthScoreDefinition'
+        version:
+          type: string
+          example: '1.0'
+      description: Response object for list of health score definitions.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/
