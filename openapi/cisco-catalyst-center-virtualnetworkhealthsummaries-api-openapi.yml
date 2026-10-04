@@ -571,23 +571,10 @@ paths:
           $ref: '#/components/responses/defaultError'
 components:
   responses:
-    '500':
-      description: The server could not fulfill the request due to internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    VirtualNetworksSummariesResponse:
-      description: Virtual networks summmary response covering all virtual networks and their health.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/VirtualNetworksSummaries'
-          examples:
-            Response1:
-              $ref: '#/components/examples/VirtualNetworksSummariesResponseExample1'
-    1XX:
-      description: Informational Responses - The server received the request and sent an informational response.
+    2XX:
+      description: Successful Responses - The server received the client request, understood it, and accepted it.
+    5XX:
+      description: Server Error Responses - The server failed to fulfill the request.
     VirtualNetworkSummaryResponse:
       description: Health summmary response covering specific virtual Network and it's health.
       content:
@@ -597,18 +584,10 @@ components:
           examples:
             Response1:
               $ref: '#/components/examples/VirtualNetworkSummaryResponseExample1'
-    5XX:
-      description: Server Error Responses - The server failed to fulfill the request.
-    4XX:
-      description: Client Error Responses - The client request caused the error.
-    '400':
-      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    2XX:
-      description: Successful Responses - The server received the client request, understood it, and accepted it.
+    defaultError:
+      description: Unexpected Error
+    1XX:
+      description: Informational Responses - The server received the request and sent an informational response.
     VirtualNetworkTrendResponse:
       description: Virtual networks summmary response covering trend data for a given Virtual networks id.
       content:
@@ -618,8 +597,29 @@ components:
           examples:
             virtualNetworkTrend:
               $ref: '#/components/examples/virtualNetworkTrend'
-    defaultError:
-      description: Unexpected Error
+    VirtualNetworksSummariesResponse:
+      description: Virtual networks summmary response covering all virtual networks and their health.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/VirtualNetworksSummaries'
+          examples:
+            Response1:
+              $ref: '#/components/examples/VirtualNetworksSummariesResponseExample1'
+    '500':
+      description: The server could not fulfill the request due to internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    4XX:
+      description: Client Error Responses - The client request caused the error.
+    '400':
+      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     3XX:
       description: Redirection Messages - The client must take additional action to complete the request.
   schemas:
@@ -643,6 +643,81 @@ components:
           description: Reference to the sortBy that was applied in the Pagination   Request.
           items:
             $ref: '#/components/schemas/PaginationResponse_sortBy'
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    VirtualNetworkTrend:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualNetworkAttributeValuePair'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
+    VirtualNetworksSummaries:
+      type: object
+      properties:
+        response:
+          type: array
+          description: 'Successfully returned list of Virtual Networks
+
+            '
+          items:
+            $ref: '#/components/schemas/VirtualNetworkSummary'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Virtual Networks summmary response schema
+    VirtualNetworkAttributeValuePair:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/VirtualNetworkAnalyticsAttribute'
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
     VirtualNetworkSummary:
       required:
       - virtualNetworksId
@@ -1022,14 +1097,6 @@ components:
           format: int64
           example: 5
       description: Summary of virtual networks with health info.
-    VirtualNetworkAttributeValuePair:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/VirtualNetworkAnalyticsAttribute'
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
     CountIntegerResponse:
       title: Count Integer Response
       type: object
@@ -1041,52 +1108,20 @@ components:
           description: The version of the response
           example: '1.0'
       description: Reports
-    VirtualNetworksSummaries:
+    virtualNetworkSummaryTrend:
       type: object
       properties:
         response:
           type: array
-          description: 'Successfully returned list of Virtual Networks
-
-            '
+          description: Successfully return list of Virtual networks health trend data
           items:
-            $ref: '#/components/schemas/VirtualNetworkSummary'
+            $ref: '#/components/schemas/VirtualNetworkTrend'
         page:
-          $ref: '#/components/schemas/PaginationResponse'
+          $ref: '#/components/schemas/TimeBasedPagination'
         version:
           type: string
-          description: The version of the response
           example: '1.0'
-      description: Virtual Networks summmary response schema
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+      description: Virtual Networks score Response
     VirtualNetworkAnalyticsAttribute:
       type: string
       description: Supported filter attributes related to clients
@@ -1183,62 +1218,27 @@ components:
           type: integer
           description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
           example: 100
-    virtualNetworkSummaryTrend:
+    ErrorResponse:
+      title: Error Response
       type: object
       properties:
         response:
           type: array
-          description: Successfully return list of Virtual networks health trend data
           items:
-            $ref: '#/components/schemas/VirtualNetworkTrend'
-        page:
-          $ref: '#/components/schemas/TimeBasedPagination'
+            $ref: '#/components/schemas/ErrorObject'
         version:
           type: string
+          description: The version of the response
           example: '1.0'
-      description: Virtual Networks score Response
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    VirtualNetworkTrend:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualNetworkAttributeValuePair'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
   examples:
     VirtualNetworkSummaryResponseExample1:
       summary: Virtual Network Summary response example

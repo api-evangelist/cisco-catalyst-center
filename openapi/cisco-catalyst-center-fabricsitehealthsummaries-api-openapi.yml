@@ -549,59 +549,224 @@ paths:
         default:
           $ref: '#/components/responses/defaultError'
 components:
-  responses:
-    FabricSiteTrendResponse:
-      description: Fabric site summmary response covering trend data for a given fabric site id.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/fabricSiteSummaryTrend'
-          examples:
-            fabricSiteTrend:
-              $ref: '#/components/examples/fabricSiteTrend'
-    '500':
-      description: The server could not fulfill the request due to internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    1XX:
-      description: Informational Responses - The server received the request and sent an informational response.
-    5XX:
-      description: Server Error Responses - The server failed to fulfill the request.
-    FabricSitesSummariesResponse:
-      description: Fabric site summmary response covering all fabric sites and their health.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/fabricSitesSummaries'
-          examples:
-            Response1:
-              $ref: '#/components/examples/FabricSitesSummariesResponseExample1'
-    4XX:
-      description: Client Error Responses - The client request caused the error.
-    '400':
-      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    2XX:
-      description: Successful Responses - The server received the client request, understood it, and accepted it.
-    defaultError:
-      description: Unexpected Error
-    FabricSiteSummaryResponse:
-      description: Fabric site summmary response covering specific fabric sites and it's health.
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/fabricSiteSummary'
-          examples:
-            Response1:
-              $ref: '#/components/examples/FabricSiteSummaryResponse1'
-    3XX:
-      description: Redirection Messages - The client must take additional action to complete the request.
+  examples:
+    fabricSiteTrend:
+      summary: Fabric Site health trend response example
+      value:
+        response:
+        - timestamp: 1718582400000
+          attributes:
+          - name: goodHealthPercentage
+            value: 70
+        - timestamp: 1718586000000
+          attributes:
+          - name: goodHealthPercentage
+            value: 50
+        - timestamp: 1718589600000
+          attributes:
+          - name: goodHealthPercentage
+            value: 80
+        - timestamp: 1718593200000
+          attributes:
+          - name: goodHealthPercentage
+            value: 60
+        - timestamp: 1718596800000
+          attributes:
+          - name: goodHealthPercentage
+            value: 30
+        - timestamp: 1718600400000
+          attributes:
+          - name: goodHealthPercentage
+            value: 50
+        page:
+          limit: 6
+          offset: 0
+          timeSortOrder: asc
+        version: 2.0
+    FabricSiteSummaryResponse1:
+      summary: Fabric Site Summary response example
+      value:
+        response:
+          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+          name: Global/area0
+          goodHealthPercentage: 50
+          goodHealthDeviceCount: 5
+          totalDeviceCount: 10
+          poorHealthDeviceCount: 2
+          fairHealthDeviceCount: 3
+          totalHealthDeviceCount: 10
+          associatedL2VnCount: 5
+          associatedL3VnCount: 3
+          networkProtocol: LISP
+          connectivityGoodHealthPercentage: 60
+          connectivityTotalHealthDeviceCount: 5
+          connectivityGoodHealthDeviceCount: 3
+          connectivityPoorHealthDeviceCount: 1
+          connectivityFairHealthDeviceCount: 1
+          infraGoodHealthPercentage: 100
+          infraTotalHealthDeviceCount: 5
+          infraGoodHealthDeviceCount: 5
+          infraFairHealthDeviceCount: 0
+          infraPoorHealthDeviceCount: 0
+          controlPlaneGoodHealthPercentage: 80
+          controlPlaneTotalHealthDeviceCount: 5
+          controlPlaneGoodHealthDeviceCount: 4
+          controlPlanePoorHealthDeviceCount: 0
+          controlPlaneFairHealthDeviceCount: 1
+          pubsubInfraVnGoodHealthPercentage: 60
+          pubsubInfraVnTotalHealthDeviceCount: 5
+          pubsubInfraVnGoodHealthDeviceCount: 3
+          pubsubInfraVnPoorHealthDeviceCount: 1
+          pubsubInfraVnFairHealthDeviceCount: 1
+          bgpEvpnTotalHealthDeviceCount: 0
+          bgpEvpnGoodHealthDeviceCount: 0
+          bgpEvpnPoorHealthDeviceCount: 0
+          bgpEvpnFairHealthDeviceCount: 0
+          ctsEnvDataDownloadGoodHealthPercentage: 50
+          ctsEnvDataDownloadTotalHealthDeviceCount: 3
+          ctsEnvDataDownloadGoodHealthDeviceCount: 2
+          ctsEnvDataDownloadPoorHealthDeviceCount: 1
+          ctsEnvDataDownloadFairHealthDeviceCount: 0
+          aaaStatusGoodHealthPercentage: 50
+          aaaStatusTotalHealthDeviceCount: 6
+          aaaStatusGoodHealthDeviceCount: 3
+          aaaStatusPoorHealthDeviceCount: 2
+          aaaStatusFairHealthDeviceCount: 1
+          portChannelGoodHealthPercentage: 60
+          portChannelTotalHealthDeviceCount: 5
+          portChannelGoodHealthDeviceCount: 3
+          portChannelPoorHealthDeviceCount: 1
+          portChannelFairHealthDeviceCount: 1
+          peerScoreTotalHealthDeviceCount: 0
+          peerScoreGoodHealthDeviceCount: 0
+          peerScorePoorHealthDeviceCount: 0
+          peerScoreFairHealthDeviceCount: 0
+          lispSessionGoodHealthPercentage: 80
+          lispSessionTotalHealthDeviceCount: 5
+          lispSessionGoodHealthDeviceCount: 4
+          lispSessionPoorHealthDeviceCount: 1
+          lispSessionFairHealthDeviceCount: 0
+          borderToControlPlaneGoodHealthPercentage: 60
+          borderToControlPlaneTotalHealthDeviceCount: 5
+          borderToControlPlaneGoodHealthDeviceCount: 3
+          borderToControlPlanePoorHealthDeviceCount: 0
+          borderToControlPlaneFairHealthDeviceCount: 2
+          bgpBgpSiteGoodHealthPercentage: 80
+          bgpBgpSiteTotalHealthDeviceCount: 5
+          bgpBgpSiteGoodHealthDeviceCount: 4
+          bgpBgpSitePoorHealthDeviceCount: 0
+          bgpBgpSiteFairHealthDeviceCount: 1
+          bgpPubsubSiteGoodHealthPercentage: 60
+          bgpPubsubSiteTotalHealthDeviceCount: 5
+          bgpPubsubSiteGoodHealthDeviceCount: 3
+          bgpPubsubSitePoorHealthDeviceCount: 0
+          bgpPubsubSiteFairHealthDeviceCount: 2
+          bgpPeerInfraVnScoreGoodHealthPercentage: 80
+          bgpPeerInfraVnTotalHealthDeviceCount: 5
+          bgpPeerInfraVnGoodHealthDeviceCount: 4
+          bgpPeerInfraVnPoorHealthDeviceCount: 1
+          bgpPeerInfraVnFairHealthDeviceCount: 0
+    FabricSitesSummariesResponseExample1:
+      summary: Fabric Site Summary response example
+      value:
+        response:
+        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+          name: Global/area0
+          goodHealthPercentage: 50
+          goodHealthDeviceCount: 5
+          totalDeviceCount: 10
+          poorHealthDeviceCount: 2
+          fairHealthDeviceCount: 3
+          totalHealthDeviceCount: 10
+          associatedL2VnCount: 5
+          associatedL3VnCount: 3
+          networkProtocol: LISP
+          connectivityGoodHealthPercentage: 60
+          connectivityTotalHealthDeviceCount: 5
+          connectivityGoodHealthDeviceCount: 3
+          connectivityPoorHealthDeviceCount: 1
+          connectivityFairHealthDeviceCount: 1
+          infraGoodHealthPercentage: 100
+          infraTotalHealthDeviceCount: 5
+          infraGoodHealthDeviceCount: 5
+          infraFairHealthDeviceCount: 0
+          infraPoorHealthDeviceCount: 0
+          controlPlaneGoodHealthPercentage: 80
+          controlPlaneTotalHealthDeviceCount: 5
+          controlPlaneGoodHealthDeviceCount: 4
+          controlPlanePoorHealthDeviceCount: 0
+          controlPlaneFairHealthDeviceCount: 1
+          pubsubInfraVnGoodHealthPercentage: 60
+          pubsubInfraVnTotalHealthDeviceCount: 5
+          pubsubInfraVnGoodHealthDeviceCount: 3
+          pubsubInfraVnPoorHealthDeviceCount: 1
+          pubsubInfraVnFairHealthDeviceCount: 1
+          bgpEvpnTotalHealthDeviceCount: 0
+          bgpEvpnGoodHealthDeviceCount: 0
+          bgpEvpnPoorHealthDeviceCount: 0
+          bgpEvpnFairHealthDeviceCount: 0
+          ctsEnvDataDownloadGoodHealthPercentage: 50
+          ctsEnvDataDownloadTotalHealthDeviceCount: 3
+          ctsEnvDataDownloadGoodHealthDeviceCount: 2
+          ctsEnvDataDownloadPoorHealthDeviceCount: 1
+          ctsEnvDataDownloadFairHealthDeviceCount: 0
+          aaaStatusGoodHealthPercentage: 50
+          aaaStatusTotalHealthDeviceCount: 6
+          aaaStatusGoodHealthDeviceCount: 3
+          aaaStatusPoorHealthDeviceCount: 2
+          aaaStatusFairHealthDeviceCount: 1
+          portChannelGoodHealthPercentage: 60
+          portChannelTotalHealthDeviceCount: 5
+          portChannelGoodHealthDeviceCount: 3
+          portChannelPoorHealthDeviceCount: 1
+          portChannelFairHealthDeviceCount: 1
+          peerScoreTotalHealthDeviceCount: 0
+          peerScoreGoodHealthDeviceCount: 0
+          peerScorePoorHealthDeviceCount: 0
+          peerScoreFairHealthDeviceCount: 0
+          lispSessionGoodHealthPercentage: 80
+          lispSessionTotalHealthDeviceCount: 5
+          lispSessionGoodHealthDeviceCount: 4
+          lispSessionPoorHealthDeviceCount: 1
+          lispSessionFairHealthDeviceCount: 0
+          borderToControlPlaneGoodHealthPercentage: 60
+          borderToControlPlaneTotalHealthDeviceCount: 5
+          borderToControlPlaneGoodHealthDeviceCount: 3
+          borderToControlPlanePoorHealthDeviceCount: 0
+          borderToControlPlaneFairHealthDeviceCount: 2
+          bgpBgpSiteGoodHealthPercentage: 80
+          bgpBgpSiteTotalHealthDeviceCount: 5
+          bgpBgpSiteGoodHealthDeviceCount: 4
+          bgpBgpSitePoorHealthDeviceCount: 0
+          bgpBgpSiteFairHealthDeviceCount: 1
+          bgpPubsubSiteGoodHealthPercentage: 60
+          bgpPubsubSiteTotalHealthDeviceCount: 5
+          bgpPubsubSiteGoodHealthDeviceCount: 3
+          bgpPubsubSitePoorHealthDeviceCount: 0
+          bgpPubsubSiteFairHealthDeviceCount: 2
+          bgpPeerInfraVnScoreGoodHealthPercentage: 80
+          bgpPeerInfraVnTotalHealthDeviceCount: 5
+          bgpPeerInfraVnGoodHealthDeviceCount: 4
+          bgpPeerInfraVnPoorHealthDeviceCount: 1
+          bgpPeerInfraVnFairHealthDeviceCount: 0
   schemas:
+    fabricSitesSummaries:
+      type: object
+      properties:
+        response:
+          type: array
+          description: 'Successfully returned list of Fabric sites
+
+            '
+          items:
+            $ref: '#/components/schemas/FabricSiteSummary'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Fabric site summmary response schema
     PaginationResponse:
       type: object
       properties:
@@ -622,17 +787,41 @@ components:
           description: Reference to the sortBy that was applied in the Pagination   Request.
           items:
             $ref: '#/components/schemas/PaginationResponse_sortBy'
-    CountIntegerResponse:
-      title: Count Integer Response
+    ErrorObject:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
           type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
     FabricSiteSummary:
       required:
       - fabricSiteId
@@ -1048,43 +1237,6 @@ components:
           - PHASE_2
           - UNKNOWN
       description: Summary of fabric sites with health info.
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    FabricSiteAttributeValuePair:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/FabricSiteAnalyticsAttribute'
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
     fabricSiteSummary:
       type: object
       properties:
@@ -1095,6 +1247,54 @@ components:
           description: The version of the response
           example: '1.0'
       description: Fabric summmary response schema
+    FabricSiteTrend:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/FabricSiteAttributeValuePair'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
+    fabricSiteSummaryTrend:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully return list of Fabric site health trend data
+          items:
+            $ref: '#/components/schemas/FabricSiteTrend'
+        page:
+          $ref: '#/components/schemas/TimeBasedPagination'
+        version:
+          type: string
+          example: '1.0'
+      description: Fabric Site score Response
+    FabricSiteAttributeValuePair:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/FabricSiteAnalyticsAttribute'
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
     TimeBasedPagination:
       type: object
       properties:
@@ -1121,36 +1321,6 @@ components:
           type: integer
           description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
           example: 100
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    FabricSiteTrend:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FabricSiteAttributeValuePair'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
     FabricSiteAnalyticsAttribute:
       type: string
       description: Supported filter attributes related to Fabric sites
@@ -1231,249 +1401,79 @@ components:
       - bgpPeerInfraVnGoodHealthDeviceCount
       - bgpPeerInfraVnPoorHealthDeviceCount
       - bgpPeerInfraVnFairHealthDeviceCount
-    fabricSiteSummaryTrend:
+    ErrorResponse:
+      title: Error Response
       type: object
       properties:
         response:
           type: array
-          description: Successfully return list of Fabric site health trend data
           items:
-            $ref: '#/components/schemas/FabricSiteTrend'
-        page:
-          $ref: '#/components/schemas/TimeBasedPagination'
-        version:
-          type: string
-          example: '1.0'
-      description: Fabric Site score Response
-    fabricSitesSummaries:
-      type: object
-      properties:
-        response:
-          type: array
-          description: 'Successfully returned list of Fabric sites
-
-            '
-          items:
-            $ref: '#/components/schemas/FabricSiteSummary'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
+            $ref: '#/components/schemas/ErrorObject'
         version:
           type: string
           description: The version of the response
           example: '1.0'
-      description: Fabric site summmary response schema
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-  examples:
-    FabricSiteSummaryResponse1:
-      summary: Fabric Site Summary response example
-      value:
+      description: Contains information explaining the error that occured   processing this request.
+      example:
         response:
-          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
-          name: Global/area0
-          goodHealthPercentage: 50
-          goodHealthDeviceCount: 5
-          totalDeviceCount: 10
-          poorHealthDeviceCount: 2
-          fairHealthDeviceCount: 3
-          totalHealthDeviceCount: 10
-          associatedL2VnCount: 5
-          associatedL3VnCount: 3
-          networkProtocol: LISP
-          connectivityGoodHealthPercentage: 60
-          connectivityTotalHealthDeviceCount: 5
-          connectivityGoodHealthDeviceCount: 3
-          connectivityPoorHealthDeviceCount: 1
-          connectivityFairHealthDeviceCount: 1
-          infraGoodHealthPercentage: 100
-          infraTotalHealthDeviceCount: 5
-          infraGoodHealthDeviceCount: 5
-          infraFairHealthDeviceCount: 0
-          infraPoorHealthDeviceCount: 0
-          controlPlaneGoodHealthPercentage: 80
-          controlPlaneTotalHealthDeviceCount: 5
-          controlPlaneGoodHealthDeviceCount: 4
-          controlPlanePoorHealthDeviceCount: 0
-          controlPlaneFairHealthDeviceCount: 1
-          pubsubInfraVnGoodHealthPercentage: 60
-          pubsubInfraVnTotalHealthDeviceCount: 5
-          pubsubInfraVnGoodHealthDeviceCount: 3
-          pubsubInfraVnPoorHealthDeviceCount: 1
-          pubsubInfraVnFairHealthDeviceCount: 1
-          bgpEvpnTotalHealthDeviceCount: 0
-          bgpEvpnGoodHealthDeviceCount: 0
-          bgpEvpnPoorHealthDeviceCount: 0
-          bgpEvpnFairHealthDeviceCount: 0
-          ctsEnvDataDownloadGoodHealthPercentage: 50
-          ctsEnvDataDownloadTotalHealthDeviceCount: 3
-          ctsEnvDataDownloadGoodHealthDeviceCount: 2
-          ctsEnvDataDownloadPoorHealthDeviceCount: 1
-          ctsEnvDataDownloadFairHealthDeviceCount: 0
-          aaaStatusGoodHealthPercentage: 50
-          aaaStatusTotalHealthDeviceCount: 6
-          aaaStatusGoodHealthDeviceCount: 3
-          aaaStatusPoorHealthDeviceCount: 2
-          aaaStatusFairHealthDeviceCount: 1
-          portChannelGoodHealthPercentage: 60
-          portChannelTotalHealthDeviceCount: 5
-          portChannelGoodHealthDeviceCount: 3
-          portChannelPoorHealthDeviceCount: 1
-          portChannelFairHealthDeviceCount: 1
-          peerScoreTotalHealthDeviceCount: 0
-          peerScoreGoodHealthDeviceCount: 0
-          peerScorePoorHealthDeviceCount: 0
-          peerScoreFairHealthDeviceCount: 0
-          lispSessionGoodHealthPercentage: 80
-          lispSessionTotalHealthDeviceCount: 5
-          lispSessionGoodHealthDeviceCount: 4
-          lispSessionPoorHealthDeviceCount: 1
-          lispSessionFairHealthDeviceCount: 0
-          borderToControlPlaneGoodHealthPercentage: 60
-          borderToControlPlaneTotalHealthDeviceCount: 5
-          borderToControlPlaneGoodHealthDeviceCount: 3
-          borderToControlPlanePoorHealthDeviceCount: 0
-          borderToControlPlaneFairHealthDeviceCount: 2
-          bgpBgpSiteGoodHealthPercentage: 80
-          bgpBgpSiteTotalHealthDeviceCount: 5
-          bgpBgpSiteGoodHealthDeviceCount: 4
-          bgpBgpSitePoorHealthDeviceCount: 0
-          bgpBgpSiteFairHealthDeviceCount: 1
-          bgpPubsubSiteGoodHealthPercentage: 60
-          bgpPubsubSiteTotalHealthDeviceCount: 5
-          bgpPubsubSiteGoodHealthDeviceCount: 3
-          bgpPubsubSitePoorHealthDeviceCount: 0
-          bgpPubsubSiteFairHealthDeviceCount: 2
-          bgpPeerInfraVnScoreGoodHealthPercentage: 80
-          bgpPeerInfraVnTotalHealthDeviceCount: 5
-          bgpPeerInfraVnGoodHealthDeviceCount: 4
-          bgpPeerInfraVnPoorHealthDeviceCount: 1
-          bgpPeerInfraVnFairHealthDeviceCount: 0
-    fabricSiteTrend:
-      summary: Fabric Site health trend response example
-      value:
-        response:
-        - timestamp: 1718582400000
-          attributes:
-          - name: goodHealthPercentage
-            value: 70
-        - timestamp: 1718586000000
-          attributes:
-          - name: goodHealthPercentage
-            value: 50
-        - timestamp: 1718589600000
-          attributes:
-          - name: goodHealthPercentage
-            value: 80
-        - timestamp: 1718593200000
-          attributes:
-          - name: goodHealthPercentage
-            value: 60
-        - timestamp: 1718596800000
-          attributes:
-          - name: goodHealthPercentage
-            value: 30
-        - timestamp: 1718600400000
-          attributes:
-          - name: goodHealthPercentage
-            value: 50
-        page:
-          limit: 6
-          offset: 0
-          timeSortOrder: asc
-        version: 2.0
-    FabricSitesSummariesResponseExample1:
-      summary: Fabric Site Summary response example
-      value:
-        response:
-        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
-          name: Global/area0
-          goodHealthPercentage: 50
-          goodHealthDeviceCount: 5
-          totalDeviceCount: 10
-          poorHealthDeviceCount: 2
-          fairHealthDeviceCount: 3
-          totalHealthDeviceCount: 10
-          associatedL2VnCount: 5
-          associatedL3VnCount: 3
-          networkProtocol: LISP
-          connectivityGoodHealthPercentage: 60
-          connectivityTotalHealthDeviceCount: 5
-          connectivityGoodHealthDeviceCount: 3
-          connectivityPoorHealthDeviceCount: 1
-          connectivityFairHealthDeviceCount: 1
-          infraGoodHealthPercentage: 100
-          infraTotalHealthDeviceCount: 5
-          infraGoodHealthDeviceCount: 5
-          infraFairHealthDeviceCount: 0
-          infraPoorHealthDeviceCount: 0
-          controlPlaneGoodHealthPercentage: 80
-          controlPlaneTotalHealthDeviceCount: 5
-          controlPlaneGoodHealthDeviceCount: 4
-          controlPlanePoorHealthDeviceCount: 0
-          controlPlaneFairHealthDeviceCount: 1
-          pubsubInfraVnGoodHealthPercentage: 60
-          pubsubInfraVnTotalHealthDeviceCount: 5
-          pubsubInfraVnGoodHealthDeviceCount: 3
-          pubsubInfraVnPoorHealthDeviceCount: 1
-          pubsubInfraVnFairHealthDeviceCount: 1
-          bgpEvpnTotalHealthDeviceCount: 0
-          bgpEvpnGoodHealthDeviceCount: 0
-          bgpEvpnPoorHealthDeviceCount: 0
-          bgpEvpnFairHealthDeviceCount: 0
-          ctsEnvDataDownloadGoodHealthPercentage: 50
-          ctsEnvDataDownloadTotalHealthDeviceCount: 3
-          ctsEnvDataDownloadGoodHealthDeviceCount: 2
-          ctsEnvDataDownloadPoorHealthDeviceCount: 1
-          ctsEnvDataDownloadFairHealthDeviceCount: 0
-          aaaStatusGoodHealthPercentage: 50
-          aaaStatusTotalHealthDeviceCount: 6
-          aaaStatusGoodHealthDeviceCount: 3
-          aaaStatusPoorHealthDeviceCount: 2
-          aaaStatusFairHealthDeviceCount: 1
-          portChannelGoodHealthPercentage: 60
-          portChannelTotalHealthDeviceCount: 5
-          portChannelGoodHealthDeviceCount: 3
-          portChannelPoorHealthDeviceCount: 1
-          portChannelFairHealthDeviceCount: 1
-          peerScoreTotalHealthDeviceCount: 0
-          peerScoreGoodHealthDeviceCount: 0
-          peerScorePoorHealthDeviceCount: 0
-          peerScoreFairHealthDeviceCount: 0
-          lispSessionGoodHealthPercentage: 80
-          lispSessionTotalHealthDeviceCount: 5
-          lispSessionGoodHealthDeviceCount: 4
-          lispSessionPoorHealthDeviceCount: 1
-          lispSessionFairHealthDeviceCount: 0
-          borderToControlPlaneGoodHealthPercentage: 60
-          borderToControlPlaneTotalHealthDeviceCount: 5
-          borderToControlPlaneGoodHealthDeviceCount: 3
-          borderToControlPlanePoorHealthDeviceCount: 0
-          borderToControlPlaneFairHealthDeviceCount: 2
-          bgpBgpSiteGoodHealthPercentage: 80
-          bgpBgpSiteTotalHealthDeviceCount: 5
-          bgpBgpSiteGoodHealthDeviceCount: 4
-          bgpBgpSitePoorHealthDeviceCount: 0
-          bgpBgpSiteFairHealthDeviceCount: 1
-          bgpPubsubSiteGoodHealthPercentage: 60
-          bgpPubsubSiteTotalHealthDeviceCount: 5
-          bgpPubsubSiteGoodHealthDeviceCount: 3
-          bgpPubsubSitePoorHealthDeviceCount: 0
-          bgpPubsubSiteFairHealthDeviceCount: 2
-          bgpPeerInfraVnScoreGoodHealthPercentage: 80
-          bgpPeerInfraVnTotalHealthDeviceCount: 5
-          bgpPeerInfraVnGoodHealthDeviceCount: 4
-          bgpPeerInfraVnPoorHealthDeviceCount: 1
-          bgpPeerInfraVnFairHealthDeviceCount: 0
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+  responses:
+    FabricSitesSummariesResponse:
+      description: Fabric site summmary response covering all fabric sites and their health.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/fabricSitesSummaries'
+          examples:
+            Response1:
+              $ref: '#/components/examples/FabricSitesSummariesResponseExample1'
+    2XX:
+      description: Successful Responses - The server received the client request, understood it, and accepted it.
+    5XX:
+      description: Server Error Responses - The server failed to fulfill the request.
+    FabricSiteSummaryResponse:
+      description: Fabric site summmary response covering specific fabric sites and it's health.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/fabricSiteSummary'
+          examples:
+            Response1:
+              $ref: '#/components/examples/FabricSiteSummaryResponse1'
+    3XX:
+      description: Redirection Messages - The client must take additional action to complete the request.
+    defaultError:
+      description: Unexpected Error
+    1XX:
+      description: Informational Responses - The server received the request and sent an informational response.
+    '500':
+      description: The server could not fulfill the request due to internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    4XX:
+      description: Client Error Responses - The client request caused the error.
+    '400':
+      description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    FabricSiteTrendResponse:
+      description: Fabric site summmary response covering trend data for a given fabric site id.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/fabricSiteSummaryTrend'
+          examples:
+            fabricSiteTrend:
+              $ref: '#/components/examples/fabricSiteTrend'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

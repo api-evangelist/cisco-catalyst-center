@@ -263,16 +263,33 @@ paths:
         '504':
           description: The server did not respond inside time restrictions and timed-out.
 components:
+  examples:
+    CaptureSettingOutput:
+      summary: captureSettingOutput
+      value:
+        response:
+        - name: FULL for AA:AA:AA:AA:AA:01 on WLC-20
+          slots:
+          - 0
+          - 1
+          - 2
+          otaBand: '2.4'
+          otaChannel: 7
+          otaChannelWidth: 20
+          id: 4dab2492-cead-4036-83d1-2e44b2212345
+          deployedId: 4dab2492-cead-4036-83d1-2e44b2212345
+          disableActivityId: 4dab2492-cead-4036-83d1-2e44b22abcdef
+          deployActivityId: 4dab2492-cead-4036-83d1-2e44b2255555
+          captureType: ONBOARDING
+          apId: 4dab2492-cead-4036-83d1-2e44b2255555
+          wlcId: 4dab2492-cead-4036-83d1-2e44b2213c54
+          clientMac: AA:AA:AA:AA:AA:01
+          createTime: 12345678901234
+          endTime: 12345679901234
+          durationInMins: 30
+          status: SUCCESS
+        version: '1.0'
   schemas:
-    EpochMilliseconds:
-      minimum: 0
-      type: integer
-      description: A date and time represented as ***milliseconds*** since the Unix epoch.
-      format: int64
-      example: 1524880285900
-      externalDocs:
-        description: Unix time - Wikipedia
-        url: https://en.wikipedia.org/wiki/Unix_time
     DeviceStatus:
       type: string
       description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
@@ -286,14 +303,6 @@ components:
       - CANCELLED
       - NOT_SUPPORTED
       - PENDING
-    PacketCaptureDeployedInfoListResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
-        version:
-          type: string
-          example: '1.0'
     PacketCaptureDeployInfoItem:
       required:
       - captureType
@@ -395,6 +404,39 @@ components:
       example: '{"captureType": "FULL","wlcId": "9079ce39-25fe-4ab0-88cb-e89f5e700ddb", "clientMac": "AA:AA:AA:AA:AA:02", "durationInMins": 10}
 
         '
+    ErrorResponse_response:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A message providing more context regarding the error
+        detail:
+          type: string
+          description: Detailed information regarding the error
+    EpochMilliseconds:
+      minimum: 0
+      type: integer
+      description: A date and time represented as ***milliseconds*** since the Unix epoch.
+      format: int64
+      example: 1524880285900
+      externalDocs:
+        description: Unix time - Wikipedia
+        url: https://en.wikipedia.org/wiki/Unix_time
+    IntegerResponse:
+      title: Integer Response
+      type: object
+      properties:
+        response:
+          type: integer
+          description: The reported value
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports an integer.
     ErrorResponse:
       title: Error Response
       type: object
@@ -409,56 +451,14 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    ErrorResponse_response:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: A message providing more context regarding the error
-        detail:
-          type: string
-          description: Detailed information regarding the error
-    IntegerResponse:
-      title: Integer Response
+    PacketCaptureDeployedInfoListResponse:
       type: object
       properties:
         response:
-          type: integer
-          description: The reported value
+          $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
         version:
           type: string
-          description: The version of the response
           example: '1.0'
-      description: Reports an integer.
-  examples:
-    CaptureSettingOutput:
-      summary: captureSettingOutput
-      value:
-        response:
-        - name: FULL for AA:AA:AA:AA:AA:01 on WLC-20
-          slots:
-          - 0
-          - 1
-          - 2
-          otaBand: '2.4'
-          otaChannel: 7
-          otaChannelWidth: 20
-          id: 4dab2492-cead-4036-83d1-2e44b2212345
-          deployedId: 4dab2492-cead-4036-83d1-2e44b2212345
-          disableActivityId: 4dab2492-cead-4036-83d1-2e44b22abcdef
-          deployActivityId: 4dab2492-cead-4036-83d1-2e44b2255555
-          captureType: ONBOARDING
-          apId: 4dab2492-cead-4036-83d1-2e44b2255555
-          wlcId: 4dab2492-cead-4036-83d1-2e44b2213c54
-          clientMac: AA:AA:AA:AA:AA:01
-          createTime: 12345678901234
-          endTime: 12345679901234
-          durationInMins: 30
-          status: SUCCESS
-        version: '1.0'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

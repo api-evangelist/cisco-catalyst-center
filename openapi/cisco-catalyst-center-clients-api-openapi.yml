@@ -1229,1758 +1229,39 @@ paths:
         default:
           $ref: '#/components/responses/defaultError'
 components:
-  schemas:
-    WirelessLatencyStats:
-      type: object
-      properties:
-        video:
-          type: integer
-          description: Video traffic WiFi latency measured in milliseconds (ms)
-          example: 7
-        voice:
-          type: integer
-          description: Voice traffic WiFi latency measured in milliseconds (ms)
-          example: 7
-        bestEffort:
-          type: integer
-          description: Best Effort traffic WiFi latency measured in milliseconds (ms)
-          example: 7
-        background:
-          type: integer
-          description: Background traffic WiFi latency measured in milliseconds (ms)
-          example: 7
-      description: Wireless latency is measured by the time it takes for a packet to be successfully transmitted from an AP to the client
-    ClientFilterObj:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/ClientFilterField'
-        operator:
-          $ref: '#/components/schemas/Operator'
-        logicalOperator:
-          $ref: '#/components/schemas/LogicalOperator'
-        value:
-          type: object
-          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.\n\nIn the case of an \"and\" or \"or\" operator, this values array will be   ignored, and the values arrays in each of the *nested filters* will be used.\nThe data type of a value, or each item inside the value in case it is a list, must match the type defined in the Client response model \n"
-        filters:
-          type: array
-          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
-
-
-            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
-
-            '
-          items:
-            $ref: '#/components/schemas/ClientFilterObj'
-    ProtocolCapability:
-      type: string
-      description: Highest protocol supported by the wireless client
-      example: 802.11ax
-      enum:
-      - legacy
-      - 802.11n
-      - 802.11ac
-      - 802.11ax
-      - 802.11ax6
-      - 802.11be
-      - unclassified
-    ChannelWidth:
-      type: string
-      description: Is the channel bandwidth used by the radio for WiFi communication.
-      example: '40'
-    WlcName:
-      type: string
-      description: Wireless Controller name that reports the wireless client
-      example: wnbu-sjc24-00a-ewlc-prod2.cisco.com
-    ClientGroupByAttributes:
-      type: array
-      example:
-      - overallScore
-      - connectedDeviceName
-      items:
-        $ref: '#/components/schemas/ClientGroupByField'
-    WirelessConnectionDetail:
-      type: object
-      properties:
-        band:
-          type: string
-          description: WiFi frequency band that client or Access Point operates. Band value is represented in Giga Hertz - GHz
-          example: 5GHZ
-          enum:
-          - 2.4GHZ
-          - 5GHZ
-          - 6GHZ
-        ssid:
-          $ref: '#/components/schemas/Ssid'
-        authType:
-          type: string
-          description: Authenciation type used by wireless client to connect to Access Point
-          example: WPA2+802.1x/CCKM
-        wlcName:
-          $ref: '#/components/schemas/WlcName'
-        wlcId:
-          $ref: '#/components/schemas/WlcId'
-        apMac:
-          $ref: '#/components/schemas/ApMac'
-        apEthernetMac:
-          $ref: '#/components/schemas/ApEthernetMac'
-        apMode:
-          $ref: '#/components/schemas/ApMode'
-        radioId:
-          $ref: '#/components/schemas/RadioId'
-        channel:
-          $ref: '#/components/schemas/Channel'
-        channelWidth:
-          $ref: '#/components/schemas/ChannelWidth'
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-        protocolCapability:
-          $ref: '#/components/schemas/ProtocolCapability'
-        upnId:
-          type: string
-          description: User Private Network Id
-        upnName:
-          type: string
-          description: User Private Network Name
-        upnOwner:
-          type: string
-          description: User Private Network Owner
-        upnDuid:
-          type: string
-          description: User Private Network Duid
-        rssi:
-          type: integer
-          description: Received Signal Strength Indicator (RSSI) is   the measure of how well the wireless client can hear the   signal from Access Point. Measurement in dBm
-          example: -52
-        snr:
-          type: integer
-          description: Signal-to-Noise ratio (SNR) is the powerratio   between signal strength and noise level.Measurement in   decibels (dB).
-          example: 41
-        dataRate:
-          type: integer
-          description: Speed at which the data is transmitted by the Wireless client. This is the theoritical maximum speed the client can send the data. Measurement in bits per second (bps)
-          format: int64
-          example: 865
-        isIosAnalyticsCapable:
-          type: boolean
-          description: Is the wireless client capabale of sending additional KPIs to wireless controller for in depth monitoring
-          example: true
-        isFabricClient:
-          type: boolean
-          description: Is the Client connected to a fabric network
-          example: false
-      description: Connection attributes specific for wireless clients
-    ClientWithAggregateResponse:
-      type: object
-      properties:
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
-      allOf:
-      - $ref: '#/components/schemas/Client'
-    connectedDeviceName:
-      type: string
-      description: Name of the neighbor network device that client or network   device is connected to
-      example: Local-Switch
-    IPv6Address:
-      title: IPv6 Address
-      type: string
-      format: ipv6
-      example: 2001:db8:3c4d:15::1a2f:1a2b
-    ClientAttribute:
-      type: string
-      description: Attributes related to clients resource that can be requested to only be part of the response along with the required attributes.
-      enum:
-      - macAddress
-      - type
-      - name
-      - username
-      - ipv4Address
-      - ipv6Addresses
-      - vendor
-      - osType
-      - osVersion
-      - deviceType
-      - formFactor
-      - siteHierarchy
-      - siteHierarchyId
-      - siteId
-      - lastUpdatedTime
-      - connectionStatus
-      - overallScore
-      - onboardingScore
-      - connectedScore
-      - linkErrorPercentageThreshold
-      - rssiThreshold
-      - snrThreshold
-      - isRssiIncluded
-      - isSnrIncluded
-      - txBytes
-      - rxBytes
-      - usage
-      - rxRate
-      - txRate
-      - rxRetries
-      - rxRetryPercentage
-      - dnsRequestCount
-      - dnsResponseCount
-      - rxLinkErrorPercentage
-      - txLinkErrorPercentage
-      - connectedNetworkDeviceId
-      - connectedNetworkDeviceName
-      - connectedNetworkDeviceManagementIp
-      - connectedNetworkDeviceMac
-      - interfaceName
-      - interfaceSpeed
-      - duplexMode
-      - vnId
-      - l2Vn
-      - l3Vn
-      - vlanId
-      - securityGroupTag
-      - linkSpeed
-      - roamSpeed
-      - sessionDuration
-      - band
-      - ssid
-      - authType
-      - wlcName
-      - wlcId
-      - apMac
-      - apMode
-      - radioId
-      - channel
-      - protocol
-      - protocolCapability
-      - upnId
-      - upnName
-      - upnOwner
-      - upnDuid
-      - rssi
-      - snr
-      - dataRate
-      - isIosAnalyticsCapable
-      - isFabricClient
-      - bridgeVMMode
-      - avgRunDuration
-      - maxRunDuration
-      - avgAssocDuration
-      - maxAssocDuration
-      - avgAuthDuration
-      - maxAuthDuration
-      - avgDhcpDuration
-      - maxDhcpDuration
-      - aaaServerIp
-      - dhcpServerIp
-      - authDoneTime
-      - assocDoneTime
-      - dhcpDoneTime
-      - roamingTime
-      - failedRoamingCount
-      - successfulRoamingCount
-      - totalRoamingAttempts
-      - assocFailureReason
-      - aaaFailureReason
-      - dhcpFailureReason
-      - otherFailureReason
-      - latestFailureReason
-      - trustScore
-      - assocFailureReasonDescription
-      - aaaFailureReasonDescription
-      - dhcpFailureReasonDescription
-    WlcId:
-      type: string
-      description: UUID of the Wireless Controller that reports the wireless client
-      example: 9bbc92ad-b0e8-4638-95f6-c9bec7046dc8
-    CommonTrafficStats:
-      type: object
-      properties:
-        txBytes:
-          type: integer
-          description: Amount of data sent by the client measured in bytes.
-          format: int64
-          example: 406695572
-        rxBytes:
-          type: integer
-          description: Amount of data received by the client measured in bytes.
-          format: int64
-          example: 2753889933
-        usage:
-          type: integer
-          description: Amount of data send and received by the client measured in bytes.
-          format: int64
-          example: 3160585505
-        rxPackets:
-          type: integer
-          description: Number of packets received by the Client
-          format: int64
-          example: 3163
-        txPackets:
-          type: integer
-          description: Number of packets sent by the Client
-          format: int64
-          example: 5647
-        rxRate:
-          type: number
-          description: Number of bytes per second traffic received by the Client
-          example: 1951.56
-        txRate:
-          type: number
-          description: Number of bytes per second traffic sent by the Client
-          example: 60182
-      description: Traffic statistics common for wired and wireless clients
-    LogicalOperator:
-      type: string
-      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
-
-
-        Logical operations include: ''and'', ''or''.
-
-        '
-      enum:
-      - and
-      - or
-    ApEthernetMac:
-      type: string
-      description: Ethernet Mac Address of the Access Point the wireless client is connected to
-      example: AA:BB:CC:DD:FF:00
-    ClientsGroupResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This is the group key. Unique value to identify the group. It is concatination of groupBy attributes
-        attributes:
-          $ref: '#/components/schemas/AnalyticsAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
-    ClientGroupByField:
-      type: string
-      description: Supported groupBy attributes related to clients
-      enum:
-      - siteId
-      - connectedNetworkDeviceId
-      - ssid
-      - band
-      - protocol
-      - protocolCapability
-      - apMac
-      - wlcName
-      - type
-      - aaaServerIp
-      - dhcpServerIp
-      - deviceType
-      - osType
-      - osVersion
-      - aaaFailureReason
-      - assocFailureReason
-      - dhcpFailureReason
-      - latestFailureReason
-    WirelessHealthKpi:
-      type: object
-      properties:
-        rssiThreshold:
-          type: integer
-          description: Threshold value in dBm for RSSI KPI used when calculating Wireless Client connectivity score.
-          example: -72
-        snrThreshold:
-          type: integer
-          description: Threshold value in dB for SNR KPI used when calculating Wireless Client connectivity score.
-          example: 9
-        dataRateThreshold:
-          type: integer
-          description: Threshold value in Mbps for Data Rate KPI used when calculating Wireless Client connectivity score.
-          example: 450
-        retriesThreshold:
-          type: integer
-          description: Threshold value in percentage for Retries KPI used when calculating Wireless Client connectivity score.
-          example: 5
-        isRssiIncluded:
-          type: boolean
-          description: Is the RSSI KPI included in calculating the Wireless Client connectivity health score.
-          example: true
-        isSnrIncluded:
-          type: boolean
-          description: Is the SNR KPI included in calculating the Wireless Client connectivity health score.
-          example: true
-        isDataRateIncluded:
-          type: boolean
-          description: Is the Data Rate KPI included in calculating the Wireless Client connectivity health score.
-          example: true
-        isRetriesIncluded:
-          type: boolean
-          description: Is the Retries KPI included in calculating the Wireless Client connectivity health score.
-          example: true
-    ClientsTopNResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          description: Successfully return list of Clients TopN Analytics data
-          items:
-            $ref: '#/components/schemas/ClientsGroupResponse'
-        page:
-          $ref: '#/components/schemas/PaginationWithAggregate'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-    name:
-      type: string
-      description: Host name of the network entity such as Client or Network   Device
-    CommonConnectedNetworkDeviceDetail:
-      type: object
-      properties:
-        connectedNetworkDeviceId:
-          $ref: '#/components/schemas/connectedDeviceId'
-        connectedNetworkDeviceName:
-          $ref: '#/components/schemas/connectedDeviceName'
-        connectedNetworkDeviceManagementIp:
-          type: string
-          description: Management IP address of the network device where the client is connected
-          example: 3.3.3.3
-        connectedNetworkDeviceMac:
-          type: string
-          description: Mac address of the network device where the client is connected
-          example: FF:DD:EE:CC:BB:AA
-        connectedNetworkDeviceType:
-          type: string
-          description: The type of the connected device the client is connected to
-          enum:
-          - Access Point
-          - Switch
-      description: Connected network device attributes common for wired and wireless clients
-    ApMode:
-      type: string
-      description: Access Point operating mode
-      example: Local
-      enum:
-      - Local
-      - Monitor
-      - FlexConnect
-      - Rogue Detector
-      - Sniffer
-      - Bridge
-      - SE-Connect
-      - Flex+Bridge
-      - Sensor
-    ClientsSummaryResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/ClientsSummaryGroupsResponse'
-        page:
-          $ref: '#/components/schemas/PaginationWithAggregate'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-    Function:
-      type: string
-      description: Type of aggregate function to apply on the field when querying   data
-      example: sum
-      enum:
-      - sum
-      - min
-      - max
-      - avg
-      - count
-      - latest
-      - distinctCount
-      - median
-    OnboardingDetail:
-      type: object
-      properties:
-        avgRunDuration:
-          type: integer
-          description: Average duration value taken by wireless client to move to 'RUN' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 1500
-        maxRunDuration:
-          type: integer
-          description: Maximum duration value taken by wireless client to move to 'RUN' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 4500
-        avgAssocDuration:
-          type: integer
-          description: Average duration value taken by wireless client to move to 'ASSOC' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 100
-        maxAssocDuration:
-          type: integer
-          description: Maximum duration value taken by wireless client to move to 'ASSOC' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 500
-        avgAuthDuration:
-          type: integer
-          description: Average duration value taken by wireless client to move to 'AUTH' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 50
-        maxAuthDuration:
-          type: integer
-          description: Maximum duration value taken by wireless client to move to 'AUTH' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 200
-        avgDhcpDuration:
-          type: integer
-          description: Average duration value taken by wireless client to move to 'DHCP' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 250
-        maxDhcpDuration:
-          type: integer
-          description: Maximum duration value taken by wireless client to move to 'DHCP' state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 750
-        maxRoamingDuration:
-          type: integer
-          description: Maximum duration value taken by wireless client to move to finish Romaing state for all onboarding attempts. It is measured in milliseconds (ms)
-          example: 750
-        aaaServerIp:
-          type: string
-          description: AAA server IP address used by wireless client to verify if the client has permission to onboard the network
-          example: 192.168.4.5
-        dhcpServerIp:
-          type: string
-          description: DHCP server IP address used by wireless client to get the network details to help client connect to network
-          example: 172.68.2.3
-        onboardingTime:
-          type: integer
-          description: Time at which wireless client started onboarding process to connect to network.  It is specified in UNIX epochtime in milliseconds.  If wireless client goes through multiple onboarding attempts this field will be the first Onboarding attempt timestamp.
-          format: int64
-          example: 1707237517322
-        authDoneTime:
-          type: integer
-          description: Time at which wireless client finished Authentication phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest Autentication attempt timestamp.
-          format: int64
-          example: 1707237517322
-        assocDoneTime:
-          type: integer
-          description: Time at which wireless client finished Association phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest Association attempt timestamp.
-          format: int64
-          example: 1707237517322
-        dhcpDoneTime:
-          type: integer
-          description: Time at which wireless client finished DHCP (accquiring network details) phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest DHCP attempt timestamp.
-          format: int64
-          example: 1707237517322
-        roamingTime:
-          type: integer
-          description: Time at which wireless client finished Roaming phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest ROAM attempt timestamp.
-          format: int64
-          example: 1707237517322
-        failedRoamingCount:
-          type: integer
-          description: Number of Roaming attempts failed by wireless client
-          example: 2
-        successfulRoamingCount:
-          type: integer
-          description: Number of Roaming attempts successful by wireless client
-          example: 3
-        totalRoamingAttempts:
-          type: integer
-          description: Number of Roaming attempts successful and failed by wireless client
-          example: 5
-        assocFailureReason:
-          type: string
-          description: Latest Association failure reason.
-          example: cl_POOR_CHANNEL_CONDITIONS
-        aaaFailureReason:
-          type: string
-          description: Latest AAA Server related Authentication failure reason.
-          example: AUTH_AAA_NO_RESPONSE
-        dhcpFailureReason:
-          type: string
-          description: Latest DHCP Server related IP Association failure reason.
-          example: cl_REASON_DHCP_FAIL_LEASE_EXPIRED
-        otherFailureReason:
-          type: string
-          description: Latest any other failure reason.
-          example: Client Connect Timeout
-        latestFailureReason:
-          type: string
-          description: Latest failure reason.
-          example: aaaRootCause
-        assocFailureReasonDescription:
-          type: string
-          description: Latest Association failure reason description.
-          example: Poor Channel Conditions
-        aaaFailureReasonDescription:
-          type: string
-          description: Latest AAA Server related Authentication failure reason description.
-          example: No Response from AAA Server
-        dhcpFailureReasonDescription:
-          type: string
-          description: Latest DHCP Server related IP Association failure reason description.
-          example: DHCP Renew Failure - No Response upon Request
-    ClientFilters:
-      maxItems: 10
-      type: array
-      description: 'List of filters to apply when querying the data
-
-
-
-        Filtering on numerical fields (integer, number,etc.) will support the
-
-        numerical operators:
-
-
-
-        [eq, lt, gt, lte, gte]
-
-
-
-        Filtering on text fields (string), will support the string operators:
-
-
-
-        [eq, in, notIn, like]
-
-
-
-        For the list of supported fields, please refer to the ClientFilterField model
-
-        model.
-
-        '
-      example:
-      - key: rssi
-        operator: gt
-        value: -50
-      - key: osType
-        operator: in
-        value:
-        - iOS
-        - Android
-      - logicalOperator: or
-        filters:
-        - key: vlanId
-          operator: eq
-          value: '187'
-        - key: siteHierarchy
-          operator: in
-          value:
-          - Global/San Jose
-          - Global/SFO
-      items:
-        $ref: '#/components/schemas/ClientFilterObj'
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    ClientsQueryRequest:
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/startTime'
-        endTime:
-          $ref: '#/components/schemas/endTime'
-        views:
-          $ref: '#/components/schemas/ClientViews'
-        attributes:
-          $ref: '#/components/schemas/ClientAttributes'
-        filters:
-          $ref: '#/components/schemas/ClientFilters'
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributes'
-        page:
-          $ref: '#/components/schemas/PaginationWithAggregate'
-      description: 'Request payload used for complex query API.
-
-        '
-    ClientAggregateAttributesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/ClientAggregateAttributeResponse'
-    ClientsResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/Client'
-        page:
-          $ref: '#/components/schemas/PaginationWithAggregate'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Collection of Clients response model
-    ClientBasic:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the Client. It is the Mac Address of the clien.
-          example: AA:BB:CC:DD:EE:FF
-        macAddress:
-          $ref: '#/components/schemas/MacAddress'
-        type:
-          type: string
-          description: The client device type whether client is connected to network through Wired or Wireless medium.
-          example: Wireless
-          enum:
-          - Wired
-          - Wireless
-      description: Basic information about the client
-    connectedDeviceId:
-      type: string
-      description: UUID of the neighbor network device that client or network   device is connected to
-      format: uuid
-      example: 0f538975-3085-40f2-9d25-7ad0047eeda5
-    ClientAggregateAttributes:
-      type: array
-      example:
-      - name: rssi
-        function: min
-      - name: rssi
-        function: max
-      - name: rssi
-        function: avg
-      - name: usage
-        function: sum
-      items:
-        $ref: '#/components/schemas/ClientAggregateAttribute'
-    WiredConnectionDetail:
-      type: object
-      properties:
-        vnId:
-          $ref: '#/components/schemas/vnId'
-        l2Vn:
-          $ref: '#/components/schemas/L2Vn'
-        l3Vn:
-          $ref: '#/components/schemas/L3Vn'
-        securityGroupTag:
-          type: string
-          description: Each security group in a Cisco TrustSec domain is assigned a unique 16 bit tag called the Security Group Tag (SGT). The SGT is a single label indicating the privileges of the source within the entire network. It is in turn  between network hops allowing any intermediary devices (switches, routers) to enforce polices based on the identity tag
-          example: '133'
-        linkSpeed:
-          type: integer
-          description: The negotiated speed in bits per second of the link between Wired client and connected network device
-          format: int64
-          example: 1000000000
-        bridgeVMMode:
-          type: string
-          description: Is Bridge VM Mode supported by the client
-      description: Connection attributes specific for wired clients
-    WiredHealthKpi:
-      type: object
-      properties:
-        linkErrorPercentageThreshold:
-          type: number
-          description: Threshold value in percentage for link error KPI used when calculating Wired Client connectivity score.
-          example: 1
-        isLinkErrorIncluded:
-          type: boolean
-          description: Is the link error KPI included in calculating the Wired Client connectivity health score.
-          example: true
-        discardsThreshold:
-          type: number
-          description: Threshold value in percentage for Discards KPI used when calculating Wired Client connectivity score.
-          example: 1
-        isDiscardsIncluded:
-          type: boolean
-          description: Is the Discards KPI included in calculating the Wired Client connectivity health score.
-          example: true
-        utilizationThreshold:
-          type: number
-          description: Threshold value in percentage for Utilization KPI used when calculating Wired Client connectivity score.
-          example: 1
-        isUtilizationIncluded:
-          type: boolean
-          description: Is the Utilization KPI included in calculating the Wired Client connectivity health score.
-          example: true
-    WirelessTrafficStats:
-      type: object
-      properties:
-        rxRetries:
-          type: integer
-          description: Number of packets retransmitted by Access Point to Wireless client
-          format: int64
-          example: 1652
-        rxRetryPercentage:
-          type: number
-          description: Percentage of packets retransmitted by Access Point to wireless client (%)
-          example: 2.5
-        txDrops:
-          type: integer
-          description: Number of packets that are dropped by wireless client before sending to Access Point
-          format: int64
-          example: 100
-        txDropPercentage:
-          type: number
-          description: Percentage of packets that are dropped by wireless client before sending to Access Point (%)
-          example: 1
-        dnsRequestCount:
-          type: integer
-          description: The number of DNS requests sent by the client
-          example: 112
-        dnsResponseCount:
-          type: integer
-          description: The number of DNS responses received by the client
-          example: 112
-      description: Traffic statistics specific for wireless client
-    ClientAttributes:
-      type: array
-      example:
-      - overallScore
-      - connectedDeviceName
-      items:
-        $ref: '#/components/schemas/ClientAttribute'
-    Channel:
-      type: string
-      description: Specific WiFi frequency that client uses to send or receive data from Access Point
-      example: '100'
-    RadioId:
-      type: integer
-      description: Radio slot Id of the Access Point where the wireless client is connected
-      example: 2
-    PaginationWithAggregate:
-      type: object
-      properties:
-        limit:
-          maximum: 500
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        cursor:
-          type: string
-          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
-          example: '{apMac_terms=AA:BB:CC:DD:EE:FF, frequency_terms=5.0}'
-        count:
-          type: integer
-          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-        sortBy:
-          type: array
-          example:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
-          items:
-            $ref: '#/components/schemas/SortByObj'
-    vlanId:
-      type: string
-      description: VLAN identifier assigned to wired or wireless client
-      example: '596'
-    ClientResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/Client'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: A single Client response model
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-      description: Error object containing error code and information about the error
-    AnalyticsAttributesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/AnalyticsAttributeResponse'
-    ClientAggregateAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the requested aggregate attribute
-        function:
-          type: string
-          description: Aggregate function requested for the attribute
-        value:
-          type: object
-          description: This is the aggregate value of the attribute after applying the function on the dataset
-    PaginationTrend:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-          default: 100
-        cursor:
-          type: string
-          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
-          example: '{~modificationtime_histo=1.7115912E12}'
-          default: ''
-        count:
-          type: integer
-          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
-        timeSortOrder:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          enum:
-          - asc
-          - desc
-    ClientAggregateAttribute:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/ClientAggregateField'
-        function:
-          $ref: '#/components/schemas/Function'
-      description: 'Field name and list of aggregate functions to be applied when
-
-        querying the data.
-
-        '
-    AnalyticsAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the attribute requested for analytics API.
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
-    WiredTrafficStats:
-      type: object
-      properties:
-        rxLinkErrorPercentage:
-          type: number
-          description: Percentage of packets received by wired client that have errors (%)
-          example: 0.5
-        txLinkErrorPercentage:
-          type: number
-          description: Percentage of packets sent by wired client that have errors (%)
-          example: 0.5
-        inDiscards:
-          type: number
-          description: Percentage of incoming traffic discarded by wired client
-          example: 20
-        outDiscards:
-          type: number
-          description: Percentage of outgoing traffic discarded by wired client
-          example: 20
-        inUtilization:
-          type: number
-          description: Percentage of incoming interface bandwidth utilization
-          example: 20
-        outUtilization:
-          type: number
-          description: Percentage of outgoing interface bandwidth utilization
-          example: 20
-      description: Traffic statistics specific for wired client
-    ClientsTrendGroupsResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-        attributes:
-          $ref: '#/components/schemas/AnalyticsAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
-        groups:
-          type: array
-          description: 'Additional groups and their respective attributes are included under each group. The attributes belonging to each group are appended to the attributes list.
-
-            '
-          items:
-            $ref: '#/components/schemas/ClientsGroupResponse'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
-    ClientView:
-      type: string
-      enum:
-      - Wired
-      - WiredHealth
-      - WiredTraffic
-      - WiredConnectedNetworkDevice
-      - WiredConnection
-      - Wireless
-      - WirelessHealth
-      - WirelessTraffic
-      - WirelessConnectedNetworkDevice
-      - WirelessConnection
-      - Detail
-      - Onboarding
-      - Latency
-    ClientTrendQueryRequest:
-      required:
-      - trendInterval
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/startTime'
-        endTime:
-          $ref: '#/components/schemas/endTime'
-        trendInterval:
-          $ref: '#/components/schemas/trendInterval'
-        groupBy:
-          $ref: '#/components/schemas/ClientGroupByAttributes'
-        attributes:
-          $ref: '#/components/schemas/ClientAttributes'
-        filters:
-          $ref: '#/components/schemas/ClientFilters'
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributes'
-        page:
-          $ref: '#/components/schemas/PaginationTrend'
-      description: 'Request payload used for complex trend query API. It contains |
-
-        ''trend'' ''attributes'' - To provide the list of fields that user is interested in the response. |
-
-        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
-
-        ''aggregateAttributes'' - To provide list of fields and corresponding aggregation functions to run.
-
-        '
-    siteHierarchy:
-      type: string
-      description: The full hierarchy breakdown of the site tree in name form starting from Global site name and ending with the specific site site. 'Global' is the Root name of the site hierarchy tree. Site name including the hierarchy where the network device or client is located. For clients site is derived based on site assigned to network device where the client is connected to. For Wireless client its the connected Access Point site and for Wired client its the connected switch site. For network device its the site assigned to it.
-      example: Global/AreaName/BuildingName/FloorName
-    CommonDetail:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/name'
-        userId:
-          type: string
-          description: User id of the client using this device. Multiple clientdevices can be assigned to single   user. This field will tell theunique identifer of the user using this device.
-          example: jdoe
-        username:
-          type: string
-          description: Name of the user to which the client is assigned
-          example: 12-34-56-AB-CD-EF
-        ipv4Address:
-          $ref: '#/components/schemas/IPv4Address'
-        ipv6Addresses:
-          type: array
-          description: IPv6 addresses of the client
-          items:
-            $ref: '#/components/schemas/IPv6Address'
-        vendor:
-          type: string
-          description: Vendor name of the client device
-          example: Apple
-        osType:
-          type: string
-          description: Device operating system type
-          example: iOS
-        osVersion:
-          type: string
-          description: Device operating system version
-          example: 17.1.2
-        formFactor:
-          type: string
-          description: Device Form Factor like Phone, Tablet etc
-          example: Phone
-        trustScore:
-          type: number
-          description: Trust Score is AI Endpoint Analytics trust level based on various anomaly protection on the device.
-          example: 3
-        deviceType:
-          type: string
-          description: Device type like Apple-Device, Intel-Device etc
-          example: Apple-Device
-        siteHierarchy:
-          $ref: '#/components/schemas/siteHierarchy'
-        siteHierarchyId:
-          $ref: '#/components/schemas/siteHierarchyId'
-        siteId:
-          type: string
-          description: Leaf level site uuid of the network device to which the client is connected to
-          example: 4049312a-e65d-4054-a8b7-dd5fd4b08cb8
-        lastUpdatedTime:
-          type: integer
-          description: Last known time when the client was updated. It is specified in UNIX epochtime format in milliseconds
-          format: int64
-          example: 16994442370000
-        connectionStatus:
-          type: string
-          description: Client connection status. 'Connecting' state is applicable only for Wireless client. Other state are applicable for both wired and wireless clients
-          example: connected
-          enum:
-          - connected
-          - disconnected
-          - connecting
-          - unknown
-        tracked:
-          type: string
-          description: Field to indicate if client is tracked or not by the controller based on client tracking rules
-          enum:
-          - 'Yes'
-          - 'No'
-        isPrivateMacAddress:
-          type: boolean
-          description: Is the client is connected to network using unique private network address enabled on the client
-          example: false
-      description: Client detail information common for wired and wireless
-    CommonHealthKpi:
-      type: object
-      properties:
-        overallScore:
-          type: integer
-          description: 'Overall Health Score of the client.  The Individual Client Health score is the sum of the Client Onboarding score and the Client    Connectivity score. The client health score ranges from 1 to 10, with a score of 0 for    inactive clients. It is calculated as follows:
-
-            `Wired Client`: Link to first switch is up, authentication and authorization is successful    and IP address is received. Client score is 10.
-
-            `Wireless Client`: Client joined the network and has good connection in terms of the RSSI     and SNR KPIs.'
-          example: 10
-        onboardingScore:
-          type: integer
-          description: 'The Client Onboarding score indicates the experience of a client device while connecting to    the network.
-
-            If a client connects to the network successfully, the score is 4. If a client failed to connect to the network, the score is 1. If a client is idle, the score is 0.
-
-            The Client Onboarding score is calculated as follows:
-
-            `Wired Client`: Link to the first switch is up, authentication and  authorization is successful, and IP address is received.
-
-            `Wireless Client`: Client Onboarding score range is from 1 to 4. When the client    connects to the network successfully, the score is 4. If the client failed to connect to the network, the score is 1.'
-          example: 4
-        connectedScore:
-          type: integer
-          description: "The Client Connectivity score indicates the experience of the client device after the     device is connected to the network. The score is calculated as follows:\n`Wired Client`: Connectivity score can be 2 or 6. Link errors determine the Connectivity     score and the resulting Overall Health score, as shown below:\n\n  If a client onboards successfully but has link errors, the Connectivity score is 2 and     the Overall Health score is 6.\n\n  If the client onboards successfully and there are no link errors between the client and     the first-hop switch, the Connectivity score is 6 and the Overall Health score is 10.\n\n`Wireless Client`: Connectivity score can be 0, 4, or 10. The RSSI and SNR range determines    the Connectivity score and the resulting Overall Health score is calculated as the     weighted average of the RSSI-driven Connectivity score and the SNR-driven Connectivity    score."
-          example: 6
-    MacAddress:
-      pattern: ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$|^[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}$
-      type: string
-      description: Mac Address of the Client
-      readOnly: true
-      example: AA:BB:CC:DD:EE:FF
-    ClientTrendResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientsTrendGroupsResponse'
-        page:
-          $ref: '#/components/schemas/PaginationTrend'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-    ClientsSummaryGroupsResponse:
-      type: object
-      properties:
-        attributes:
-          $ref: '#/components/schemas/AnalyticsAttributesResponse'
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
-        groups:
-          type: array
-          description: 'Additional groups and respective attributes under the group.
-
-            The attributes comprising of each group are added to attributes list.
-
-            '
-          items:
-            $ref: '#/components/schemas/ClientsGroupResponse'
-      description: "Clients Summary response contains attributes, aggregateAttributes and groups\nattributes, aggregatedAttributes and groups are mutually exclusive.\nIf user requests for summary without groupBy attributes then response includes attributes, aggregateAttributes\nIf user requests for summary with groupBy attributes then response then includes groups array contain attributes, aggregatedAttributes for each array element \n"
-    siteHierarchyId:
-      type: string
-      description: The full hierarchy breakdown of the site tree in id form starting from Global site UUID and ending with the specific site UUID.
-      example: /31e57cb2-06af-4c5c-87d1-16af536095d2/54d3f243-509e-436d-98-ebe01daf80db/f52fbe48-fcc9-4551-947b-e144e20c0311/50c01c29-b09e-49-b6ce-2e7d3395f3a3/
-    ClientsSummaryRequest:
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/startTime'
-        endTime:
-          $ref: '#/components/schemas/endTime'
-        groupBy:
-          $ref: '#/components/schemas/ClientGroupByAttributes'
-        attributes:
-          $ref: '#/components/schemas/ClientAttributes'
-        filters:
-          $ref: '#/components/schemas/ClientFilters'
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributes'
-        page:
-          $ref: '#/components/schemas/PaginationWithAggregate'
-      description: "Request payload used for summary query API. It contains \n"
-    startTime:
-      type: integer
-      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-      format: int64
-      example: 1705348800000
-    trendInterval:
-      type: string
-      description: "The time window to aggregate the metrics. \nInterval can be 5 minutes or 10 minutes or 1 hour or 1 day or 7 days\n"
-      example: 5MIN
-      default: 5MIN
-      enum:
-      - 5MIN
-      - 10MIN
-      - 1HR
-      - 1DAY
-      - 7DAY
-    ClientViews:
-      type: array
-      description: "View is predefined set of attributes supported by the API. The attributes related to view only will be part of the API response   along with required fields. If multiple views are requested response will contain attributes from requested views. If no views are specified all the attributes will be returned\nClient Views are broadly categorized into Wired and Wireless.\n`Wired` includes attributes related to a wired client and `Wireless` includes attributes related to a wireless client\nThere are specific views for Wired and Wireless category that user   can request the data for\n\n| View Name | Included Attributes |\n| --- | --- |\n| `Wired` | id, macAddress, type, name, userId, username, ipv4Address, ipv6Addresses, vendor, osType, osVersion, formFactor, deviceType, siteHierarchy, siteHierarchyId, siteId,   lastUpdatedTime, connectionStatus, tracked, isPrivateMacAddress, overallScore, onboardingScore, connectedScore, linkErrorPercentageThreshold, islinkErrorIncluded,   txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate,   rxLinkErrorPercentage, txLinkErrorPercentage, connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp, connectedNetworkDeviceMac,     interfaceName, interfaceSpeed, duplexMode, connectedNetworkDeviceType, vnId, l2Vn, l3Vn, vlanId, securityGroupTag,   linkSpeed, sessionDuration, bridgeVMMode, isFabricClient  |\n| `WiredConnection` | id, macAddress, type, vnId, l2Vn, l3Vn, securityGroupTag, linkSpeed, sessionDuration, bridgeVMMode, isFabricClient |\n| `WiredTraffic` | id, macAddress, type, txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage |\n| `WiredHealth` | id, macAddress, type, overallScore,   onboardingScore, connectedScore, linkErrorPercentageThreshold, islinkErrorIncluded |\n| `WiredConnectedNetworkDevice` | id, macAddress, type, connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp,  connectedNetworkDeviceMac,    interfaceName, interfaceSpeed, duplexMode, connectedNetworkDeviceType |\n| `Wireless` | id, macAddress, type, name, userId, username,   ipv4Address, ipv6Addresses, vendor, osType, osVersion,   formFactor, deviceType, siteHierarchy, siteHierarchyId, siteId,   lastUpdatedTime, connectionStatus, tracked, isPrivateMacAddress,   overallScore, onboardingScore,   connectedScore, rssiThreshold, snrThreshold,   isRssiIncluded, isSnrIncluded, txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate, rxRetries, rxRetryPercentage, txDrops, txDropPercentage, dnsRequestCount, dnsResponseCount, connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp, connectedNetworkDeviceMac,  connectedNetworkDeviceType, band,   ssid, vlanId, authType,   wlcName, wlcId, apMac,   apEthernetMac, radioId, channel, channelWidth, protocol, protocolCapability, upnId, upnName,   upnOwner, upnDuid, rssi,   snr, dataRate, sessionDuration,   isIosAnalyticsCapable, isFabricClient, avgRunDuration,   maxRunDuration, avgAssocDuration,   maxAssocDuration, avgRunDuration, maxRunDuration, avgAssocDuration,   maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration,   maxDhcpDuration, maxRoamingDuration, aaaServerIp, dhcpServerIp, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, successfulRoamingCount, assocFailureReason, aaaFailureReason,  dhcpFailureReason, otherFailureReason, latestFailureReason, video, voice, bestEffort, background   |\n| `WirelessConnection` | id, macAddress, type, band,   ssid, vlanId, authType,   wlcName, wlcId, apMac,   apEthernetMac, radioId, channel  , channelWidth, protocol, protocolCapability, upnId, upnName,   upnOwner, upnDuid, rssi,   snr, dataRate, sessionDuration,   isIosAnalyticsCapable, isFabricClient |\n| `WirelessTraffic` | id, macAddress, type, txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate, rxRetries,   rxRetryPercentage, txDrops, txDropPercentage, dnsRequestCount, dnsResponseCount |\n| `WirelessHealth` | id, macAddress, type, overallScore,   onboardingScore, connectedScore, rssiThreshold, snrThreshold, isRssiIncluded,   isSnrIncluded |\n| `WirelessConnectedNetworkDevice` | id, macAddress, type,   connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp, connectedNetworkDeviceMac,   connectedNetworkDeviceType |\n| `Detail` | id, macAddress, type, name, userId, username,   ipv4Address, ipv6Addresses, vendor, osType, osVersion,   formFactor, deviceType, siteHierarchy, siteHierarchyId, siteId,   lastUpdatedTime, connectionStatus, tracked, isPrivateMacAddress,   overallScore |\n \n| `Onboarding` | id, macAddress, type, avgRunDuration, maxRunDuration, avgAssocDuration,   maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration,   maxDhcpDuration, maxRoamingDuration, aaaServerIp, dhcpServerIp, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, successfulRoamingCount, assocFailureReason, aaaFailureReason, dhcpFailureReason, otherFailureReason, latestFailureReason |\n| `Latency` | id, macAddress, type, video, voice, bestEffort, background |\nExamples:\nviews=Wired (single view requested)\nviews=Detail,Wireless Connection,Wireless Health (multiple views  requested)"
-      example:
-      - Wireless
-      items:
-        $ref: '#/components/schemas/ClientView'
-    ClientAggregateField:
-      type: string
-      description: 'Supported aggregated attributes related to clients
-
-        | Aggregate Function | Supported Aggregate Fields |
-
-        | --- | --- |
-
-        | `min` | overallScore, onboardingScore, connectedScore, txBytes, rxBytes, usage, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage, rxRetries, rxRetryPercentage, dnsRequestCount, dnsResponseCount, rxLinkErrorPercentage, txLinkErrorPercentage, interfaceSpeed, roamSpeed, sessionDuration, rssi, snr, dataRate, avgRunDuration, maxRunDuration, avgAssocDuration, maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration, maxDhcpDuration, maxRoamingDuration, onboardingTime, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
-
-        | `max` | overallScore, onboardingScore, connectedScore, txBytes, rxBytes, usage, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage, rxRetries, rxRetryPercentage, dnsRequestCount, dnsResponseCount, rxLinkErrorPercentage, txLinkErrorPercentage, interfaceSpeed, roamSpeed, sessionDuration, rssi, snr, dataRate, avgRunDuration, maxRunDuration, avgAssocDuration, maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration, maxDhcpDuration, maxRoamingDuration, onboardingTime, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
-
-        | `avg` | overallScore, onboardingScore, connectedScore, txBytes, rxBytes, usage, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage, rxRetries, rxRetryPercentage, dnsRequestCount, dnsResponseCount, rxLinkErrorPercentage, txLinkErrorPercentage, interfaceSpeed, roamSpeed, sessionDuration, rssi, snr, dataRate, avgRunDuration, maxRunDuration, avgAssocDuration, maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration, maxDhcpDuration, maxRoamingDuration, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
-
-        | `median` | overallScore, onboardingScore, connectedScore, dataRate, rssi, snr |
-
-        | `sum` | txBytes, rxBytes, usage, dnsRequestCount, dnsResponseCount, sessionDuration, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
-
-        | `count` | macAddress, band, ssid, authType, wlcName, apMac, protocol, protocolCapability, aaaServerIp, dhcpServerIp |'
-      enum:
-      - macAddress
-      - overallScore
-      - onboardingScore
-      - connectedScore
-      - txBytes
-      - rxBytes
-      - usage
-      - rxRate
-      - txRate
-      - rxRetries
-      - rxRetryPercentage
-      - dnsRequestCount
-      - dnsResponseCount
-      - rxLinkErrorPercentage
-      - txLinkErrorPercentage
-      - interfaceSpeed
-      - roamSpeed
-      - sessionDuration
-      - band
-      - ssid
-      - authType
-      - wlcName
-      - apMac
-      - protocol
-      - protocolCapability
-      - rssi
-      - snr
-      - dataRate
-      - avgRunDuration
-      - maxRunDuration
-      - avgAssocDuration
-      - maxAssocDuration
-      - avgAuthDuration
-      - maxAuthDuration
-      - avgDhcpDuration
-      - maxDhcpDuration
-      - maxRoamingDuration
-      - aaaServerIp
-      - dhcpServerIp
-      - onboardingTime
-      - authDoneTime
-      - assocDoneTime
-      - dhcpDoneTime
-      - roamingTime
-      - failedRoamingCount
-      - successfulRoamingCount
-      - totalRoamingAttempts
-    L3Vn:
-      type: string
-      description: L3 Virtual network name assigned to wired client
-      example: DATA-VN
-    CommonConnectionDetail:
-      type: object
-      properties:
-        vlanId:
-          $ref: '#/components/schemas/vlanId'
-        sessionDuration:
-          type: integer
-          description: The amount of time in milliseconds the client was connected to network
-          format: int64
-          example: 12345678
-      description: Client Connection attributes common for wired and wireless clients
-    Operator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - neq
-      - lt
-      - gt
-      - lte
-      - gte
-      - eq
-      - notIn
-      - like
-    endTime:
-      type: integer
-      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-      format: int64
-      example: 1705435200000
-    topN:
-      maximum: 100
-      minimum: 5
-      type: integer
-      description: Number of records to retrieve
-      default: 5
-      enum:
-      - 5
-      - 10
-      - 50
-      - 100
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    vnId:
-      type: string
-      description: Virtual network identifier assigned to wired client
-      example: '8999'
-    ClientsWithAggregateResponseModel:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientWithAggregateResponse'
-        page:
-          $ref: '#/components/schemas/PaginationWithAggregate'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Collection of Clients response model
-    Protocol:
-      type: string
-      description: 802.11 protocol type used by wireless client to connect to Access Point
-      example: 802.11ac
-      enum:
-      - 802.11b
-      - 802.11a
-      - 802.11g
-      - 802.11n
-      - 802.11ac
-      - 802.11ax
-      - 802.11ax6
-      - 802.11be
-      - unclassified
-    ClientFilterField:
-      type: string
-      description: Supported filter attributes related to clients
-      enum:
-      - macAddress
-      - type
-      - name
-      - username
-      - ipv4Address
-      - ipv6Address
-      - osType
-      - osVersion
-      - deviceType
-      - vendor
-      - formFactor
-      - siteHierarchy
-      - siteHierarchyId
-      - siteId
-      - lastUpdatedTime
-      - connectionStatus
-      - overallScore
-      - onboardingScore
-      - connectedScore
-      - rssiThreshold
-      - snrThreshold
-      - isRssiIncluded
-      - isSnrIncluded
-      - txBytes
-      - rxBytes
-      - usage
-      - rxRate
-      - txRate
-      - rxRetries
-      - rxRetryPercentage
-      - dnsRequestCount
-      - dnsResponseCount
-      - rxLinkErrorPercentage
-      - txLinkErrorPercentage
-      - roamSpeed
-      - connectedNetworkDeviceId
-      - connectedNetworkDeviceName
-      - connectedNetworkDeviceManagementIp
-      - connectedNetworkDeviceMac
-      - interfaceName
-      - interfaceSpeed
-      - duplexMode
-      - vnId
-      - l2Vn
-      - l3Vn
-      - vlanId
-      - securityGroupTag
-      - linkSpeed
-      - sessionDuration
-      - band
-      - ssid
-      - authType
-      - wlcName
-      - wlcId
-      - apMac
-      - apMode
-      - radioId
-      - channel
-      - protocol
-      - protocolCapability
-      - upnId
-      - upnName
-      - upnOwner
-      - upnDuid
-      - rssi
-      - snr
-      - dataRate
-      - isIosAnalyticsCapable
-      - avgRunDuration
-      - maxRunDuration
-      - avgAssocDuration
-      - maxAssocDuration
-      - avgAuthDuration
-      - maxAuthDuration
-      - avgDhcpDuration
-      - maxDhcpDuration
-      - maxRoamingDuration
-      - onboardingTime
-      - authDoneTime
-      - assocDoneTime
-      - dhcpDoneTime
-      - roamingTime
-      - aaaServerIp
-      - dhcpServerIp
-      - assocFailureReason
-      - aaaFailureReason
-      - dhcpFailureReason
-      - otherFailureReason
-      - latestFailureReason
-      - trustScore
-    WiredConnectedNetworkDeviceDetail:
-      type: object
-      properties:
-        interfaceName:
-          $ref: '#/components/schemas/connectedInterfaceName'
-        interfaceSpeed:
-          type: integer
-          description: Port speed in bits per second on the connected device where the wired client is connected
-          format: int64
-          example: 100000000
-        duplexMode:
-          type: string
-          description: Duplex mode of the interface on the connected device where the wired client is connected
-          enum:
-          - Half Duplex
-          - Full Duplex
-      description: Connected network device attributes specific for wired clients
-    ClientsTopNRequest:
-      required:
-      - groupBy
-      - topN
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/startTime'
-        endTime:
-          $ref: '#/components/schemas/endTime'
-        topN:
-          $ref: '#/components/schemas/topN'
-        groupBy:
-          $ref: '#/components/schemas/ClientGroupByAttributes'
-        attributes:
-          $ref: '#/components/schemas/ClientAttributes'
-        filters:
-          $ref: '#/components/schemas/ClientFilters'
-        aggregateAttributes:
-          $ref: '#/components/schemas/ClientAggregateAttributes'
-        page:
-          $ref: '#/components/schemas/PaginationWithAggregate'
-      description: 'Request payload used for Top-N query API. It contains
-
-        '
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          description: The error response object
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    Client:
-      type: object
-      properties:
-        health:
-          allOf:
-          - $ref: '#/components/schemas/CommonHealthKpi'
-          - $ref: '#/components/schemas/WiredHealthKpi'
-          - $ref: '#/components/schemas/WirelessHealthKpi'
-        traffic:
-          allOf:
-          - $ref: '#/components/schemas/CommonTrafficStats'
-          - $ref: '#/components/schemas/WiredTrafficStats'
-          - $ref: '#/components/schemas/WirelessTrafficStats'
-        connectedNetworkDevice:
-          allOf:
-          - $ref: '#/components/schemas/CommonConnectedNetworkDeviceDetail'
-          - $ref: '#/components/schemas/WiredConnectedNetworkDeviceDetail'
-        connection:
-          allOf:
-          - $ref: '#/components/schemas/CommonConnectionDetail'
-          - $ref: '#/components/schemas/WiredConnectionDetail'
-          - $ref: '#/components/schemas/WirelessConnectionDetail'
-        onboarding:
-          $ref: '#/components/schemas/OnboardingDetail'
-        latency:
-          $ref: '#/components/schemas/WirelessLatencyStats'
-      description: Assurance Network Client details
-      allOf:
-      - $ref: '#/components/schemas/ClientBasic'
-      - $ref: '#/components/schemas/CommonDetail'
-    IPv4Address:
-      title: IPv4 Address
-      type: string
-      format: ipv4
-      example: 250.162.252.170
-    L2Vn:
-      type: string
-      description: L2 Virtual network name assigned to wired client
-      example: INFRA-VN
-    ApMac:
-      type: string
-      description: Access Point's base radio mac addresss where the wireless client is connected
-      format: mac
-      example: AA:11:22:33:44:00
-    Ssid:
-      type: string
-      description: SSID is the name of wireless network to which clientconnects to. It is also referred to as   WLAN ID - Wireless Local Area Network Identifier
-      example: alpha
-    SortByObj:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Attributes related to clients resource that can be used to sort the response.
-          enum:
-          - macAddress
-          - type
-          - name
-          - username
-          - ipv4Address
-          - vendor
-          - osType
-          - osVersion
-          - deviceType
-          - formFactor
-          - siteHierarchy
-          - siteId
-          - lastUpdatedTime
-          - connectionStatus
-          - overallScore
-          - onboardingScore
-          - connectedScore
-          - txBytes
-          - rxBytes
-          - usage
-          - rxRate
-          - txRate
-          - rxRetries
-          - rxRetryPercentage
-          - dnsRequestCount
-          - dnsResponseCount
-          - rxLinkErrorPercentage
-          - txLinkErrorPercentage
-          - connectedNetworkDeviceName
-          - connectedNetworkDeviceManagementIp
-          - connectedNetworkDeviceId
-          - connectedNetworkDeviceMac
-          - interfaceName
-          - interfaceSpeed
-          - duplexMode
-          - vnId
-          - l2Vn
-          - l3Vn
-          - vlanId
-          - securityGroupTag
-          - linkSpeed
-          - roamSpeed
-          - sessionDuration
-          - band
-          - ssid
-          - authType
-          - wlcName
-          - apMac
-          - radioId
-          - channel
-          - protocol
-          - protocolCapability
-          - upnId
-          - upnName
-          - upnOwner
-          - upnDuid
-          - rssi
-          - snr
-          - dataRate
-          - isIosAnalyticsCapable
-          - bridgeVMMode
-          - avgRunDuration
-          - maxRunDuration
-          - avgAssocDuration
-          - maxAssocDuration
-          - avgAuthDuration
-          - maxAuthDuration
-          - avgDhcpDuration
-          - maxDhcpDuration
-          - aaaServerIp
-          - dhcpServerIp
-          - authDoneTime
-          - assocDoneTime
-          - dhcpDoneTime
-          - roamingTime
-          - failedRoamingCount
-          - successfulRoamingCount
-          - totalRoamingAttempts
-          - assocFailureReason
-          - aaaFailureReason
-          - dhcpFailureReason
-          - otherFailureReason
-          - latestFailureReason
-          - trustScore
-        function:
-          type: string
-          description: Type of aggregate function to apply on the field when querying data
-          enum:
-          - min
-          - max
-          - avg
-          - count
-          - latest
-          - sum
-          - distinctCount
-          - median
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          enum:
-          - asc
-          - desc
-      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the colllection on  aggregated attribute. If function is not specified API will sort the collection on attribute.
-
-        '
-    connectedInterfaceName:
-      type: string
-      description: Neighbor network device interface where wired client or network   device is connected to
-      example: GigabitEthernet2/1/3
-    ClientsQueryCountRequest:
-      type: object
-      properties:
-        startTime:
-          $ref: '#/components/schemas/startTime'
-        endTime:
-          $ref: '#/components/schemas/endTime'
-        filters:
-          $ref: '#/components/schemas/ClientFilters'
-      description: 'Request payload used for complex query count API.
-
-        '
-  requestBodies:
-    ClientsQueryRequest:
-      description: Payload to query clients with complex filters and aggregates
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientsQueryRequest'
-          examples:
-            clientsQueryRequest:
-              $ref: '#/components/examples/clientsQueryRequest'
-      required: true
-    ClientsQueryCountRequest:
-      description: Payload to query count of clients with complex filters
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientsQueryCountRequest'
-      required: true
-    ClientsTopNRequest:
-      description: Payload to query Clients Top-N Analytics data
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientsTopNRequest'
-          examples:
-            clientTopNRequestWithAggregates:
-              $ref: '#/components/examples/clientTopNRequestWithAggregates'
-            clientTopNRequestWithoutAggregates:
-              $ref: '#/components/examples/clientTopNRequestWithoutAggregates'
-      required: true
-    ClientTrendQueryRequest:
-      description: Payload to query trend data for a client
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientTrendQueryRequest'
-          examples:
-            clientTrendRequestWithoutGroupBy:
-              $ref: '#/components/examples/clientTrendRequestWithoutGroupBy'
-            clientTrendRequestWithGroupBy:
-              $ref: '#/components/examples/clientTrendRequestWithGroupBy'
-      required: true
-    ClientsSummaryRequest:
-      description: Payload to query Clients Summary Analytics data
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientsSummaryRequest'
-          examples:
-            clientSummaryRequestWithoutGroupBy:
-              $ref: '#/components/examples/clientSummaryRequestWithoutGroupBy'
-            clientSummaryRequestWithGroupBy:
-              $ref: '#/components/examples/clientSummaryRequestWithGroupBy'
-      required: true
   responses:
+    ClientResponseModel:
+      description: Successfully returned the specific client information
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientResponseModel'
+          examples:
+            clientResponse:
+              $ref: '#/components/examples/clientResponse'
+    CountIntegerResponse:
+      description: Reponse object containing total count of the records after applying requested filters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CountIntegerResponse'
+    1XX:
+      description: Informational Responses - The server received the request and sent an informational response.
+    '404':
+      description: The client made a request for a resource that does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ClientsWithAggregateResponseModel:
+      description: Collection of Clients Response model on success with aggregate attributes
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientsWithAggregateResponseModel'
+          examples:
+            clientsWithAggregateResponse:
+              $ref: '#/components/examples/clientsWithAggregateResponse'
     ClientTrendResponse:
       description: Collection of trend responses with Clients Response model on success with aggregate attributes and groupBy
       content:
@@ -2998,14 +1279,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    ClientsResponseModel:
+      description: Collection of Clients Response model on success
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientsResponseModel'
+          examples:
+            clientsResponse:
+              $ref: '#/components/examples/clientsResponse'
     '400':
       description: The client made a request that the server could not understand (for example, the request syntax is incorrect).
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    defaultError:
-      description: Unexpected Error
+    2XX:
+      description: Successful Responses - The server received the client request, understood it, and accepted it.
     ClientsSummaryResponse:
       description: Collection of trend responses with Clients Response model on success with aggregate attributes and groupBy
       content:
@@ -3017,16 +1307,10 @@ components:
               $ref: '#/components/examples/clientSummaryResponseWithoutGroupBy'
             clientSummaryResponseWithGroupBy:
               $ref: '#/components/examples/clientSummaryResponseWithGroupBy'
-    CountIntegerResponse:
-      description: Reponse object containing total count of the records after applying requested filters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CountIntegerResponse'
-    4XX:
-      description: Client Error Responses - The client request caused the error.
-    2XX:
-      description: Successful Responses - The server received the client request, understood it, and accepted it.
+    3XX:
+      description: Redirection Messages - The client must take additional action to complete the request.
+    5XX:
+      description: Server Error Responses - The server failed to fulfill the request.
     ClientsTopNResponse:
       description: Collection of trend responses with Clients Response model on success with aggregate attributes and groupBy
       content:
@@ -3038,46 +1322,153 @@ components:
               $ref: '#/components/examples/clientTopNResponseWithAggregates'
             clientTopNResponseWithoutAggregates:
               $ref: '#/components/examples/clientTopNResponseWithoutAggregates'
-    ClientsResponseModel:
-      description: Collection of Clients Response model on success
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientsResponseModel'
-          examples:
-            clientsResponse:
-              $ref: '#/components/examples/clientsResponse'
-    ClientResponseModel:
-      description: Successfully returned the specific client information
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientResponseModel'
-          examples:
-            clientResponse:
-              $ref: '#/components/examples/clientResponse'
-    '404':
-      description: The client made a request for a resource that does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    1XX:
-      description: Informational Responses - The server received the request and sent an informational response.
-    5XX:
-      description: Server Error Responses - The server failed to fulfill the request.
-    ClientsWithAggregateResponseModel:
-      description: Collection of Clients Response model on success with aggregate attributes
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ClientsWithAggregateResponseModel'
-          examples:
-            clientsWithAggregateResponse:
-              $ref: '#/components/examples/clientsWithAggregateResponse'
-    3XX:
-      description: Redirection Messages - The client must take additional action to complete the request.
+    defaultError:
+      description: Unexpected Error
+    4XX:
+      description: Client Error Responses - The client request caused the error.
   examples:
+    clientTrendResponseWithGroupBy:
+      summary: Client Trend Response with GroupBy
+      value:
+        response:
+        - timestamp: 1707759900000
+          groups:
+          - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
+            attributes:
+            - name: band
+              value: 5
+            - name: ssid
+              value: alpha
+            - name: overallScore
+              value: 8
+            - name: connectedNetworkDeviceName
+              value: SJC24_AP1
+            aggregateAttributes:
+            - name: rssi
+              function: min
+              value: -80
+            - name: rssi
+              function: max
+              value: -30
+            - name: rssi
+              function: avg
+              value: -50
+            - name: usage
+              function: sum
+              value: 1234567890
+          - id: overallScore=10_name=SJC24_AP1
+            attributes:
+            - name: band
+              value: 5
+            - name: ssid
+              value: blizzard
+            - name: overallScore
+              value: 10
+            - name: connectedNetworkDeviceName
+              value: SJC24_AP1
+            aggregateAttributes:
+            - name: rssi
+              function: min
+              value: -90
+            - name: rssi
+              function: max
+              value: -20
+            - name: rssi
+              function: avg
+              value: -60
+            - name: usage
+              function: sum
+              value: 98765423
+        - timestamp: 1707760200000
+          groups:
+          - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
+            attributes:
+            - name: band
+              value: 5
+            - name: ssid
+              value: alpha
+            - name: overallScore
+              value: 8
+            - name: connectedNetworkDeviceName
+              value: SJC24_AP1
+            aggregateAttributes:
+            - name: rssi
+              function: min
+              value: -70
+            - name: rssi
+              function: max
+              value: -40
+            - name: rssi
+              function: avg
+              value: -60
+            - name: usage
+              function: sum
+              value: 1234567890
+          - id: overallScore=10_connectedNetworkDeviceName=SJC24_AP1
+            attributes:
+            - name: band
+              value: 6
+            - name: ssid
+              value: blizzard
+            - name: overallScore
+              value: 10
+            - name: connectedNetworkDeviceName
+              value: SJC24_AP1
+            aggregateAttributes:
+            - name: rssi
+              function: min
+              value: -100
+            - name: rssi
+              function: max
+              value: -10
+            - name: rssi
+              function: avg
+              value: -70
+            - name: usage
+              function: sum
+              value: 654378
+        page:
+          limit: 100
+          cursor: ''
+          count: 100
+          timeSortOrder: desc
+        version: '1.0'
+    clientSummaryResponseWithoutGroupBy:
+      summary: Client Summary Response without GroupBy
+      value:
+        response:
+          attributes:
+          - name: band
+            value: 5GHz
+          - name: ssid
+            value: alpha
+          aggregateAttributes:
+          - name: rssi
+            function: min
+            value: -80
+          - name: rssi
+            function: max
+            value: -30
+          - name: rssi
+            function: avg
+            value: -50
+          - name: usage
+            function: sum
+            value: 1234567890
+        page:
+          limit: 100
+          cursor: ''
+          count: 100
+          sortBy:
+          - name: overallScore
+            order: asc
+          - name: rssi
+            function: min
+            order: asc
+          - name: usage
+            function: sum
+            order: desc
+        version: '1.0'
     clientResponse:
       summary: Client Response
       value:
@@ -3200,30 +1591,113 @@ components:
             bestEffort: 7
             background: 7
         version: '1.0'
-    clientTrendResponseWithoutGroupBy:
-      summary: Client Trend Response without GroupBy
+    clientTopNRequestWithoutAggregates:
+      summary: Client TopN Request without aggregates
+      value:
+        startTime: 1705348800000
+        endTime: 1705348800000
+        topN: 5
+        groupBy:
+        - overallScore
+        - connectedDeviceName
+        attributes:
+        - band
+        - ssid
+        filters:
+        - key: rssi
+          operator: gt
+          value: -50
+        - key: osType
+          operator: in
+          value:
+          - iOS
+          - Android
+        - logicalOperator: or
+          filters:
+          - key: vlanId
+            operator: eq
+            value: '187'
+          - key: siteHierarchy
+            operator: in
+            value:
+            - Global/San Jose
+            - Global/SFO
+        page:
+          limit: 100
+          curosr: '{~modificationtime_histo=1.7115912E12}'
+          sortBy:
+          - name: overallScore
+            order: asc
+    clientSummaryResponseWithGroupBy:
+      summary: Client Summary Response with GroupBy
       value:
         response:
-        - timestamp: 1707759900000
-          attributes:
-          - name: band
-            value: 5
-          - name: ssid
-            value: alpha
-          aggregateAttributes:
+          groups:
+          - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
+            attributes:
+            - name: band
+              value: 5
+            - name: ssid
+              value: alpha
+            - name: overallScore
+              value: 8
+            - name: connectedNetworkDeviceName
+              value: SJC24_AP1
+            aggregateAttributes:
+            - name: rssi
+              function: min
+              value: -80
+            - name: rssi
+              function: max
+              value: -30
+            - name: rssi
+              function: avg
+              value: -50
+            - name: usage
+              function: sum
+              value: 1234567890
+          - id: overallScore=10_name=SJC24_AP1
+            attributes:
+            - name: band
+              value: 5
+            - name: ssid
+              value: blizzard
+            - name: overallScore
+              value: 10
+            - name: connectedNetworkDeviceName
+              value: SJC24_AP1
+            aggregateAttributes:
+            - name: rssi
+              function: min
+              value: -90
+            - name: rssi
+              function: max
+              value: -20
+            - name: rssi
+              function: avg
+              value: -60
+            - name: usage
+              function: sum
+              value: 98765423
+        page:
+          limit: 100
+          cursor: ''
+          count: 100
+          sortBy:
+          - name: overallScore
+            order: asc
           - name: rssi
             function: min
-            value: -80
-          - name: rssi
-            function: max
-            value: -30
-          - name: rssi
-            function: avg
-            value: -50
+            order: asc
           - name: usage
             function: sum
-            value: 1234567890
-        - timestamp: 1707760200000
+            order: desc
+        version: '1.0'
+    clientTopNResponseWithoutAggregates:
+      summary: Client TopN Response with out aggregates
+      value:
+        response:
+        - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
           attributes:
           - name: band
             value: 5
@@ -3233,25 +1707,398 @@ components:
             value: 8
           - name: connectedNetworkDeviceName
             value: SJC24_AP1
-          aggregateAttributes:
-          - name: rssi
-            function: min
-            value: -70
-          - name: rssi
-            function: max
-            value: -40
-          - name: rssi
-            function: avg
-            value: -60
-          - name: usage
-            function: sum
-            value: 1234567890
+        - id: overallScore=10_name=SJC24_AP1
+          attributes:
+          - name: band
+            value: 5
+          - name: ssid
+            value: blizzard
+          - name: overallScore
+            value: 10
+          - name: connectedNetworkDeviceName
+            value: SJC24_AP1
         page:
           limit: 100
           cursor: ''
           count: 100
-          timeSortOrder: desc
+          sortBy:
+          - name: overallScore
+            order: asc
         version: '1.0'
+    clientTrendRequestWithGroupBy:
+      summary: Client Trend Request with GroupBy
+      value:
+        startTime: 1709110800000
+        endTime: 1709197200000
+        trendInterval: 5MIN
+        groupBy:
+        - overallScore
+        - name
+        attributes:
+        - band
+        - ssid
+        filters:
+        - key: rssi
+          operator: gt
+          value: -50
+        - key: osType
+          operator: in
+          value:
+          - iOS
+          - Android
+        - logicalOperator: or
+          filters:
+          - key: vlanId
+            operator: eq
+            value: '187'
+          - key: siteHierarchy
+            operator: in
+            value:
+            - Global/San Jose
+            - Global/SFO
+        aggregateAttributes:
+        - name: rssi
+          function: min
+        - name: rssi
+          function: max
+        - name: rssi
+          function: avg
+        - name: usage
+          function: sum
+        page:
+          limit: 100
+          cursor: ''
+          timeSortOrder: desc
+    clientTopNRequestWithAggregates:
+      summary: Client TopN Request with aggregates
+      value:
+        startTime: 1705348800000
+        endTime: 1705348800000
+        topN: 5
+        groupBy:
+        - overallScore
+        - connectedDeviceName
+        attributes:
+        - band
+        - ssid
+        filters:
+        - key: rssi
+          operator: gt
+          value: -50
+        - key: osType
+          operator: in
+          value:
+          - iOS
+          - Android
+        - logicalOperator: or
+          filters:
+          - key: vlanId
+            operator: eq
+            value: '187'
+          - key: siteHierarchy
+            operator: in
+            value:
+            - Global/San Jose
+            - Global/SFO
+        aggregateAttributes:
+        - name: rssi
+          function: min
+        - name: rssi
+          function: max
+        - name: rssi
+          function: avg
+        - name: usage
+          function: sum
+        page:
+          limit: 100
+          cursor: ''
+          sortBy:
+          - name: overallScore
+            order: asc
+          - name: rssi
+            function: min
+            order: asc
+          - name: usage
+            function: sum
+            order: desc
+    clientsResponse:
+      summary: All Clients Response
+      value:
+        response:
+        - id: AA:BB:CC:DD:EE:FF
+          macAddress: AA:BB:CC:DD:EE:FF
+          type: Wireless
+          name: Johns-Macbook
+          userId: jdoe
+          username: 12-34-56-AB-CD-EF
+          ipv4Address: 250.162.252.170
+          ipv6Addresses:
+          - 2001:db8:3c4d:15::1a2f:1a2b
+          vendor: Apple
+          osType: iOS
+          osVersion: 17.1.2
+          formFactor: Phone
+          deviceType: Apple-Device
+          siteHierarchy: Global/AreaName/BuildingName/FloorName
+          siteHierarchyId: /31e57cb2-06af-4c5c-87d1-16af536095d2/54d3f243-509e-436d-98-ebe01daf80db/f52fbe48-fcc9-4551-947b-e144e20c0311/50c01c29-b09e-49-b6ce-2e7d3395f3a3/
+          siteId: 4049312a-e65d-4054-a8b7-dd5fd4b08cb8
+          lastUpdatedTime: 16994442370000
+          connectionStatus: connected
+          tracked: 'Yes'
+          isPrivateMacAddress: false
+          health:
+            overallScore: 10
+            onboardingScore: 4
+            connectedScore: 6
+            linkErrorPercentageThreshold: 1
+            isLinkErrorIncluded: true
+            rssiThreshold: -72
+            snrThreshold: 9
+            isRssiIncluded: true
+            isSnrIncluded: true
+          traffic:
+            txBytes: 406695572
+            rxBytes: 2753889933
+            usage: 3160585505
+            rxPackets: 3163
+            txPackets: 5647
+            rxRate: 1951.56
+            txRate: 60182
+            rxLinkErrorPercentage: 0.5
+            txLinkErrorPercentage: 0.5
+            rxRetries: 1652
+            rxRetryPercentage: 2.5
+            txDrops: 100
+            txDropPercentage: 1
+            dnsRequestCount: 112
+            dnsResponseCount: 112
+          connectedNetworkDevice:
+            connectedNetworkDeviceId: 0f538975-3085-40f2-9d25-7ad0047eeda5
+            connectedNetworkDeviceName: Local-Switch
+            connectedNetworkDeviceManagementIp: 3.3.3.3
+            connectedNetworkDeviceMac: FF:DD:EE:CC:BB:AA
+            connectedNetworkDeviceType: Access Point
+            interfaceName: GigabitEthernet2/1/3
+            interfaceSpeed: 100000000
+            duplexMode: Half Duplex
+          connection:
+            vlanId: '596'
+            sessionDuration: 12345678
+            vnId: '8999'
+            l2Vn: INFRA-VN
+            l3Vn: DATA-VN
+            securityGroupTag: '133'
+            linkSpeed: 1000000000
+            bridgeVMMode: string
+            band: 5GHZ
+            ssid: alpha
+            authType: WPA2+802.1x/CCKM
+            wlcName: wnbu-sjc24-00a-ewlc-prod2.cisco.com
+            wlcId: 9bbc92ad-b0e8-4638-95f6-c9bec7046dc8
+            apMac: AA:11:22:33:44:00
+            apEthernetMac: AA:BB:CC:DD:FF:00
+            apMode: Local
+            radioId: 2
+            channel: '100'
+            channelWidth: '40'
+            protocol: 802.11ac
+            protocolCapability: 802.11ax
+            upnId: string
+            upnName: string
+            upnOwner: string
+            upnDuid: string
+            rssi: -52
+            snr: 41
+            dataRate: 865
+            isIosAnalyticsCapable: true
+            isFabricClient: false
+          onboarding:
+            avgRunDuration: 1500
+            maxRunDuration: 4500
+            avgAssocDuration: 100
+            maxAssocDuration: 500
+            avgAuthDuration: 50
+            maxAuthDuration: 200
+            avgDhcpDuration: 250
+            maxDhcpDuration: 750
+            maxRoamingDuration: 750
+            aaaServerIp: 192.168.4.5
+            dhcpServerIp: 172.68.2.3
+            onboardingTime: 1707237517322
+            authDoneTime: 1707237517322
+            assocDoneTime: 1707237517322
+            dhcpDoneTime: 1707237517322
+            roamingTime: 1707237517322
+            failedRoamingCount: 2
+            successfulRoamingCount: 3
+            totalRoamingAttempts: 5
+            assocFailureReason: Poor Channel Conditions
+            aaaFailureReason: No Response from AAA Server
+            dhcpFailureReason: 'Authentication Failure due to Exclusion: IP Theft'
+            otherFailureReason: Client Connect Timeout
+            latestFailureReason: Client Connect Timeout
+          latency:
+            video: 7
+            voice: 7
+            bestEffort: 7
+            background: 7
+        page:
+          limit: 100
+          offset: 5
+          count: 100
+          sortBy:
+          - name: overallScore
+            order: asc
+        version: '1.0'
+    clientSummaryRequestWithoutGroupBy:
+      summary: Client Summary Request without GroupBy
+      value:
+        startTime: 1705348800000
+        endTime: 1705348800000
+        attributes:
+        - band
+        - ssid
+        filters:
+        - key: rssi
+          operator: gt
+          value: -50
+        - key: osType
+          operator: in
+          value:
+          - iOS
+          - Android
+        - logicalOperator: or
+          filters:
+          - key: vlanId
+            operator: eq
+            value: '187'
+          - key: siteHierarchy
+            operator: in
+            value:
+            - Global/San Jose
+            - Global/SFO
+        aggregateAttributes:
+        - name: rssi
+          function: min
+        - name: rssi
+          function: max
+        - name: rssi
+          function: avg
+        - name: usage
+          function: sum
+        page:
+          limit: 100
+          cursor: ''
+          sortBy:
+          - name: overallScore
+            order: asc
+          - name: rssi
+            function: min
+            order: asc
+          - name: usage
+            function: sum
+            order: desc
+    clientSummaryRequestWithGroupBy:
+      summary: Client Summary Request with GroupBy
+      value:
+        startTime: 1705348800000
+        endTime: 1705348800000
+        groupBy:
+        - overallScore
+        - connectedDeviceName
+        attributes:
+        - band
+        - ssid
+        filters:
+        - key: rssi
+          operator: gt
+          value: -50
+        - key: osType
+          operator: in
+          value:
+          - iOS
+          - Android
+        - logicalOperator: or
+          filters:
+          - key: vlanId
+            operator: eq
+            value: '187'
+          - key: siteHierarchy
+            operator: in
+            value:
+            - Global/San Jose
+            - Global/SFO
+        aggregateAttributes:
+        - name: rssi
+          function: min
+        - name: rssi
+          function: max
+        - name: rssi
+          function: avg
+        - name: usage
+          function: sum
+        page:
+          limit: 100
+          cursor: ''
+          sortBy:
+          - name: overallScore
+            order: asc
+          - name: rssi
+            function: min
+            order: asc
+          - name: usage
+            function: sum
+            order: desc
+    clientsQueryRequest:
+      summary: Request to get clients based on complex filters
+      value:
+        startTime: 1705348800000
+        endTime: 1705348800000
+        views:
+        - Wireless
+        attributes:
+        - band
+        - ssid
+        filters:
+        - key: rssi
+          operator: gt
+          value: -50
+        - key: osType
+          operator: in
+          value:
+          - iOS
+          - Android
+        - logicalOperator: or
+          filters:
+          - key: vlanId
+            operator: eq
+            value: '187'
+          - key: siteHierarchy
+            operator: in
+            value:
+            - Global/San Jose
+            - Global/SFO
+        aggregateAttributes:
+        - name: rssi
+          function: min
+        - name: rssi
+          function: max
+        - name: rssi
+          function: avg
+        - name: usage
+          function: sum
+        page:
+          limit: 100
+          offset: 5
+          sortBy:
+          - name: overallScore
+            order: asc
+          - name: rssi
+            function: min
+            order: asc
+          - name: usage
+            function: sum
+            order: desc
     clientsWithAggregateResponse:
       summary: All Clients Response
       value:
@@ -3400,171 +2247,14 @@ components:
             function: sum
             order: desc
         version: '1.0'
-    clientTopNRequestWithAggregates:
-      summary: Client TopN Request with aggregates
-      value:
-        startTime: 1705348800000
-        endTime: 1705348800000
-        topN: 5
-        groupBy:
-        - overallScore
-        - connectedDeviceName
-        attributes:
-        - band
-        - ssid
-        filters:
-        - key: rssi
-          operator: gt
-          value: -50
-        - key: osType
-          operator: in
-          value:
-          - iOS
-          - Android
-        - logicalOperator: or
-          filters:
-          - key: vlanId
-            operator: eq
-            value: '187'
-          - key: siteHierarchy
-            operator: in
-            value:
-            - Global/San Jose
-            - Global/SFO
-        aggregateAttributes:
-        - name: rssi
-          function: min
-        - name: rssi
-          function: max
-        - name: rssi
-          function: avg
-        - name: usage
-          function: sum
-        page:
-          limit: 100
-          cursor: ''
-          sortBy:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
-    clientTrendResponseWithGroupBy:
-      summary: Client Trend Response with GroupBy
+    clientTrendResponseWithoutGroupBy:
+      summary: Client Trend Response without GroupBy
       value:
         response:
         - timestamp: 1707759900000
-          groups:
-          - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
-            attributes:
-            - name: band
-              value: 5
-            - name: ssid
-              value: alpha
-            - name: overallScore
-              value: 8
-            - name: connectedNetworkDeviceName
-              value: SJC24_AP1
-            aggregateAttributes:
-            - name: rssi
-              function: min
-              value: -80
-            - name: rssi
-              function: max
-              value: -30
-            - name: rssi
-              function: avg
-              value: -50
-            - name: usage
-              function: sum
-              value: 1234567890
-          - id: overallScore=10_name=SJC24_AP1
-            attributes:
-            - name: band
-              value: 5
-            - name: ssid
-              value: blizzard
-            - name: overallScore
-              value: 10
-            - name: connectedNetworkDeviceName
-              value: SJC24_AP1
-            aggregateAttributes:
-            - name: rssi
-              function: min
-              value: -90
-            - name: rssi
-              function: max
-              value: -20
-            - name: rssi
-              function: avg
-              value: -60
-            - name: usage
-              function: sum
-              value: 98765423
-        - timestamp: 1707760200000
-          groups:
-          - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
-            attributes:
-            - name: band
-              value: 5
-            - name: ssid
-              value: alpha
-            - name: overallScore
-              value: 8
-            - name: connectedNetworkDeviceName
-              value: SJC24_AP1
-            aggregateAttributes:
-            - name: rssi
-              function: min
-              value: -70
-            - name: rssi
-              function: max
-              value: -40
-            - name: rssi
-              function: avg
-              value: -60
-            - name: usage
-              function: sum
-              value: 1234567890
-          - id: overallScore=10_connectedNetworkDeviceName=SJC24_AP1
-            attributes:
-            - name: band
-              value: 6
-            - name: ssid
-              value: blizzard
-            - name: overallScore
-              value: 10
-            - name: connectedNetworkDeviceName
-              value: SJC24_AP1
-            aggregateAttributes:
-            - name: rssi
-              function: min
-              value: -100
-            - name: rssi
-              function: max
-              value: -10
-            - name: rssi
-              function: avg
-              value: -70
-            - name: usage
-              function: sum
-              value: 654378
-        page:
-          limit: 100
-          cursor: ''
-          count: 100
-          timeSortOrder: desc
-        version: '1.0'
-    clientSummaryResponseWithoutGroupBy:
-      summary: Client Summary Response without GroupBy
-      value:
-        response:
           attributes:
           - name: band
-            value: 5GHz
+            value: 5
           - name: ssid
             value: alpha
           aggregateAttributes:
@@ -3580,25 +2270,7 @@ components:
           - name: usage
             function: sum
             value: 1234567890
-        page:
-          limit: 100
-          cursor: ''
-          count: 100
-          sortBy:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
-        version: '1.0'
-    clientTopNResponseWithoutAggregates:
-      summary: Client TopN Response with out aggregates
-      value:
-        response:
-        - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
+        - timestamp: 1707760200000
           attributes:
           - name: band
             value: 5
@@ -3608,122 +2280,31 @@ components:
             value: 8
           - name: connectedNetworkDeviceName
             value: SJC24_AP1
-        - id: overallScore=10_name=SJC24_AP1
-          attributes:
-          - name: band
-            value: 5
-          - name: ssid
-            value: blizzard
-          - name: overallScore
-            value: 10
-          - name: connectedNetworkDeviceName
-            value: SJC24_AP1
+          aggregateAttributes:
+          - name: rssi
+            function: min
+            value: -70
+          - name: rssi
+            function: max
+            value: -40
+          - name: rssi
+            function: avg
+            value: -60
+          - name: usage
+            function: sum
+            value: 1234567890
         page:
           limit: 100
           cursor: ''
           count: 100
-          sortBy:
-          - name: overallScore
-            order: asc
+          timeSortOrder: desc
         version: '1.0'
-    clientSummaryRequestWithoutGroupBy:
-      summary: Client Summary Request without GroupBy
-      value:
-        startTime: 1705348800000
-        endTime: 1705348800000
-        attributes:
-        - band
-        - ssid
-        filters:
-        - key: rssi
-          operator: gt
-          value: -50
-        - key: osType
-          operator: in
-          value:
-          - iOS
-          - Android
-        - logicalOperator: or
-          filters:
-          - key: vlanId
-            operator: eq
-            value: '187'
-          - key: siteHierarchy
-            operator: in
-            value:
-            - Global/San Jose
-            - Global/SFO
-        aggregateAttributes:
-        - name: rssi
-          function: min
-        - name: rssi
-          function: max
-        - name: rssi
-          function: avg
-        - name: usage
-          function: sum
-        page:
-          limit: 100
-          cursor: ''
-          sortBy:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
     clientTrendRequestWithoutGroupBy:
       summary: Client Trend Request without GroupBy
       value:
         startTime: 1709110800000
         endTime: 1709197200000
         trendInterval: 5MIN
-        attributes:
-        - band
-        - ssid
-        filters:
-        - key: rssi
-          operator: gt
-          value: -50
-        - key: osType
-          operator: in
-          value:
-          - iOS
-          - Android
-        - logicalOperator: or
-          filters:
-          - key: vlanId
-            operator: eq
-            value: '187'
-          - key: siteHierarchy
-            operator: in
-            value:
-            - Global/San Jose
-            - Global/SFO
-        aggregateAttributes:
-        - name: rssi
-          function: min
-        - name: rssi
-          function: max
-        - name: rssi
-          function: avg
-        - name: usage
-          function: sum
-        page:
-          limit: 100
-          cursor: ''
-          timeSortOrder: desc
-    clientTrendRequestWithGroupBy:
-      summary: Client Trend Request with GroupBy
-      value:
-        startTime: 1709110800000
-        endTime: 1709197200000
-        trendInterval: 5MIN
-        groupBy:
-        - overallScore
-        - name
         attributes:
         - band
         - ssid
@@ -3823,338 +2404,1757 @@ components:
             function: sum
             order: desc
         version: '1.0'
-    clientTopNRequestWithoutAggregates:
-      summary: Client TopN Request without aggregates
-      value:
-        startTime: 1705348800000
-        endTime: 1705348800000
-        topN: 5
-        groupBy:
-        - overallScore
-        - connectedDeviceName
-        attributes:
-        - band
-        - ssid
+  requestBodies:
+    ClientsSummaryRequest:
+      description: Payload to query Clients Summary Analytics data
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientsSummaryRequest'
+          examples:
+            clientSummaryRequestWithoutGroupBy:
+              $ref: '#/components/examples/clientSummaryRequestWithoutGroupBy'
+            clientSummaryRequestWithGroupBy:
+              $ref: '#/components/examples/clientSummaryRequestWithGroupBy'
+      required: true
+    ClientsTopNRequest:
+      description: Payload to query Clients Top-N Analytics data
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientsTopNRequest'
+          examples:
+            clientTopNRequestWithAggregates:
+              $ref: '#/components/examples/clientTopNRequestWithAggregates'
+            clientTopNRequestWithoutAggregates:
+              $ref: '#/components/examples/clientTopNRequestWithoutAggregates'
+      required: true
+    ClientTrendQueryRequest:
+      description: Payload to query trend data for a client
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientTrendQueryRequest'
+          examples:
+            clientTrendRequestWithoutGroupBy:
+              $ref: '#/components/examples/clientTrendRequestWithoutGroupBy'
+            clientTrendRequestWithGroupBy:
+              $ref: '#/components/examples/clientTrendRequestWithGroupBy'
+      required: true
+    ClientsQueryRequest:
+      description: Payload to query clients with complex filters and aggregates
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientsQueryRequest'
+          examples:
+            clientsQueryRequest:
+              $ref: '#/components/examples/clientsQueryRequest'
+      required: true
+    ClientsQueryCountRequest:
+      description: Payload to query count of clients with complex filters
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ClientsQueryCountRequest'
+      required: true
+  schemas:
+    CommonDetail:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/name'
+        userId:
+          type: string
+          description: User id of the client using this device. Multiple clientdevices can be assigned to single   user. This field will tell theunique identifer of the user using this device.
+          example: jdoe
+        username:
+          type: string
+          description: Name of the user to which the client is assigned
+          example: 12-34-56-AB-CD-EF
+        ipv4Address:
+          $ref: '#/components/schemas/IPv4Address'
+        ipv6Addresses:
+          type: array
+          description: IPv6 addresses of the client
+          items:
+            $ref: '#/components/schemas/IPv6Address'
+        vendor:
+          type: string
+          description: Vendor name of the client device
+          example: Apple
+        osType:
+          type: string
+          description: Device operating system type
+          example: iOS
+        osVersion:
+          type: string
+          description: Device operating system version
+          example: 17.1.2
+        formFactor:
+          type: string
+          description: Device Form Factor like Phone, Tablet etc
+          example: Phone
+        trustScore:
+          type: number
+          description: Trust Score is AI Endpoint Analytics trust level based on various anomaly protection on the device.
+          example: 3
+        deviceType:
+          type: string
+          description: Device type like Apple-Device, Intel-Device etc
+          example: Apple-Device
+        siteHierarchy:
+          $ref: '#/components/schemas/siteHierarchy'
+        siteHierarchyId:
+          $ref: '#/components/schemas/siteHierarchyId'
+        siteId:
+          type: string
+          description: Leaf level site uuid of the network device to which the client is connected to
+          example: 4049312a-e65d-4054-a8b7-dd5fd4b08cb8
+        lastUpdatedTime:
+          type: integer
+          description: Last known time when the client was updated. It is specified in UNIX epochtime format in milliseconds
+          format: int64
+          example: 16994442370000
+        connectionStatus:
+          type: string
+          description: Client connection status. 'Connecting' state is applicable only for Wireless client. Other state are applicable for both wired and wireless clients
+          example: connected
+          enum:
+          - connected
+          - disconnected
+          - connecting
+          - unknown
+        tracked:
+          type: string
+          description: Field to indicate if client is tracked or not by the controller based on client tracking rules
+          enum:
+          - 'Yes'
+          - 'No'
+        isPrivateMacAddress:
+          type: boolean
+          description: Is the client is connected to network using unique private network address enabled on the client
+          example: false
+      description: Client detail information common for wired and wireless
+    WirelessConnectionDetail:
+      type: object
+      properties:
+        band:
+          type: string
+          description: WiFi frequency band that client or Access Point operates. Band value is represented in Giga Hertz - GHz
+          example: 5GHZ
+          enum:
+          - 2.4GHZ
+          - 5GHZ
+          - 6GHZ
+        ssid:
+          $ref: '#/components/schemas/Ssid'
+        authType:
+          type: string
+          description: Authenciation type used by wireless client to connect to Access Point
+          example: WPA2+802.1x/CCKM
+        wlcName:
+          $ref: '#/components/schemas/WlcName'
+        wlcId:
+          $ref: '#/components/schemas/WlcId'
+        apMac:
+          $ref: '#/components/schemas/ApMac'
+        apEthernetMac:
+          $ref: '#/components/schemas/ApEthernetMac'
+        apMode:
+          $ref: '#/components/schemas/ApMode'
+        radioId:
+          $ref: '#/components/schemas/RadioId'
+        channel:
+          $ref: '#/components/schemas/Channel'
+        channelWidth:
+          $ref: '#/components/schemas/ChannelWidth'
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+        protocolCapability:
+          $ref: '#/components/schemas/ProtocolCapability'
+        upnId:
+          type: string
+          description: User Private Network Id
+        upnName:
+          type: string
+          description: User Private Network Name
+        upnOwner:
+          type: string
+          description: User Private Network Owner
+        upnDuid:
+          type: string
+          description: User Private Network Duid
+        rssi:
+          type: integer
+          description: Received Signal Strength Indicator (RSSI) is   the measure of how well the wireless client can hear the   signal from Access Point. Measurement in dBm
+          example: -52
+        snr:
+          type: integer
+          description: Signal-to-Noise ratio (SNR) is the powerratio   between signal strength and noise level.Measurement in   decibels (dB).
+          example: 41
+        dataRate:
+          type: integer
+          description: Speed at which the data is transmitted by the Wireless client. This is the theoritical maximum speed the client can send the data. Measurement in bits per second (bps)
+          format: int64
+          example: 865
+        isIosAnalyticsCapable:
+          type: boolean
+          description: Is the wireless client capabale of sending additional KPIs to wireless controller for in depth monitoring
+          example: true
+        isFabricClient:
+          type: boolean
+          description: Is the Client connected to a fabric network
+          example: false
+      description: Connection attributes specific for wireless clients
+    ApMac:
+      type: string
+      description: Access Point's base radio mac addresss where the wireless client is connected
+      format: mac
+      example: AA:11:22:33:44:00
+    ClientResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/Client'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: A single Client response model
+    ClientsQueryCountRequest:
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/startTime'
+        endTime:
+          $ref: '#/components/schemas/endTime'
         filters:
-        - key: rssi
-          operator: gt
-          value: -50
-        - key: osType
-          operator: in
-          value:
-          - iOS
-          - Android
-        - logicalOperator: or
-          filters:
-          - key: vlanId
-            operator: eq
-            value: '187'
-          - key: siteHierarchy
-            operator: in
-            value:
-            - Global/San Jose
-            - Global/SFO
-        page:
-          limit: 100
-          curosr: '{~modificationtime_histo=1.7115912E12}'
-          sortBy:
+          $ref: '#/components/schemas/ClientFilters'
+      description: 'Request payload used for complex query count API.
+
+        '
+    ClientFilterObj:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/ClientFilterField'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        logicalOperator:
+          $ref: '#/components/schemas/LogicalOperator'
+        value:
+          type: object
+          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.\n\nIn the case of an \"and\" or \"or\" operator, this values array will be   ignored, and the values arrays in each of the *nested filters* will be used.\nThe data type of a value, or each item inside the value in case it is a list, must match the type defined in the Client response model \n"
+        filters:
+          type: array
+          description: 'Nested array of filters in case of AND/OR based filters. Only one   level of nesting will be supported.
+
+
+            Structure of nested filter is the same as parent with all operators   supported except AND or OR.
+
+            '
+          items:
+            $ref: '#/components/schemas/ClientFilterObj'
+    ClientAttributes:
+      type: array
+      example:
+      - overallScore
+      - connectedDeviceName
+      items:
+        $ref: '#/components/schemas/ClientAttribute'
+    LogicalOperator:
+      type: string
+      description: 'Operator to use when attempting to apply a logical conjunction of more   than 1 filter
+
+
+        Logical operations include: ''and'', ''or''.
+
+        '
+      enum:
+      - and
+      - or
+    IPv4Address:
+      title: IPv4 Address
+      type: string
+      format: ipv4
+      example: 250.162.252.170
+    connectedInterfaceName:
+      type: string
+      description: Neighbor network device interface where wired client or network   device is connected to
+      example: GigabitEthernet2/1/3
+    ClientsSummaryGroupsResponse:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/AnalyticsAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
+        groups:
+          type: array
+          description: 'Additional groups and respective attributes under the group.
+
+            The attributes comprising of each group are added to attributes list.
+
+            '
+          items:
+            $ref: '#/components/schemas/ClientsGroupResponse'
+      description: "Clients Summary response contains attributes, aggregateAttributes and groups\nattributes, aggregatedAttributes and groups are mutually exclusive.\nIf user requests for summary without groupBy attributes then response includes attributes, aggregateAttributes\nIf user requests for summary with groupBy attributes then response then includes groups array contain attributes, aggregatedAttributes for each array element \n"
+    ClientAggregateAttributes:
+      type: array
+      example:
+      - name: rssi
+        function: min
+      - name: rssi
+        function: max
+      - name: rssi
+        function: avg
+      - name: usage
+        function: sum
+      items:
+        $ref: '#/components/schemas/ClientAggregateAttribute'
+    endTime:
+      type: integer
+      description: End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      format: int64
+      example: 1705435200000
+    WiredConnectedNetworkDeviceDetail:
+      type: object
+      properties:
+        interfaceName:
+          $ref: '#/components/schemas/connectedInterfaceName'
+        interfaceSpeed:
+          type: integer
+          description: Port speed in bits per second on the connected device where the wired client is connected
+          format: int64
+          example: 100000000
+        duplexMode:
+          type: string
+          description: Duplex mode of the interface on the connected device where the wired client is connected
+          enum:
+          - Half Duplex
+          - Full Duplex
+      description: Connected network device attributes specific for wired clients
+    siteHierarchyId:
+      type: string
+      description: The full hierarchy breakdown of the site tree in id form starting from Global site UUID and ending with the specific site UUID.
+      example: /31e57cb2-06af-4c5c-87d1-16af536095d2/54d3f243-509e-436d-98-ebe01daf80db/f52fbe48-fcc9-4551-947b-e144e20c0311/50c01c29-b09e-49-b6ce-2e7d3395f3a3/
+    AnalyticsAttributesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AnalyticsAttributeResponse'
+    WlcId:
+      type: string
+      description: UUID of the Wireless Controller that reports the wireless client
+      example: 9bbc92ad-b0e8-4638-95f6-c9bec7046dc8
+    Client:
+      type: object
+      properties:
+        health:
+          allOf:
+          - $ref: '#/components/schemas/CommonHealthKpi'
+          - $ref: '#/components/schemas/WiredHealthKpi'
+          - $ref: '#/components/schemas/WirelessHealthKpi'
+        traffic:
+          allOf:
+          - $ref: '#/components/schemas/CommonTrafficStats'
+          - $ref: '#/components/schemas/WiredTrafficStats'
+          - $ref: '#/components/schemas/WirelessTrafficStats'
+        connectedNetworkDevice:
+          allOf:
+          - $ref: '#/components/schemas/CommonConnectedNetworkDeviceDetail'
+          - $ref: '#/components/schemas/WiredConnectedNetworkDeviceDetail'
+        connection:
+          allOf:
+          - $ref: '#/components/schemas/CommonConnectionDetail'
+          - $ref: '#/components/schemas/WiredConnectionDetail'
+          - $ref: '#/components/schemas/WirelessConnectionDetail'
+        onboarding:
+          $ref: '#/components/schemas/OnboardingDetail'
+        latency:
+          $ref: '#/components/schemas/WirelessLatencyStats'
+      description: Assurance Network Client details
+      allOf:
+      - $ref: '#/components/schemas/ClientBasic'
+      - $ref: '#/components/schemas/CommonDetail'
+    ClientsTrendGroupsResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+        attributes:
+          $ref: '#/components/schemas/AnalyticsAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
+        groups:
+          type: array
+          description: 'Additional groups and their respective attributes are included under each group. The attributes belonging to each group are appended to the attributes list.
+
+            '
+          items:
+            $ref: '#/components/schemas/ClientsGroupResponse'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
+    siteHierarchy:
+      type: string
+      description: The full hierarchy breakdown of the site tree in name form starting from Global site name and ending with the specific site site. 'Global' is the Root name of the site hierarchy tree. Site name including the hierarchy where the network device or client is located. For clients site is derived based on site assigned to network device where the client is connected to. For Wireless client its the connected Access Point site and for Wired client its the connected switch site. For network device its the site assigned to it.
+      example: Global/AreaName/BuildingName/FloorName
+    ClientAggregateAttribute:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/ClientAggregateField'
+        function:
+          $ref: '#/components/schemas/Function'
+      description: 'Field name and list of aggregate functions to be applied when
+
+        querying the data.
+
+        '
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          description: The error response object
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    OnboardingDetail:
+      type: object
+      properties:
+        avgRunDuration:
+          type: integer
+          description: Average duration value taken by wireless client to move to 'RUN' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 1500
+        maxRunDuration:
+          type: integer
+          description: Maximum duration value taken by wireless client to move to 'RUN' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 4500
+        avgAssocDuration:
+          type: integer
+          description: Average duration value taken by wireless client to move to 'ASSOC' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 100
+        maxAssocDuration:
+          type: integer
+          description: Maximum duration value taken by wireless client to move to 'ASSOC' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 500
+        avgAuthDuration:
+          type: integer
+          description: Average duration value taken by wireless client to move to 'AUTH' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 50
+        maxAuthDuration:
+          type: integer
+          description: Maximum duration value taken by wireless client to move to 'AUTH' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 200
+        avgDhcpDuration:
+          type: integer
+          description: Average duration value taken by wireless client to move to 'DHCP' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 250
+        maxDhcpDuration:
+          type: integer
+          description: Maximum duration value taken by wireless client to move to 'DHCP' state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 750
+        maxRoamingDuration:
+          type: integer
+          description: Maximum duration value taken by wireless client to move to finish Romaing state for all onboarding attempts. It is measured in milliseconds (ms)
+          example: 750
+        aaaServerIp:
+          type: string
+          description: AAA server IP address used by wireless client to verify if the client has permission to onboard the network
+          example: 192.168.4.5
+        dhcpServerIp:
+          type: string
+          description: DHCP server IP address used by wireless client to get the network details to help client connect to network
+          example: 172.68.2.3
+        onboardingTime:
+          type: integer
+          description: Time at which wireless client started onboarding process to connect to network.  It is specified in UNIX epochtime in milliseconds.  If wireless client goes through multiple onboarding attempts this field will be the first Onboarding attempt timestamp.
+          format: int64
+          example: 1707237517322
+        authDoneTime:
+          type: integer
+          description: Time at which wireless client finished Authentication phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest Autentication attempt timestamp.
+          format: int64
+          example: 1707237517322
+        assocDoneTime:
+          type: integer
+          description: Time at which wireless client finished Association phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest Association attempt timestamp.
+          format: int64
+          example: 1707237517322
+        dhcpDoneTime:
+          type: integer
+          description: Time at which wireless client finished DHCP (accquiring network details) phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest DHCP attempt timestamp.
+          format: int64
+          example: 1707237517322
+        roamingTime:
+          type: integer
+          description: Time at which wireless client finished Roaming phase of onboarding to network. It is specified in UNIX epochtime in milliseconds. If wireless client goes through multiple onboarding attempts this field will be the latest ROAM attempt timestamp.
+          format: int64
+          example: 1707237517322
+        failedRoamingCount:
+          type: integer
+          description: Number of Roaming attempts failed by wireless client
+          example: 2
+        successfulRoamingCount:
+          type: integer
+          description: Number of Roaming attempts successful by wireless client
+          example: 3
+        totalRoamingAttempts:
+          type: integer
+          description: Number of Roaming attempts successful and failed by wireless client
+          example: 5
+        assocFailureReason:
+          type: string
+          description: Latest Association failure reason.
+          example: cl_POOR_CHANNEL_CONDITIONS
+        aaaFailureReason:
+          type: string
+          description: Latest AAA Server related Authentication failure reason.
+          example: AUTH_AAA_NO_RESPONSE
+        dhcpFailureReason:
+          type: string
+          description: Latest DHCP Server related IP Association failure reason.
+          example: cl_REASON_DHCP_FAIL_LEASE_EXPIRED
+        otherFailureReason:
+          type: string
+          description: Latest any other failure reason.
+          example: Client Connect Timeout
+        latestFailureReason:
+          type: string
+          description: Latest failure reason.
+          example: aaaRootCause
+        assocFailureReasonDescription:
+          type: string
+          description: Latest Association failure reason description.
+          example: Poor Channel Conditions
+        aaaFailureReasonDescription:
+          type: string
+          description: Latest AAA Server related Authentication failure reason description.
+          example: No Response from AAA Server
+        dhcpFailureReasonDescription:
+          type: string
+          description: Latest DHCP Server related IP Association failure reason description.
+          example: DHCP Renew Failure - No Response upon Request
+    ClientAttribute:
+      type: string
+      description: Attributes related to clients resource that can be requested to only be part of the response along with the required attributes.
+      enum:
+      - macAddress
+      - type
+      - name
+      - username
+      - ipv4Address
+      - ipv6Addresses
+      - vendor
+      - osType
+      - osVersion
+      - deviceType
+      - formFactor
+      - siteHierarchy
+      - siteHierarchyId
+      - siteId
+      - lastUpdatedTime
+      - connectionStatus
+      - overallScore
+      - onboardingScore
+      - connectedScore
+      - linkErrorPercentageThreshold
+      - rssiThreshold
+      - snrThreshold
+      - isRssiIncluded
+      - isSnrIncluded
+      - txBytes
+      - rxBytes
+      - usage
+      - rxRate
+      - txRate
+      - rxRetries
+      - rxRetryPercentage
+      - dnsRequestCount
+      - dnsResponseCount
+      - rxLinkErrorPercentage
+      - txLinkErrorPercentage
+      - connectedNetworkDeviceId
+      - connectedNetworkDeviceName
+      - connectedNetworkDeviceManagementIp
+      - connectedNetworkDeviceMac
+      - interfaceName
+      - interfaceSpeed
+      - duplexMode
+      - vnId
+      - l2Vn
+      - l3Vn
+      - vlanId
+      - securityGroupTag
+      - linkSpeed
+      - roamSpeed
+      - sessionDuration
+      - band
+      - ssid
+      - authType
+      - wlcName
+      - wlcId
+      - apMac
+      - apMode
+      - radioId
+      - channel
+      - protocol
+      - protocolCapability
+      - upnId
+      - upnName
+      - upnOwner
+      - upnDuid
+      - rssi
+      - snr
+      - dataRate
+      - isIosAnalyticsCapable
+      - isFabricClient
+      - bridgeVMMode
+      - avgRunDuration
+      - maxRunDuration
+      - avgAssocDuration
+      - maxAssocDuration
+      - avgAuthDuration
+      - maxAuthDuration
+      - avgDhcpDuration
+      - maxDhcpDuration
+      - aaaServerIp
+      - dhcpServerIp
+      - authDoneTime
+      - assocDoneTime
+      - dhcpDoneTime
+      - roamingTime
+      - failedRoamingCount
+      - successfulRoamingCount
+      - totalRoamingAttempts
+      - assocFailureReason
+      - aaaFailureReason
+      - dhcpFailureReason
+      - otherFailureReason
+      - latestFailureReason
+      - trustScore
+      - assocFailureReasonDescription
+      - aaaFailureReasonDescription
+      - dhcpFailureReasonDescription
+    WirelessTrafficStats:
+      type: object
+      properties:
+        rxRetries:
+          type: integer
+          description: Number of packets retransmitted by Access Point to Wireless client
+          format: int64
+          example: 1652
+        rxRetryPercentage:
+          type: number
+          description: Percentage of packets retransmitted by Access Point to wireless client (%)
+          example: 2.5
+        txDrops:
+          type: integer
+          description: Number of packets that are dropped by wireless client before sending to Access Point
+          format: int64
+          example: 100
+        txDropPercentage:
+          type: number
+          description: Percentage of packets that are dropped by wireless client before sending to Access Point (%)
+          example: 1
+        dnsRequestCount:
+          type: integer
+          description: The number of DNS requests sent by the client
+          example: 112
+        dnsResponseCount:
+          type: integer
+          description: The number of DNS responses received by the client
+          example: 112
+      description: Traffic statistics specific for wireless client
+    Function:
+      type: string
+      description: Type of aggregate function to apply on the field when querying   data
+      example: sum
+      enum:
+      - sum
+      - min
+      - max
+      - avg
+      - count
+      - latest
+      - distinctCount
+      - median
+    vlanId:
+      type: string
+      description: VLAN identifier assigned to wired or wireless client
+      example: '596'
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    PaginationWithAggregate:
+      type: object
+      properties:
+        limit:
+          maximum: 500
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        cursor:
+          type: string
+          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
+          example: '{apMac_terms=AA:BB:CC:DD:EE:FF, frequency_terms=5.0}'
+        count:
+          type: integer
+          description: Total number of records related to the resource after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+        sortBy:
+          type: array
+          example:
           - name: overallScore
             order: asc
-    clientsQueryRequest:
-      summary: Request to get clients based on complex filters
-      value:
-        startTime: 1705348800000
-        endTime: 1705348800000
+          - name: rssi
+            function: min
+            order: asc
+          - name: usage
+            function: sum
+            order: desc
+          items:
+            $ref: '#/components/schemas/SortByObj'
+    WlcName:
+      type: string
+      description: Wireless Controller name that reports the wireless client
+      example: wnbu-sjc24-00a-ewlc-prod2.cisco.com
+    PaginationTrend:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to fetch in a page
+          example: 100
+          default: 100
+        cursor:
+          type: string
+          description: It's an opaque string field that indicates the next record in the requested collection. If no records remain, the API returns a response with a count of zero. The default value is an empty string, and the initial value must be an empty string. The cursor value is populated by the API in the response page block. If the user wants more records, the cursor in the subsequent request must be updated with the value from the previous response.
+          example: '{~modificationtime_histo=1.7115912E12}'
+          default: ''
+        count:
+          type: integer
+          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+        timeSortOrder:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          enum:
+          - asc
+          - desc
+    L3Vn:
+      type: string
+      description: L3 Virtual network name assigned to wired client
+      example: DATA-VN
+    ClientFilterField:
+      type: string
+      description: Supported filter attributes related to clients
+      enum:
+      - macAddress
+      - type
+      - name
+      - username
+      - ipv4Address
+      - ipv6Address
+      - osType
+      - osVersion
+      - deviceType
+      - vendor
+      - formFactor
+      - siteHierarchy
+      - siteHierarchyId
+      - siteId
+      - lastUpdatedTime
+      - connectionStatus
+      - overallScore
+      - onboardingScore
+      - connectedScore
+      - rssiThreshold
+      - snrThreshold
+      - isRssiIncluded
+      - isSnrIncluded
+      - txBytes
+      - rxBytes
+      - usage
+      - rxRate
+      - txRate
+      - rxRetries
+      - rxRetryPercentage
+      - dnsRequestCount
+      - dnsResponseCount
+      - rxLinkErrorPercentage
+      - txLinkErrorPercentage
+      - roamSpeed
+      - connectedNetworkDeviceId
+      - connectedNetworkDeviceName
+      - connectedNetworkDeviceManagementIp
+      - connectedNetworkDeviceMac
+      - interfaceName
+      - interfaceSpeed
+      - duplexMode
+      - vnId
+      - l2Vn
+      - l3Vn
+      - vlanId
+      - securityGroupTag
+      - linkSpeed
+      - sessionDuration
+      - band
+      - ssid
+      - authType
+      - wlcName
+      - wlcId
+      - apMac
+      - apMode
+      - radioId
+      - channel
+      - protocol
+      - protocolCapability
+      - upnId
+      - upnName
+      - upnOwner
+      - upnDuid
+      - rssi
+      - snr
+      - dataRate
+      - isIosAnalyticsCapable
+      - avgRunDuration
+      - maxRunDuration
+      - avgAssocDuration
+      - maxAssocDuration
+      - avgAuthDuration
+      - maxAuthDuration
+      - avgDhcpDuration
+      - maxDhcpDuration
+      - maxRoamingDuration
+      - onboardingTime
+      - authDoneTime
+      - assocDoneTime
+      - dhcpDoneTime
+      - roamingTime
+      - aaaServerIp
+      - dhcpServerIp
+      - assocFailureReason
+      - aaaFailureReason
+      - dhcpFailureReason
+      - otherFailureReason
+      - latestFailureReason
+      - trustScore
+    ClientsQueryRequest:
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/startTime'
+        endTime:
+          $ref: '#/components/schemas/endTime'
         views:
-        - Wireless
+          $ref: '#/components/schemas/ClientViews'
         attributes:
-        - band
-        - ssid
+          $ref: '#/components/schemas/ClientAttributes'
         filters:
-        - key: rssi
-          operator: gt
-          value: -50
-        - key: osType
-          operator: in
-          value:
-          - iOS
-          - Android
-        - logicalOperator: or
-          filters:
-          - key: vlanId
-            operator: eq
-            value: '187'
-          - key: siteHierarchy
-            operator: in
-            value:
-            - Global/San Jose
-            - Global/SFO
+          $ref: '#/components/schemas/ClientFilters'
         aggregateAttributes:
-        - name: rssi
-          function: min
-        - name: rssi
-          function: max
-        - name: rssi
-          function: avg
-        - name: usage
-          function: sum
+          $ref: '#/components/schemas/ClientAggregateAttributes'
         page:
-          limit: 100
-          offset: 5
-          sortBy:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
-    clientSummaryRequestWithGroupBy:
-      summary: Client Summary Request with GroupBy
-      value:
-        startTime: 1705348800000
-        endTime: 1705348800000
+          $ref: '#/components/schemas/PaginationWithAggregate'
+      description: 'Request payload used for complex query API.
+
+        '
+    ClientsSummaryResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/ClientsSummaryGroupsResponse'
+        page:
+          $ref: '#/components/schemas/PaginationWithAggregate'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    ClientViews:
+      type: array
+      description: "View is predefined set of attributes supported by the API. The attributes related to view only will be part of the API response   along with required fields. If multiple views are requested response will contain attributes from requested views. If no views are specified all the attributes will be returned\nClient Views are broadly categorized into Wired and Wireless.\n`Wired` includes attributes related to a wired client and `Wireless` includes attributes related to a wireless client\nThere are specific views for Wired and Wireless category that user   can request the data for\n\n| View Name | Included Attributes |\n| --- | --- |\n| `Wired` | id, macAddress, type, name, userId, username, ipv4Address, ipv6Addresses, vendor, osType, osVersion, formFactor, deviceType, siteHierarchy, siteHierarchyId, siteId,   lastUpdatedTime, connectionStatus, tracked, isPrivateMacAddress, overallScore, onboardingScore, connectedScore, linkErrorPercentageThreshold, islinkErrorIncluded,   txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate,   rxLinkErrorPercentage, txLinkErrorPercentage, connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp, connectedNetworkDeviceMac,     interfaceName, interfaceSpeed, duplexMode, connectedNetworkDeviceType, vnId, l2Vn, l3Vn, vlanId, securityGroupTag,   linkSpeed, sessionDuration, bridgeVMMode, isFabricClient  |\n| `WiredConnection` | id, macAddress, type, vnId, l2Vn, l3Vn, securityGroupTag, linkSpeed, sessionDuration, bridgeVMMode, isFabricClient |\n| `WiredTraffic` | id, macAddress, type, txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage |\n| `WiredHealth` | id, macAddress, type, overallScore,   onboardingScore, connectedScore, linkErrorPercentageThreshold, islinkErrorIncluded |\n| `WiredConnectedNetworkDevice` | id, macAddress, type, connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp,  connectedNetworkDeviceMac,    interfaceName, interfaceSpeed, duplexMode, connectedNetworkDeviceType |\n| `Wireless` | id, macAddress, type, name, userId, username,   ipv4Address, ipv6Addresses, vendor, osType, osVersion,   formFactor, deviceType, siteHierarchy, siteHierarchyId, siteId,   lastUpdatedTime, connectionStatus, tracked, isPrivateMacAddress,   overallScore, onboardingScore,   connectedScore, rssiThreshold, snrThreshold,   isRssiIncluded, isSnrIncluded, txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate, rxRetries, rxRetryPercentage, txDrops, txDropPercentage, dnsRequestCount, dnsResponseCount, connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp, connectedNetworkDeviceMac,  connectedNetworkDeviceType, band,   ssid, vlanId, authType,   wlcName, wlcId, apMac,   apEthernetMac, radioId, channel, channelWidth, protocol, protocolCapability, upnId, upnName,   upnOwner, upnDuid, rssi,   snr, dataRate, sessionDuration,   isIosAnalyticsCapable, isFabricClient, avgRunDuration,   maxRunDuration, avgAssocDuration,   maxAssocDuration, avgRunDuration, maxRunDuration, avgAssocDuration,   maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration,   maxDhcpDuration, maxRoamingDuration, aaaServerIp, dhcpServerIp, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, successfulRoamingCount, assocFailureReason, aaaFailureReason,  dhcpFailureReason, otherFailureReason, latestFailureReason, video, voice, bestEffort, background   |\n| `WirelessConnection` | id, macAddress, type, band,   ssid, vlanId, authType,   wlcName, wlcId, apMac,   apEthernetMac, radioId, channel  , channelWidth, protocol, protocolCapability, upnId, upnName,   upnOwner, upnDuid, rssi,   snr, dataRate, sessionDuration,   isIosAnalyticsCapable, isFabricClient |\n| `WirelessTraffic` | id, macAddress, type, txBytes, rxBytes, usage, rxPackets, txPackets, rxRate, txRate, rxRetries,   rxRetryPercentage, txDrops, txDropPercentage, dnsRequestCount, dnsResponseCount |\n| `WirelessHealth` | id, macAddress, type, overallScore,   onboardingScore, connectedScore, rssiThreshold, snrThreshold, isRssiIncluded,   isSnrIncluded |\n| `WirelessConnectedNetworkDevice` | id, macAddress, type,   connectedNetworkDeviceId, connectedNetworkDeviceName, connectedNetworkDeviceManagementIp, connectedNetworkDeviceMac,   connectedNetworkDeviceType |\n| `Detail` | id, macAddress, type, name, userId, username,   ipv4Address, ipv6Addresses, vendor, osType, osVersion,   formFactor, deviceType, siteHierarchy, siteHierarchyId, siteId,   lastUpdatedTime, connectionStatus, tracked, isPrivateMacAddress,   overallScore |\n \n| `Onboarding` | id, macAddress, type, avgRunDuration, maxRunDuration, avgAssocDuration,   maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration,   maxDhcpDuration, maxRoamingDuration, aaaServerIp, dhcpServerIp, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, successfulRoamingCount, assocFailureReason, aaaFailureReason, dhcpFailureReason, otherFailureReason, latestFailureReason |\n| `Latency` | id, macAddress, type, video, voice, bestEffort, background |\nExamples:\nviews=Wired (single view requested)\nviews=Detail,Wireless Connection,Wireless Health (multiple views  requested)"
+      example:
+      - Wireless
+      items:
+        $ref: '#/components/schemas/ClientView'
+    ClientsGroupResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This is the group key. Unique value to identify the group. It is concatination of groupBy attributes
+        attributes:
+          $ref: '#/components/schemas/AnalyticsAttributesResponse'
+        aggregateAttributes:
+          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
+    ClientAggregateField:
+      type: string
+      description: 'Supported aggregated attributes related to clients
+
+        | Aggregate Function | Supported Aggregate Fields |
+
+        | --- | --- |
+
+        | `min` | overallScore, onboardingScore, connectedScore, txBytes, rxBytes, usage, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage, rxRetries, rxRetryPercentage, dnsRequestCount, dnsResponseCount, rxLinkErrorPercentage, txLinkErrorPercentage, interfaceSpeed, roamSpeed, sessionDuration, rssi, snr, dataRate, avgRunDuration, maxRunDuration, avgAssocDuration, maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration, maxDhcpDuration, maxRoamingDuration, onboardingTime, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
+
+        | `max` | overallScore, onboardingScore, connectedScore, txBytes, rxBytes, usage, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage, rxRetries, rxRetryPercentage, dnsRequestCount, dnsResponseCount, rxLinkErrorPercentage, txLinkErrorPercentage, interfaceSpeed, roamSpeed, sessionDuration, rssi, snr, dataRate, avgRunDuration, maxRunDuration, avgAssocDuration, maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration, maxDhcpDuration, maxRoamingDuration, onboardingTime, authDoneTime, assocDoneTime, dhcpDoneTime, roamingTime, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
+
+        | `avg` | overallScore, onboardingScore, connectedScore, txBytes, rxBytes, usage, rxRate, txRate, rxLinkErrorPercentage, txLinkErrorPercentage, rxRetries, rxRetryPercentage, dnsRequestCount, dnsResponseCount, rxLinkErrorPercentage, txLinkErrorPercentage, interfaceSpeed, roamSpeed, sessionDuration, rssi, snr, dataRate, avgRunDuration, maxRunDuration, avgAssocDuration, maxAssocDuration, avgAuthDuration, maxAuthDuration, avgDhcpDuration, maxDhcpDuration, maxRoamingDuration, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
+
+        | `median` | overallScore, onboardingScore, connectedScore, dataRate, rssi, snr |
+
+        | `sum` | txBytes, rxBytes, usage, dnsRequestCount, dnsResponseCount, sessionDuration, failedRoamingCount, successfulRoamingCount, totalRoamingAttempts |
+
+        | `count` | macAddress, band, ssid, authType, wlcName, apMac, protocol, protocolCapability, aaaServerIp, dhcpServerIp |'
+      enum:
+      - macAddress
+      - overallScore
+      - onboardingScore
+      - connectedScore
+      - txBytes
+      - rxBytes
+      - usage
+      - rxRate
+      - txRate
+      - rxRetries
+      - rxRetryPercentage
+      - dnsRequestCount
+      - dnsResponseCount
+      - rxLinkErrorPercentage
+      - txLinkErrorPercentage
+      - interfaceSpeed
+      - roamSpeed
+      - sessionDuration
+      - band
+      - ssid
+      - authType
+      - wlcName
+      - apMac
+      - protocol
+      - protocolCapability
+      - rssi
+      - snr
+      - dataRate
+      - avgRunDuration
+      - maxRunDuration
+      - avgAssocDuration
+      - maxAssocDuration
+      - avgAuthDuration
+      - maxAuthDuration
+      - avgDhcpDuration
+      - maxDhcpDuration
+      - maxRoamingDuration
+      - aaaServerIp
+      - dhcpServerIp
+      - onboardingTime
+      - authDoneTime
+      - assocDoneTime
+      - dhcpDoneTime
+      - roamingTime
+      - failedRoamingCount
+      - successfulRoamingCount
+      - totalRoamingAttempts
+    ClientsTopNResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully return list of Clients TopN Analytics data
+          items:
+            $ref: '#/components/schemas/ClientsGroupResponse'
+        page:
+          $ref: '#/components/schemas/PaginationWithAggregate'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    ApMode:
+      type: string
+      description: Access Point operating mode
+      example: Local
+      enum:
+      - Local
+      - Monitor
+      - FlexConnect
+      - Rogue Detector
+      - Sniffer
+      - Bridge
+      - SE-Connect
+      - Flex+Bridge
+      - Sensor
+    ClientAggregateAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the requested aggregate attribute
+        function:
+          type: string
+          description: Aggregate function requested for the attribute
+        value:
+          type: object
+          description: This is the aggregate value of the attribute after applying the function on the dataset
+    ClientBasic:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the Client. It is the Mac Address of the clien.
+          example: AA:BB:CC:DD:EE:FF
+        macAddress:
+          $ref: '#/components/schemas/MacAddress'
+        type:
+          type: string
+          description: The client device type whether client is connected to network through Wired or Wireless medium.
+          example: Wireless
+          enum:
+          - Wired
+          - Wireless
+      description: Basic information about the client
+    ApEthernetMac:
+      type: string
+      description: Ethernet Mac Address of the Access Point the wireless client is connected to
+      example: AA:BB:CC:DD:FF:00
+    ClientTrendResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientsTrendGroupsResponse'
+        page:
+          $ref: '#/components/schemas/PaginationTrend'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+    SortByObj:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Attributes related to clients resource that can be used to sort the response.
+          enum:
+          - macAddress
+          - type
+          - name
+          - username
+          - ipv4Address
+          - vendor
+          - osType
+          - osVersion
+          - deviceType
+          - formFactor
+          - siteHierarchy
+          - siteId
+          - lastUpdatedTime
+          - connectionStatus
+          - overallScore
+          - onboardingScore
+          - connectedScore
+          - txBytes
+          - rxBytes
+          - usage
+          - rxRate
+          - txRate
+          - rxRetries
+          - rxRetryPercentage
+          - dnsRequestCount
+          - dnsResponseCount
+          - rxLinkErrorPercentage
+          - txLinkErrorPercentage
+          - connectedNetworkDeviceName
+          - connectedNetworkDeviceManagementIp
+          - connectedNetworkDeviceId
+          - connectedNetworkDeviceMac
+          - interfaceName
+          - interfaceSpeed
+          - duplexMode
+          - vnId
+          - l2Vn
+          - l3Vn
+          - vlanId
+          - securityGroupTag
+          - linkSpeed
+          - roamSpeed
+          - sessionDuration
+          - band
+          - ssid
+          - authType
+          - wlcName
+          - apMac
+          - radioId
+          - channel
+          - protocol
+          - protocolCapability
+          - upnId
+          - upnName
+          - upnOwner
+          - upnDuid
+          - rssi
+          - snr
+          - dataRate
+          - isIosAnalyticsCapable
+          - bridgeVMMode
+          - avgRunDuration
+          - maxRunDuration
+          - avgAssocDuration
+          - maxAssocDuration
+          - avgAuthDuration
+          - maxAuthDuration
+          - avgDhcpDuration
+          - maxDhcpDuration
+          - aaaServerIp
+          - dhcpServerIp
+          - authDoneTime
+          - assocDoneTime
+          - dhcpDoneTime
+          - roamingTime
+          - failedRoamingCount
+          - successfulRoamingCount
+          - totalRoamingAttempts
+          - assocFailureReason
+          - aaaFailureReason
+          - dhcpFailureReason
+          - otherFailureReason
+          - latestFailureReason
+          - trustScore
+        function:
+          type: string
+          description: Type of aggregate function to apply on the field when querying data
+          enum:
+          - min
+          - max
+          - avg
+          - count
+          - latest
+          - sum
+          - distinctCount
+          - median
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          enum:
+          - asc
+          - desc
+      description: 'This is a unified sortBy model for attributes and aggregate attributes request. If function is specified then API will sort the colllection on  aggregated attribute. If function is not specified API will sort the collection on attribute.
+
+        '
+    IPv6Address:
+      title: IPv6 Address
+      type: string
+      format: ipv6
+      example: 2001:db8:3c4d:15::1a2f:1a2b
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+      description: Error object containing error code and information about the error
+    Ssid:
+      type: string
+      description: SSID is the name of wireless network to which clientconnects to. It is also referred to as   WLAN ID - Wireless Local Area Network Identifier
+      example: alpha
+    ClientsWithAggregateResponseModel:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientWithAggregateResponse'
+        page:
+          $ref: '#/components/schemas/PaginationWithAggregate'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Collection of Clients response model
+    WirelessHealthKpi:
+      type: object
+      properties:
+        rssiThreshold:
+          type: integer
+          description: Threshold value in dBm for RSSI KPI used when calculating Wireless Client connectivity score.
+          example: -72
+        snrThreshold:
+          type: integer
+          description: Threshold value in dB for SNR KPI used when calculating Wireless Client connectivity score.
+          example: 9
+        dataRateThreshold:
+          type: integer
+          description: Threshold value in Mbps for Data Rate KPI used when calculating Wireless Client connectivity score.
+          example: 450
+        retriesThreshold:
+          type: integer
+          description: Threshold value in percentage for Retries KPI used when calculating Wireless Client connectivity score.
+          example: 5
+        isRssiIncluded:
+          type: boolean
+          description: Is the RSSI KPI included in calculating the Wireless Client connectivity health score.
+          example: true
+        isSnrIncluded:
+          type: boolean
+          description: Is the SNR KPI included in calculating the Wireless Client connectivity health score.
+          example: true
+        isDataRateIncluded:
+          type: boolean
+          description: Is the Data Rate KPI included in calculating the Wireless Client connectivity health score.
+          example: true
+        isRetriesIncluded:
+          type: boolean
+          description: Is the Retries KPI included in calculating the Wireless Client connectivity health score.
+          example: true
+    ClientsTopNRequest:
+      required:
+      - groupBy
+      - topN
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/startTime'
+        endTime:
+          $ref: '#/components/schemas/endTime'
+        topN:
+          $ref: '#/components/schemas/topN'
         groupBy:
-        - overallScore
-        - connectedDeviceName
+          $ref: '#/components/schemas/ClientGroupByAttributes'
         attributes:
-        - band
-        - ssid
+          $ref: '#/components/schemas/ClientAttributes'
         filters:
-        - key: rssi
-          operator: gt
-          value: -50
-        - key: osType
+          $ref: '#/components/schemas/ClientFilters'
+        aggregateAttributes:
+          $ref: '#/components/schemas/ClientAggregateAttributes'
+        page:
+          $ref: '#/components/schemas/PaginationWithAggregate'
+      description: 'Request payload used for Top-N query API. It contains
+
+        '
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    CommonHealthKpi:
+      type: object
+      properties:
+        overallScore:
+          type: integer
+          description: 'Overall Health Score of the client.  The Individual Client Health score is the sum of the Client Onboarding score and the Client    Connectivity score. The client health score ranges from 1 to 10, with a score of 0 for    inactive clients. It is calculated as follows:
+
+            `Wired Client`: Link to first switch is up, authentication and authorization is successful    and IP address is received. Client score is 10.
+
+            `Wireless Client`: Client joined the network and has good connection in terms of the RSSI     and SNR KPIs.'
+          example: 10
+        onboardingScore:
+          type: integer
+          description: 'The Client Onboarding score indicates the experience of a client device while connecting to    the network.
+
+            If a client connects to the network successfully, the score is 4. If a client failed to connect to the network, the score is 1. If a client is idle, the score is 0.
+
+            The Client Onboarding score is calculated as follows:
+
+            `Wired Client`: Link to the first switch is up, authentication and  authorization is successful, and IP address is received.
+
+            `Wireless Client`: Client Onboarding score range is from 1 to 4. When the client    connects to the network successfully, the score is 4. If the client failed to connect to the network, the score is 1.'
+          example: 4
+        connectedScore:
+          type: integer
+          description: "The Client Connectivity score indicates the experience of the client device after the     device is connected to the network. The score is calculated as follows:\n`Wired Client`: Connectivity score can be 2 or 6. Link errors determine the Connectivity     score and the resulting Overall Health score, as shown below:\n\n  If a client onboards successfully but has link errors, the Connectivity score is 2 and     the Overall Health score is 6.\n\n  If the client onboards successfully and there are no link errors between the client and     the first-hop switch, the Connectivity score is 6 and the Overall Health score is 10.\n\n`Wireless Client`: Connectivity score can be 0, 4, or 10. The RSSI and SNR range determines    the Connectivity score and the resulting Overall Health score is calculated as the     weighted average of the RSSI-driven Connectivity score and the SNR-driven Connectivity    score."
+          example: 6
+    trendInterval:
+      type: string
+      description: "The time window to aggregate the metrics. \nInterval can be 5 minutes or 10 minutes or 1 hour or 1 day or 7 days\n"
+      example: 5MIN
+      default: 5MIN
+      enum:
+      - 5MIN
+      - 10MIN
+      - 1HR
+      - 1DAY
+      - 7DAY
+    topN:
+      maximum: 100
+      minimum: 5
+      type: integer
+      description: Number of records to retrieve
+      default: 5
+      enum:
+      - 5
+      - 10
+      - 50
+      - 100
+    startTime:
+      type: integer
+      description: Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+      format: int64
+      example: 1705348800000
+    MacAddress:
+      pattern: ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$|^[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}\.[0-9A-Fa-f]{4}$
+      type: string
+      description: Mac Address of the Client
+      readOnly: true
+      example: AA:BB:CC:DD:EE:FF
+    ClientsResponseModel:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Client'
+        page:
+          $ref: '#/components/schemas/PaginationWithAggregate'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Collection of Clients response model
+    L2Vn:
+      type: string
+      description: L2 Virtual network name assigned to wired client
+      example: INFRA-VN
+    CommonConnectedNetworkDeviceDetail:
+      type: object
+      properties:
+        connectedNetworkDeviceId:
+          $ref: '#/components/schemas/connectedDeviceId'
+        connectedNetworkDeviceName:
+          $ref: '#/components/schemas/connectedDeviceName'
+        connectedNetworkDeviceManagementIp:
+          type: string
+          description: Management IP address of the network device where the client is connected
+          example: 3.3.3.3
+        connectedNetworkDeviceMac:
+          type: string
+          description: Mac address of the network device where the client is connected
+          example: FF:DD:EE:CC:BB:AA
+        connectedNetworkDeviceType:
+          type: string
+          description: The type of the connected device the client is connected to
+          enum:
+          - Access Point
+          - Switch
+      description: Connected network device attributes common for wired and wireless clients
+    CommonTrafficStats:
+      type: object
+      properties:
+        txBytes:
+          type: integer
+          description: Amount of data sent by the client measured in bytes.
+          format: int64
+          example: 406695572
+        rxBytes:
+          type: integer
+          description: Amount of data received by the client measured in bytes.
+          format: int64
+          example: 2753889933
+        usage:
+          type: integer
+          description: Amount of data send and received by the client measured in bytes.
+          format: int64
+          example: 3160585505
+        rxPackets:
+          type: integer
+          description: Number of packets received by the Client
+          format: int64
+          example: 3163
+        txPackets:
+          type: integer
+          description: Number of packets sent by the Client
+          format: int64
+          example: 5647
+        rxRate:
+          type: number
+          description: Number of bytes per second traffic received by the Client
+          example: 1951.56
+        txRate:
+          type: number
+          description: Number of bytes per second traffic sent by the Client
+          example: 60182
+      description: Traffic statistics common for wired and wireless clients
+    vnId:
+      type: string
+      description: Virtual network identifier assigned to wired client
+      example: '8999'
+    ChannelWidth:
+      type: string
+      description: Is the channel bandwidth used by the radio for WiFi communication.
+      example: '40'
+    ClientGroupByField:
+      type: string
+      description: Supported groupBy attributes related to clients
+      enum:
+      - siteId
+      - connectedNetworkDeviceId
+      - ssid
+      - band
+      - protocol
+      - protocolCapability
+      - apMac
+      - wlcName
+      - type
+      - aaaServerIp
+      - dhcpServerIp
+      - deviceType
+      - osType
+      - osVersion
+      - aaaFailureReason
+      - assocFailureReason
+      - dhcpFailureReason
+      - latestFailureReason
+    ClientTrendQueryRequest:
+      required:
+      - trendInterval
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/startTime'
+        endTime:
+          $ref: '#/components/schemas/endTime'
+        trendInterval:
+          $ref: '#/components/schemas/trendInterval'
+        groupBy:
+          $ref: '#/components/schemas/ClientGroupByAttributes'
+        attributes:
+          $ref: '#/components/schemas/ClientAttributes'
+        filters:
+          $ref: '#/components/schemas/ClientFilters'
+        aggregateAttributes:
+          $ref: '#/components/schemas/ClientAggregateAttributes'
+        page:
+          $ref: '#/components/schemas/PaginationTrend'
+      description: 'Request payload used for complex trend query API. It contains |
+
+        ''trend'' ''attributes'' - To provide the list of fields that user is interested in the response. |
+
+        ''filters'' - To provide list of complex filters with combination of AND filters and OR filters to be applied on the API resource |
+
+        ''aggregateAttributes'' - To provide list of fields and corresponding aggregation functions to run.
+
+        '
+    WirelessLatencyStats:
+      type: object
+      properties:
+        video:
+          type: integer
+          description: Video traffic WiFi latency measured in milliseconds (ms)
+          example: 7
+        voice:
+          type: integer
+          description: Voice traffic WiFi latency measured in milliseconds (ms)
+          example: 7
+        bestEffort:
+          type: integer
+          description: Best Effort traffic WiFi latency measured in milliseconds (ms)
+          example: 7
+        background:
+          type: integer
+          description: Background traffic WiFi latency measured in milliseconds (ms)
+          example: 7
+      description: Wireless latency is measured by the time it takes for a packet to be successfully transmitted from an AP to the client
+    ClientsSummaryRequest:
+      type: object
+      properties:
+        startTime:
+          $ref: '#/components/schemas/startTime'
+        endTime:
+          $ref: '#/components/schemas/endTime'
+        groupBy:
+          $ref: '#/components/schemas/ClientGroupByAttributes'
+        attributes:
+          $ref: '#/components/schemas/ClientAttributes'
+        filters:
+          $ref: '#/components/schemas/ClientFilters'
+        aggregateAttributes:
+          $ref: '#/components/schemas/ClientAggregateAttributes'
+        page:
+          $ref: '#/components/schemas/PaginationWithAggregate'
+      description: "Request payload used for summary query API. It contains \n"
+    ClientFilters:
+      maxItems: 10
+      type: array
+      description: 'List of filters to apply when querying the data
+
+
+
+        Filtering on numerical fields (integer, number,etc.) will support the
+
+        numerical operators:
+
+
+
+        [eq, lt, gt, lte, gte]
+
+
+
+        Filtering on text fields (string), will support the string operators:
+
+
+
+        [eq, in, notIn, like]
+
+
+
+        For the list of supported fields, please refer to the ClientFilterField model
+
+        model.
+
+        '
+      example:
+      - key: rssi
+        operator: gt
+        value: -50
+      - key: osType
+        operator: in
+        value:
+        - iOS
+        - Android
+      - logicalOperator: or
+        filters:
+        - key: vlanId
+          operator: eq
+          value: '187'
+        - key: siteHierarchy
           operator: in
           value:
-          - iOS
-          - Android
-        - logicalOperator: or
-          filters:
-          - key: vlanId
-            operator: eq
-            value: '187'
-          - key: siteHierarchy
-            operator: in
-            value:
-            - Global/San Jose
-            - Global/SFO
+          - Global/San Jose
+          - Global/SFO
+      items:
+        $ref: '#/components/schemas/ClientFilterObj'
+    WiredConnectionDetail:
+      type: object
+      properties:
+        vnId:
+          $ref: '#/components/schemas/vnId'
+        l2Vn:
+          $ref: '#/components/schemas/L2Vn'
+        l3Vn:
+          $ref: '#/components/schemas/L3Vn'
+        securityGroupTag:
+          type: string
+          description: Each security group in a Cisco TrustSec domain is assigned a unique 16 bit tag called the Security Group Tag (SGT). The SGT is a single label indicating the privileges of the source within the entire network. It is in turn  between network hops allowing any intermediary devices (switches, routers) to enforce polices based on the identity tag
+          example: '133'
+        linkSpeed:
+          type: integer
+          description: The negotiated speed in bits per second of the link between Wired client and connected network device
+          format: int64
+          example: 1000000000
+        bridgeVMMode:
+          type: string
+          description: Is Bridge VM Mode supported by the client
+      description: Connection attributes specific for wired clients
+    ClientView:
+      type: string
+      enum:
+      - Wired
+      - WiredHealth
+      - WiredTraffic
+      - WiredConnectedNetworkDevice
+      - WiredConnection
+      - Wireless
+      - WirelessHealth
+      - WirelessTraffic
+      - WirelessConnectedNetworkDevice
+      - WirelessConnection
+      - Detail
+      - Onboarding
+      - Latency
+    WiredHealthKpi:
+      type: object
+      properties:
+        linkErrorPercentageThreshold:
+          type: number
+          description: Threshold value in percentage for link error KPI used when calculating Wired Client connectivity score.
+          example: 1
+        isLinkErrorIncluded:
+          type: boolean
+          description: Is the link error KPI included in calculating the Wired Client connectivity health score.
+          example: true
+        discardsThreshold:
+          type: number
+          description: Threshold value in percentage for Discards KPI used when calculating Wired Client connectivity score.
+          example: 1
+        isDiscardsIncluded:
+          type: boolean
+          description: Is the Discards KPI included in calculating the Wired Client connectivity health score.
+          example: true
+        utilizationThreshold:
+          type: number
+          description: Threshold value in percentage for Utilization KPI used when calculating Wired Client connectivity score.
+          example: 1
+        isUtilizationIncluded:
+          type: boolean
+          description: Is the Utilization KPI included in calculating the Wired Client connectivity health score.
+          example: true
+    connectedDeviceName:
+      type: string
+      description: Name of the neighbor network device that client or network   device is connected to
+      example: Local-Switch
+    name:
+      type: string
+      description: Host name of the network entity such as Client or Network   Device
+    Operator:
+      type: string
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - neq
+      - lt
+      - gt
+      - lte
+      - gte
+      - eq
+      - notIn
+      - like
+    CommonConnectionDetail:
+      type: object
+      properties:
+        vlanId:
+          $ref: '#/components/schemas/vlanId'
+        sessionDuration:
+          type: integer
+          description: The amount of time in milliseconds the client was connected to network
+          format: int64
+          example: 12345678
+      description: Client Connection attributes common for wired and wireless clients
+    ClientGroupByAttributes:
+      type: array
+      example:
+      - overallScore
+      - connectedDeviceName
+      items:
+        $ref: '#/components/schemas/ClientGroupByField'
+    Protocol:
+      type: string
+      description: 802.11 protocol type used by wireless client to connect to Access Point
+      example: 802.11ac
+      enum:
+      - 802.11b
+      - 802.11a
+      - 802.11g
+      - 802.11n
+      - 802.11ac
+      - 802.11ax
+      - 802.11ax6
+      - 802.11be
+      - unclassified
+    RadioId:
+      type: integer
+      description: Radio slot Id of the Access Point where the wireless client is connected
+      example: 2
+    AnalyticsAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute requested for analytics API.
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
+    WiredTrafficStats:
+      type: object
+      properties:
+        rxLinkErrorPercentage:
+          type: number
+          description: Percentage of packets received by wired client that have errors (%)
+          example: 0.5
+        txLinkErrorPercentage:
+          type: number
+          description: Percentage of packets sent by wired client that have errors (%)
+          example: 0.5
+        inDiscards:
+          type: number
+          description: Percentage of incoming traffic discarded by wired client
+          example: 20
+        outDiscards:
+          type: number
+          description: Percentage of outgoing traffic discarded by wired client
+          example: 20
+        inUtilization:
+          type: number
+          description: Percentage of incoming interface bandwidth utilization
+          example: 20
+        outUtilization:
+          type: number
+          description: Percentage of outgoing interface bandwidth utilization
+          example: 20
+      description: Traffic statistics specific for wired client
+    connectedDeviceId:
+      type: string
+      description: UUID of the neighbor network device that client or network   device is connected to
+      format: uuid
+      example: 0f538975-3085-40f2-9d25-7ad0047eeda5
+    ProtocolCapability:
+      type: string
+      description: Highest protocol supported by the wireless client
+      example: 802.11ax
+      enum:
+      - legacy
+      - 802.11n
+      - 802.11ac
+      - 802.11ax
+      - 802.11ax6
+      - 802.11be
+      - unclassified
+    ClientAggregateAttributesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/ClientAggregateAttributeResponse'
+    ClientWithAggregateResponse:
+      type: object
+      properties:
         aggregateAttributes:
-        - name: rssi
-          function: min
-        - name: rssi
-          function: max
-        - name: rssi
-          function: avg
-        - name: usage
-          function: sum
-        page:
-          limit: 100
-          cursor: ''
-          sortBy:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
-    clientSummaryResponseWithGroupBy:
-      summary: Client Summary Response with GroupBy
-      value:
-        response:
-          groups:
-          - id: overallScore=8_connectedNetworkDeviceName=SJC24_AP1
-            attributes:
-            - name: band
-              value: 5
-            - name: ssid
-              value: alpha
-            - name: overallScore
-              value: 8
-            - name: connectedNetworkDeviceName
-              value: SJC24_AP1
-            aggregateAttributes:
-            - name: rssi
-              function: min
-              value: -80
-            - name: rssi
-              function: max
-              value: -30
-            - name: rssi
-              function: avg
-              value: -50
-            - name: usage
-              function: sum
-              value: 1234567890
-          - id: overallScore=10_name=SJC24_AP1
-            attributes:
-            - name: band
-              value: 5
-            - name: ssid
-              value: blizzard
-            - name: overallScore
-              value: 10
-            - name: connectedNetworkDeviceName
-              value: SJC24_AP1
-            aggregateAttributes:
-            - name: rssi
-              function: min
-              value: -90
-            - name: rssi
-              function: max
-              value: -20
-            - name: rssi
-              function: avg
-              value: -60
-            - name: usage
-              function: sum
-              value: 98765423
-        page:
-          limit: 100
-          cursor: ''
-          count: 100
-          sortBy:
-          - name: overallScore
-            order: asc
-          - name: rssi
-            function: min
-            order: asc
-          - name: usage
-            function: sum
-            order: desc
-        version: '1.0'
-    clientsResponse:
-      summary: All Clients Response
-      value:
-        response:
-        - id: AA:BB:CC:DD:EE:FF
-          macAddress: AA:BB:CC:DD:EE:FF
-          type: Wireless
-          name: Johns-Macbook
-          userId: jdoe
-          username: 12-34-56-AB-CD-EF
-          ipv4Address: 250.162.252.170
-          ipv6Addresses:
-          - 2001:db8:3c4d:15::1a2f:1a2b
-          vendor: Apple
-          osType: iOS
-          osVersion: 17.1.2
-          formFactor: Phone
-          deviceType: Apple-Device
-          siteHierarchy: Global/AreaName/BuildingName/FloorName
-          siteHierarchyId: /31e57cb2-06af-4c5c-87d1-16af536095d2/54d3f243-509e-436d-98-ebe01daf80db/f52fbe48-fcc9-4551-947b-e144e20c0311/50c01c29-b09e-49-b6ce-2e7d3395f3a3/
-          siteId: 4049312a-e65d-4054-a8b7-dd5fd4b08cb8
-          lastUpdatedTime: 16994442370000
-          connectionStatus: connected
-          tracked: 'Yes'
-          isPrivateMacAddress: false
-          health:
-            overallScore: 10
-            onboardingScore: 4
-            connectedScore: 6
-            linkErrorPercentageThreshold: 1
-            isLinkErrorIncluded: true
-            rssiThreshold: -72
-            snrThreshold: 9
-            isRssiIncluded: true
-            isSnrIncluded: true
-          traffic:
-            txBytes: 406695572
-            rxBytes: 2753889933
-            usage: 3160585505
-            rxPackets: 3163
-            txPackets: 5647
-            rxRate: 1951.56
-            txRate: 60182
-            rxLinkErrorPercentage: 0.5
-            txLinkErrorPercentage: 0.5
-            rxRetries: 1652
-            rxRetryPercentage: 2.5
-            txDrops: 100
-            txDropPercentage: 1
-            dnsRequestCount: 112
-            dnsResponseCount: 112
-          connectedNetworkDevice:
-            connectedNetworkDeviceId: 0f538975-3085-40f2-9d25-7ad0047eeda5
-            connectedNetworkDeviceName: Local-Switch
-            connectedNetworkDeviceManagementIp: 3.3.3.3
-            connectedNetworkDeviceMac: FF:DD:EE:CC:BB:AA
-            connectedNetworkDeviceType: Access Point
-            interfaceName: GigabitEthernet2/1/3
-            interfaceSpeed: 100000000
-            duplexMode: Half Duplex
-          connection:
-            vlanId: '596'
-            sessionDuration: 12345678
-            vnId: '8999'
-            l2Vn: INFRA-VN
-            l3Vn: DATA-VN
-            securityGroupTag: '133'
-            linkSpeed: 1000000000
-            bridgeVMMode: string
-            band: 5GHZ
-            ssid: alpha
-            authType: WPA2+802.1x/CCKM
-            wlcName: wnbu-sjc24-00a-ewlc-prod2.cisco.com
-            wlcId: 9bbc92ad-b0e8-4638-95f6-c9bec7046dc8
-            apMac: AA:11:22:33:44:00
-            apEthernetMac: AA:BB:CC:DD:FF:00
-            apMode: Local
-            radioId: 2
-            channel: '100'
-            channelWidth: '40'
-            protocol: 802.11ac
-            protocolCapability: 802.11ax
-            upnId: string
-            upnName: string
-            upnOwner: string
-            upnDuid: string
-            rssi: -52
-            snr: 41
-            dataRate: 865
-            isIosAnalyticsCapable: true
-            isFabricClient: false
-          onboarding:
-            avgRunDuration: 1500
-            maxRunDuration: 4500
-            avgAssocDuration: 100
-            maxAssocDuration: 500
-            avgAuthDuration: 50
-            maxAuthDuration: 200
-            avgDhcpDuration: 250
-            maxDhcpDuration: 750
-            maxRoamingDuration: 750
-            aaaServerIp: 192.168.4.5
-            dhcpServerIp: 172.68.2.3
-            onboardingTime: 1707237517322
-            authDoneTime: 1707237517322
-            assocDoneTime: 1707237517322
-            dhcpDoneTime: 1707237517322
-            roamingTime: 1707237517322
-            failedRoamingCount: 2
-            successfulRoamingCount: 3
-            totalRoamingAttempts: 5
-            assocFailureReason: Poor Channel Conditions
-            aaaFailureReason: No Response from AAA Server
-            dhcpFailureReason: 'Authentication Failure due to Exclusion: IP Theft'
-            otherFailureReason: Client Connect Timeout
-            latestFailureReason: Client Connect Timeout
-          latency:
-            video: 7
-            voice: 7
-            bestEffort: 7
-            background: 7
-        page:
-          limit: 100
-          offset: 5
-          count: 100
-          sortBy:
-          - name: overallScore
-            order: asc
-        version: '1.0'
+          $ref: '#/components/schemas/ClientAggregateAttributesResponse'
+      allOf:
+      - $ref: '#/components/schemas/Client'
+    Channel:
+      type: string
+      description: Specific WiFi frequency that client uses to send or receive data from Access Point
+      example: '100'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

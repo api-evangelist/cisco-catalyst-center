@@ -1484,6 +1484,37 @@ paths:
           description: Unexpected Error
 components:
   schemas:
+    SiteAnalyticsTopNResponseModel:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        response:
+          $ref: '#/components/schemas/SiteAnalyticsTopNResponse'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNResponse'
+      description: Site Analytics Top N Analytics Response
+    SiteAnalyticsQueryRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
+        views:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsView'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithSortRequest'
+      description: Site Analytics query requst payload
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
     SiteAnalyticsTrendResponseAttribute:
       type: string
       description: Field names which are supported by this trend API as response attributes
@@ -1529,523 +1560,6 @@ components:
       - connectionSpeedTotalCount
       - connectionSpeedFailureCount
       - connectionSpeedClientCount
-    SiteAnalyticFailureMetrics:
-      type: object
-      properties:
-        failureApCount:
-          type: integer
-          description: Total number of Access Points that have failures
-          example: 8
-        failureClientCount:
-          type: integer
-          description: Total number of clients that have failures
-          example: 189
-        failurePercentage:
-          type: integer
-          description: Percentage of failures
-          example: 28
-      description: 'Site analytics failure metrics
-
-        '
-    SiteAnalyticsSummaryFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/SiteAnalyticsSummaryFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/SiteAnalyticsOperator'
-        value:
-          type: object
-          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with. \n"
-      description: 'Filter objec to pass in summaryAnalytics request.
-
-        '
-    SiteAnalyticsResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/SiteAnalyticsResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Site analytics response
-    SiteAnalyticsQueryCountRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsCountFilter'
-      description: The input payload to get site analytics record count.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsTopNFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/SiteAnalyticsTopNFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/SiteAnalyticsOperator'
-        value:
-          type: object
-          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.               \n"
-      description: 'Filter object to pass in topNAnalytics request
-
-        '
-    SiteAnalyticsTrendResponse:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: Timestamp of the data (epoch time)
-          format: int64
-          example: 1709706600000
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
-      description: Site Analytics Trend Analytics Response object
-    SiteAnalyticsPaginationSortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Records are sorted based on the field specified.
-          enum:
-          - siteHierarchy
-          - siteType
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: Records are sorted based on the field specified.
-    SiteAnalyticsPaginationWithTrendResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    topN:
-      maximum: 100
-      minimum: 5
-      type: integer
-      description: Number of records to retrieve
-      default: 5
-      enum:
-      - 5
-      - 10
-      - 50
-      - 100
-    SiteAnalyticsResponseAttribute:
-      type: string
-      description: Field names which are supported by this API as response attributes
-      example: coverageSuccessPercentage
-      enum:
-      - coverageAverage
-      - coverageSuccessPercentage
-      - coverageSuccessCount
-      - coverageTotalCount
-      - coverageFailureCount
-      - coverageClientCount
-      - coverageImpactedEntities
-      - coverageFailureImpactedEntities
-      - coverageFailureMetrics
-      - onboardingAttemptsSuccessPercentage
-      - onboardingAttemptsSuccessCount
-      - onboardingAttemptsTotalCount
-      - onboardingAttemptsFailureCount
-      - onboardingAttemptsClientCount
-      - onboardingAttemptsImpactedEntities
-      - onboardingAttemptsFailureImpactedEntities
-      - onboardingAttemptsFailureMetrics
-      - onboardingDurationAverage
-      - onboardingDurationSuccessPercentage
-      - onboardingDurationSuccessCount
-      - onboardingDurationTotalCount
-      - onboardingDurationFailureCount
-      - onboardingDurationClientCount
-      - onboardingDurationImpactedEntities
-      - onboardingDurationFailureImpactedEntities
-      - onboardingDurationFailureMetrics
-      - roamingAttemptsSuccessPercentage
-      - roamingAttemptsSuccessCount
-      - roamingAttemptsTotalCount
-      - roamingAttemptsFailureCount
-      - roamingAttemptsClientCount
-      - roamingAttemptsImpactedEntities
-      - roamingAttemptsFailureImpactedEntities
-      - roamingAttemptsFailureMetrics
-      - roamingDurationAverage
-      - roamingDurationSuccessPercentage
-      - roamingDurationSuccessCount
-      - roamingDurationTotalCount
-      - roamingDurationFailureCount
-      - roamingDurationClientCount
-      - roamingDurationImpactedEntities
-      - roamingDurationFailureImpactedEntities
-      - roamingDurationFailureMetrics
-      - connectionSpeedAverage
-      - connectionSpeedSuccessPercentage
-      - connectionSpeedSuccessCount
-      - connectionSpeedTotalCount
-      - connectionSpeedFailureCount
-      - connectionSpeedClientCount
-      - connectionSpeedImpactedEntities
-      - connectionSpeedFailureImpactedEntities
-      - connectionSpeedFailureMetrics
-      - apCount
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    SiteAnalyticsAttributeResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the attribute
-          example: coverageAverage
-        value:
-          type: object
-          description: Value of the attribute
-          example: 23
-    SiteAnalyticsTopNResponseModel:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        response:
-          $ref: '#/components/schemas/SiteAnalyticsTopNResponse'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNResponse'
-      description: Site Analytics Top N Analytics Response
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    SiteAnalyticsFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - siteHierarchyId
-      - siteHierarchy
-      - siteId
-      - siteType
-      - ssid
-      - band
-      - failureCategory
-      - failureReason
-    SiteAnalyticsTopNResponse:
-      type: array
-      description: Site Analytics TopN Analytics Response object
-      items:
-        $ref: '#/components/schemas/SiteAnalyticsGroup'
-    SiteAnalyticsPaginationWithTrendRequest:
-      type: object
-      properties:
-        limit:
-          maximum: 200
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-          default: 200
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timestampOrder:
-          type: string
-          description: The sort order of the timestamp can be either ascending or descending
-          example: asc
-          enum:
-          - asc
-          - desc
-    asyncInfoContainer:
-      properties:
-        response:
-          $ref: '#/components/schemas/asyncInfo'
-        version:
-          type: string
-          example: '1.0'
-      description: 'Generic model that will contain the asynchronous task/process information
-
-        '
-    SiteAnalyticsCountFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/SiteAnalyticsCountFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/SiteAnalyticsOperator'
-        value:
-          type: object
-          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.            \n"
-      description: 'Filter object to pass in the request.
-
-        '
-    SiteAnalyticsSummaryResponseModel:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/SiteAnalyticsSummaryResponse'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Site analytics summary response
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured   processing this request.
-      example:
-        response:
-        - errorCode: 2600
-          message: Error message
-          detail: Error details
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    SiteAnalyticsPaginationWithTopNRequest:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 10
-          default: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-    startAndEndTime:
-      type: object
-      properties:
-        startTime:
-          type: integer
-          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `startTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705348800000
-        endTime:
-          type: integer
-          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
-
-
-            If `endTime` is not provided, API will default to current time.
-
-            '
-          format: int64
-          example: 1705435200000
-      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
-    SiteAnalyticsOperator:
-      type: string
-      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
-      enum:
-      - in
-      - eq
-    SiteAnalyticsSummaryRequest:
-      required:
-      - attributes
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
-      description: The input payload to query Summary Analytics data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticImpactedEntities:
-      type: object
-      properties:
-        buildingCount:
-          type: integer
-          description: Total number of buildings
-          example: 8
-        floorCount:
-          type: integer
-          description: Total number of floors
-          example: 18
-        sitesCount:
-          type: integer
-          description: Total number of sites
-          example: 10
-        apCount:
-          type: integer
-          description: Total number of Access Points
-          example: 13
-      description: 'Site analytics impacted entites
-
-        '
-    asyncInfo:
-      properties:
-        taskLocation:
-          type: string
-          description: url resource where the client can fetch their task's lifecycle updates
-          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-        taskId:
-          type: string
-          description: the specific task id associated with the specific request made
-          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
-      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
-    SiteAnalyticsFilter:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/SiteAnalyticsFilterAttribute'
-        operator:
-          $ref: '#/components/schemas/SiteAnalyticsOperator'
-        value:
-          type: object
-          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
-
-
-            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
-
-            '
-      description: 'Filter object to pass in the request.
-
-        '
-    SiteAnalyticsTopNRequest:
-      required:
-      - filters
-      - groupBy
-      - topN
-      type: object
-      properties:
-        topN:
-          $ref: '#/components/schemas/topN'
-        groupBy:
-          maxItems: 1
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsGroupByKey'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsTopNFilter'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNRequest'
-      description: The input payload to query Top-N entities related to site analytics.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsPaginationWithTopNResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-    SiteAnalyticsQueryRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
-        views:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsView'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithSortRequest'
-      description: Site Analytics query requst payload
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsTopNFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys.
-      enum:
-      - kpiType
-      - siteHierarchyId
-      - siteId
-      - ssid
-      - band
-      - failureCategory
-      - failureReason
-    SiteAnalyticsView:
-      type: string
-      description: "View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. If no views are specified, all attributes will be returned.\n\n| View Name | Included Attributes |\n| --- | --- |\n| View Name | Included Attributes |\n| --- | --- |\n| `coverage` | coverageAverage, coverageSuccessPercentage, coverageSuccessCount, coverageTotalCount, coverageFailureCount, coverageClientCount, coverageImpactedEntities, coverageFailureImpactedEntities, coverageFailureMetrics |\n| `onboardingAttempts` | onboardingAttemptsSuccessPercentage, onboardingAttemptsSuccessCount, onboardingAttemptsTotalCount, onboardingAttemptsFailureCount, onboardingAttemptsClientCount, onboardingAttemptsImpactedEntities, onboardingAttemptsFailureImpactedEntities, onboardingAttemptsFailureMetrics |\n| `onboardingDuration` | onboardingDurationAverage, onboardingDurationSuccessPercentage, onboardingDurationSuccessCount, onboardingDurationTotalCount, onboardingDurationFailureCount, onboardingDurationClientCount, onboardingDurationImpactedEntities, onboardingDurationFailureImpactedEntities, onboardingDurationFailureMetrics |\n| `roamingAttempts` | roamingAttemptsSuccessPercentage, roamingAttemptsSuccessCount, roamingAttemptsTotalCount, roamingAttemptsFailureCount, roamingAttemptsClientCount, roamingAttemptsImpactedEntities, roamingAttemptsFailureImpactedEntities, roamingAttemptsFailureMetrics |        \n| `roamingDuration` | roamingDurationAverage, roamingDurationSuccessPercentage, roamingDurationSuccessCount, roamingDurationTotalCount, roamingDurationFailureCount, roamingDurationClientCount, roamingDurationImpactedEntities, roamingDurationFailureImpactedEntities, roamingDurationFailureMetrics |\n| `connectionSpeed` | connectionSpeedAverage, connectionSpeedSuccessPercentage, connectionSpeedSuccessCount, connectionSpeedTotalCount, connectionSpeedFailureCount, connectionSpeedClientCount, connectionSpeedImpactedEntities, connectionSpeedFailureImpactedEntities, connectionSpeedFailureMetrics |\n"
-      enum:
-      - coverage
-      - onboardingAttempts
-      - onboardingDuration
-      - roamingAttempts
-      - roamingDuration
-      - connectionSpeed
     SiteAnalyticsResponse:
       type: object
       properties:
@@ -2246,6 +1760,16 @@ components:
         connectionSpeedFailureMetrics:
           $ref: '#/components/schemas/SiteAnalyticFailureMetrics'
       description: Contains site analytics data for a site.
+    asyncInfoContainer:
+      properties:
+        response:
+          $ref: '#/components/schemas/asyncInfo'
+        version:
+          type: string
+          example: '1.0'
+      description: 'Generic model that will contain the asynchronous task/process information
+
+        '
     SiteAnalyticsTrendResponseModel:
       type: object
       properties:
@@ -2259,6 +1783,452 @@ components:
         page:
           $ref: '#/components/schemas/SiteAnalyticsPaginationWithTrendResponse'
       description: Site Analytics Trend Analytics Response
+    asyncInfo:
+      properties:
+        taskLocation:
+          type: string
+          description: url resource where the client can fetch their task's lifecycle updates
+          example: /dna/data/api/v1/assuranceTasks/bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+        taskId:
+          type: string
+          description: the specific task id associated with the specific request made
+          example: bcbb2a8c-deae-4a3e-9459-0eb1dc12c191
+      description: "Generic model with information on the asynchronous task/process\n that was created to handle an API request\n"
+    SiteAnalyticsFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/SiteAnalyticsFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/SiteAnalyticsOperator'
+        value:
+          type: object
+          description: 'Field value(s) to filter the data set. Array of values is used for   "in" or "out" operator. Values will be of whatever type the   specific field being filtered is defined with.
+
+
+            For other operators, filter value is of whatever type the specific   field being filtered is defined with.
+
+            '
+      description: 'Filter object to pass in the request.
+
+        '
+    SiteAnalyticsTopNResponse:
+      type: array
+      description: Site Analytics TopN Analytics Response object
+      items:
+        $ref: '#/components/schemas/SiteAnalyticsGroup'
+    SiteAnalyticsTopNRequest:
+      required:
+      - filters
+      - groupBy
+      - topN
+      type: object
+      properties:
+        topN:
+          $ref: '#/components/schemas/topN'
+        groupBy:
+          maxItems: 1
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsGroupByKey'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsTopNFilter'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTopNRequest'
+      description: The input payload to query Top-N entities related to site analytics.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    SiteAnalyticsTrendRequest:
+      required:
+      - attributes
+      - trendInterval
+      type: object
+      properties:
+        trendInterval:
+          $ref: '#/components/schemas/SiteAnalyticsTrendInterval'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsTrendResponseAttribute'
+        page:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTrendRequest'
+      description: The input payload to query Trend Analytics data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    SiteAnalyticsResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/SiteAnalyticsResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Site analytics response
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    SiteAnalyticsPaginationSortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Records are sorted based on the field specified.
+          enum:
+          - siteHierarchy
+          - siteType
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: Records are sorted based on the field specified.
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
+    SiteAnalyticsSummaryRequest:
+      required:
+      - attributes
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsResponseAttribute'
+      description: The input payload to query Summary Analytics data.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    SiteAnalyticsQueryCountRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsCountFilter'
+      description: The input payload to get site analytics record count.
+      allOf:
+      - $ref: '#/components/schemas/startAndEndTime'
+    SiteAnalyticsTrendInterval:
+      type: string
+      description: 'The time window to aggregate site analytics data.
+
+        '
+      example: 30MIN
+      enum:
+      - 30MIN
+      - 1HOUR
+    SiteAnalyticsView:
+      type: string
+      description: "View is predefined set of attributes supported by the API. Only the attributes related to the given view will be part of the API response along with default attributes. If multiple views are provided, then response will contain attributes from all those views. If no views are specified, all attributes will be returned.\n\n| View Name | Included Attributes |\n| --- | --- |\n| View Name | Included Attributes |\n| --- | --- |\n| `coverage` | coverageAverage, coverageSuccessPercentage, coverageSuccessCount, coverageTotalCount, coverageFailureCount, coverageClientCount, coverageImpactedEntities, coverageFailureImpactedEntities, coverageFailureMetrics |\n| `onboardingAttempts` | onboardingAttemptsSuccessPercentage, onboardingAttemptsSuccessCount, onboardingAttemptsTotalCount, onboardingAttemptsFailureCount, onboardingAttemptsClientCount, onboardingAttemptsImpactedEntities, onboardingAttemptsFailureImpactedEntities, onboardingAttemptsFailureMetrics |\n| `onboardingDuration` | onboardingDurationAverage, onboardingDurationSuccessPercentage, onboardingDurationSuccessCount, onboardingDurationTotalCount, onboardingDurationFailureCount, onboardingDurationClientCount, onboardingDurationImpactedEntities, onboardingDurationFailureImpactedEntities, onboardingDurationFailureMetrics |\n| `roamingAttempts` | roamingAttemptsSuccessPercentage, roamingAttemptsSuccessCount, roamingAttemptsTotalCount, roamingAttemptsFailureCount, roamingAttemptsClientCount, roamingAttemptsImpactedEntities, roamingAttemptsFailureImpactedEntities, roamingAttemptsFailureMetrics |        \n| `roamingDuration` | roamingDurationAverage, roamingDurationSuccessPercentage, roamingDurationSuccessCount, roamingDurationTotalCount, roamingDurationFailureCount, roamingDurationClientCount, roamingDurationImpactedEntities, roamingDurationFailureImpactedEntities, roamingDurationFailureMetrics |\n| `connectionSpeed` | connectionSpeedAverage, connectionSpeedSuccessPercentage, connectionSpeedSuccessCount, connectionSpeedTotalCount, connectionSpeedFailureCount, connectionSpeedClientCount, connectionSpeedImpactedEntities, connectionSpeedFailureImpactedEntities, connectionSpeedFailureMetrics |\n"
+      enum:
+      - coverage
+      - onboardingAttempts
+      - onboardingDuration
+      - roamingAttempts
+      - roamingDuration
+      - connectionSpeed
+    SiteAnalyticsPaginationWithTrendResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    SiteAnalyticsSummaryFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - siteHierarchyId
+      - siteId
+      - ssid
+      - band
+      - failureCategory
+      - failureReason
+    SiteAnalyticsCountFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/SiteAnalyticsCountFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/SiteAnalyticsOperator'
+        value:
+          type: object
+          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.            \n"
+      description: 'Filter object to pass in the request.
+
+        '
+    SiteAnalyticsPaginationWithSortResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 25
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+        sortBy:
+          $ref: '#/components/schemas/SiteAnalyticsPaginationSortBy'
+    SiteAnalyticsSummaryFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/SiteAnalyticsSummaryFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/SiteAnalyticsOperator'
+        value:
+          type: object
+          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with. \n"
+      description: 'Filter objec to pass in summaryAnalytics request.
+
+        '
+    SiteAnalyticsCountFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys
+      enum:
+      - siteHierarchyId
+      - siteHierarchy
+      - siteId
+      - siteType
+    SiteAnalyticsResponseAttribute:
+      type: string
+      description: Field names which are supported by this API as response attributes
+      example: coverageSuccessPercentage
+      enum:
+      - coverageAverage
+      - coverageSuccessPercentage
+      - coverageSuccessCount
+      - coverageTotalCount
+      - coverageFailureCount
+      - coverageClientCount
+      - coverageImpactedEntities
+      - coverageFailureImpactedEntities
+      - coverageFailureMetrics
+      - onboardingAttemptsSuccessPercentage
+      - onboardingAttemptsSuccessCount
+      - onboardingAttemptsTotalCount
+      - onboardingAttemptsFailureCount
+      - onboardingAttemptsClientCount
+      - onboardingAttemptsImpactedEntities
+      - onboardingAttemptsFailureImpactedEntities
+      - onboardingAttemptsFailureMetrics
+      - onboardingDurationAverage
+      - onboardingDurationSuccessPercentage
+      - onboardingDurationSuccessCount
+      - onboardingDurationTotalCount
+      - onboardingDurationFailureCount
+      - onboardingDurationClientCount
+      - onboardingDurationImpactedEntities
+      - onboardingDurationFailureImpactedEntities
+      - onboardingDurationFailureMetrics
+      - roamingAttemptsSuccessPercentage
+      - roamingAttemptsSuccessCount
+      - roamingAttemptsTotalCount
+      - roamingAttemptsFailureCount
+      - roamingAttemptsClientCount
+      - roamingAttemptsImpactedEntities
+      - roamingAttemptsFailureImpactedEntities
+      - roamingAttemptsFailureMetrics
+      - roamingDurationAverage
+      - roamingDurationSuccessPercentage
+      - roamingDurationSuccessCount
+      - roamingDurationTotalCount
+      - roamingDurationFailureCount
+      - roamingDurationClientCount
+      - roamingDurationImpactedEntities
+      - roamingDurationFailureImpactedEntities
+      - roamingDurationFailureMetrics
+      - connectionSpeedAverage
+      - connectionSpeedSuccessPercentage
+      - connectionSpeedSuccessCount
+      - connectionSpeedTotalCount
+      - connectionSpeedFailureCount
+      - connectionSpeedClientCount
+      - connectionSpeedImpactedEntities
+      - connectionSpeedFailureImpactedEntities
+      - connectionSpeedFailureMetrics
+      - apCount
+    SiteAnalyticsOperator:
+      type: string
+      description: Type of filter operator to use for querying data | in and out operator takes multiple values and applies the filters
+      enum:
+      - in
+      - eq
+    SiteAnalyticFailureMetrics:
+      type: object
+      properties:
+        failureApCount:
+          type: integer
+          description: Total number of Access Points that have failures
+          example: 8
+        failureClientCount:
+          type: integer
+          description: Total number of clients that have failures
+          example: 189
+        failurePercentage:
+          type: integer
+          description: Percentage of failures
+          example: 28
+      description: 'Site analytics failure metrics
+
+        '
+    SiteAnalyticsGroupByKey:
+      type: string
+      description: Field names which are supported as groupBy
+      enum:
+      - floorId
+      - deviceType
+      - ssid
+      - band
+      - apName
+      - failureCategory
+      - failureReason
+      - result
+      - vlan
+      - serverIp
+      - childSiteId
+    SiteAnalyticImpactedEntities:
+      type: object
+      properties:
+        buildingCount:
+          type: integer
+          description: Total number of buildings
+          example: 8
+        floorCount:
+          type: integer
+          description: Total number of floors
+          example: 18
+        sitesCount:
+          type: integer
+          description: Total number of sites
+          example: 10
+        apCount:
+          type: integer
+          description: Total number of Access Points
+          example: 13
+      description: 'Site analytics impacted entites
+
+        '
+    SiteAnalyticsPaginationWithTopNRequest:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 10
+          default: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports
+    SiteAnalyticsGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This is the group key. Its the concatination of groupBy attributes
+          example: band=5_floorId=8a7df85f-c373-43b0-a798-34be90ef68d7
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
+      description: Site Analytics Analytics Group object
+    SiteAnalyticsSummaryResponse:
+      type: object
+      properties:
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
+      description: Site analytics summary response
+    SiteAnalyticsSummaryResponseModel:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/SiteAnalyticsSummaryResponse'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Site analytics summary response
+    topN:
+      maximum: 100
+      minimum: 5
+      type: integer
+      description: Number of records to retrieve
+      default: 5
+      enum:
+      - 5
+      - 10
+      - 50
+      - 100
     SiteAnalyticsListResponseModel:
       type: object
       properties:
@@ -2273,10 +2243,146 @@ components:
           description: The version of the response
           example: '1.0'
       description: Site analytics response
-    SiteAnalyticsSummaryFilterAttribute:
+    SiteAnalyticsPaginationWithTrendRequest:
+      type: object
+      properties:
+        limit:
+          maximum: 200
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+          default: 200
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        timestampOrder:
+          type: string
+          description: The sort order of the timestamp can be either ascending or descending
+          example: asc
+          enum:
+          - asc
+          - desc
+    startAndEndTime:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          description: 'Start time from which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `startTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705348800000
+        endTime:
+          type: integer
+          description: 'End time to which the API queries the dataset related to the resource. It must be specified in terms of milliseconds since UNIX epoch. Value is inclusive.
+
+
+            If `endTime` is not provided, API will default to current time.
+
+            '
+          format: int64
+          example: 1705435200000
+      description: start and end time of data set to query. Data is aggregated   based on time window and timestamped with window start time. | For example - 1. When data events falls in a 5 minute window from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM the timestamp of the aggregated data is 12-13-2023 11:25 PM - 1702509900000 (Unix epochtime). If user needs data from 12-13-2023 11:25 PM to 12-13-2023 11:30 PM user must use below timestamps | startTime = 1702509900000 (12-13-2023 11:25 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 3 hours period from 12-13-2023 08:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702528200000 (12-13-2023 08:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 2. When data to be queried is for 24 hours period from 12-12-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1702423800000 (12-12-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM) | 3. When data to be queried is for 7 days period from 12-06-2023 11:30 PM to 12-13-2023 11:30 PM. User must use below timestamps | startTime = 1701905400000 (12-06-2023 11:30 PM) | endTime = 1702510199000 (12-13-2023 11:29:59 PM)
+    SiteAnalyticsTopNFilter:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/SiteAnalyticsTopNFilterAttribute'
+        operator:
+          $ref: '#/components/schemas/SiteAnalyticsOperator'
+        value:
+          type: object
+          description: "Field value(s) to filter the data set. Array of values is used for   \"in\" or \"out\" operator. Values will be of whatever type the   specific field being filtered is defined with.\n\nFor other operators, filter value is of whatever type the specific   field being filtered is defined with.               \n"
+      description: 'Filter object to pass in topNAnalytics request
+
+        '
+    SiteAnalyticsPaginationWithTopNResponse:
+      type: object
+      properties:
+        limit:
+          minimum: 1
+          type: integer
+          description: Number of records to be returned in response
+          example: 100
+        offset:
+          minimum: 1
+          type: integer
+          description: Starting offset of data to fetch and returned
+          example: 5
+        count:
+          type: integer
+          description: Total number of records that can be returned for this request
+          example: 5
+    SiteAnalyticsAttributeResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the attribute
+          example: coverageAverage
+        value:
+          type: object
+          description: Value of the attribute
+          example: 23
+    SiteAnalyticsTrendResponse:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: Timestamp of the data (epoch time)
+          format: int64
+          example: 1709706600000
+        attributes:
+          type: array
+          description: List of attributes
+          items:
+            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
+      description: Site Analytics Trend Analytics Response object
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured   processing this request.
+      example:
+        response:
+        - errorCode: 2600
+          message: Error message
+          detail: Error details
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    SiteAnalyticsFilterAttribute:
       type: string
       description: Field names which are supported by this API as filter keys
       enum:
+      - siteHierarchyId
+      - siteHierarchy
+      - siteId
+      - siteType
+      - ssid
+      - band
+      - failureCategory
+      - failureReason
+    SiteAnalyticsTopNFilterAttribute:
+      type: string
+      description: Field names which are supported by this API as filter keys.
+      enum:
+      - kpiType
       - siteHierarchyId
       - siteId
       - ssid
@@ -2308,134 +2414,7 @@ components:
           enum:
           - asc
           - desc
-    SiteAnalyticsTrendInterval:
-      type: string
-      description: 'The time window to aggregate site analytics data.
-
-        '
-      example: 30MIN
-      enum:
-      - 30MIN
-      - 1HOUR
-    SiteAnalyticsSummaryResponse:
-      type: object
-      properties:
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
-      description: Site analytics summary response
-    SiteAnalyticsGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This is the group key. Its the concatination of groupBy attributes
-          example: band=5_floorId=8a7df85f-c373-43b0-a798-34be90ef68d7
-        attributes:
-          type: array
-          description: List of attributes
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsAttributeResponse'
-      description: Site Analytics Analytics Group object
-    SiteAnalyticsTrendRequest:
-      required:
-      - attributes
-      - trendInterval
-      type: object
-      properties:
-        trendInterval:
-          $ref: '#/components/schemas/SiteAnalyticsTrendInterval'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsSummaryFilter'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SiteAnalyticsTrendResponseAttribute'
-        page:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationWithTrendRequest'
-      description: The input payload to query Trend Analytics data.
-      allOf:
-      - $ref: '#/components/schemas/startAndEndTime'
-    SiteAnalyticsCountFilterAttribute:
-      type: string
-      description: Field names which are supported by this API as filter keys
-      enum:
-      - siteHierarchyId
-      - siteHierarchy
-      - siteId
-      - siteType
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
-    SiteAnalyticsGroupByKey:
-      type: string
-      description: Field names which are supported as groupBy
-      enum:
-      - floorId
-      - deviceType
-      - ssid
-      - band
-      - apName
-      - failureCategory
-      - failureReason
-      - result
-      - vlan
-      - serverIp
-      - childSiteId
-    SiteAnalyticsPaginationWithSortResponse:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to be returned in response
-          example: 25
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-        count:
-          type: integer
-          description: Total number of records that can be returned for this request
-          example: 5
-        sortBy:
-          $ref: '#/components/schemas/SiteAnalyticsPaginationSortBy'
   examples:
-    SiteAnalyticsSummaryRequestExample1:
-      description: This request has parent site filter.
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: siteId
-          operator: eq
-          value: 1a2d9728-a60d-4d0b-8306-e35834c2d0b7
-        attributes:
-        - coverageAverage
-        - coverageSuccessPercentage
-    SiteAnalyticsQueryCountRequestExample1:
-      description: This request has parent site filter.
-      value:
-        startTime: 1705348800000
-        endTime: 1705435200000
-        filters:
-        - key: siteHierarchyId
-          operator: eq
-          value: f06976cc-8ae4-4ebd-8efe-11b14aa96b57/1a2d9728-a60d-4d0b-8306-e35834c2d0b7
     SiteAnalyticsTrendRequestExample1:
       description: This request has parent site filter.
       value:
@@ -2453,6 +2432,15 @@ components:
           limit: 10
           offset: 1
           timestampOrder: asc
+    SiteAnalyticsQueryCountRequestExample1:
+      description: This request has parent site filter.
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: siteHierarchyId
+          operator: eq
+          value: f06976cc-8ae4-4ebd-8efe-11b14aa96b57/1a2d9728-a60d-4d0b-8306-e35834c2d0b7
     SiteAnalyticsQueryRequestExample1:
       description: This request has parent site filter.
       value:
@@ -2488,3 +2476,15 @@ components:
         - key: siteId
           operator: eq
           value: 1a2d9728-a60d-4d0b-8306-e35834c2d0b7
+    SiteAnalyticsSummaryRequestExample1:
+      description: This request has parent site filter.
+      value:
+        startTime: 1705348800000
+        endTime: 1705435200000
+        filters:
+        - key: siteId
+          operator: eq
+          value: 1a2d9728-a60d-4d0b-8306-e35834c2d0b7
+        attributes:
+        - coverageAverage
+        - coverageSuccessPercentage

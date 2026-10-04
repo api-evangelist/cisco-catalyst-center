@@ -683,26 +683,6 @@ paths:
           description: The server did not respond inside time restrictions and time-out.
 components:
   schemas:
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    triggerId:
-      type: string
-      description: The common trigger definition id
-      format: uuid
-      readOnly: true
-      example: 7979b500-03aa-46d4-b1bb-bfeba4f3cfe0
-    CustomIssueDefinitionResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
-      description: The response object for the custom issue definition.
     CustomIssueDefinitionsResponse:
       type: object
       properties:
@@ -717,26 +697,89 @@ components:
           type: string
           example: '1.0'
       description: The response object for the custom issues definition.
-    PaginationResponse:
+    ErrorObject:
       type: object
       properties:
-        limit:
+        errorCode:
           type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+    rule:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the rules. For now, the rule can be defined based on the  syslog.
+          readOnly: true
+          example: syslog
+        severity:
           type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
+          description: 'The syslog severity level.
+
+            | Severity Level        | Name |
+
+            | ---------------------- | ----------- |
+
+            |0| Emergency|
+
+            |1| Alert|
+
+            |2| Critical|
+
+            |3| Error|
+
+            |4| Warning|
+
+            |5| Notice|
+
+            |6| Info|
+
+            '
+          format: int32
           example: 1
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+        facility:
+          type: string
+          description: The syslog facility name
+          example: PLATFORM_ENV
+        mnemonic:
+          type: string
+          description: The syslog mnemonic name
+          example: FRU_PS_FAN_OK
+        pattern:
+          type: string
+          description: 'Message pattern is expected to contain just message text with dynamic values replaced with ``*.``<br/><br/>For example, in Syslog message "111769: *08 Mar 2024 19:59:14 GMT: %BGP-5-ADJCHANGE: neighbor 11.10.10.1 Down" is "neighbor 11.10.10.1 Down".<br/><br/>- Input ``neighbor 11.10.10.1 *``, if you expect to track BGP up/down messages with remote 11.10.10.1.<br/><br/>- Input ``neighbor * Down``, if you expect to track all BGP down messages with all remote IPs.<br/><br/>- Input ``neighbor * *``, if you expect to track all BGP down/up messages with all remote IPs
+
+            '
+          example: neighbor * *
+        occurrences:
+          type: integer
+          description: The number of occurrences count required for the issue to trigger.
+          example: 2
+        durationInMinutes:
+          type: integer
+          description: The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minutes.
+          example: 10
+    CountIntegerResponse_response:
+      type: object
+      properties:
         count:
           type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
     CustomIssueDefinitionDetail:
       type: object
       properties:
@@ -808,18 +851,26 @@ components:
           - asc
           - desc
       description: List of field names and corresponding order used to sort   the records.
-    ErrorObject:
+    PaginationResponse:
       type: object
       properties:
-        errorCode:
+        limit:
           type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
     ErrorResponse:
       title: Error Response
       type: object
@@ -841,69 +892,17 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    rule:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the rules. For now, the rule can be defined based on the  syslog.
-          readOnly: true
-          example: syslog
-        severity:
-          type: integer
-          description: 'The syslog severity level.
-
-            | Severity Level        | Name |
-
-            | ---------------------- | ----------- |
-
-            |0| Emergency|
-
-            |1| Alert|
-
-            |2| Critical|
-
-            |3| Error|
-
-            |4| Warning|
-
-            |5| Notice|
-
-            |6| Info|
-
-            '
-          format: int32
-          example: 1
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-        facility:
-          type: string
-          description: The syslog facility name
-          example: PLATFORM_ENV
-        mnemonic:
-          type: string
-          description: The syslog mnemonic name
-          example: FRU_PS_FAN_OK
-        pattern:
-          type: string
-          description: 'Message pattern is expected to contain just message text with dynamic values replaced with ``*.``<br/><br/>For example, in Syslog message "111769: *08 Mar 2024 19:59:14 GMT: %BGP-5-ADJCHANGE: neighbor 11.10.10.1 Down" is "neighbor 11.10.10.1 Down".<br/><br/>- Input ``neighbor 11.10.10.1 *``, if you expect to track BGP up/down messages with remote 11.10.10.1.<br/><br/>- Input ``neighbor * Down``, if you expect to track all BGP down messages with all remote IPs.<br/><br/>- Input ``neighbor * *``, if you expect to track all BGP down/up messages with all remote IPs
-
-            '
-          example: neighbor * *
-        occurrences:
-          type: integer
-          description: The number of occurrences count required for the issue to trigger.
-          example: 2
-        durationInMinutes:
-          type: integer
-          description: The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minutes.
-          example: 10
+    rules:
+      type: array
+      description: The list of more than one rule definition. Currently supported limit of rule is 1. Keep it as array for future usage.
+      items:
+        $ref: '#/components/schemas/rule'
+    profileId:
+      type: string
+      description: The profile id associated issue definitions
+      readOnly: true
+      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
+      default: global
     CountIntegerResponse:
       title: Count Integer Response
       type: object
@@ -915,17 +914,18 @@ components:
           description: The version of the response
           example: '1.0'
       description: Reports
-    profileId:
+    triggerId:
       type: string
-      description: The profile id associated issue definitions
+      description: The common trigger definition id
+      format: uuid
       readOnly: true
-      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
-      default: global
-    rules:
-      type: array
-      description: The list of more than one rule definition. Currently supported limit of rule is 1. Keep it as array for future usage.
-      items:
-        $ref: '#/components/schemas/rule'
+      example: 7979b500-03aa-46d4-b1bb-bfeba4f3cfe0
+    CustomIssueDefinitionResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
+      description: The response object for the custom issue definition.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

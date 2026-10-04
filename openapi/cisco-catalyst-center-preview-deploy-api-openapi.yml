@@ -484,27 +484,19 @@ paths:
           description: The server did not respond inside time restrictions and timed-out.
 components:
   schemas:
-    Preview:
-      type: object
-      properties:
-        networkDeviceId:
-          $ref: '#/components/schemas/NetworkDeviceId'
-        previewItems:
-          $ref: '#/components/schemas/PreviewItems'
-        status:
-          $ref: '#/components/schemas/PreviewGenerationStatus'
-    PreviewDeviceStatusDetailsListResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/PreviewDeviceStatusDetailsList'
-        version:
-          type: string
-          example: '1.0'
-    inline_response_202_1:
-      allOf:
-      - $ref: '#/components/schemas/TaskResponse'
-      - description: The task when complete will have the activity url in the resultLocation field. The progress of this deploy operation can be tracked using the activity.
+    DeviceStatus:
+      type: string
+      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
+      enum:
+      - NOT_STARTED
+      - SUCCESS
+      - FAILED
+      - CONFIGURING
+      - ROLLBACK_SUCCESS
+      - ROLLBACK_FAILURE
+      - CANCELLED
+      - NOT_SUPPORTED
+      - PENDING
     PacketCaptureDeployInfoList:
       type: array
       description: A list of ICAP configuration intents
@@ -521,77 +513,28 @@ components:
           clientMac: AA:AA:AA:AA:AA:01
       items:
         $ref: '#/components/schemas/PacketCaptureDeployInfoItem'
-    NetworkDeviceId:
-      type: string
-      description: Id of the device
-      format: uuid
-      example: efab65ed-dcbe-4857-999e-af3e477aed1a
-    ErrorResponse:
-      title: Error Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/ErrorResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Contains information explaining the error that occured processing this request.
-      externalDocs:
-        description: Error Codes - Cisco DevNet
-        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    PreviewDeviceStatusDetail:
-      type: object
-      properties:
-        networkDeviceId:
-          type: string
-          description: Id of the device
-          format: uuid
-          example: efab65ed-dcbe-4857-999e-af3e477aed1a
-        status:
-          $ref: '#/components/schemas/PreviewGenerationStatus'
-      description: status for device configuration preview
-    ErrorResponse_response:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: A message providing more context regarding the error
-        detail:
-          type: string
-          description: Detailed information regarding the error
-    inline_response_202:
-      allOf:
-      - $ref: '#/components/schemas/TaskResponse'
-      - description: The task when complete will have the activity url in the resultLocation field. This activity can be used for subsequent preview operations.
+    PreviewDeviceStatusDetailsList:
+      type: array
+      description: list of PreviewDeviceStatusDetail objects
+      items:
+        $ref: '#/components/schemas/PreviewDeviceStatusDetail'
     PreviewItems:
       type: array
       items:
         $ref: '#/components/schemas/PreviewItem'
-    TaskResponse_response:
+    Preview:
       type: object
       properties:
-        taskId:
-          type: string
-          description: The UUID of the task
-          format: uuid
-          example: 85c95140-50fc-4a57-994d-db58d3afe6b3
-        url:
-          type: string
-          description: The path to the API endpoint to GET for information on the task
-          example: /intent/api/v1/task/85c95140-50fc-4a57-994d-db58d3afe6b3
-    PreviewGenerationStatus:
-      type: string
-      description: "Preview generation status:\n * 'Not Started' - preview generation has not started\n * 'In Progress' - preview generation is in progress\n * 'Success' - preview generation completed and was succesful \n * 'Failed' - preview generation completed with failure\n * 'Warning' - preview generation completed with warning\n"
-      enum:
-      - Not Started
-      - In Progress
-      - Success
-      - Failed
-      - Warning
+        networkDeviceId:
+          $ref: '#/components/schemas/NetworkDeviceId'
+        previewItems:
+          $ref: '#/components/schemas/PreviewItems'
+        status:
+          $ref: '#/components/schemas/PreviewGenerationStatus'
+    inline_response_202:
+      allOf:
+      - $ref: '#/components/schemas/TaskResponse'
+      - description: The task when complete will have the activity url in the resultLocation field. This activity can be used for subsequent preview operations.
     PacketCaptureDeployInfoItem:
       required:
       - captureType
@@ -693,6 +636,55 @@ components:
       example: '{"captureType": "FULL","wlcId": "9079ce39-25fe-4ab0-88cb-e89f5e700ddb", "clientMac": "AA:AA:AA:AA:AA:02", "durationInMins": 10}
 
         '
+    ErrorResponse_response:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A message providing more context regarding the error
+        detail:
+          type: string
+          description: Detailed information regarding the error
+    TaskResponse_response:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: The UUID of the task
+          format: uuid
+          example: 85c95140-50fc-4a57-994d-db58d3afe6b3
+        url:
+          type: string
+          description: The path to the API endpoint to GET for information on the task
+          example: /intent/api/v1/task/85c95140-50fc-4a57-994d-db58d3afe6b3
+    PreviewDeviceStatusDetail:
+      type: object
+      properties:
+        networkDeviceId:
+          type: string
+          description: Id of the device
+          format: uuid
+          example: efab65ed-dcbe-4857-999e-af3e477aed1a
+        status:
+          $ref: '#/components/schemas/PreviewGenerationStatus'
+      description: status for device configuration preview
+    NetworkDeviceId:
+      type: string
+      description: Id of the device
+      format: uuid
+      example: efab65ed-dcbe-4857-999e-af3e477aed1a
+    PreviewGenerationStatus:
+      type: string
+      description: "Preview generation status:\n * 'Not Started' - preview generation has not started\n * 'In Progress' - preview generation is in progress\n * 'Success' - preview generation completed and was succesful \n * 'Failed' - preview generation completed with failure\n * 'Warning' - preview generation completed with warning\n"
+      enum:
+      - Not Started
+      - In Progress
+      - Success
+      - Failed
+      - Warning
     TaskResponse:
       title: Task Response
       type: object
@@ -707,36 +699,6 @@ components:
       externalDocs:
         description: Asynchronous operations - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!asynchronous-apis/asynchronous-operations
-    EpochMilliseconds:
-      minimum: 0
-      type: integer
-      description: A date and time represented as ***milliseconds*** since the Unix epoch.
-      format: int64
-      example: 1524880285900
-      externalDocs:
-        description: Unix time - Wikipedia
-        url: https://en.wikipedia.org/wiki/Unix_time
-    PreviewListResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/Preview'
-        version:
-          type: string
-          example: '1.0'
-    DeviceStatus:
-      type: string
-      description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
-      enum:
-      - NOT_STARTED
-      - SUCCESS
-      - FAILED
-      - CONFIGURING
-      - ROLLBACK_SUCCESS
-      - ROLLBACK_FAILURE
-      - CANCELLED
-      - NOT_SUPPORTED
-      - PENDING
     PreviewItem:
       type: object
       properties:
@@ -759,57 +721,56 @@ components:
           type: string
           description: user friendly description of the preview item
           example: Telemetry & Other Catalyst Center Settings
-    PreviewDeviceStatusDetailsList:
-      type: array
-      description: list of PreviewDeviceStatusDetail objects
-      items:
-        $ref: '#/components/schemas/PreviewDeviceStatusDetail'
+    PreviewListResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/Preview'
+        version:
+          type: string
+          example: '1.0'
+    inline_response_202_1:
+      allOf:
+      - $ref: '#/components/schemas/TaskResponse'
+      - description: The task when complete will have the activity url in the resultLocation field. The progress of this deploy operation can be tracked using the activity.
+    PreviewDeviceStatusDetailsListResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/PreviewDeviceStatusDetailsList'
+        version:
+          type: string
+          example: '1.0'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/ErrorResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Contains information explaining the error that occured processing this request.
+      externalDocs:
+        description: Error Codes - Cisco DevNet
+        url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    EpochMilliseconds:
+      minimum: 0
+      type: integer
+      description: A date and time represented as ***milliseconds*** since the Unix epoch.
+      format: int64
+      example: 1524880285900
+      externalDocs:
+        description: Unix time - Wikipedia
+        url: https://en.wikipedia.org/wiki/Unix_time
   examples:
-    RFSTATS_AP:
-      summary: RFSTATS on 1 AP
-      value:
-      - captureType: RFSTATS
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-    OTA:
-      summary: OTA (default radio role sniffer)
-      value:
-      - captureType: OTA
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 0
-        otaBand: '2.4'
-        otaChannel: 7
-        otaChannelWidth: 20
-    ANOMALY_WLC:
-      summary: ANOMALY on 1 WLC
+    ANOMALY_AP:
+      summary: ANOMALY on 1 AP
       value:
       - captureType: ANOMALY
         wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-    OTA_AP_Mode:
-      summary: OTA (AP mode sniffer)
-      value:
-      - captureType: OTA
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
         apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        slots:
-        - 0
-        otaBand: '5'
-        otaChannel: 32
-        otaChannelWidth: 40
-        otaMode: AP
-    FULL:
-      summary: FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices
-      value:
-      - captureType: FULL
-        durationInMins: 60
-        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        clientMac: AA:AA:AA:AA:AA:01
-      - captureType: FULL
-        durationInMins: 60
-        wlcId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
-        clientMac: AA:AA:AA:AA:AA:01
     OTA_Radio_Role:
       summary: OTA (radio role sniffer)
       value:
@@ -822,17 +783,33 @@ components:
         otaChannel: 36
         otaChannelWidth: 80
         otaMode: RADIO
-    ANOMALY_AP:
-      summary: ANOMALY on 1 AP
+    ANOMALY_WLC:
+      summary: ANOMALY on 1 WLC
       value:
       - captureType: ANOMALY
         wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
-        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+    FULL:
+      summary: FULL for client AA:AA:AA:AA:AA:01 on 2 WLC devices
+      value:
+      - captureType: FULL
+        durationInMins: 60
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        clientMac: AA:AA:AA:AA:AA:01
+      - captureType: FULL
+        durationInMins: 60
+        wlcId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        clientMac: AA:AA:AA:AA:AA:01
     RFSTATS_WLC:
       summary: RFSTATS on 1 WLC
       value:
       - captureType: RFSTATS
         wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+    RFSTATS_AP:
+      summary: RFSTATS on 1 AP
+      value:
+      - captureType: RFSTATS
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
     ONBOARDING:
       summary: ONBOARDING for client AA:AA:AA:AA:AA:01 on 1 WLC
       value:
@@ -840,6 +817,17 @@ components:
         durationInMins: 60
         wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
         clientMac: AA:AA:AA:AA:AA:01
+    OTA:
+      summary: OTA (default radio role sniffer)
+      value:
+      - captureType: OTA
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 0
+        otaBand: '2.4'
+        otaChannel: 7
+        otaChannelWidth: 20
     SPECTRUM:
       summary: SPECTRUM on slot 0, 1, and 2
       value:
@@ -850,6 +838,18 @@ components:
         - 0
         - 1
         - 2
+    OTA_AP_Mode:
+      summary: OTA (AP mode sniffer)
+      value:
+      - captureType: OTA
+        wlcId: 4dab2492-cead-4036-83d1-2e44b2211111
+        apId: 4dab2492-cead-4036-83d1-2e44b22AAAAA
+        slots:
+        - 0
+        otaBand: '5'
+        otaChannel: 32
+        otaChannelWidth: 40
+        otaMode: AP
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/
