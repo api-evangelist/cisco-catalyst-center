@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/cisco-en-programmability/catalyst-center-api-specs/HEAD/Assurance/CE_Cat_Center_Org-ICAP_APIs-1.0.0-resolved.yaml",
+ "requested_url": "https://raw.githubusercontent.com/cisco-en-programmability/catalyst-center-api-specs/HEAD/Assurance/CE_Cat_Center_Org-ICAP_APIs-1.0.0-resolved.yaml",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 81016,
+ "sha256": "40015c1351281186d78cefc4e3a749cde1d7dbe00659ca9f8df93d12d758c8ac",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

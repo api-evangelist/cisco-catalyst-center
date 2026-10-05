@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/cisco-en-programmability/catalyst-center-api-specs/HEAD/Assurance/CE_Cat_Center_Org-AssuranceUserDefinedIssueAPIs-1.0.0-resolved.yaml",
+ "requested_url": "https://raw.githubusercontent.com/cisco-en-programmability/catalyst-center-api-specs/HEAD/Assurance/CE_Cat_Center_Org-AssuranceUserDefinedIssueAPIs-1.0.0-resolved.yaml",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 45138,
+ "sha256": "d2e16f24d82c13e8afdb52ffe640357e75a0b46e69d8754ff2691efe76deb445",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
