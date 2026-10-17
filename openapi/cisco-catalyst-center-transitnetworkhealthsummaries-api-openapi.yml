@@ -559,6 +559,26 @@ paths:
           description: Unexpected Error
 components:
   schemas:
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
     TransitNetworksSummaries:
       type: object
       properties:
@@ -576,18 +596,6 @@ components:
           description: The version of the response
           example: '1.0'
       description: Transit Networks summmary response schema
-    ErrorObject:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          description: Application specific error code returned by the server
-        message:
-          type: string
-          description: Brief message about the error condition
-        detail:
-          type: string
-          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     CountIntegerResponse_response:
       type: object
       properties:
@@ -596,55 +604,6 @@ components:
           description: The total number of records related to the resource
           format: int64
           example: 1000
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    TransitNetworkAttributeValuePair:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/TransitNetworkAnalyticsAttribute'
-        value:
-          type: object
-          description: This is the value of the attribute requested for analytics API.
-    TimeBasedPagination:
-      type: object
-      properties:
-        limit:
-          minimum: 1
-          type: integer
-          description: Number of records to fetch in a page
-          example: 100
-        offset:
-          minimum: 1
-          type: integer
-          description: Starting offset of data to fetch and returned
-          example: 5
-          default: 1
-        timeSortOrder:
-          type: string
-          description: Sort order. `asc` for ascending and  `desc` for descending
-          example: asc
-          default: asc
-          enum:
-          - asc
-          - desc
-        count:
-          type: integer
-          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
-          example: 100
     TransitNetworkAnalyticsAttribute:
       type: string
       description: Supported filter attributes related to clients
@@ -684,40 +643,70 @@ components:
       - bgpTcpGoodHealthDeviceCount
       - bgpTcpPoorHealthDeviceCount
       - bgpTcpFairHealthDeviceCount
-    transitNetworkSummaryTrend:
+    CountIntegerResponse:
+      title: Count Integer Response
       type: object
       properties:
         response:
-          type: array
-          description: Successfully return list of Transit networks health trend data
-          items:
-            $ref: '#/components/schemas/TransitNetworkTrend'
-        page:
-          $ref: '#/components/schemas/TimeBasedPagination'
+          $ref: '#/components/schemas/CountIntegerResponse_response'
         version:
           type: string
+          description: The version of the response
           example: '1.0'
-      description: Transit Networks score Response
-    PaginationResponse:
+      description: Reports
+    TimeBasedPagination:
       type: object
       properties:
         limit:
+          minimum: 1
           type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
+          description: Number of records to fetch in a page
+          example: 100
         offset:
+          minimum: 1
           type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
+          description: Starting offset of data to fetch and returned
+          example: 5
+          default: 1
+        timeSortOrder:
+          type: string
+          description: Sort order. `asc` for ascending and  `desc` for descending
+          example: asc
+          default: asc
+          enum:
+          - asc
+          - desc
         count:
           type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
+          description: Number of records returned after applying applicable filtering. Field is ignored for request and updated by API in the response
+          example: 100
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    ErrorObject:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          description: Application specific error code returned by the server
+        message:
+          type: string
+          description: Brief message about the error condition
+        detail:
+          type: string
+          description: A more detailed explanation of the error condition the   parameter and its value, that caused the condition and why it caused it.
     ErrorResponse:
       title: Error Response
       type: object
@@ -739,6 +728,43 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
+    transitNetworkSummaryTrend:
+      type: object
+      properties:
+        response:
+          type: array
+          description: Successfully return list of Transit networks health trend data
+          items:
+            $ref: '#/components/schemas/TransitNetworkTrend'
+        page:
+          $ref: '#/components/schemas/TimeBasedPagination'
+        version:
+          type: string
+          example: '1.0'
+      description: Transit Networks score Response
+    TransitNetworkAttributeValuePair:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/TransitNetworkAnalyticsAttribute'
+        value:
+          type: object
+          description: This is the value of the attribute requested for analytics API.
+    TransitNetworkTrend:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: For trend API timestamp is the default groupBy attribute.
+          format: int64
+          example: 1718218219000
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransitNetworkAttributeValuePair'
+      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
+
+        '
     TransitNetworkSummary:
       required:
       - transitNetworksId
@@ -936,38 +962,12 @@ components:
           description: The full hierarchy breakdown of the site tree in name form starting from Global site name and ending with the specific site site. 'Global' is the Root name of the site hierarchy tree. Site name including the hierarchy where the network device or client is located. For clients site is derived based on site assigned to network device where the client is connected to. For Wireless client its the connected Access Point site and for Wired client its the connected switch site. For network device its the site assigned to it.
           example: Global/AreaName/BuildingName/FloorName
       description: Summary of transit networks with health info.
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
-    TransitNetworkTrend:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          description: For trend API timestamp is the default groupBy attribute.
-          format: int64
-          example: 1718218219000
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransitNetworkAttributeValuePair'
-      description: 'The aggregate trend response includes timestamp, attributes, aggregateAttributes, and group attributes. The attributes aggregateAttributes and groups are mutually exclusive. If a user requests trends without groupBy attributes, the response includes timestamp, attributes, and aggregateAttributes. However, if a user requests trends with groupBy attributes, the response includes timestamp, and the groups array contains attributes and aggregatedAttributes for each array element.
-
-        '
   examples:
-    TransitNetworksResponseExample1:
+    TransitNetworkResponseExample1:
       summary: Virtual Network Summary response example
       value:
         response:
-        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
           name: transit_1
           controlPlaneCount: 2
           transitType: SD-TRANSIT
@@ -1040,11 +1040,11 @@ components:
           offset: 0
           timeSortOrder: asc
         version: 2.0
-    TransitNetworkResponseExample1:
+    TransitNetworksResponseExample1:
       summary: Virtual Network Summary response example
       value:
         response:
-          id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
+        - id: 43bda617-c55a-4154-8e0b-5da9e5ea75aa
           name: transit_1
           controlPlaneCount: 2
           transitType: SD-TRANSIT

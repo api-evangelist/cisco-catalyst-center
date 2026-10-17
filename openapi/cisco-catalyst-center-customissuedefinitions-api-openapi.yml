@@ -683,20 +683,128 @@ paths:
           description: The server did not respond inside time restrictions and time-out.
 components:
   schemas:
-    CustomIssueDefinitionsResponse:
+    PaginationResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: The reference to the limit applied in the Pagination   Request.
+          example: 10
+        offset:
+          type: integer
+          description: The reference to the record offset applied in the   Pagination Request.
+          example: 1
+        count:
+          type: integer
+          description: Total number of records related to the resource after   applying applicable filtering
+          example: 20
+        sortBy:
+          type: array
+          description: Reference to the sortBy that was applied in the Pagination   Request.
+          items:
+            $ref: '#/components/schemas/PaginationResponse_sortBy'
+    CustomIssueDefinitionResponse:
       type: object
       properties:
         response:
-          type: array
-          description: Successfully return list of custom issues definition
-          items:
-            $ref: '#/components/schemas/CustomIssueDefinitionDetail'
-        page:
-          $ref: '#/components/schemas/PaginationResponse'
+          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
+      description: The response object for the custom issue definition.
+    profileId:
+      type: string
+      description: The profile id associated issue definitions
+      readOnly: true
+      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
+      default: global
+    CountIntegerResponse:
+      title: Count Integer Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountIntegerResponse_response'
         version:
           type: string
+          description: The version of the response
           example: '1.0'
-      description: The response object for the custom issues definition.
+      description: Reports
+    CustomIssueDefinitionDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Custom issue definition unique identifier in Uuid format
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          description: The name of the issue definition
+          example: TestUdiIssueDefName
+        description:
+          type: string
+          description: The description about the issue definition
+          example: TestIssueDescription
+        profileId:
+          $ref: '#/components/schemas/profileId'
+        triggerId:
+          $ref: '#/components/schemas/triggerId'
+        rules:
+          $ref: '#/components/schemas/rules'
+        isEnabled:
+          type: boolean
+          description: Indicates whether the issue definition is enabled or not.
+          example: true
+        priority:
+          type: string
+          description: The Issue definition priority level
+          example: P1
+          enum:
+          - P1
+          - P2
+          - P3
+          - P4
+        isDeletable:
+          type: boolean
+          description: This field indicates whether the issue definition is deletable. Only the global profile issue definitions can be deleted. When deleting an issue definition, the respective custom profile definition will also be automatically removed.
+          readOnly: true
+          example: false
+        isNotificationEnabled:
+          type: boolean
+          description: Indicates whether the Custom Issue Notification subscription is enabled or not.
+          example: true
+        createdTime:
+          type: integer
+          description: The issue created timestamp in Milliseconds. It must be specified in UNIX epochtime in milliseconds
+          format: int64
+          readOnly: true
+          example: 1795339356000
+        lastUpdatedTime:
+          type: integer
+          description: The issue last updated timestamp in Milliseconds.
+          format: int64
+          readOnly: true
+          example: 1710958556000
+    PaginationResponse_sortBy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name by which sort is requested
+          example: siteHierarchy
+        order:
+          type: string
+          description: Sort order. 'asc' for ascending and 'desc' for   descending
+          example: asc
+          enum:
+          - asc
+          - desc
+      description: List of field names and corresponding order used to sort   the records.
+    CountIntegerResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of records related to the resource
+          format: int64
+          example: 1000
     ErrorObject:
       type: object
       properties:
@@ -772,105 +880,6 @@ components:
           type: integer
           description: The duration in minutes for which the issue must persist to trigger. The maximum supported duration is 15 minutes.
           example: 10
-    CountIntegerResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of records related to the resource
-          format: int64
-          example: 1000
-    CustomIssueDefinitionDetail:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The Custom issue definition unique identifier in Uuid format
-          format: uuid
-          readOnly: true
-        name:
-          type: string
-          description: The name of the issue definition
-          example: TestUdiIssueDefName
-        description:
-          type: string
-          description: The description about the issue definition
-          example: TestIssueDescription
-        profileId:
-          $ref: '#/components/schemas/profileId'
-        triggerId:
-          $ref: '#/components/schemas/triggerId'
-        rules:
-          $ref: '#/components/schemas/rules'
-        isEnabled:
-          type: boolean
-          description: Indicates whether the issue definition is enabled or not.
-          example: true
-        priority:
-          type: string
-          description: The Issue definition priority level
-          example: P1
-          enum:
-          - P1
-          - P2
-          - P3
-          - P4
-        isDeletable:
-          type: boolean
-          description: This field indicates whether the issue definition is deletable. Only the global profile issue definitions can be deleted. When deleting an issue definition, the respective custom profile definition will also be automatically removed.
-          readOnly: true
-          example: false
-        isNotificationEnabled:
-          type: boolean
-          description: Indicates whether the Custom Issue Notification subscription is enabled or not.
-          example: true
-        createdTime:
-          type: integer
-          description: The issue created timestamp in Milliseconds. It must be specified in UNIX epochtime in milliseconds
-          format: int64
-          readOnly: true
-          example: 1795339356000
-        lastUpdatedTime:
-          type: integer
-          description: The issue last updated timestamp in Milliseconds.
-          format: int64
-          readOnly: true
-          example: 1710958556000
-    PaginationResponse_sortBy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Field name by which sort is requested
-          example: siteHierarchy
-        order:
-          type: string
-          description: Sort order. 'asc' for ascending and 'desc' for   descending
-          example: asc
-          enum:
-          - asc
-          - desc
-      description: List of field names and corresponding order used to sort   the records.
-    PaginationResponse:
-      type: object
-      properties:
-        limit:
-          type: integer
-          description: The reference to the limit applied in the Pagination   Request.
-          example: 10
-        offset:
-          type: integer
-          description: The reference to the record offset applied in the   Pagination Request.
-          example: 1
-        count:
-          type: integer
-          description: Total number of records related to the resource after   applying applicable filtering
-          example: 20
-        sortBy:
-          type: array
-          description: Reference to the sortBy that was applied in the Pagination   Request.
-          items:
-            $ref: '#/components/schemas/PaginationResponse_sortBy'
     ErrorResponse:
       title: Error Response
       type: object
@@ -897,35 +906,26 @@ components:
       description: The list of more than one rule definition. Currently supported limit of rule is 1. Keep it as array for future usage.
       items:
         $ref: '#/components/schemas/rule'
-    profileId:
-      type: string
-      description: The profile id associated issue definitions
-      readOnly: true
-      example: 03aab500-7979-46d4-b1bb-bfeba4f3cfe0
-      default: global
-    CountIntegerResponse:
-      title: Count Integer Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountIntegerResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports
     triggerId:
       type: string
       description: The common trigger definition id
       format: uuid
       readOnly: true
       example: 7979b500-03aa-46d4-b1bb-bfeba4f3cfe0
-    CustomIssueDefinitionResponse:
+    CustomIssueDefinitionsResponse:
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/CustomIssueDefinitionDetail'
-      description: The response object for the custom issue definition.
+          type: array
+          description: Successfully return list of custom issues definition
+          items:
+            $ref: '#/components/schemas/CustomIssueDefinitionDetail'
+        page:
+          $ref: '#/components/schemas/PaginationResponse'
+        version:
+          type: string
+          example: '1.0'
+      description: The response object for the custom issues definition.
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/

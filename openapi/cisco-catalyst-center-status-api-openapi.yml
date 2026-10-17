@@ -191,15 +191,6 @@ paths:
           description: The server did not respond inside time restrictions and timed-out.
 components:
   schemas:
-    ConfigGroupName:
-      type: string
-      description: name of the config group that has been provisioned.
-      example: application.telemetry
-    NetworkDeviceId:
-      type: string
-      description: Id of the device
-      format: uuid
-      example: efab65ed-dcbe-4857-999e-af3e477aed1a
     DeviceStatus:
       type: string
       description: "Device status:\n  * 'NOT_STARTED' - provisioning has not started on this device\n  * 'SUCCESS' - provisioning has completed with a success\n  * 'FAILED' - provisioning has completed with a failure\n  * 'CONFIGURING' - provisioning is in progress\n  * 'ROLLBACK_SUCCESS' - provisioning has successfully rolled back to the previous version \n  * 'ROLLBACK_FAILURE' - there was a failure in rolling back to the previous version\n  * 'CANCELLED' - provisioning was cancelled by the user\n  * 'NOT_SUPPORTED' - provisioning cannot be done on the device as the device does not support it\n  * 'PENDING' - provisioning will start soon on the device\n"
@@ -213,76 +204,6 @@ components:
       - CANCELLED
       - NOT_SUPPORTED
       - PENDING
-    DeviceDeploymentStatusList:
-      type: array
-      items:
-        $ref: '#/components/schemas/DeviceDeployment'
-    DeviceDeploymentStatusListResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/DeviceDeploymentStatusList'
-        version:
-          type: string
-          example: '1.0'
-      example:
-        response:
-        - deployActivityId: c0fc8ffc-10e1-4402-8806-910e366959b6
-          networkDeviceId: 4dab2492-cead-4036-83d1-2e44b2213c54
-          configGroupName: f:assurance-icap ait:ONBOARDING s:Global wlc:4dab2492-cead-4036-83d1-2e44b2213c54 mac:AA:AA:AA:AA:AA:01 a:Enable op:CREATE
-          configGroupVersion: 2
-          status: Success
-          startTime: 1724968922353
-          endTime: 1724968935093
-        version: '1.0'
-    ActivityId:
-      type: string
-      description: activity id from intent/api/v1/activity
-      format: uuid
-      example: 7f422eeb-effe-4938-9371-ccf6dc2fe15e
-    ErrorResponse_response:
-      type: object
-      properties:
-        errorCode:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: A message providing more context regarding the error
-        detail:
-          type: string
-          description: Detailed information regarding the error
-    CountResponse:
-      title: Count Response
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/CountResponse_response'
-        version:
-          type: string
-          description: The version of the response
-          example: '1.0'
-      description: Reports a count, for example, a total count of records in a given resource.
-    ConfigGroupVersion:
-      type: integer
-      description: version of the config group that has been provisioned. version increments everytime for a provisioning operation.
-    CountResponse_response:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The reported count.
-    DeviceError:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A brief message about the error
-          example: Connection to device timedout
-        remedy:
-          type: string
-          description: A brief message to suggest remedy to the failure
-          example: Upgrade the IOS version
     DeviceDeployment:
       required:
       - configGroupName
@@ -327,6 +248,36 @@ components:
           - $ref: '#/components/schemas/DeviceStatus'
           - description: provisioning status on the device
           - example: SUCCESS
+    NetworkDeviceId:
+      type: string
+      description: Id of the device
+      format: uuid
+      example: efab65ed-dcbe-4857-999e-af3e477aed1a
+    ErrorResponse_response:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A message providing more context regarding the error
+        detail:
+          type: string
+          description: Detailed information regarding the error
+    DeviceDeploymentStatusList:
+      type: array
+      items:
+        $ref: '#/components/schemas/DeviceDeployment'
+    EpochMilliseconds:
+      minimum: 0
+      type: integer
+      description: A date and time represented as ***milliseconds*** since the Unix epoch.
+      format: int64
+      example: 1524880285900
+      externalDocs:
+        description: Unix time - Wikipedia
+        url: https://en.wikipedia.org/wiki/Unix_time
     ErrorResponse:
       title: Error Response
       type: object
@@ -341,15 +292,64 @@ components:
       externalDocs:
         description: Error Codes - Cisco DevNet
         url: https://developer.cisco.com/docs/dna-center/#!api-quick-start/error-codes
-    EpochMilliseconds:
-      minimum: 0
+    ConfigGroupVersion:
       type: integer
-      description: A date and time represented as ***milliseconds*** since the Unix epoch.
-      format: int64
-      example: 1524880285900
-      externalDocs:
-        description: Unix time - Wikipedia
-        url: https://en.wikipedia.org/wiki/Unix_time
+      description: version of the config group that has been provisioned. version increments everytime for a provisioning operation.
+    DeviceError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A brief message about the error
+          example: Connection to device timedout
+        remedy:
+          type: string
+          description: A brief message to suggest remedy to the failure
+          example: Upgrade the IOS version
+    CountResponse_response:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The reported count.
+    ActivityId:
+      type: string
+      description: activity id from intent/api/v1/activity
+      format: uuid
+      example: 7f422eeb-effe-4938-9371-ccf6dc2fe15e
+    ConfigGroupName:
+      type: string
+      description: name of the config group that has been provisioned.
+      example: application.telemetry
+    CountResponse:
+      title: Count Response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/CountResponse_response'
+        version:
+          type: string
+          description: The version of the response
+          example: '1.0'
+      description: Reports a count, for example, a total count of records in a given resource.
+    DeviceDeploymentStatusListResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/DeviceDeploymentStatusList'
+        version:
+          type: string
+          example: '1.0'
+      example:
+        response:
+        - deployActivityId: c0fc8ffc-10e1-4402-8806-910e366959b6
+          networkDeviceId: 4dab2492-cead-4036-83d1-2e44b2213c54
+          configGroupName: f:assurance-icap ait:ONBOARDING s:Global wlc:4dab2492-cead-4036-83d1-2e44b2213c54 mac:AA:AA:AA:AA:AA:01 a:Enable op:CREATE
+          configGroupVersion: 2
+          status: Success
+          startTime: 1724968922353
+          endTime: 1724968935093
+        version: '1.0'
 externalDocs:
   description: Catalyst Center Developer API resources
   url: https://developer.cisco.com/dnacenter/
