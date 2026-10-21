@@ -38,16 +38,253 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: Cisco
+  app: PagerDuty for Catalyst Center
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://marketplace.cisco.com/en-US/apps/747861
+  category: ITSM & ITOM
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Cisco
+  app: ServiceNow for Catalyst Center
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://marketplace.cisco.com/en-US/apps/747863
+  category: IT Asset Management, ITSM & ITOM
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Cisco
+  app: Ansible for Catalyst Center
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://marketplace.cisco.com/en-US/apps/747862
+  category: Automation & Orchestration
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: LogicMonitor
+  app: LogicMonitor | LM Envision
+  partner: logicmonitor
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/420402
+  category: AIOps, Monitoring & Performance
+  partner_domain: logicmonitor.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: NetOp AI
+  app: 'NetOp AI for Meraki: AI-Native Network Observability & Operational Intelligence Platform'
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/391155
+  category: Agentic AI, Monitoring & Performance
+  partner_domain: netop.cloud
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: ORDR
+  app: ORDR AI Protect
+  partner: ordr
+  partner_match: domain+name-among-holders
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/381939
+  category: AIOps, IT Asset Management, IoT Security
+  partner_domain: ordr.net
+  badges:
+  - available-through-cisco
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: BackBox
+  app: BackBox Cyber Resilience Platform
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/537008
+  category: Automation & Orchestration, Backup & Recovery, Observability
+  partner_domain: backbox.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Hamina
+  app: Hamina Live (for Meraki and Cisco Catalyst Center)
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/445762
+  category: Wireless Assurance
+  partner_domain: hamina.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Hamina Wireless
+  app: Hamina Network Planner
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/410018
+  category: Wireless Assurance
+  partner_domain: hamina.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: NetOp AI
+  app: 'NetOp AI: Real-Time Network Assessment Reports'
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/747865
+  category: AIOps, Agentic AI, Automation & Orchestration
+  partner_domain: netop.cloud
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: IBM
+  app: IBM SevOne
+  partner: ibm
+  partner_match: domain+name-among-holders
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/819266
+  category: Monitoring & Performance
+  partner_domain: ibm.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Purple
+  app: Purple Staff WiFi
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/435746
+  category: BYOD Onboarding & Security
+  partner_domain: purple.ai
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Cloud4Wi
+  app: Cloud4Wi | Cloud NAC
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/381405
+  category: BYOD Onboarding & Security, Guest Wi-Fi
+  partner_domain: cloud4wi.ai
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: NetBox Labs
+  app: NetBox Labs Integration
+  partner: netbox-labs
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/773161
+  category: Automation & Orchestration, Documentation & Reporting
+  partner_domain: netboxlabs.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Hamina
+  app: Hamina Onsite Wi-Fi Survey Kit
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/445755
+  category: Wireless Assurance
+  partner_domain: hamina.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: IronWiFi
+  app: IronWiFi
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/382011
+  category: BYOD Onboarding & Security
+  partner_domain: ironwifi.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
+- partner_name: Wyebot
+  app: Wireless Intelligence Platform
+  partner: null
+  partner_match: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://marketplace.cisco.com/en-US/apps/422519
+  category: AIOps, Client Analytics, Wireless Assurance
+  partner_domain: wyebot.com
+  detected_by: sweep-cisco-devnet-ecosystem.py
+  detected: '2026-10-21'
 generated: '2026-10-18'
 method: searched
 source:
-- https://api.nuget.org/v3
-- https://crates.io/api/v1
-- https://proxy.golang.org
-- https://pypi.org/pypi
 - https://registry.npmjs.org
-- https://repo1.maven.org/maven2
+- https://pypi.org/pypi
 - https://rubygems.org/api/v1
+- https://crates.io/api/v1
+- https://repo1.maven.org/maven2
+- https://api.nuget.org/v3
+- https://proxy.golang.org
 checked:
 - https://api.nuget.org/v3
 - https://crates.io/api/v1
@@ -56,3 +293,8 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- https://developer.cisco.com/ecosystem/
+- https://developer.cisco.com/ecosystem/spp/
+- https://marketplace.cisco.com/api/marketplace/v1/listing?count=1000
+- https://marketplace.cisco.com/api/marketplace/v1/products/
+- https://www.cisco.com/c/en/us/products/wireless/compatible-extensions.html
