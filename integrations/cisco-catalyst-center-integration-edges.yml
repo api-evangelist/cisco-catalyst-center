@@ -275,6 +275,25 @@ edges:
   partner_domain: wyebot.com
   detected_by: sweep-cisco-devnet-ecosystem.py
   detected: '2026-10-21'
+- partner_name: Ansible (ansible-galaxy)
+  partner: ansible
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: ansible-galaxy
+  evidence: https://galaxy.ansible.com/ui/repo/published/cisco/dnac/
+  mirror_of: ansible/integrations/ansible-integration-edges.yml
+  apps:
+  - cisco.dnac
+  - cisco.catalystcenter
+  - racampos.dnac
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: configuration-management content listing (Ansible collection)
 generated: '2026-10-18'
 method: searched
 source:
@@ -298,3 +317,4 @@ checked:
 - https://marketplace.cisco.com/api/marketplace/v1/listing?count=1000
 - https://marketplace.cisco.com/api/marketplace/v1/products/
 - https://www.cisco.com/c/en/us/products/wireless/compatible-extensions.html
+- ansible/integrations/ansible-integration-edges.yml
